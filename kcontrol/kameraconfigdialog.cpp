@@ -40,7 +40,7 @@
 #include "kameraconfigdialog.h"
 #include "kameraconfigdialog.moc"
 
-KameraConfigDialog::KameraConfigDialog(Camera *camera,
+KameraConfigDialog::KameraConfigDialog(Camera */*camera*/,
 					CameraWidget *widget,
 					QWidget *parent,
 					const char *name) :
