@@ -228,14 +228,14 @@ void KameraProtocol::get(const KURL &url)
 
 	// fetch the data
 	m_fileSize = 0;
-	gpr = gp_camera_file_get(m_camera, tocstr(fix_foldername(url.directory(false))), tocstr(url.filename()), fileType, m_file, m_context);
+	gpr = gp_camera_file_get(m_camera, tocstr(fix_foldername(url.directory(false))), tocstr(url.fileName()), fileType, m_file, m_context);
 	if (	(gpr == GP_ERROR_NOT_SUPPORTED) &&
 		(fileType == GP_FILE_TYPE_PREVIEW)
 	) {
 		// If we get here, the file info command information 
 		// will either not be used, or still valid.
 		fileType = GP_FILE_TYPE_NORMAL;
-		gpr = gp_camera_file_get(m_camera, tocstr(fix_foldername(url.directory(false))), tocstr(url.filename()), fileType, m_file, m_context);
+		gpr = gp_camera_file_get(m_camera, tocstr(fix_foldername(url.directory(false))), tocstr(url.fileName()), fileType, m_file, m_context);
 	}
 	switch(gpr) {
 		case GP_OK:
@@ -244,7 +244,7 @@ void KameraProtocol::get(const KURL &url)
 		case GP_ERROR_DIRECTORY_NOT_FOUND:
 			gp_file_free(m_file);
 			m_file = NULL;
-			error(KIO::ERR_DOES_NOT_EXIST, url.filename());
+			error(KIO::ERR_DOES_NOT_EXIST, url.fileName());
 			closeCamera();
 			return ;
 		default:
@@ -354,7 +354,7 @@ void KameraProtocol::statRegular(const KURL &url)
 		CameraText xx;						\
 		gpr = gp_camera_get_about(m_camera,  &xx, m_context);	\
 		if (gpr != GP_OK) {					\
-			error(KIO::ERR_DOES_NOT_EXIST, url.filename());	\
+			error(KIO::ERR_DOES_NOT_EXIST, url.fileName());	\
 			return;						\
 		}							\
 		translateTextToUDS(entry,#xx".txt",xx.text);		\
@@ -371,7 +371,7 @@ void KameraProtocol::statRegular(const KURL &url)
 	const char *name;
 	for(int i = 0; i < gp_list_count(dirList); i++) {
 		gp_list_get_name(dirList, i, &name);
-		if (url.filename().compare(name) == 0) {
+		if (url.fileName().compare(name) == 0) {
 			gp_list_free(dirList);
 			UDSEntry entry;
 			translateDirectoryToUDS(entry, url.fileName());
@@ -404,11 +404,11 @@ void KameraProtocol::del(const KURL &url, bool isFile)
 	kdDebug(7123) << "KameraProtocol::del(" << url.path() << ")" << endl;
 
 	if(!openCamera()) {
-		error(KIO::ERR_CANNOT_DELETE, url.filename());
+		error(KIO::ERR_CANNOT_DELETE, url.fileName());
 		return;
 	}
 	if (!cameraSupportsDel()) {
-		error(KIO::ERR_CANNOT_DELETE, url.filename());
+		error(KIO::ERR_CANNOT_DELETE, url.fileName());
 		return;
 	}
 	if(isFile){
@@ -416,10 +416,10 @@ void KameraProtocol::del(const KURL &url, bool isFile)
 		gp_list_new(&list);
 		int ret;
 
-		ret = gp_camera_file_delete(m_camera, tocstr(fix_foldername(url.directory(false))), tocstr(url.filename()), m_context);
+		ret = gp_camera_file_delete(m_camera, tocstr(fix_foldername(url.directory(false))), tocstr(url.fileName()), m_context);
 
 		if(ret != GP_OK) {
-			error(KIO::ERR_CANNOT_DELETE, url.filename());
+			error(KIO::ERR_CANNOT_DELETE, url.fileName());
 		} else {
 			finished();
 		}
