@@ -1,20 +1,6 @@
 
 #include <qlabel.h>
-#include <qlineedit.h>
-#include <qcombobox.h>
 #include <qlayout.h>
-#include <qradiobutton.h>
-#include <qpushbutton.h>
-#include <qvbox.h>
-#include <qvgroupbox.h>
-#include <qvbuttongroup.h>
-#include <qgrid.h>
-#include <qwidgetstack.h>
-#include <qcheckbox.h>
-#include <qdir.h>
-#include <qwhatsthis.h>
-#include <qregexp.h>
-#include <qpopupmenu.h>
 
 #include <kgenericfactory.h>
 #include <ksimpleconfig.h>
@@ -24,9 +10,8 @@
 #include <kiconview.h>
 #include <kdialog.h>
 #include <klocale.h>
-#include <kglobal.h>
 #include <ktoolbar.h>
-
+#include <kpopupmenu.h>
 #include <kprotocolinfo.h>
 #include <kdebug.h>
 
@@ -51,7 +36,7 @@ KKameraConfig *KKameraConfig::m_instance = NULL;
 KKameraConfig::KKameraConfig(QWidget *parent, const char *name, const QStringList &)
 	: KCModule(KKameraConfigFactory::instance(), parent, name)
 {
-	m_devicePopup = new QPopupMenu(this);
+	m_devicePopup = new KPopupMenu(this);
 	m_actions = new KActionCollection(this);
 	m_config = new KSimpleConfig(KProtocolInfo::config("camera"));
 	
@@ -106,8 +91,14 @@ void KKameraConfig::displayGPSuccessDialogue(void)
 	
 	// create list of devices
 	m_deviceSel = new KIconView(this);
-	connect(m_deviceSel, SIGNAL(rightButtonClicked(QIconViewItem *, const QPoint &)), SLOT(slot_deviceMenu(QIconViewItem *, const QPoint &)));
-	connect(m_deviceSel, SIGNAL(selectionChanged(QIconViewItem *)), SLOT(slot_deviceSelected(QIconViewItem *)));
+
+	connect(m_deviceSel, SIGNAL(rightButtonClicked(QIconViewItem *, const QPoint &)),
+		SLOT(slot_deviceMenu(QIconViewItem *, const QPoint &)));
+	connect(m_deviceSel, SIGNAL(doubleClicked(QIconViewItem *)),
+		SLOT(slot_configureCamera()));
+	connect(m_deviceSel, SIGNAL(selectionChanged(QIconViewItem *)),
+		SLOT(slot_deviceSelected(QIconViewItem *)));
+
 	m_deviceSel->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
 	
 	// create actions
@@ -142,7 +133,7 @@ void KKameraConfig::populateDeviceListView(void)
 	CameraDevicesMap::Iterator it;
 	for (it = m_devices.begin(); it != m_devices.end(); it++) {
 		if (it.data()) {
-			new QIconViewItem(m_deviceSel, it.key(), KGlobal::iconLoader()->loadIcon("camera", KIcon::Desktop));
+			new QIconViewItem(m_deviceSel, it.key(), DesktopIcon("camera"));
 		}
 	}
 	slot_deviceSelected(m_deviceSel->currentItem());
@@ -242,7 +233,7 @@ void KKameraConfig::afterCameraOperation(void)
 QString KKameraConfig::suggestName(const QString &name)
 {
 	QString new_name = name;
-	new_name.replace(QRegExp("/"), ""); // we cannot have a slash in a URI's host
+	new_name.replace("/", ""); // we cannot have a slash in a URI's host
 
 	if (!m_devices.contains(new_name)) return new_name;
 	
@@ -334,7 +325,6 @@ void KKameraConfig::slot_cancelOperation()
 void KKameraConfig::slot_deviceMenu(QIconViewItem *item, const QPoint &point)
 {
 	if (item) {
-		QString name = item->text();
 		m_devicePopup->clear();
 		m_actions->action("camera_test")->plug(m_devicePopup);
 		m_actions->action("camera_remove")->plug(m_devicePopup);

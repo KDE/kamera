@@ -4,20 +4,17 @@
 #include <qlabel.h>
 #include <qvgroupbox.h>
 #include <qcheckbox.h>
+#include <qradiobutton.h>
 #include <qlineedit.h>
 #include <qcombobox.h>
 #include <qslider.h>
-#include <qpushbutton.h>
 #include <qvbuttongroup.h>
 #include <qhbuttongroup.h>
-#include <qradiobutton.h>
 #include <qvbox.h>
 #include <qtabwidget.h>
-#include <qscrollview.h>
 #include <qwhatsthis.h>
 
 #include <klocale.h>
-#include <stdio.h>
 
 #include "kameraconfigdialog.h"
 #include "kameraconfigdialog.moc"

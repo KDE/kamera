@@ -11,13 +11,10 @@ class QString;
 class KListView;
 class QWidgetStack;
 class QVButtonGroup;
+class QVGroupBox;
 class QComboBox;
 class QLineEdit;
 class QRadioButton;
-
-extern "C" {
-	#include <gphoto2.h>
-}
 
 class KCamera : public QObject {
 	friend class KameraDeviceSelectDialog;

@@ -1,4 +1,3 @@
-#include <qobject.h>
 #include <qlayout.h>
 #include <qwidgetstack.h>
 #include <qvbuttongroup.h>
@@ -16,7 +15,10 @@
 #include <kmessagebox.h>
 #include <kdebug.h>
 
-#include <gphoto2.h>
+extern "C" {
+	#include <gphoto2.h>
+}
+
 #include "kamera.h"
 #include "kameraconfigdialog.h"
 #include "kameradevice.moc"
@@ -311,7 +313,7 @@ KameraDeviceSelectDialog::KameraDeviceSelectDialog(QWidget *parent, KCamera *dev
 	// query gphoto2 for existing serial ports
 	GPPortInfoList *list;
 	GPPortInfo info;
-	int gphoto_ports;
+	int gphoto_ports=0;
 	gp_port_info_list_new(&list);
 	if(gp_port_info_list_load(list) >= 0) {
 		gphoto_ports = gp_port_info_list_count(list);
