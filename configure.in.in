@@ -10,8 +10,6 @@ AC_DEFUN(KDE_FIND_GPHOTO2,
 # Clear working variables
 gphoto2_includes=
 gphoto2_libraries=
-gpio_includes=
-gpio_libraries=
 
 
 
@@ -21,8 +19,6 @@ AC_ARG_WITH(kamera,
 [if test "$withval" = "no" ; then
   gphoto2_includes=none
   gphoto2_libraries=none
-  gpio_includes=none
-  gpio_libraries=none
 fi])dnl
 
 AC_ARG_WITH(gphoto2-includes,
@@ -32,14 +28,6 @@ gphoto2_includes="$withval")
 AC_ARG_WITH(gphoto2-libraries,
 [  --with-gphoto2-libraries=DIR   gphoto2 libraries are in DIR],
 gphoto2_libraries="$withval")
-
-AC_ARG_WITH(gpio-includes,
-[  --with-gpio-includes=DIR    gpio include files are in DIR],
-gpio_includes="$withval")
-
-AC_ARG_WITH(gpio-libraries,
-[  --with-gpio-libraries=DIR   gpio libraries are in DIR],
-gpio_libraries="$withval")
 
 AC_MSG_CHECKING(for gPhoto2)
 
@@ -95,41 +83,6 @@ AC_TRY_COMPILE([#include <gphoto2.h>],
   AC_DEFINE(GPHOTO_BETA3, 1, [Define if your gphoto2 is beta 3 or higher])
 ])
 
-# Search for gpio include files.
-#
-if test "$gpio_includes" = ""; then
-AC_CACHE_VAL(ac_cv_gpio_includes,
-[
-ac_gpio_save_LIBS="$LIBS"
-#
-LIBS="-lgpio $LIBS"
-#
-ac_cv_gpio_includes="none"
-AC_TRY_COMPILE([#include <gpio.h>
-],[int a;],
-[
-# gpio.h is in the standard search path.
-ac_cv_gpio_includes=
-],
-[
-# gpio.h is not in the standard search path.
-# Locate it and put its directory in `gpio_includes'
-#
-for dir in /usr/include /usr/local/include \
-           /usr/include/gpio /usr/local/include/gpio; do
-if test -f "$dir/gpio.h"; then
-ac_cv_gpio_includes="$dir"
-break
-fi
-done
-])
-#
-LIBS="$ac_gpio_save_LIBS"
-])
-gpio_includes="$ac_cv_gpio_includes"
-fi                                                                              
-
-
 
 #
 # Search for libgphoto2
@@ -166,58 +119,12 @@ gphoto2_libraries="$ac_cv_gphoto2_libraries"
 fi
 
 
-#
-# Search for libgpio
-#
-if test "$gpio_libraries" = ""; then
-AC_CACHE_VAL(ac_cv_gpio_libraries,
-[
-ac_gpio_save_LIBS="$LIBS"
-#
-LIBS="-lgpio $LIBS"
-#
-ac_cv_gpio_libraries="none"
-AC_TRY_LINK([#include <gpio.h>],[gpio_init(0);],
-[
-# libgpio is in the standard search path.
-ac_cv_gpio_libraries=
-],
-[
-# libgpio is not in the standard search path.
-# Locate it and put its directory in `gpio_libraries'
- 
-for dir in /usr/lib /usr/local/lib; do
-if test -d "$dir" && test "`ls $dir/libgpio.* 2> /dev/null`" != ""; then
-ac_cv_gpio_libraries="$dir"
-break
-fi
-done
-])
-#
-LIBS="$ac_gpio_save_LIBS"
-])
-#
-gpio_libraries="$ac_cv_gpio_libraries"
-fi                                                                              
-
-
 
 # Initialise compiler and linker flag variables for export
-if test "$gphoto2_includes" = "none" -o "$gphoto2_libraries" = "none" -o \
-        "$gpio_includes" = "none" -o "$gpio_libraries" = "none"; then
+if test "$gphoto2_includes" = "none" -o "$gphoto2_libraries" = "none" ; then
         with_kamera="no"
 else
         with_kamera="yes"
-
-        if test "$gpio_libraries" = "none"; then # just in case the above test gets changed, so that gpio isn't mandatory (it currently is)
-                GPIO_LIBS=""
-	else
-	  if test "$gpio_libraries" = ""; then
-                GPIO_LIBS="-lgpio"
-          else
-                GPIO_LIBS="-L$gpio_libraries -lgpio"
-          fi
-        fi
 
         if test "$gphoto2_libraries" = "" -o "$gphoto2_libraries" = "none"; then
                 GPHOTO2_LIBS="-lgphoto2"
@@ -230,10 +137,6 @@ else
                 GPHOTO2_INCS="-I$gphoto2_includes"
         fi
 
-        if test "$gpio_includes" != "" -a "$gpio_includes" != "none"; then
-                GPIO_INCS="-I$gpio_includes"
-        fi
-
 	AC_DEFINE(HAVE_GPHOTO2,1,[Define if you have gPhoto2 installed])
 fi
 
@@ -242,29 +145,21 @@ fi
 # Export compiler and linker flags for replacement in Makefile
 AC_SUBST(GPHOTO2_INCS)
 AC_SUBST(GPHOTO2_LIBS)
-AC_SUBST(GPIO_INCS)
-AC_SUBST(GPIO_LIBS)
 
 
 
 # Display results of configuration
 gphoto2_libraries_result="$gphoto2_libraries"
 gphoto2_includes_result="$gphoto2_includes"
-gpio_libraries_result="$gpio_libraries"
-gpio_includes_result="$gpio_includes"
 
 test "$gphoto2_libraries" = "" && gphoto2_libraries_result="in default path"
 test "$gphoto2_includes" = "" && gphoto2_includes_result="in default path"
-test "$gpio_libraries" = "" && gpio_libraries_result="in default path"
-test "$gpio_includes" = "" && gpio_includes_result="in default path"
 
 test "$gphoto2_libraries" = "none" && gphoto2_libraries_result="(none)"
 test "$gphoto2_includes" = "none" && gphoto2_includes_result="(none)"
-test "$gpio_libraries" = "none" && gpio_libraries_result="(none)"
-test "$gpio_includes" = "none" && gpio_includes_result="(none)"
 
 AC_MSG_RESULT(
-  [gphoto2 libraries $gphoto2_libraries_result, gphoto2 headers $gphoto2_includes_result, gpio libraries $gpio_libraries_result, gpio headers $gpio_includes_result])
+  [gphoto2 libraries $gphoto2_libraries_result, gphoto2 headers $gphoto2_includes_result])
 
 ]) dnl end of KDE_FIND_GPHOTO2 definition
 

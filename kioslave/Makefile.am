@@ -1,7 +1,7 @@
 # $Id$
 # Makefile for kdebase/kioslave/kamera
 
-INCLUDES= -I$(srcdir)/../.. -I$(srcdir)/.. $(all_includes) $(GPHOTO2_INCS) $(GPIO_INCS)
+INCLUDES= -I$(srcdir)/../.. -I$(srcdir)/.. $(all_includes) $(GPHOTO2_INCS)
 
 ####### Files
 
