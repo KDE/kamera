@@ -65,6 +65,8 @@ private:
 	void displayGPSuccessDialogue(void);
 	void displayCameraAbilities(const CameraAbilities &abilities);
 	void populateDeviceListView(void);
+
+	void autoDetect(void);
 	
 	// camera device selection listview
 	KIconView *m_deviceSel;

@@ -64,6 +64,9 @@ KKameraConfig::KKameraConfig(QWidget *parent, const char *name)
 	// build and display normal dialogue
 	displayGPSuccessDialogue();
 
+	// autodetect new cameras
+	autoDetect();
+
 	// load existing configuration
 	load();
 }
@@ -138,6 +141,40 @@ void KKameraConfig::save(void)
 		it.data()->save(m_config);
 	}
 	m_config->sync();
+}
+
+void KKameraConfig::autoDetect(void)
+{
+	GPContext *glob_context = NULL;
+	QStringList groupList = m_config->groupList();
+
+        int i, count;
+        CameraList list;
+        CameraAbilitiesList *al;
+        GPPortInfoList *il;
+        const char *model, *value;
+
+        gp_abilities_list_new (&al);
+        gp_abilities_list_load (al, glob_context);
+        gp_port_info_list_new (&il);
+        gp_port_info_list_load (il);
+        gp_abilities_list_detect (al, il, &list, glob_context);
+        gp_abilities_list_free (al);
+        gp_port_info_list_free (il);
+
+        count = gp_list_count (&list);
+	
+	for (i = 0 ; i<count ; i++) {
+		gp_list_get_name  (&list, i, &model);
+		gp_list_get_value (&list, i, &value);
+
+		if (groupList.contains(model))
+			continue;
+		kdDebug() << "Adding " << model << " at " << value << endl;
+		m_config->setGroup(model);
+		m_config->writeEntry("Model",model);
+		m_config->writeEntry("Path",value);
+	}
 }
 
 void KKameraConfig::load(void)

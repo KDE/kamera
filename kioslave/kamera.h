@@ -30,6 +30,8 @@ private:
 
 	GPContext	*m_context;
 
+	void autoDetect(void);
+
 	void reparseConfiguration(void);
 	bool openCamera(void);
 	void closeCamera(void);
