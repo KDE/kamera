@@ -16,6 +16,7 @@
 #include <qregexp.h>
 #include <qpopupmenu.h>
 
+#include <kgenericfactory.h>
 #include <ksimpleconfig.h>
 #include <kaction.h>
 #include <kiconloader.h>
@@ -40,19 +41,15 @@
 // XXX instead of 'char *' in calls that don't modify the string
 #define tocstr(x) ((char *)((x).latin1()))
 
-extern "C"
-{
-	KCModule *create_kamera(QWidget *parent, const char *name)
-	{
-		KGlobal::locale()->insertCatalogue("kcmkamera");
-		return new KKameraConfig(parent, name);
-	}
-}
+typedef KGenericFactory<KKameraConfig, QWidget> KKameraConfigFactory;
+K_EXPORT_COMPONENT_FACTORY( kcm_kamera, KKameraConfigFactory( "kcmkamera" ) );
+
+// --------------- Camera control center module widget ---
 
 KKameraConfig *KKameraConfig::m_instance = NULL;
 
-KKameraConfig::KKameraConfig(QWidget *parent, const char *name)
-:KCModule(parent, name)
+KKameraConfig::KKameraConfig(QWidget *parent, const char *name, const QStringList &)
+	: KCModule(KKameraConfigFactory::instance(), parent, name)
 {
 	m_devicePopup = new QPopupMenu(this);
 	m_actions = new KActionCollection(this);
