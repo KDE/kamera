@@ -97,7 +97,7 @@ void KKameraConfig::defaults()
 
 void KKameraConfig::displayGPFailureDialogue(void)
 {
-	new QLabel(i18n("Unable to intialise the gPhoto2 libraries..."), this);
+	new QLabel(i18n("Unable to initialize the gPhoto2 libraries..."), this);
 }
 
 void KKameraConfig::displayGPSuccessDialogue(void)
@@ -184,12 +184,12 @@ void KKameraConfig::displayGPSuccessDialogue(void)
 
 	// USB tab
 	m_settingsStack->addWidget(new
-		QLabel(i18n("No user defineable settings for USB"),
+		QLabel(i18n("No user definable settings for USB"),
 		m_settingsStack), INDEX_USB);
 	
 	// IEEE1394 tab
 	m_settingsStack->addWidget(new
-		QLabel(i18n("No user defineable settings for IEEE1394"),
+		QLabel(i18n("No user definable settings for IEEE1394"),
 		m_settingsStack), INDEX_IEEE1394);
 
 	// network tab
@@ -442,7 +442,7 @@ bool KKameraConfig::openSelectedCamera(void)
 	if(gp_camera_init(m_camera, &m_cameraPortInfo) != GP_OK) {
 		gp_camera_free(m_camera);
 		m_camera = NULL;
-		KMessageBox::error(this, i18n("Unable to initialise camera."
+		KMessageBox::error(this, i18n("Unable to initialize camera."
 			" Check your port settings and camera connectivity"
 			" and try again."));
 		return false;
