@@ -5,20 +5,13 @@ INCLUDES= -I$(srcdir)/../.. -I$(srcdir)/.. $(all_includes) $(GPHOTO2_INCS) $(GPI
 
 ####### Files
 
-lib_LTLIBRARIES = kio_kamera.la
+kde_module_LTLIBRARIES = kio_kamera.la
 
 kio_kamera_la_SOURCES = kamera.cpp
-kio_kamera_la_LIBADD  = $(LIB_KIO) $(GPHOTO2_LIBS)
-kio_kamera_la_LDFLAGS = $(all_libraries) -module -avoid-version
+kio_kamera_la_LIBADD  = $(LIB_KIO) -lgphoto2
+kio_kamera_la_LDFLAGS = $(all_libraries) $(GPHOTO2_LIBS) -module $(KDE_PLUGIN)
 
 noinst_HEADERS = kamera.h
 
 kdelnk_DATA = kamera.protocol
 kdelnkdir = $(kde_servicesdir)
-
-check_PROGRAMS = linktest
-linktest_SOURCES = $(kio_kamera_la_SOURCES) linktest.cpp
-linktest.cpp:
-	echo "int main() {};" > linktest.cpp
-linktest_LDFLAGS  = $(all_libraries) -module -avoid-version
-linktest_LDADD = $(kio_kamera_la_LIBADD)
