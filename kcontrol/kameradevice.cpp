@@ -8,6 +8,7 @@
 #include <qradiobutton.h>
 #include <qwhatsthis.h>
 #include <qlabel.h>
+#include <qgrid.h>
 
 #include <klocale.h>
 #include <kconfig.h>
@@ -19,6 +20,19 @@
 #include "kamera.h"
 #include "kameraconfigdialog.h"
 #include "kameradevice.moc"
+
+#ifdef GPHOTO_BETA3
+// Define some parts of the old API
+#define gp_camera_get_result_as_string(dev, res) gp_result_as_string(res)
+#define SERIAL_SUPPORTED(port) (port & GP_PORT_SERIAL) != 0
+#define USB_SUPPORTED(port) (port & GP_PORT_USB) != 0
+#define GP_PROMPT_OK 0
+#define GP_PROMPT_CANCEL -1
+// Parallel, Network and IEEE1394 are no longer supported in gphoto2 beta 3???
+#define PARALLEL_SUPPORTED(port) 0
+#define NETWORK_SUPPORTED(port) 0
+#define IEEE1394_SUPPORTED(port) 0
+#endif
 
 static const int INDEX_NONE= 0;
 static const int INDEX_SERIAL = 1;
@@ -37,6 +51,10 @@ KCamera::~KCamera()
 {
 	if(m_camera)
 		gp_camera_free(m_camera);
+#ifdef GPHOTO_BETA3
+	if(m_abilitylist)
+		gp_abilities_list_free(m_abilitylist);
+#endif
 }
 
 bool KCamera::initInformation()
@@ -342,16 +360,33 @@ KameraDeviceSelectDialog::KameraDeviceSelectDialog(QWidget *parent, KCamera *dev
 	m_settingsStack->addWidget(grid, INDEX_NETWORK);
 
 	// query gphoto2 for existing serial ports
+#ifdef GPHOTO_BETA3
+	GPPortInfoList *list;
+	GPPortInfo info;
+	int gphoto_ports;
+	gp_port_info_list_new(&list);
+	if(gp_port_info_list_load(list) >= 0) {
+		gphoto_ports = gp_port_info_list_count(list);
+	}
+#else
 	int gphoto_ports = gp_port_count_get();
 	gp_port_info info;
+#endif
 	for (int i = 0; i < gphoto_ports; i++) {
+#ifdef GPHOTO_BETA3
+		if (gp_port_info_list_get_info(list, i, &info) >= 0) {
+#else
 		if (gp_port_info_get(i, &info) >= 0) {
+#endif
 			if (strncmp(info.path, "serial:", 7) == 0)
 				m_serialPortCombo->insertItem(QString::fromLatin1(info.path).mid(7));
 			if (strncmp(info.path, "parallel:", 9) == 0)
 				m_parallelPortCombo->insertItem(QString::fromLatin1(info.path).mid(7));
 		}
 	}
+#ifdef GPHOTO_BETA3
+	gp_port_info_list_free(list);
+#endif
 	
 	// add a spacer
 	rightLayout->addItem( new QSpacerItem(0, 0, QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding) );
@@ -362,7 +397,12 @@ KameraDeviceSelectDialog::KameraDeviceSelectDialog(QWidget *parent, KCamera *dev
 
 bool KameraDeviceSelectDialog::populateCameraListView()
 {
+#ifndef GPHOTO_BETA3
 	int numCams = gp_camera_count();
+#else
+	int numCams = gp_abilities_list_count(m_device->m_abilitylist);
+	CameraAbilities a;
+#endif
 
 	if(numCams < 0) {
 		// XXX libgphoto2 failed to get the camera list
@@ -370,8 +410,13 @@ bool KameraDeviceSelectDialog::populateCameraListView()
 	} else {
 		for(int x = 0; x < numCams; ++x) {
 			const char *modelName;
+#ifndef GPHOTO_BETA3
 			if(gp_camera_name(x, &modelName) == GP_OK) {
 				new QListViewItem(m_modelSel, modelName);
+#else
+			if(gp_abilities_list_get_abilities(m_device->m_abilitylist, x, &a) == GP_OK) {
+				new QListViewItem(m_modelSel, a.model);
+#endif
 			}
 		}
 		return true;
@@ -421,7 +466,16 @@ void KameraDeviceSelectDialog::slot_setModel(QListViewItem *item)
 	QString model = item->text(0);
 	
 	CameraAbilities abilities;
+#ifndef GPHOTO_BETA3
 	int result = gp_camera_abilities_by_name(model.local8Bit().data(), &abilities);
+#else
+	int index = gp_abilities_list_lookup_model(m_device->m_abilitylist, model.local8Bit().data());
+	if(index < 0) {
+		slot_error(i18n("Description of abilities for camera %1 is not available."
+				" Configuration options may be incorrect.").arg(model));
+	}
+	int result = gp_abilities_list_get_abilities(m_device->m_abilitylist, index, &abilities);
+#endif
 	if (result == GP_OK) {
 		// enable radiobuttons for supported port types
 		m_serialRB->setEnabled(SERIAL_SUPPORTED(abilities.port));

@@ -79,7 +79,14 @@ LIBS="$ac_gphoto2_save_LIBS"
 gphoto2_includes="$ac_cv_gphoto2_includes"
 fi
 
-
+# Find version of gphoto2
+AC_MSG_CHECKING(version of gphoto2)
+AC_TRY_COMPILE([#include <gphoto2.h>],
+[gp_camera_name(0, "");], 
+[ AC_MSG_RESULT(beta2 or earlier) ],
+[ AC_MSG_RESULT(beta3 or later)
+  AC_DEFINE(GPHOTO_BETA3, 1, [Define if you have a current version of gphoto2])
+])
 
 #
 # Search for gpio include files.
