@@ -66,6 +66,7 @@ bool KCamera::initInformation()
 		return false;
 	}
         gp_abilities_list_get_abilities(m_abilitylist, index, &m_abilities);
+	return true;
 }
 
 bool KCamera::initCamera()
@@ -162,9 +163,7 @@ bool KCamera::test()
 {
 	// TODO: Make testing non-blocking (maybe via KIO?)
 	// Currently, a failed serial test times out at about 30 sec.
-	if (camera()) {
-		return true;
-	}
+	return camera() != 0;
 }
 
 void KCamera::load(KConfig *config)
