@@ -213,7 +213,7 @@ void KCamera::invalidateCamera()
 	}
 }
 
-bool KCamera::isTestable()
+bool KCamera::isTestable() const
 {
 	return true;
 }
@@ -246,9 +246,9 @@ KameraDeviceSelectDialog::KameraDeviceSelectDialog(QWidget *parent, KCamera *dev
 	: KDialogBase(parent, "kkameradeviceselect", true, i18n("Select Camera Device"), Ok | Cancel, Ok, true)
 {
 	m_device = device;
-	connect(m_device, SIGNAL(error(const QString &)), 
+	connect(m_device, SIGNAL(error(const QString &)),
 		SLOT(slot_error(const QString &)));
-	connect(m_device, SIGNAL(error(const QString &, const QString &)), 
+	connect(m_device, SIGNAL(error(const QString &, const QString &)),
 		SLOT(slot_error(const QString &, const QString &)));
 
 	QWidget *page = new QWidget( this );
@@ -262,10 +262,10 @@ KameraDeviceSelectDialog::KameraDeviceSelectDialog(QWidget *parent, KCamera *dev
 	topLayout->addWidget( m_modelSel );
 	m_modelSel->addColumn(i18n("Supported Cameras"));
 	m_modelSel->setColumnWidthMode(0, QListView::Maximum);
-	connect(m_modelSel, SIGNAL(selectionChanged(QListViewItem *)), 
+	connect(m_modelSel, SIGNAL(selectionChanged(QListViewItem *)),
         SLOT(slot_setModel(QListViewItem *)));
 	// make sure listview only as wide as it needs to be
-	m_modelSel->setSizePolicy(QSizePolicy(QSizePolicy::Maximum, 
+	m_modelSel->setSizePolicy(QSizePolicy(QSizePolicy::Maximum,
 		QSizePolicy::Preferred));
 
 	QVBoxLayout *rightLayout = new QVBoxLayout(0L, 0, KDialog::spacingHint());
@@ -285,7 +285,7 @@ KameraDeviceSelectDialog::KameraDeviceSelectDialog(QWidget *parent, KCamera *dev
 	QWhatsThis::add(m_USBRB, i18n("If this option is checked, the camera would have to be connected to one of the USB slots in your computer or USB hub."));
 	// Create port settings widget stack
 	m_settingsStack = new QWidgetStack(portSettingsGroup);
-	connect(m_portSelectGroup, SIGNAL(clicked(int)), 
+	connect(m_portSelectGroup, SIGNAL(clicked(int)),
 		m_settingsStack, SLOT(raiseWidget(int)));
 
 	// none tab

@@ -33,9 +33,9 @@ public:
 	QStringList supportedPorts();
 
 	Camera* camera();
-	QString name() { return m_name ; }
-	QString model() { return m_model; }
-	QString path() { return m_path; }
+	QString name() const { return m_name ; }
+	QString model() const { return m_model; }
+	QString path() const { return m_path; }
 	QString portName();
 
 	QString summary();
@@ -45,7 +45,7 @@ public:
 	void setModel(const QString &model);
 	void setPath(const QString &path);
 
-	bool isTestable();
+	bool isTestable() const;
 	bool isConfigurable();
 
 signals:
