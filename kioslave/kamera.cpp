@@ -52,7 +52,6 @@ KameraProtocol::KameraProtocol(const QCString &pool, const QCString &app)
 : SlaveBase("camera", pool, app),
 m_camera(NULL)
 {
-	kdDebug() << "KameraProtocol::KameraProtocol()\n";
 	// attempt to initialize libgphoto2 and chosen camera (requires locking)
 	// (will init m_camera, since the m_camera's configuration is empty)
 	m_camera = 0;
@@ -62,18 +61,14 @@ m_camera(NULL)
 
 KameraProtocol::~KameraProtocol()
 {
-	kdDebug() << "KameraProtocol("<<this<<")::~KameraProtocol()\n";
 	if(m_camera) {
-		gp_camera_exit(m_camera,context);
+		closeCamera();
  		gp_camera_free(m_camera);
 	}
 }
 
 // initializes the camera for usage - should be done before operations over the wire
 bool KameraProtocol::openCamera(void) {
-	int gpr;
-	
-	kdDebug() << "KameraProtocol("<<this<<")::openCamera()\n";
 	if (!m_camera)
 		reparseConfiguration();
 	return true;
@@ -83,10 +78,12 @@ bool KameraProtocol::openCamera(void) {
 void KameraProtocol::closeCamera(void)
 {
 	int gpr;
-	kdDebug() << "KameraProtocol("<<this<<")::closeCamera(m_camera " << m_camera << ")" << endl;
 	if ((gpr=gp_camera_exit(m_camera,context))!=GP_OK) {
 		kdDebug() << "closeCamera failed with " << gp_result_as_string(gpr) << endl;
 	}
+	// HACK: gp_camera_exit() in gp 2.0 does not close the port if there
+	//       is no camera_exit function.
+	gp_port_close(m_camera->port);
 	return;
 }
 
@@ -94,21 +91,18 @@ void KameraProtocol::closeCamera(void)
 // The actual returning of the data is done in the frontend callback functions.
 void KameraProtocol::get(const KURL &url)
 {
-	kdDebug() << "KameraProtocol("<<this<<")::get(" << url.path() << ")" << endl;
+	kdDebug() << "KameraProtocol::get(" << url.path() << ")" << endl;
 
 	CameraFileType fileType;
 	int gpr;
-
-	if(!openCamera())
-		return;
-		
 	if (url.host().isEmpty()) {
-		kdDebug() << "No host.\n";
-		closeCamera();
 		error(KIO::ERR_DOES_NOT_EXIST, url.path());
 		return;
 	}
-	
+
+	if(!openCamera())
+		return;
+
 	// emit info message
 	infoMessage( i18n("Retrieving data from camera <b>%1</b>").arg(m_cfgModel) );
 
@@ -119,7 +113,6 @@ void KameraProtocol::get(const KURL &url)
 	CameraFileInfo info;
 	gpr = gp_camera_file_get_info(m_camera, tocstr(url.directory(false)), tocstr(url.fileName()), &info, context);
 	if (gpr != GP_OK) {
-		kdDebug() << "get file info failed"<<gp_result_as_string(gpr)<<endl;;
 		gp_file_free(m_file);
 		if ((gpr == GP_ERROR_FILE_NOT_FOUND) || (gpr == GP_ERROR_DIRECTORY_NOT_FOUND))
 			error(KIO::ERR_DOES_NOT_EXIST, url.path());
@@ -132,14 +125,12 @@ void KameraProtocol::get(const KURL &url)
 		kdDebug() << "get() retrieving the thumbnail" << endl;
 		fileType = GP_FILE_TYPE_PREVIEW;
 		if (info.preview.fields & GP_FILE_INFO_SIZE) {
-			kdDebug() << "size is " << info.preview.size << endl;
 			totalSize(info.preview.size);
 		}
 	} else {
 		kdDebug() << "get() retrieving the full-scale photo" << endl;
 		fileType = GP_FILE_TYPE_NORMAL;
 		if (info.file.fields & GP_FILE_INFO_SIZE) {
-			kdDebug() << "size is " << info.file.size << endl;
 			totalSize(info.file.size);
 		}
 	}
@@ -149,18 +140,15 @@ void KameraProtocol::get(const KURL &url)
 	gpr = gp_camera_file_get(m_camera, tocstr(url.directory(false)), tocstr(url.filename()), fileType, m_file, context);
 	switch(gpr) {
 		case GP_OK:
-			kdDebug() << "get::file get... ok\n";
 			break;
 		case GP_ERROR_FILE_NOT_FOUND:
 		case GP_ERROR_DIRECTORY_NOT_FOUND:
-			kdDebug() << "get::file not found\n";
 			gp_file_free(m_file);
 			error(KIO::ERR_DOES_NOT_EXIST, url.filename());
 			closeCamera();
 			return ;
 		default:
 			gp_file_free(m_file);
-			kdDebug() << "Unknown error during gp_camera_file_get" << endl;
 			error(KIO::ERR_UNKNOWN, gp_result_as_string(gpr));
 			closeCamera();
 			return;
