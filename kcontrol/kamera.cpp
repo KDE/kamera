@@ -316,7 +316,7 @@ void KKameraConfig::slot_cameraSummary()
 	if (m_devices.contains(name)) {
 		KCamera *m_device = m_devices[name];
 		summary = m_device->summary();
-		if (QString::null != summary) {
+		if (!summary.isNull()) {
 			KMessageBox::information(this, summary);
 		}
 	}
