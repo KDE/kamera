@@ -361,7 +361,11 @@ void KameraProtocol::listDir(const KURL &url)
 				entry.append(atom);
 				
 				atom.m_uds = UDS_URL;
-				atom.m_str = QString::fromLatin1("camera://") + *it + QString::fromLatin1("/");
+				KURL xurl;
+				xurl.setProtocol("camera");
+				xurl.setHost(*it);
+				xurl.setPath("/");
+				atom.m_str = xurl.url();
 				entry.append(atom);
 				
 				listEntry(entry, false);
