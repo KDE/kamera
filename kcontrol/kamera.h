@@ -80,7 +80,6 @@ private:
 	void displayGPSuccessDialogue(void);
 	void displayCameraAbilities(const CameraAbilities &abilities);
 	void populateDeviceListView(void);
-	void autoDetect(void);
 	void beforeCameraOperation(void);
 	void afterCameraOperation(void);
 	

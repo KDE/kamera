@@ -70,9 +70,6 @@ KKameraConfig::KKameraConfig(QWidget *parent, const char *name, const QStringLis
 
 		displayGPSuccessDialogue();
 
-		// autodetect new cameras
-		autoDetect();
-
 		// load existing configuration
 		load();
 
@@ -171,17 +168,32 @@ void KKameraConfig::save(void)
 	m_config->sync();
 }
 
-void KKameraConfig::autoDetect(void)
+void KKameraConfig::load(void)
 {
-	m_cancelPending = false;
-
 	QStringList groupList = m_config->groupList();
-
+	QStringList::Iterator it;
         int i, count;
         CameraList list;
         CameraAbilitiesList *al;
         GPPortInfoList *il;
         const char *model, *value;
+	KCamera *kcamera;
+	
+	for (it = groupList.begin(); it != groupList.end(); it++) {
+		if (*it != "<default>")	{
+			m_config->setGroup(*it);
+			if (m_config->readEntry("Path").contains("usb:"))
+				continue;
+
+			kcamera = new KCamera(*it,m_config->readEntry("Path"));
+			connect(kcamera, SIGNAL(error(const QString &)), SLOT(slot_error(const QString &)));
+			connect(kcamera, SIGNAL(error(const QString &, const QString &)), SLOT(slot_error(const QString &, const QString &)));
+			kcamera->load(m_config);
+			m_devices[*it] = kcamera;
+		}
+	}
+	m_cancelPending = false;
+
 
         gp_abilities_list_new (&al);
         gp_abilities_list_load (al, m_context);
@@ -192,35 +204,30 @@ void KKameraConfig::autoDetect(void)
         gp_port_info_list_free (il);
 
         count = gp_list_count (&list);
+
+	QMap<QString,QString>	ports, names;
 	
 	for (i = 0 ; i<count ; i++) {
 		gp_list_get_name  (&list, i, &model);
 		gp_list_get_value (&list, i, &value);
 
-		if (groupList.contains(model))
-			continue;
-		kdDebug() << "Adding " << model << " at " << value << endl;
-		m_config->setGroup(model);
-		m_config->writeEntry("Model",model);
-		m_config->writeEntry("Path",value);
+		ports[value] = model;
+		if (!strcmp(value,"usb:"))
+			names[model] = value;
 	}
-}
+	if (ports.contains("usb:") && names.contains(ports["usb:"]))
+		ports.remove("usb:");
 
-void KKameraConfig::load(void)
-{
-	QStringList groupList = m_config->groupList();
-	QStringList::Iterator it;
-	
-	for (it = groupList.begin(); it != groupList.end(); it++) {
-		if (*it != "<default>")	{
-			KCamera *kcamera = new KCamera(*it);
-			connect(kcamera, SIGNAL(error(const QString &)), SLOT(slot_error(const QString &)));
-			connect(kcamera, SIGNAL(error(const QString &, const QString &)), SLOT(slot_error(const QString &, const QString &)));
-			kcamera->load(m_config);
-			m_devices[*it] = kcamera;
-		}
+	QMap<QString,QString>::iterator portit;
+
+	for (portit = ports.begin() ; portit != ports.end(); portit++) {
+		/* kdDebug() << "Adding USB camera: " << portit.data() << " at " << portit.key() << endl; */
+
+		kcamera = new KCamera(portit.data(),portit.key());
+		connect(kcamera, SIGNAL(error(const QString &)), SLOT(slot_error(const QString &)));
+		connect(kcamera, SIGNAL(error(const QString &, const QString &)), SLOT(slot_error(const QString &, const QString &)));
+		m_devices[portit.data()] = kcamera;
 	}
-	
 	populateDeviceListView();
 }
 
@@ -270,7 +277,7 @@ QString KKameraConfig::suggestName(const QString &name)
 
 void KKameraConfig::slot_addCamera()
 {
-	KCamera *m_device = new KCamera(QString::null);
+	KCamera *m_device = new KCamera(QString::null,QString::null);
 	connect(m_device, SIGNAL(error(const QString &)), SLOT(slot_error(const QString &)));
 	connect(m_device, SIGNAL(error(const QString &, const QString &)), SLOT(slot_error(const QString &, const QString &)));
 	KameraDeviceSelectDialog dialog(this, m_device);

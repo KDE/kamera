@@ -54,9 +54,11 @@ static const int INDEX_SERIAL = 1;
 static const int INDEX_USB= 3;
 static GPContext *glob_context = 0;
 
-KCamera::KCamera(const QString &name)
+KCamera::KCamera(const QString &name, const QString &path)
 {
-	m_name = name;
+	m_name	= name;
+	m_model	= name;
+	m_path	= path;
 	m_camera = NULL;
 }
 
@@ -191,8 +193,10 @@ bool KCamera::test()
 void KCamera::load(KConfig *config)
 {
 	config->setGroup(m_name);
-	m_model = config->readEntry("Model");
-	m_path = config->readEntry("Path");
+	if (m_model == QString::null)
+		m_model = config->readEntry("Model");
+	if (m_path == QString::null)
+		m_path = config->readEntry("Path");
 	invalidateCamera();
 }
 

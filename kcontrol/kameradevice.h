@@ -41,7 +41,7 @@ class KCamera : public QObject {
 	friend class KameraDeviceSelectDialog;
 	Q_OBJECT
 public:
-	KCamera(const QString &name);
+	KCamera(const QString &name, const QString &path);
 	~KCamera();
 	void invalidateCamera();
 	bool configure();
