@@ -6,10 +6,6 @@
 extern "C"
 {
 	#include <gphoto2.h>
-#ifndef GPHOTO_BETA4
-//Defination for this is missing in gphoto2.h earlier than beta 4
-	int gp_camera_exit (Camera *camera); 
-#endif
 }
 
 class QWidget;
