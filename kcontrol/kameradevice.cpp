@@ -22,8 +22,6 @@
 #include "kameradevice.moc"
 
 // Define some parts of the old API
-#define SERIAL_SUPPORTED(port) ((port & GP_PORT_SERIAL) != 0)
-#define USB_SUPPORTED(port) ((port & GP_PORT_USB) != 0)
 #define GP_PROMPT_OK 0
 #define GP_PROMPT_CANCEL -1
 
@@ -230,8 +228,10 @@ QStringList KCamera::supportedPorts()
 {
 	initInformation();
 	QStringList ports;
-	if (SERIAL_SUPPORTED(m_abilities.port)) ports.append("serial");
-	if (USB_SUPPORTED(m_abilities.port)) ports.append("usb");
+	if (m_abilities.port & GP_PORT_SERIAL)
+		ports.append("serial");
+	if (m_abilities.port & GP_PORT_USB)
+		ports.append("usb");
 	return ports;
 }
 
@@ -406,19 +406,19 @@ void KameraDeviceSelectDialog::slot_setModel(QListViewItem *item)
 	int result = gp_abilities_list_get_abilities(m_device->m_abilitylist, index, &abilities);
 	if (result == GP_OK) {
 		// enable radiobuttons for supported port types
-		m_serialRB->setEnabled(SERIAL_SUPPORTED(abilities.port));
-		m_USBRB->setEnabled(USB_SUPPORTED(abilities.port));
+		m_serialRB->setEnabled(abilities.port & GP_PORT_SERIAL);
+		m_USBRB->setEnabled(abilities.port & GP_PORT_USB);
 
 		// turn off any selected port
 		QButton *selected = m_portSelectGroup->selected();
 		if(selected != NULL)
 			selected->toggle();
-	
+
 	        // if there's only one available port type, make sure it's selected
-		if ((SERIAL_SUPPORTED(abilities.port)?1:0) + (USB_SUPPORTED(abilities.port)?1:0)) {
-			if (SERIAL_SUPPORTED(abilities.port)) setPortType(INDEX_SERIAL);
-			if (USB_SUPPORTED(abilities.port)) setPortType(INDEX_USB);
-		};
+		if (abilities.port == GP_PORT_SERIAL)
+			setPortType(INDEX_SERIAL);
+		if (abilities.port == GP_PORT_USB)
+			setPortType(INDEX_USB);
 	} else {
 		slot_error(i18n("Description of abilities for camera %1 is not available."
 			     " Configuration options may be incorrect.").arg(model));
