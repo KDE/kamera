@@ -658,6 +658,16 @@ void KameraProtocol::translateFileToUDS(UDSEntry &udsEntry, const CameraFileInfo
 		udsEntry.append(atom);
 	}
 
+	if (info.file.fields & GP_FILE_INFO_MTIME) {
+		atom.m_uds = UDS_MODIFICATION_TIME;
+		atom.m_long = info.file.mtime;
+		udsEntry.append(atom);
+	} else {
+		atom.m_uds = UDS_MODIFICATION_TIME;
+		atom.m_long = time(NULL); /* NOW */
+		udsEntry.append(atom);
+	}
+
 	if (info.file.fields & GP_FILE_INFO_TYPE) {
 		atom.m_uds = UDS_MIME_TYPE;
 		atom.m_str = QString::fromLatin1(info.file.type);
