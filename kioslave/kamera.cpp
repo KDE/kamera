@@ -155,55 +155,29 @@ void KameraProtocol::get(const KURL &url)
 
 	// fprintf(stderr,"get(%s)\n",url.path().latin1());
 
-	if (!url.path().compare("/about.txt")) {
-		CameraText about;
-		gpr = gp_camera_get_about(m_camera,  &about, m_context);
-		if (gpr != GP_OK) {
-			error(KIO::ERR_DOES_NOT_EXIST, url.path());
-			return;
-		}
-		QByteArray chunkDataBuffer;
-		chunkDataBuffer.setRawData(about.text, strlen(about.text));
-		data(chunkDataBuffer);
-		processedSize(strlen(about.text));
-		chunkDataBuffer.resetRawData(about.text, strlen(about.text));
-		finished();
-		closeCamera();
-		return;
-	}
-	if (!url.path().compare("/manual.txt")) {
-		CameraText about;
-		gpr = gp_camera_get_manual(m_camera,  &about, m_context);
-		if (gpr != GP_OK) {
-			error(KIO::ERR_DOES_NOT_EXIST, url.path());
-			return;
-		}
-		QByteArray chunkDataBuffer;
-		chunkDataBuffer.setRawData(about.text, strlen(about.text));
-		data(chunkDataBuffer);
-		processedSize(strlen(about.text));
-		chunkDataBuffer.resetRawData(about.text, strlen(about.text));
-		finished();
-		closeCamera();
-		return;
-	}
-	if (!url.path().compare("/summary.txt")) {
-		CameraText summary;
-		gpr = gp_camera_get_summary(m_camera,  &summary, m_context);
-		if (gpr != GP_OK) {
-			error(KIO::ERR_DOES_NOT_EXIST, url.path());
-			return;
-		}
-		QByteArray chunkDataBuffer;
-		chunkDataBuffer.setRawData(summary.text, strlen(summary.text));
-		data(chunkDataBuffer);
-		processedSize(strlen(summary.text));
-		chunkDataBuffer.resetRawData(summary.text, strlen(summary.text));
-		finished();
-		closeCamera();
-		return;
+#define GPHOTO_TEXT_FILE(xx)						\
+	if (!url.path().compare("/" #xx ".txt")) {			\
+		CameraText xx;						\
+		gpr = gp_camera_get_##xx(m_camera,  &xx, m_context);	\
+		if (gpr != GP_OK) {					\
+			error(KIO::ERR_DOES_NOT_EXIST, url.path());	\
+			return;						\
+		}							\
+		QByteArray chunkDataBuffer;				\
+		chunkDataBuffer.setRawData(xx.text, strlen(xx.text));	\
+		data(chunkDataBuffer);					\
+		processedSize(strlen(xx.text));				\
+		chunkDataBuffer.resetRawData(xx.text, strlen(xx.text));	\
+		finished();						\
+		closeCamera();						\
+		return;							\
 	}
 
+	GPHOTO_TEXT_FILE(about);
+	GPHOTO_TEXT_FILE(manual);
+	GPHOTO_TEXT_FILE(summary);
+
+#undef GPHOTO_TEXT_FILE
 	// emit info message
 	infoMessage( i18n("Retrieving data from camera <b>%1</b>").arg(m_cfgModel) );
 
@@ -351,45 +325,24 @@ void KameraProtocol::statRegular(const KURL &url)
 		return;
 	}
 
-	if (url.path().compare("/about.txt")) {
-		CameraText about;
-		gpr = gp_camera_get_about(m_camera,  &about, m_context);
-		if (gpr != GP_OK) {
-			error(KIO::ERR_DOES_NOT_EXIST, url.filename());
-			return;
-		}
-		translateTextToUDS(entry,"about.txt",about.text);
-		statEntry(entry);
-		finished();
-		closeCamera();
-		return;
+#define GPHOTO_TEXT_FILE(xx)						\
+	if (!url.path().compare("/"#xx".txt")) {			\
+		CameraText xx;						\
+		gpr = gp_camera_get_about(m_camera,  &xx, m_context);	\
+		if (gpr != GP_OK) {					\
+			error(KIO::ERR_DOES_NOT_EXIST, url.filename());	\
+			return;						\
+		}							\
+		translateTextToUDS(entry,#xx".txt",xx.text);		\
+		statEntry(entry);					\
+		finished();						\
+		closeCamera();						\
+		return;							\
 	}
-	if (url.path().compare("/manual.txt")) {
-		CameraText manual;
-		gpr = gp_camera_get_manual(m_camera,  &manual, m_context);
-		if (gpr != GP_OK) {
-			error(KIO::ERR_DOES_NOT_EXIST, url.path());
-			return;
-		}
-		translateTextToUDS(entry,"manual.txt",manual.text);
-		statEntry(entry);
-		finished();
-		closeCamera();
-		return;
-	}
-	if (url.path().compare("/summary.txt")) {
-		CameraText summary;
-		gpr = gp_camera_get_summary(m_camera,  &summary, m_context);
-		if (gpr != GP_OK) {
-			error(KIO::ERR_DOES_NOT_EXIST, url.path());
-			return;
-		}
-		translateTextToUDS(entry,"summary.txt",summary.text);
-		statEntry(entry);
-		finished();
-		closeCamera();
-		return;
-	}
+	GPHOTO_TEXT_FILE(about);
+	GPHOTO_TEXT_FILE(manual);
+	GPHOTO_TEXT_FILE(summary);
+#undef GPHOTO_TEXT_FILE
 
 	const char *name;
 	for(int i = 0; i < gp_list_count(dirList); i++) {
