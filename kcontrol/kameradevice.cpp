@@ -112,7 +112,14 @@ bool KCamera::initCamera()
 
 		// set the camera's model
 #ifdef GPHOTO_BETA3
+		GPPortInfo info;
+		GPPortInfoList *il;
+		gp_port_info_list_new(&il);
+		gp_port_info_list_load(il);
+		gp_port_info_list_get_info(il, gp_port_info_list_lookup_path(il, m_path.local8Bit().data()), &info);
+		gp_port_info_list_free(il);
 		gp_camera_set_abilities(m_camera, m_abilities);
+		gp_camera_set_port_info(m_camera, info);
 #else
 		gp_camera_set_model(m_camera, m_model.local8Bit().data()); 
 		gp_camera_set_port_path(m_camera, m_path.local8Bit().data());
