@@ -71,6 +71,7 @@ m_camera(NULL)
 
 KameraProtocol::~KameraProtocol()
 {
+    delete m_config;
 	if(m_camera) {
 		closeCamera();
  		gp_camera_free(m_camera);
@@ -98,7 +99,7 @@ void KameraProtocol::autoDetect(void)
         gp_port_info_list_free (il);
 
         count = gp_list_count (&list);
-	
+
 	for (i = 0 ; i<count ; i++) {
 		gp_list_get_name  (&list, i, &model);
 		gp_list_get_value (&list, i, &value);
@@ -211,7 +212,7 @@ void KameraProtocol::get(const KURL &url)
 		if (info.preview.fields & GP_FILE_INFO_TYPE)
 			mimeType(info.file.type);
 	}
-	
+
 	// fetch the data
 	m_fileSize = 0;
 	gpr = gp_camera_file_get(m_camera, tocstr(url.directory(false)), tocstr(url.filename()), fileType, m_file, m_context);
@@ -285,11 +286,11 @@ void KameraProtocol::statRoot(void)
 
 	atom.m_uds = UDS_NAME;
 	atom.m_str = "/";
-	entry.append(atom);  
+	entry.append(atom);
 
 	atom.m_uds = UDS_FILE_TYPE;
 	atom.m_long = S_IFDIR;
-	entry.append(atom);    	
+	entry.append(atom);
 
 	atom.m_uds = UDS_ACCESS;
 	atom.m_long = S_IRUSR | S_IRGRP | S_IROTH |
@@ -358,7 +359,7 @@ void KameraProtocol::statRegular(const KURL &url)
 		}
 	}
 	gp_list_free(dirList);
-	
+
 	// Is "url" a file?
 	CameraFileInfo info;
 	gpr = gp_camera_file_get_info(m_camera, tocstr(url.directory(false)), tocstr(url.fileName()), &info, m_context);
@@ -389,7 +390,7 @@ void KameraProtocol::del(const KURL &url, bool isFile)
 		CameraList *list;
 		gp_list_new(&list);
 		int ret;
- 
+
 		ret = gp_camera_file_delete(m_camera, tocstr(url.directory(false)), tocstr(url.filename()), m_context);
 
 		if(ret != GP_OK) {
@@ -408,7 +409,7 @@ void KameraProtocol::listDir(const KURL &url)
 
 	if (url.host().isEmpty()) {
 		// List the available cameras
-		QStringList groupList = m_config->groupList(); 
+		QStringList groupList = m_config->groupList();
 		kdDebug() << "Found cameras: " << groupList.join(", ") << endl;
 		QStringList::Iterator it;
 		UDSEntry entry;
@@ -428,11 +429,11 @@ void KameraProtocol::listDir(const KURL &url)
 				atom.m_long = S_IRUSR | S_IRGRP | S_IROTH |
 					S_IWUSR | S_IWGRP | S_IWOTH;
 				entry.append(atom);
-				
+
 				atom.m_uds = UDS_URL;
 				atom.m_str = QString::fromLatin1("camera://") + *it + QString::fromLatin1("/");
 				entry.append(atom);
-				
+
 				listEntry(entry, false);
 			}
 		}
@@ -440,7 +441,7 @@ void KameraProtocol::listDir(const KURL &url)
 		finished();
 		return;
 	}
-	
+
 	if (!openCamera())
 		return;
 
@@ -477,7 +478,7 @@ void KameraProtocol::listDir(const KURL &url)
 
 	UDSEntry entry;
 	const char *name;
-	
+
 	for(int i = 0; i < gp_list_count(dirList); ++i) {
 		gp_list_get_name(dirList, i, &name);
 		translateDirectoryToUDS(entry, QString::fromLocal8Bit(name));
@@ -577,7 +578,7 @@ void KameraProtocol::setHost(const QString& host, int port, const QString& user,
 			error(KIO::ERR_UNKNOWN, gp_result_as_string(gpr));
 			return;
 		}
-	
+
 		// register gphoto2 callback functions
 		gp_context_set_status_func(m_context, frontendCameraStatus, this);
 		gp_context_set_progress_funcs(m_context, frontendProgressStart, frontendProgressUpdate, NULL, this);
@@ -610,7 +611,7 @@ void KameraProtocol::reparseConfiguration(void)
 }
 
 // translate a simple text to a UDS entry
-void KameraProtocol::translateTextToUDS(UDSEntry &udsEntry, const QString &fn, 
+void KameraProtocol::translateTextToUDS(UDSEntry &udsEntry, const QString &fn,
 	const char *text
 ) {
 	UDSAtom atom;
@@ -644,7 +645,7 @@ void KameraProtocol::translateFileToUDS(UDSEntry &udsEntry, const CameraFileInfo
 	atom.m_uds = UDS_FILE_TYPE; // UDS type
 	atom.m_long = S_IFREG; // file
 	udsEntry.append(atom);
-	
+
 	if (info.file.fields & GP_FILE_INFO_NAME) {
 		atom.m_uds = UDS_NAME;
 		atom.m_str = QString::fromLocal8Bit(info.file.name);
@@ -656,13 +657,13 @@ void KameraProtocol::translateFileToUDS(UDSEntry &udsEntry, const CameraFileInfo
 		atom.m_long = info.file.size;
 		udsEntry.append(atom);
 	}
-	
+
 	if (info.file.fields & GP_FILE_INFO_TYPE) {
 		atom.m_uds = UDS_MIME_TYPE;
 		atom.m_str = QString::fromLatin1(info.file.type);
 		udsEntry.append(atom);
 	}
-	
+
 	if (info.file.fields & GP_FILE_INFO_PERMISSIONS) {
 		atom.m_uds = UDS_ACCESS;
 		atom.m_long = 0;
@@ -770,11 +771,11 @@ unsigned int frontendProgressStart(
 
 	char *status=new char[size+1];
 	vsnprintf(status, size, format, args);
-	
+
 	object->infoMessage(QString::fromLocal8Bit(status));
 	delete status;
 
-	object->totalSize((int)totalsize); // hack: call slot directly 
+	object->totalSize((int)totalsize); // hack: call slot directly
 
 	return GP_OK;
 }
@@ -789,7 +790,7 @@ static void frontendCameraStatus(GPContext *context, const char *format, va_list
 
 	char *status=new char[size+1];
 	vsnprintf(status, size, format, args);
-	
+
 	object->infoMessage(QString::fromLocal8Bit(status));
 	delete status;
 }
