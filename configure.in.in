@@ -86,7 +86,7 @@ AC_TRY_COMPILE([#include <gphoto2.h>],
 [ AC_MSG_RESULT(beta2 or earlier) ],
 [ # Versions >= beta4 don't need the gp_camera_exit hack
   ver_gp="beta3"
-  if grep -q "gp_camera_exit" $gphoto2_includes/gphoto2.h &>/dev/null; then
+  if grep -q "gp_camera_exit" $gphoto2_includes/gphoto2-camera.h &>/dev/null; then
     AC_DEFINE(GPHOTO_BETA4, 1, [Define if your gphoto2 is beta 4 or higher])
     ver_gp="beta4"
   fi
