@@ -106,7 +106,7 @@ void KameraConfigDialog::appendWidget(QWidget *parent, CameraWidget *widget)
 		// I can't see a way of implementing this. Since there is
 		// no way of telling which button sent you a signal, we
 		// can't map to the appropriate widget->callback
-		new QLabel(i18n("Button (not supported by KControl"), parent);
+		new QLabel(i18n("Button (not supported by KControl)"), parent);
 		break;
 	case GP_WIDGET_DATE:
 		new QLabel(i18n("Date (not supported by KControl)"), parent);
