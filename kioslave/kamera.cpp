@@ -215,15 +215,17 @@ void KameraProtocol::get(const KURL &url)
 	if(cameraSupportsPreview() && metaData("thumbnail") == "1") {
 		kdDebug() << "get() retrieving the thumbnail" << endl;
 		fileType = GP_FILE_TYPE_PREVIEW;
-		if (info.preview.fields & GP_FILE_INFO_SIZE) {
+		if (info.preview.fields & GP_FILE_INFO_SIZE)
 			totalSize(info.preview.size);
-		}
+		if (info.preview.fields & GP_FILE_INFO_TYPE)
+			mimeType(info.preview.type);
 	} else {
 		kdDebug() << "get() retrieving the full-scale photo" << endl;
 		fileType = GP_FILE_TYPE_NORMAL;
-		if (info.file.fields & GP_FILE_INFO_SIZE) {
+		if (info.file.fields & GP_FILE_INFO_SIZE)
 			totalSize(info.file.size);
-		}
+		if (info.preview.fields & GP_FILE_INFO_TYPE)
+			mimeType(info.file.type);
 	}
 	
 	// fetch the data
@@ -779,6 +781,7 @@ void KameraProtocol::frontendProgressUpdate(
 	// buffer -- there's no expensive memcpy
 	if (!object->m_file)
 		return;
+	gp_file_get_data_and_size(object->m_file, &fileData, &fileSize);
 	// make sure we're not sending zero-sized chunks (=EOF)
 	if (fileSize > 0) {
 		// XXX using assign() here causes segfault, prolly because
