@@ -172,6 +172,7 @@ void KameraProtocol::get(const KURL &url)
 	}
 	
 	// fetch the data
+	m_fileSize = 0;
 	gpr = gp_camera_file_get(m_camera, tocstr(url.directory(false)), tocstr(url.filename()), fileType, m_file, m_context);
 	switch(gpr) {
 		case GP_OK:
@@ -472,6 +473,7 @@ void KameraProtocol::setHost(const QString& host, int port, const QString& user,
 		// set model and port
 		gp_camera_set_abilities(m_camera, m_abilities);
 		gp_camera_set_port_info(m_camera, port_info);
+		gp_camera_set_port_speed(m_camera, 0); // TODO: the value needs to be configurable
 		kdDebug() << "Opening camera model " << m_cfgModel << " at " << m_cfgPath << endl;
 #if 0
 		// initialize the camera (might take time on a non-existant or disconnected camera)
