@@ -52,6 +52,7 @@ KameraProtocol::KameraProtocol(const QCString &pool, const QCString &app)
 : SlaveBase("camera", pool, app),
 m_camera(NULL)
 {
+	kdDebug() << "KameraProtocol::KameraProtocol()\n";
 	// attempt to initialize libgphoto2 and chosen camera (requires locking)
 	// (will init m_camera, since the m_camera's configuration is empty)
 	m_camera = 0;
@@ -61,7 +62,7 @@ m_camera(NULL)
 
 KameraProtocol::~KameraProtocol()
 {
-	kdDebug() << "KameraProtocol::~KameraProtocol()\n";
+	kdDebug() << "KameraProtocol("<<this<<")::~KameraProtocol()\n";
 	if(m_camera) {
 		gp_camera_exit(m_camera,context);
  		gp_camera_free(m_camera);
@@ -72,7 +73,7 @@ KameraProtocol::~KameraProtocol()
 bool KameraProtocol::openCamera(void) {
 	int gpr;
 	
-	kdDebug() << "openCamera()\n";
+	kdDebug() << "KameraProtocol("<<this<<")::openCamera()\n";
 	if (!m_camera)
 		reparseConfiguration();
 	return true;
@@ -82,7 +83,7 @@ bool KameraProtocol::openCamera(void) {
 void KameraProtocol::closeCamera(void)
 {
 	int gpr;
-	kdDebug() << "closeCamera(m_camera " << m_camera << ")" << endl;
+	kdDebug() << "KameraProtocol("<<this<<")::closeCamera(m_camera " << m_camera << ")" << endl;
 	if ((gpr=gp_camera_exit(m_camera,context))!=GP_OK) {
 		kdDebug() << "closeCamera failed with " << gp_result_as_string(gpr) << endl;
 	}
@@ -93,7 +94,7 @@ void KameraProtocol::closeCamera(void)
 // The actual returning of the data is done in the frontend callback functions.
 void KameraProtocol::get(const KURL &url)
 {
-	kdDebug() << "KameraProtocol::get(" << url.path() << ")" << endl;
+	kdDebug() << "KameraProtocol("<<this<<")::get(" << url.path() << ")" << endl;
 
 	CameraFileType fileType;
 	int gpr;
@@ -103,8 +104,8 @@ void KameraProtocol::get(const KURL &url)
 		
 	if (url.host().isEmpty()) {
 		kdDebug() << "No host.\n";
-		error(KIO::ERR_DOES_NOT_EXIST, url.path());
 		closeCamera();
+		error(KIO::ERR_DOES_NOT_EXIST, url.path());
 		return;
 	}
 	
@@ -186,7 +187,7 @@ void KameraProtocol::get(const KURL &url)
 // The KIO slave "stat" function.
 void KameraProtocol::stat(const KURL &url)
 {
-	kdDebug() << "KameraProtocol::stat(" << url.path() << ")" << endl;
+	kdDebug() << "KameraProtocol("<<this<<")::stat(" << url.path() << ")" << endl;
 
 	if(url.path() == "/") {
 		statRoot();
@@ -233,11 +234,11 @@ void KameraProtocol::statRegular(const KURL &url)
 	gp_list_new(&dirList);
 	kdDebug() << "statRegular() Requesting directories list for " << url.directory() << endl;
 	gpr = gp_camera_folder_list_folders(m_camera, tocstr(url.directory()), dirList, context);
+	closeCamera();
 	if (gpr != GP_OK) {
 		if ((gpr == GP_ERROR_FILE_NOT_FOUND) || (gpr == GP_ERROR_DIRECTORY_NOT_FOUND))
 			error(KIO::ERR_DOES_NOT_EXIST, url.path());
 		gp_list_free(dirList);
-		closeCamera();
 		return;
 	}
 
@@ -250,7 +251,6 @@ void KameraProtocol::statRegular(const KURL &url)
 			translateDirectoryToUDS(entry, url.fileName());
 			statEntry(entry);
 			finished();
-			closeCamera();
 			return;
 		}
 	}
@@ -259,17 +259,15 @@ void KameraProtocol::statRegular(const KURL &url)
 	// Is "url" a file?
 	CameraFileInfo info;
 	gpr = gp_camera_file_get_info(m_camera, tocstr(url.directory(false)), tocstr(url.fileName()), &info, context);
+	closeCamera();
 	if (gpr != GP_OK) {
 		if ((gpr == GP_ERROR_FILE_NOT_FOUND) || (gpr == GP_ERROR_DIRECTORY_NOT_FOUND))
 			error(KIO::ERR_DOES_NOT_EXIST, url.path());
-		closeCamera();
 		return;
 	}
-
 	translateFileToUDS(entry, info);
 	statEntry(entry);
 	finished();
-	closeCamera();
 }
 
 // The KIO slave "del" function.
@@ -279,7 +277,6 @@ void KameraProtocol::del(const KURL &url, bool isFile)
 
 	if(!openCamera())
 		return;
-
 	if(cameraSupportsDel() && isFile){
 		CameraList *list;
 		gp_list_new(&list);
@@ -293,7 +290,6 @@ void KameraProtocol::del(const KURL &url, bool isFile)
 			finished();
 		}
 	}
-
 	closeCamera();
 }
 
@@ -348,7 +344,7 @@ void KameraProtocol::listDir(const KURL &url)
 
 	gpr = readCameraFolder(url.path(), dirList, fileList);
 	if(gpr != GP_OK) {
-		kdDebug() << "read Camera Folder failed.\n";
+		kdDebug() << "read Camera Folder failed:" << gp_result_as_string(gpr) <<endl;
 		closeCamera();
 		gp_list_free(dirList);
 		gp_list_free(fileList);
@@ -419,7 +415,7 @@ void KameraProtocol::setHost(const QString& host, int port, const QString& user,
 			gp_abilities_list_free(abilities_list);
 			kdDebug() << "Unable to get abilities for model: " << m_cfgModel << endl;
 			error(KIO::ERR_UNKNOWN, gp_result_as_string(gpr));
-				return;
+			return;
 		}
 		gp_abilities_list_get_abilities(abilities_list, idx, &m_abilities);
 		gp_abilities_list_free(abilities_list);
@@ -466,7 +462,7 @@ void KameraProtocol::setHost(const QString& host, int port, const QString& user,
 			return;
 		}
 		gp_camera_exit(m_camera, context);
-	#endif
+#endif
 	}
 }
 
