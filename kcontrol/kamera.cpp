@@ -184,12 +184,12 @@ void KKameraConfig::displayGPSuccessDialogue(void)
 
 	// USB tab
 	m_settingsStack->addWidget(new
-		QLabel(i18n("No user definable settings for USB"),
+		QLabel(i18n("No user defineable settings for USB"),
 		m_settingsStack), INDEX_USB);
 	
 	// IEEE1394 tab
 	m_settingsStack->addWidget(new
-		QLabel(i18n("No user definable settings for IEEE1394"),
+		QLabel(i18n("No user defineable settings for IEEE1394"),
 		m_settingsStack), INDEX_IEEE1394);
 
 	// network tab
@@ -217,7 +217,7 @@ void KKameraConfig::displayCameraAbilities(const CameraAbilities &abilities)
 	m_networkRB->setEnabled(NETWORK_SUPPORTED(abilities.port));
 
 	// enable camera configuration button if supported
-	m_configureCamera->setEnabled(abilities.config);
+	m_configureCamera->setEnabled(abilities.operations & GP_FILE_OPERATION_CONFIG);
 
 	// populate serial speed listbox from abilities
 	if(SERIAL_SUPPORTED(abilities.port)) {
@@ -390,21 +390,21 @@ void KKameraConfig::setPortType(int type)
 
 void KKameraConfig::testCamera(void)
 {
-	if(!openSelectedCamera())
-		return;
+//	if(!openSelectedCamera())
+//		return;
 
-	KMessageBox::information(this, i18n("Camera test successful!"));
+//	KMessageBox::information(this, i18n("Camera test successful!"));
 
-	closeCamera();
+//	closeCamera();
 }
 
 void KKameraConfig::configureCamera(void)
 {
 	if(!openSelectedCamera())
 		return;
-
-	if(gp_camera_config(m_camera) != GP_OK)
-		KMessageBox::error(this, i18n("Camera configuration failed."));
+//
+//	if(gp_camera_config(m_camera) != GP_OK)
+//		KMessageBox::error(this, i18n("Camera configuration failed."));
 
 	closeCamera();
 }
@@ -431,7 +431,7 @@ bool KKameraConfig::openSelectedCamera(void)
 		return false;
 	}
 
-	if(gp_camera_new_by_name(&m_camera, tocstr(camera->text(0))) != GP_OK) {
+	if(gp_camera_new(&m_camera) != GP_OK) {
 		KMessageBox::error(this, i18n("Could not access driver."
 				" Check your gPhoto2 installation."));
 		return false;
@@ -439,10 +439,10 @@ bool KKameraConfig::openSelectedCamera(void)
 
 	transferCameraPortInfoFromUI();
 
-	if(gp_camera_init(m_camera, &m_cameraPortInfo) != GP_OK) {
+	if(gp_camera_init(m_camera) != GP_OK) {
 		gp_camera_free(m_camera);
 		m_camera = NULL;
-		KMessageBox::error(this, i18n("Unable to initialize camera."
+		KMessageBox::error(this, i18n("Unable to initialise camera."
 			" Check your port settings and camera connectivity"
 			" and try again."));
 		return false;
@@ -461,37 +461,38 @@ void KKameraConfig::transferCameraPortInfoFromUI(void)
 {
 	QButton *selected = m_portSelectGroup->selected();
 
-	memset(&m_cameraPortInfo, 0, sizeof(m_cameraPortInfo));
+	memset(&m_camera->port, 0, sizeof(CameraPortInfo));
 	
 	if(selected == NULL) {
-		m_cameraPortInfo.type = GP_PORT_NONE;
+		m_camera->port->type = GP_PORT_NONE;
 		return;
 	}
 
 	QString type = selected->text();
 
 	if(type == i18n("serial")) {
-		m_cameraPortInfo.type = GP_PORT_SERIAL;
-		strcpy(m_cameraPortInfo.path,
+		m_camera->port->type = GP_PORT_SERIAL;
+		strcpy(m_camera->port->path,
 			m_serialPortLineEdit->text().local8Bit());		//lukas: FIXME!!! no strcpy never ever
-		m_cameraPortInfo.speed =
+		m_camera->port->speed =
 			m_serialSpeedCombo->currentText().toInt();
 	} else if(type == i18n("parallel")) {
-		m_cameraPortInfo.type = GP_PORT_PARALLEL;
-		strcpy(m_cameraPortInfo.path,
+		m_camera->port->type = GP_PORT_PARALLEL;
+		strcpy(m_camera->port->path,
 			m_parallelPortLineEdit->text().local8Bit());	//lukas: FIXME!!!
 	} else if(type == i18n("USB")) {
-		m_cameraPortInfo.type = GP_PORT_USB;
-		strcpy(m_cameraPortInfo.path, "usb");
+		m_camera->port->type = GP_PORT_USB;
+		strcpy(m_camera->port->path, "usb:");
 	} else if(type == i18n("IEEE1394")) {
-		m_cameraPortInfo.type = GP_PORT_IEEE1394;
-		strcpy(m_cameraPortInfo.path, "ieee1394");
+		m_camera->port->type = GP_PORT_IEEE1394;
+		strcpy(m_camera->port->path, "ieee1394");
 	} else if(type == i18n("network")) {
-		m_cameraPortInfo.type = GP_PORT_NETWORK;
-		strcpy(m_cameraPortInfo.path, "network");		//lukas: FIXME!!!
-		strcpy(m_cameraPortInfo.host,
-			m_networkHostLineEdit->text().local8Bit());	//lukas: FIXME!!!
-		m_cameraPortInfo.host_port =
-			m_networkPortLineEdit->text().toInt();
+		m_camera->port->type = GP_PORT_NETWORK;
+//		strcpy(m_camera->port->path, "network");
+//lukas: FIXME!!!
+//		strcpy(m_cameraPortInfo.host,
+//			m_networkHostLineEdit->text().local8Bit());	//lukas: FIXME!!!
+//		m_cameraPortInfo.host_port =
+//			m_networkPortLineEdit->text().toInt();
 	}
 }

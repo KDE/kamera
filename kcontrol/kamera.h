@@ -7,6 +7,8 @@
 extern "C"
 {
 	#include <gphoto2.h>
+//Defination for this is missing in gphoto2.h
+	int gp_camera_exit (Camera *camera); 
 }
 
 class QWidget;
@@ -85,7 +87,6 @@ private:
 	static KKameraConfig *m_instance;
 
 	Camera *m_camera;
-	CameraPortInfo m_cameraPortInfo;
 };
 
 #endif

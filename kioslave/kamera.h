@@ -6,6 +6,8 @@
 
 extern "C" {
 	#include <gphoto2.h>
+// Defination for this function in gphoto2.h is missing
+	int gp_camera_exit(Camera *camera);
 }
 
 class KameraProtocol : public KIO::SlaveBase
@@ -21,7 +23,6 @@ public:
 
 private:
 	Camera *m_camera;
-	CameraPortInfo m_portInfo;
 	bool m_previewThumbs;
 
 	void loadSettings(void);
@@ -34,6 +35,8 @@ private:
 	void translateCLEToUDS(KIO::UDSEntry &udsEntry,
 				const CameraListEntry &cleEntry);
 	bool cameraSupportsPreview(void);
+	bool cameraSupportsDel(void);
+	bool cameraSupportsPut(void);
 	bool findCameraListEntry(const KURL &url, CameraListEntry &cle);
 	int readCameraFolder(CameraList *list, const QString &folder);
 };

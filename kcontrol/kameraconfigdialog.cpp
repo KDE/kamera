@@ -111,7 +111,6 @@ void KameraConfigDialog::appendWidget(QWidget *parent, CameraWidget *widget)
 	case GP_WIDGET_DATE:
 		new QLabel(i18n("Date (not supported by KControl)"), parent);
 		break;
-	case GP_WIDGET_NONE:
 	default:
 		return;
 	}
@@ -144,27 +143,27 @@ void KameraConfigDialog::updateWidgetValue(CameraWidget *widget)
 	case GP_WIDGET_TEXT:
 		lineEdit = (QLineEdit *) m_wmap[widget];
 		value_string = lineEdit->text().local8Bit();
-		gp_widget_value_set(widget, value_string);
+		gp_widget_set_value(widget, (void *)value_string);
 		break;
 	case GP_WIDGET_RANGE:
 		slider = (QSlider *) m_wmap[widget];
 		value_float = slider->value();
-		gp_widget_value_set(widget, &value_float);
+		gp_widget_set_value(widget, (void *)&value_float);
 		break;
 	case GP_WIDGET_TOGGLE:
 		checkBox = (QCheckBox *) m_wmap[widget];
 		value_int = checkBox->isChecked() ? 1 : 0;
-		gp_widget_value_set(widget, &value_int);
+		gp_widget_set_value(widget, (void *)&value_int);
 		break;
 	case GP_WIDGET_RADIO:
 		buttonGroup = (QVButtonGroup *) m_wmap[widget];
 		value_string = buttonGroup->selected()->text().local8Bit();
-		gp_widget_value_set(widget, value_string);
+		gp_widget_set_value(widget, (void *)value_string);
 		break;
 	case GP_WIDGET_MENU:
 		comboBox = (QComboBox *) m_wmap[widget];
 		value_string = comboBox->currentText().local8Bit();
-		gp_widget_value_set(widget, value_string);
+		gp_widget_set_value(widget, (void *)value_string);
 		break;
 	case GP_WIDGET_BUTTON:
 		// nothing to do
@@ -172,7 +171,6 @@ void KameraConfigDialog::updateWidgetValue(CameraWidget *widget)
 	case GP_WIDGET_DATE:
 		// not implemented
 		break;
-	case GP_WIDGET_NONE:
 	default:
 		// nothing to do
 		break;
