@@ -53,8 +53,7 @@ m_camera(NULL)
 	// attempt to initialize libgphoto2 and chosen camera (requires locking)
 	// (will init m_camera, since the m_camera's configuration is empty)
 	m_camera = 0;
-
-	
+	m_file = NULL;
 	m_config = new KSimpleConfig(KProtocolInfo::config("camera"));
 	autoDetect();
 	m_context = gp_context_new();
@@ -65,6 +64,7 @@ KameraProtocol::~KameraProtocol()
 	if(m_camera) {
 		closeCamera();
  		gp_camera_free(m_camera);
+		m_camera = NULL;
 	}
 }
 
@@ -114,6 +114,10 @@ bool KameraProtocol::openCamera(void) {
 void KameraProtocol::closeCamera(void)
 {
 	int gpr;
+
+	if (!m_camera)
+		return;
+
 	if ((gpr=gp_camera_exit(m_camera,m_context))!=GP_OK) {
 		kdDebug() << "closeCamera failed with " << gp_result_as_string(gpr) << endl;
 	}
@@ -138,6 +142,57 @@ void KameraProtocol::get(const KURL &url)
 
 	if(!openCamera())
 		return;
+
+	// fprintf(stderr,"get(%s)\n",url.path().latin1());
+
+	if (!url.path().compare("/about.txt")) {
+		CameraText about;
+		gpr = gp_camera_get_about(m_camera,  &about, m_context);
+		if (gpr != GP_OK) {
+			error(KIO::ERR_DOES_NOT_EXIST, url.path());
+			return;
+		}
+		QByteArray chunkDataBuffer;
+		chunkDataBuffer.setRawData(about.text, strlen(about.text));
+		data(chunkDataBuffer);
+		processedSize(strlen(about.text));
+		chunkDataBuffer.resetRawData(about.text, strlen(about.text));
+		finished();
+		closeCamera();
+		return;
+	}
+	if (!url.path().compare("/manual.txt")) {
+		CameraText about;
+		gpr = gp_camera_get_manual(m_camera,  &about, m_context);
+		if (gpr != GP_OK) {
+			error(KIO::ERR_DOES_NOT_EXIST, url.path());
+			return;
+		}
+		QByteArray chunkDataBuffer;
+		chunkDataBuffer.setRawData(about.text, strlen(about.text));
+		data(chunkDataBuffer);
+		processedSize(strlen(about.text));
+		chunkDataBuffer.resetRawData(about.text, strlen(about.text));
+		finished();
+		closeCamera();
+		return;
+	}
+	if (!url.path().compare("/summary.txt")) {
+		CameraText summary;
+		gpr = gp_camera_get_summary(m_camera,  &summary, m_context);
+		if (gpr != GP_OK) {
+			error(KIO::ERR_DOES_NOT_EXIST, url.path());
+			return;
+		}
+		QByteArray chunkDataBuffer;
+		chunkDataBuffer.setRawData(summary.text, strlen(summary.text));
+		data(chunkDataBuffer);
+		processedSize(strlen(summary.text));
+		chunkDataBuffer.resetRawData(summary.text, strlen(summary.text));
+		finished();
+		closeCamera();
+		return;
+	}
 
 	// emit info message
 	infoMessage( i18n("Retrieving data from camera <b>%1</b>").arg(m_cfgModel) );
@@ -180,11 +235,13 @@ void KameraProtocol::get(const KURL &url)
 		case GP_ERROR_FILE_NOT_FOUND:
 		case GP_ERROR_DIRECTORY_NOT_FOUND:
 			gp_file_free(m_file);
+			m_file = NULL;
 			error(KIO::ERR_DOES_NOT_EXIST, url.filename());
 			closeCamera();
 			return ;
 		default:
 			gp_file_free(m_file);
+			m_file = NULL;
 			error(KIO::ERR_UNKNOWN, gp_result_as_string(gpr));
 			closeCamera();
 			return;
@@ -218,6 +275,7 @@ void KameraProtocol::get(const KURL &url)
 
 	finished();
 	gp_file_free(m_file);
+	m_file = NULL;
 	closeCamera();
 }
 
@@ -266,16 +324,58 @@ void KameraProtocol::statRegular(const KURL &url)
 	if (openCamera() == false)
 		return;
 
+	// fprintf(stderr,"statRegular(%s)\n",url.path().latin1());
+
 	// Is "url" a directory?
 	CameraList *dirList;
 	gp_list_new(&dirList);
 	kdDebug() << "statRegular() Requesting directories list for " << url.directory() << endl;
 	gpr = gp_camera_folder_list_folders(m_camera, tocstr(url.directory()), dirList, m_context);
-	closeCamera();
 	if (gpr != GP_OK) {
 		if ((gpr == GP_ERROR_FILE_NOT_FOUND) || (gpr == GP_ERROR_DIRECTORY_NOT_FOUND))
 			error(KIO::ERR_DOES_NOT_EXIST, url.path());
 		gp_list_free(dirList);
+		closeCamera();
+		return;
+	}
+
+	if (url.path().compare("/about.txt")) {
+		CameraText about;
+		gpr = gp_camera_get_about(m_camera,  &about, m_context);
+		if (gpr != GP_OK) {
+			error(KIO::ERR_DOES_NOT_EXIST, url.filename());
+			return;
+		}
+		translateTextToUDS(entry,"about.txt",about.text);
+		statEntry(entry);
+		finished();
+		closeCamera();
+		return;
+	}
+	if (url.path().compare("/manual.txt")) {
+		CameraText manual;
+		gpr = gp_camera_get_manual(m_camera,  &manual, m_context);
+		if (gpr != GP_OK) {
+			error(KIO::ERR_DOES_NOT_EXIST, url.path());
+			return;
+		}
+		translateTextToUDS(entry,"manual.txt",manual.text);
+		statEntry(entry);
+		finished();
+		closeCamera();
+		return;
+	}
+	if (url.path().compare("/summary.txt")) {
+		CameraText summary;
+		gpr = gp_camera_get_summary(m_camera,  &summary, m_context);
+		if (gpr != GP_OK) {
+			error(KIO::ERR_DOES_NOT_EXIST, url.path());
+			return;
+		}
+		translateTextToUDS(entry,"summary.txt",summary.text);
+		statEntry(entry);
+		finished();
+		closeCamera();
 		return;
 	}
 
@@ -288,6 +388,7 @@ void KameraProtocol::statRegular(const KURL &url)
 			translateDirectoryToUDS(entry, url.fileName());
 			statEntry(entry);
 			finished();
+			closeCamera();
 			return;
 		}
 	}
@@ -296,15 +397,16 @@ void KameraProtocol::statRegular(const KURL &url)
 	// Is "url" a file?
 	CameraFileInfo info;
 	gpr = gp_camera_file_get_info(m_camera, tocstr(url.directory(false)), tocstr(url.fileName()), &info, m_context);
-	closeCamera();
 	if (gpr != GP_OK) {
 		if ((gpr == GP_ERROR_FILE_NOT_FOUND) || (gpr == GP_ERROR_DIRECTORY_NOT_FOUND))
 			error(KIO::ERR_DOES_NOT_EXIST, url.path());
+		closeCamera();
 		return;
 	}
 	translateFileToUDS(entry, info);
 	statEntry(entry);
 	finished();
+	closeCamera();
 }
 
 // The KIO slave "del" function.
@@ -379,9 +481,21 @@ void KameraProtocol::listDir(const KURL &url)
 
 	CameraList *dirList;
 	CameraList *fileList;
+	CameraList *specialList;
 	gp_list_new(&dirList);
 	gp_list_new(&fileList);
+	gp_list_new(&specialList);
 	int gpr;
+
+	if (!url.path().compare("/")) {
+		CameraText text;
+		if (GP_OK == gp_camera_get_manual(m_camera, &text, m_context))
+			gp_list_append(specialList,"manual.txt",NULL);
+		if (GP_OK == gp_camera_get_about(m_camera, &text, m_context))
+			gp_list_append(specialList,"about.txt",NULL);
+		if (GP_OK == gp_camera_get_summary(m_camera, &text, m_context))
+			gp_list_append(specialList,"summary.txt",NULL);
+	}
 
 	gpr = readCameraFolder(url.path(), dirList, fileList);
 	if(gpr != GP_OK) {
@@ -389,11 +503,12 @@ void KameraProtocol::listDir(const KURL &url)
 		closeCamera();
 		gp_list_free(dirList);
 		gp_list_free(fileList);
+		gp_list_free(specialList);
 		error(KIO::ERR_COULD_NOT_READ, gp_result_as_string(gpr));
 		return;
 	}
 
-	totalSize(gp_list_count(dirList) + gp_list_count(fileList));
+	totalSize(gp_list_count(specialList) + gp_list_count(dirList) + gp_list_count(fileList));
 
 	UDSEntry entry;
 	const char *name;
@@ -413,10 +528,27 @@ void KameraProtocol::listDir(const KURL &url)
 		translateFileToUDS(entry, info);
 		listEntry(entry, false);
 	}
+	if (!url.path().compare("/")) {
+		CameraText text;
+		if (GP_OK == gp_camera_get_manual(m_camera, &text, m_context)) {
+			translateTextToUDS(entry, "manual.txt", text.text);
+			listEntry(entry, false);
+		}
+		if (GP_OK == gp_camera_get_about(m_camera, &text, m_context)) {
+			translateTextToUDS(entry, "about.txt", text.text);
+			listEntry(entry, false);
+		}
+		if (GP_OK == gp_camera_get_summary(m_camera, &text, m_context)) {
+			translateTextToUDS(entry, "summary.txt", text.text);
+			listEntry(entry, false);
+		}
+	}
+
 	closeCamera();
 
 	gp_list_free(fileList);
 	gp_list_free(dirList);
+	gp_list_free(specialList);
 
 	listEntry(entry, true); // 'entry' is not used in this case - we only signal list completion
 	finished();
@@ -437,9 +569,7 @@ void KameraProtocol::setHost(const QString& host, int port, const QString& user,
 
 		if (m_camera) {
 			kdDebug() << "Configuration change detected" << endl;
-			if (GP_OK!=gp_camera_exit(m_camera,m_context)) {
-				kdDebug() << "camera exit failed for old cam?\n";
-			}
+			closeCamera();
 			gp_camera_unref(m_camera);
 			m_camera = NULL;
 			infoMessage( i18n("Reinitializing camera") );
@@ -512,6 +642,31 @@ void KameraProtocol::setHost(const QString& host, int port, const QString& user,
 void KameraProtocol::reparseConfiguration(void)
 {
 	// we have no global config, do we?
+}
+
+// translate a simple text to a UDS entry
+void KameraProtocol::translateTextToUDS(UDSEntry &udsEntry, const QString &fn, 
+	const char *text
+) {
+	UDSAtom atom;
+
+	udsEntry.clear();
+
+	atom.m_uds = UDS_FILE_TYPE; // UDS type
+	atom.m_long = S_IFREG; // file
+	udsEntry.append(atom);
+
+	atom.m_uds = UDS_NAME;
+	atom.m_str = fn;
+	udsEntry.append(atom);
+
+	atom.m_uds = UDS_SIZE;
+	atom.m_long = strlen(text);
+	udsEntry.append(atom);
+
+	atom.m_uds = UDS_ACCESS;
+	atom.m_long = S_IRUSR | S_IRGRP | S_IROTH;
+	udsEntry.append(atom);
 }
 
 // translate a CameraFileInfo to a UDSEntry which we can return as a directory listing entry
@@ -619,9 +774,11 @@ void KameraProtocol::frontendProgressUpdate(
 
 	const char *fileData;
 	long unsigned int fileSize;
+
 	// This merely returns us a pointer to gphoto's internal data
 	// buffer -- there's no expensive memcpy
-	gp_file_get_data_and_size(object->m_file, &fileData, &fileSize);
+	if (!object->m_file)
+		return;
 	// make sure we're not sending zero-sized chunks (=EOF)
 	if (fileSize > 0) {
 		// XXX using assign() here causes segfault, prolly because

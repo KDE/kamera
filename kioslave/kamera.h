@@ -38,6 +38,7 @@ private:
 
 	void statRoot(void);
 	void statRegular(const KURL &url);
+        void translateTextToUDS(KIO::UDSEntry &udsEntry, const QString &info, const char *txt);
         void translateFileToUDS(KIO::UDSEntry &udsEntry, const CameraFileInfo &info);
 	void translateDirectoryToUDS(KIO::UDSEntry &udsEntry, const QString &dirname);
 	bool cameraSupportsPreview(void);
