@@ -6,9 +6,9 @@
 
 extern "C" {
 	#include <gphoto2.h>
+// Defination for this function in gphoto2.h is missing
+	int gp_camera_exit(Camera *camera);
 }
-
-class KSimpleConfig;
 
 class KameraProtocol : public KIO::SlaveBase
 {
@@ -23,34 +23,22 @@ public:
 
 private:
 	Camera *m_camera;
-	KSimpleConfig *m_config;
+	bool m_previewThumbs;
 
-	void reparseConfiguration(void);
+	void loadSettings(void);
 	bool openCamera(void);
 	void closeCamera(void);
 
 	void statRoot(void);
 	void statRegular(const KURL &url);
-        void translateFileToUDS(KIO::UDSEntry &udsEntry, const CameraFileInfo &info);
-	void translateDirectoryToUDS(KIO::UDSEntry &udsEntry, const QString &dirname);
+	bool stripCachePath(KURL &url);
+	void translateCLEToUDS(KIO::UDSEntry &udsEntry,
+				const CameraListEntry &cleEntry);
 	bool cameraSupportsPreview(void);
 	bool cameraSupportsDel(void);
 	bool cameraSupportsPut(void);
-	int readCameraFolder(const QString &folder, CameraList *dirList, CameraList *fileList);
-	QString lockFileName();
-	void lock();
-	void unlock();
-
-	QString m_host;
-	QString m_cfgModel;
-	QString m_cfgPath;
-
-	static QMap<Camera *, KameraProtocol *> m_cameraToProtocol;
-	int fileSize;
-
-	// static frontend callbacks
-	static int frontendCameraStatus(Camera *camera, char *status);
-	static int frontendCameraProgress(Camera *camera, CameraFile *file, float progress);
+	bool findCameraListEntry(const KURL &url, CameraListEntry &cle);
+	int readCameraFolder(CameraList *list, const QString &folder);
 };
 
 #endif
