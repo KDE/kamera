@@ -52,7 +52,7 @@ extern "C"
 KKameraConfig *KKameraConfig::m_instance = NULL;
 
 KKameraConfig::KKameraConfig(QWidget *parent, const char *name)
-:KCModule(parent, name)
+:KCModule(parent, "kamera")
 {
 	m_devicePopup = new QPopupMenu(this);
 	m_actions = new KActionCollection(this);
