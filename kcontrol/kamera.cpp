@@ -123,7 +123,7 @@ void KKameraConfig::displayGPSuccessDialogue(void)
 	act = new KAction(i18n("Remove"), "edittrash", 0, this, SLOT(slot_removeCamera()), m_actions, "camera_remove");
 	act->setWhatsThis(i18n("Click this button to remove the selected camera from the list."));
 	act->plug(m_toolbar);
-	act = new KAction(i18n("Configure"), "configure", 0, this, SLOT(slot_configureCamera()), m_actions, "camera_configure");
+	act = new KAction(i18n("Configure..."), "configure", 0, this, SLOT(slot_configureCamera()), m_actions, "camera_configure");
 	act->setWhatsThis(i18n("Click this button to change the configuration of the selected camera.<br><br>The availability of this feature and the contents of the Configuration dialog depend on the camera model."));
 	act->plug(m_toolbar);
 	act = new KAction(i18n("Information"), "hwinfo", 0, this, SLOT(slot_cameraSummary()), m_actions, "camera_summary");
