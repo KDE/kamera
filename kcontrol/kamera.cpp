@@ -83,11 +83,15 @@ void KKameraConfig::displayGPFailureDialogue(void)
 
 void KKameraConfig::displayGPSuccessDialogue(void)
 {
+	// set the kcontrol module buttons
+	setButtons(Help | Apply | Cancel | Ok);
+
 	// create a layout with two vertical boxes
-	QVBoxLayout *topLayout = new QVBoxLayout(this, KDialog::marginHint(), KDialog::spacingHint());
+	QVBoxLayout *topLayout = new QVBoxLayout(this, 0, 0);
 	topLayout->setAutoAdd(true);
 	
 	m_toolbar = new KToolBar(this, "ToolBar");
+	m_toolbar->setMovingEnabled(false);
 	
 	// create list of devices
 	m_deviceSel = new KIconView(this);
@@ -111,7 +115,6 @@ void KKameraConfig::displayGPSuccessDialogue(void)
 	act = new KAction(i18n("Configure"), "configure", 0, this, SLOT(slot_configureCamera()), m_actions, "camera_configure");
 	act->setWhatsThis(i18n("Click this button to change the configuration of the selected camera.<br><br>The availability of this feature and the contents of the Configuration dialog depend on the camera model."));
 	act->plug(m_toolbar);
-
 	act = new KAction(i18n("Information"), "hwinfo", 0, this, SLOT(slot_cameraSummary()), m_actions, "camera_summary");
 	act->setWhatsThis(i18n("Click this button to view a summary of the current status of the selected camera.<br><br>The availability of this feature and the contents of the Configuration dialog depend on the camera model."));
 	act->plug(m_toolbar);
@@ -220,6 +223,7 @@ void KKameraConfig::slot_addCamera()
 		m_device->setName(suggestName(m_device->model()));
 		m_devices.insert(m_device->name(), m_device);
 		populateDeviceListView();
+		emit changed(true);
 	} else {
 		delete m_device;
 	}
@@ -234,6 +238,7 @@ void KKameraConfig::slot_removeCamera()
 		delete m_device;
 		m_config->deleteGroup(name, true);
 		populateDeviceListView();
+		emit changed(true);
 	}
 }
 
