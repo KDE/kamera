@@ -243,46 +243,38 @@ CameraAbilities KCamera::abilities()
 // ---------- KameraSelectCamera ------------
 
 KameraDeviceSelectDialog::KameraDeviceSelectDialog(QWidget *parent, KCamera *device)
-	: KDialogBase(parent, "kkameradeviceselect", true, i18n("Select Camera Device"), Ok | Cancel)
+	: KDialogBase(parent, "kkameradeviceselect", true, i18n("Select Camera Device"), Ok | Cancel, Ok, true)
 {
 	m_device = device;
-	connect(m_device, SIGNAL(error(const QString &)), SLOT(slot_error(const QString &)));
-	connect(m_device, SIGNAL(error(const QString &, const QString &)), SLOT(slot_error(const QString &, const QString &)));
+	connect(m_device, SIGNAL(error(const QString &)), 
+		SLOT(slot_error(const QString &)));
+	connect(m_device, SIGNAL(error(const QString &, const QString &)), 
+		SLOT(slot_error(const QString &, const QString &)));
 
 	QWidget *page = new QWidget( this );
 	setMainWidget(page);
 
 	// a layout with vertical boxes
-	QHBoxLayout *topLayout = new QHBoxLayout(page, KDialog::marginHint(), KDialog::spacingHint());
-	topLayout->setAutoAdd(true);
+	QHBoxLayout *topLayout = new QHBoxLayout(page, 0, KDialog::spacingHint());
 
 	// the models list
 	m_modelSel = new KListView(page);
+	topLayout->addWidget( m_modelSel );
 	m_modelSel->addColumn(i18n("Supported Cameras"));
 	m_modelSel->setColumnWidthMode(0, QListView::Maximum);
-	connect(m_modelSel, SIGNAL(selectionChanged(QListViewItem *)), SLOT(slot_setModel(QListViewItem *)));
+	connect(m_modelSel, SIGNAL(selectionChanged(QListViewItem *)), 
+        SLOT(slot_setModel(QListViewItem *)));
 	// make sure listview only as wide as it needs to be
-	m_modelSel->setSizePolicy(QSizePolicy(QSizePolicy::Maximum, QSizePolicy::Preferred));
+	m_modelSel->setSizePolicy(QSizePolicy(QSizePolicy::Maximum, 
+		QSizePolicy::Preferred));
 
-	QWidget *right = new QWidget(page);
-	QVBoxLayout *rightLayout = new QVBoxLayout(right);
-	rightLayout->setSpacing(10);
+	QVBoxLayout *rightLayout = new QVBoxLayout(0L, 0, KDialog::spacingHint());
+	topLayout->addLayout( rightLayout );
 
-	/*
-	QGrid *grid = new QGrid(2, right);
-	new QLabel(i18n("Name:"), grid);
-	m_nameEdit = new QLineEdit(m_device->name(), grid);
-	rightLayout->addWidget(grid);
-	*/
-
-	m_portSelectGroup = new QVButtonGroup(i18n("Port"), right);
+	m_portSelectGroup = new QVButtonGroup(i18n("Port"), page);
 	rightLayout->addWidget(m_portSelectGroup);
-	QVGroupBox *portSettingsGroup = new QVGroupBox(i18n("Port Settings"), right);
+	QVGroupBox *portSettingsGroup = new QVGroupBox(i18n("Port Settings"), page);
 	rightLayout->addWidget(portSettingsGroup);
-
-	QGrid *grid = new QGrid(2, right);
-	rightLayout->addWidget(grid);
-	grid->setSpacing(5);
 
 	// Create port type selection radiobuttons.
 	m_serialRB = new QRadioButton(i18n("Serial"), m_portSelectGroup);
@@ -293,23 +285,23 @@ KameraDeviceSelectDialog::KameraDeviceSelectDialog(QWidget *parent, KCamera *dev
 	QWhatsThis::add(m_USBRB, i18n("If this option is checked, the camera would have to be connected to one of the USB slots in your computer or USB hub."));
 	// Create port settings widget stack
 	m_settingsStack = new QWidgetStack(portSettingsGroup);
-	connect(m_portSelectGroup, SIGNAL(clicked(int)), m_settingsStack, SLOT(raiseWidget(int)));
+	connect(m_portSelectGroup, SIGNAL(clicked(int)), 
+		m_settingsStack, SLOT(raiseWidget(int)));
 
 	// none tab
-	m_settingsStack->addWidget(new
-		QLabel(i18n("No port type selected."),
+	m_settingsStack->addWidget(new QLabel(i18n("No port type selected."),
 		m_settingsStack), INDEX_NONE);
 
 	// serial tab
-	grid = new QGrid(2, m_settingsStack);
-	grid->setSpacing(5);
+	QGrid *grid = new QGrid(2, m_settingsStack);
+	grid->setSpacing(KDialog::spacingHint());
 	new QLabel(i18n("Port:"), grid);
 	m_serialPortCombo = new QComboBox(TRUE, grid);
 	QWhatsThis::add(m_serialPortCombo, i18n("Here you should choose the serial port you connect the camera to."));
 	m_settingsStack->addWidget(grid, INDEX_SERIAL);
 
 	grid = new QGrid(2, m_settingsStack);
-	grid->setSpacing(5);
+	grid->setSpacing(KDialog::spacingHint());
 	new QLabel(i18n("Port"), grid);
 
 	m_settingsStack->addWidget(new
@@ -333,11 +325,11 @@ KameraDeviceSelectDialog::KameraDeviceSelectDialog(QWidget *parent, KCamera *dev
 	gp_port_info_list_free(list);
 
 	// add a spacer
-	rightLayout->addItem( new QSpacerItem(0, 0, QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding) );
+	rightLayout->addStretch();
 
 	populateCameraListView();
 	load();
-        enableButtonOK(false );
+	enableButtonOK(false );
 }
 
 bool KameraDeviceSelectDialog::populateCameraListView()
@@ -391,7 +383,7 @@ void KameraDeviceSelectDialog::load()
 			m_modelSel->setSelected(modelItem, true);
 			m_modelSel->ensureItemVisible(modelItem);
 		}
-	} while ( modelItem = modelItem->nextSibling());
+	} while ( ( modelItem = modelItem->nextSibling() ) );
 }
 
 void KameraDeviceSelectDialog::slot_setModel(QListViewItem *item)
