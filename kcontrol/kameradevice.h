@@ -92,15 +92,9 @@ protected:
 	QWidgetStack *m_settingsStack;
 	QVButtonGroup *m_portSelectGroup;
 	QComboBox *m_serialPortCombo;
-	QComboBox *m_parallelPortCombo;
-	QLineEdit *m_networkHostLineEdit;
-	QLineEdit *m_networkPortLineEdit;
 	// port selection radio buttons
 	QRadioButton *m_serialRB;
-	QRadioButton *m_parallelRB;
 	QRadioButton *m_USBRB;
-	QRadioButton *m_IEEE1394RB;
-	QRadioButton *m_networkRB;
 };
 
 #endif
