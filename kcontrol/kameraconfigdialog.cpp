@@ -9,9 +9,14 @@
 #include <qslider.h>
 #include <qvbuttongroup.h>
 #include <qradiobutton.h>
+#include <qvbox.h>
+#include <qtabwidget.h>
+#include <qscrollview.h>
+#include <qwhatsthis.h>
 
 #include <klocale.h>
 #include <kbuttonbox.h>
+#include <stdio.h>
 
 #include "kameraconfigdialog.h"
 #include "kameraconfigdialog.moc"
@@ -28,6 +33,8 @@ m_widgetRoot(widget)
 						 KDialog::spacingHint());
 	topLayout->setAutoAdd(true);
 
+	m_tabWidget = 0;
+
 	appendWidget(this, widget);
 
 	KButtonBox *bbox = new KButtonBox(this);
@@ -35,11 +42,12 @@ m_widgetRoot(widget)
 	QPushButton *okButton = bbox->addButton(i18n("OK"));
 	okButton->setDefault(true);
 	connect(okButton, SIGNAL(clicked()),
-		this, SLOT(slotOK));
+		this, SLOT(slotOK()));
 
 	QPushButton *cancelButton = bbox->addButton(i18n("Cancel"));
 	connect(cancelButton, SIGNAL(clicked()),
 		this, SLOT(reject()));
+
 }
 
 void KameraConfigDialog::appendWidget(QWidget *parent, CameraWidget *widget)
@@ -50,65 +58,126 @@ void KameraConfigDialog::appendWidget(QWidget *parent, CameraWidget *widget)
 	QCheckBox *checkBox;
 	QLineEdit *lineEdit;
 	QComboBox *comboBox;
-	QVGroupBox *section;
 	QSlider *slider;
 	QGrid *grid;
+	QVBox *vBox;
+	QVGroupBox *vGroupBox;
+	
+	CameraWidgetType widget_type;
+	const char *widget_name;
+	const char *widget_info;
+	const char *widget_label;
+	float widget_value_float;
+	int widget_value_int;
+	const char *widget_value_string;
+	gp_widget_get_type(widget, &widget_type);
+	gp_widget_get_label(widget, &widget_label);
+	gp_widget_get_info(widget, &widget_info);
+	gp_widget_get_name(widget, &widget_name);
+	
+	QString whats_this = QString::fromLocal8Bit(widget_info);	// gphoto2 doesn't seem to have any standard for i18n
 
 	// Add this widget to parent
-	switch(widget->type) {
+	switch(widget_type) {
 	case GP_WIDGET_WINDOW:
-		setCaption(widget->label);
+		setCaption(widget_label);
 		break;
 	case GP_WIDGET_SECTION:
-		section = new QVGroupBox(i18n(widget->label), parent);
-		newParent = section;
+		if (!m_tabWidget)
+			m_tabWidget = new QTabWidget(parent);
+		vBox = new QVBox(m_tabWidget);
+		m_tabWidget->insertTab(vBox, widget_label);
+		newParent = vBox;
 		break;
 	case GP_WIDGET_TEXT:
+		gp_widget_get_value(widget, &widget_value_string);
+
 		grid = new QGrid(2, parent);
-		new QLabel(i18n(widget->label), grid);
-		lineEdit = new QLineEdit(widget->value_string, grid);
+		new QLabel(widget_label, grid);
+		lineEdit = new QLineEdit(widget_value_string, grid);
 		m_wmap.insert(widget, lineEdit);
+
+		if (!whats_this.isEmpty())
+			QWhatsThis::add(grid, whats_this);
+
 		break;
 	case GP_WIDGET_RANGE:
-		slider = new QSlider(widget->min,
-				     widget->max,
-				     widget->increment,
-				     widget->value_float,
+		float widget_low;
+		float widget_high;
+		float widget_increment;
+		gp_widget_get_range(widget, &widget_low, &widget_high, &widget_increment);
+		gp_widget_get_value(widget, &widget_value_float);
+	
+		vGroupBox = new QVGroupBox(widget_label, parent);
+		slider = new QSlider(widget_low,
+				     widget_high,
+				     widget_increment,
+				     widget_value_float,
 				     QSlider::Horizontal,
-				     parent);
+				     vGroupBox);
 		m_wmap.insert(widget, slider);
+		
+		if (!whats_this.isEmpty())
+			QWhatsThis::add(vGroupBox, whats_this);
+		
 		break;
 	case GP_WIDGET_TOGGLE:
-		checkBox = new QCheckBox(i18n(widget->label), parent);
-		checkBox->setChecked(widget->value_int);
+		gp_widget_get_value(widget, &widget_value_int);
+		
+		checkBox = new QCheckBox(widget_label, parent);
+		checkBox->setChecked(widget_value_int);
 		m_wmap.insert(widget, checkBox);
+
+		if (!whats_this.isEmpty())
+			QWhatsThis::add(checkBox, whats_this);
+
 		break;
 	case GP_WIDGET_RADIO:
-		buttonGroup = new QVButtonGroup(i18n("Choice"), parent);
-		for(int i = 0; i < widget->choice_count; ++i) {
-			new QRadioButton(widget->choice[i], buttonGroup);
-			if(!strcmp(widget->value_string, widget->choice[i]))
+		gp_widget_get_value(widget, &widget_value_string);
+	
+		buttonGroup = new QVButtonGroup(widget_label, parent);
+		for(int i = 0; i < gp_widget_count_choices(widget); ++i) {
+			const char *widget_choice;
+			gp_widget_get_choice(widget, i, &widget_choice);
+			
+			new QRadioButton(widget_choice, buttonGroup);
+			if(!strcmp(widget_value_string, widget_choice))
 				buttonGroup->setButton(i);
 		}
 		m_wmap.insert(widget, buttonGroup);
+
+		if (!whats_this.isEmpty())
+			QWhatsThis::add(buttonGroup, whats_this);
+
 		break;
 	case GP_WIDGET_MENU:
+		gp_widget_get_value(widget, &widget_value_string);
+	
 		comboBox = new QComboBox(FALSE, parent);
 		comboBox->clear();
-		for(int i = 0; i < widget->choice_count; ++i) {
-			comboBox->insertItem(widget->choice[i]);
-			if(!strcmp(widget->value_string, widget->choice[i]))
+		for(int i = 0; i < gp_widget_count_choices(widget); ++i) {
+			const char *widget_choice;
+			gp_widget_get_choice(widget, i, &widget_choice);
+
+			comboBox->insertItem(widget_choice);
+			if(!strcmp(widget_value_string, widget_choice))
 				comboBox->setCurrentItem(i);
 		}
 		m_wmap.insert(widget, comboBox);
+
+		if (!whats_this.isEmpty())
+			QWhatsThis::add(comboBox, whats_this);
+
 		break;
 	case GP_WIDGET_BUTTON:
+		// TODO
 		// I can't see a way of implementing this. Since there is
 		// no way of telling which button sent you a signal, we
 		// can't map to the appropriate widget->callback
 		new QLabel(i18n("Button (not supported by KControl)"), parent);
 		break;
 	case GP_WIDGET_DATE:
+		// TODO
 		new QLabel(i18n("Date (not supported by KControl)"), parent);
 		break;
 	default:
@@ -116,8 +185,11 @@ void KameraConfigDialog::appendWidget(QWidget *parent, CameraWidget *widget)
 	}
 
 	// Append all this widgets children
-	for(int i = 0; i < widget->children_count; ++i)
-		appendWidget(newParent, widget->children[i]);
+	for(int i = 0; i < gp_widget_count_children(widget); ++i) {
+		CameraWidget *widget_child;
+		gp_widget_get_child(widget, i, &widget_child);
+		appendWidget(newParent, widget_child);
+	}
 }
 
 void KameraConfigDialog::updateWidgetValue(CameraWidget *widget)
@@ -129,11 +201,13 @@ void KameraConfigDialog::updateWidgetValue(CameraWidget *widget)
 	QVButtonGroup *buttonGroup;
 	QRadioButton *radioButton;
 
-	const char *value_string;
 	float value_float;
 	int value_int;
 
-	switch(widget->type) {
+	CameraWidgetType widget_type;
+	gp_widget_get_type(widget, &widget_type);
+
+	switch(widget_type) {
 	case GP_WIDGET_WINDOW:
 		// nothing to do
 		break;
@@ -142,8 +216,7 @@ void KameraConfigDialog::updateWidgetValue(CameraWidget *widget)
 		break;
 	case GP_WIDGET_TEXT:
 		lineEdit = (QLineEdit *) m_wmap[widget];
-		value_string = lineEdit->text().local8Bit();
-		gp_widget_set_value(widget, (void *)value_string);
+		gp_widget_set_value(widget, (void *)lineEdit->text().local8Bit().data());
 		break;
 	case GP_WIDGET_RANGE:
 		slider = (QSlider *) m_wmap[widget];
@@ -157,13 +230,11 @@ void KameraConfigDialog::updateWidgetValue(CameraWidget *widget)
 		break;
 	case GP_WIDGET_RADIO:
 		buttonGroup = (QVButtonGroup *) m_wmap[widget];
-		value_string = buttonGroup->selected()->text().local8Bit();
-		gp_widget_set_value(widget, (void *)value_string);
+		gp_widget_set_value(widget, (void *)buttonGroup->selected()->text().local8Bit().data());
 		break;
 	case GP_WIDGET_MENU:
 		comboBox = (QComboBox *) m_wmap[widget];
-		value_string = comboBox->currentText().local8Bit();
-		gp_widget_set_value(widget, (void *)value_string);
+		gp_widget_set_value(widget, (void *)comboBox->currentText().local8Bit().data());
 		break;
 	case GP_WIDGET_BUTTON:
 		// nothing to do
@@ -177,11 +248,14 @@ void KameraConfigDialog::updateWidgetValue(CameraWidget *widget)
 	}
 	
 	// Copy child widget values
-	for(int i = 0; i < widget->children_count; ++i)
-		updateWidgetValue(widget->children[i]);
+	for(int i = 0; i < gp_widget_count_children(widget); ++i) {
+		CameraWidget *widget_child;
+		gp_widget_get_child(widget, i, &widget_child);
+		updateWidgetValue(widget_child);
+	}
 }
 
-void KameraConfigDialog::slotOK(void)
+void KameraConfigDialog::slotOK()
 {
 	// Copy Qt widget values into CameraWidget hierarchy
 	updateWidgetValue(m_widgetRoot);

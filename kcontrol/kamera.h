@@ -57,6 +57,7 @@ private:
 	
 	// camera model selection listview
 	KListView *m_camSel;
+	QString *m_cameraModel;
 
 	QWidgetStack *m_settingsStack;
 
@@ -75,7 +76,7 @@ private:
 	// port settings widgets
 	QVButtonGroup *m_portSelectGroup;
 	QComboBox *m_serialSpeedCombo;
-	QLineEdit *m_serialPortLineEdit;
+	QComboBox *m_serialPortCombo;
 	QLineEdit *m_parallelPortLineEdit;
 	QLineEdit *m_networkHostLineEdit;
 	QLineEdit *m_networkPortLineEdit;
