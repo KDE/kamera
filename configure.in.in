@@ -2,7 +2,7 @@ dnl KDE_FIND_GPHOTO2 - Find gphoto2 libraries and include files
 dnl
 dnl Adapted from kdebase/nsplugins/configure.in.in
 
-AC_DEFUN(KDE_FIND_GPHOTO2,
+AC_DEFUN([KDE_FIND_GPHOTO2],
 [
 
 
