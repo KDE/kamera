@@ -1,0 +1,6 @@
+Dependencies:
+
+gphoto2 and libgpio, which you currently need to get from gphoto's CVS using
+cvs -d:pserver:anonymous@cvs.gphoto.sourceforge.net:/cvsroot/gphoto login
+cvs -d:pserver:anonymous@cvs.gphoto.sourceforge.net:/cvsroot/gphoto co gphoto2 libgpio
+

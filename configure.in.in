@@ -189,14 +189,14 @@ fi
 
 
 
-# Intialise compiler and linker flag variables for export
-if test "$gphoto2_includes" = "none" -o "$gphoto2_libraries" = "none"; then
-#        "$gpio_includes" = "none" -o "$gpio_libraries" = "none"; then
+# Initialise compiler and linker flag variables for export
+if test "$gphoto2_includes" = "none" -o "$gphoto2_libraries" = "none" -o \
+        "$gpio_includes" = "none" -o "$gpio_libraries" = "none"; then
         with_kamera="no"
 else
         with_kamera="yes"
 
-        if test "$gpio_libraries" = "none"; then
+        if test "$gpio_libraries" = "none"; then # just in case the above test gets changed, so that gpio isn't mandatory (it currently is)
                 GPIO_LIBS=""
 	else
 	  if test "$gpio_libraries" = ""; then
