@@ -17,7 +17,6 @@
 #include <qwhatsthis.h>
 
 #include <klocale.h>
-#include <kbuttonbox.h>
 #include <stdio.h>
 
 #include "kameraconfigdialog.h"
@@ -27,29 +26,16 @@ KameraConfigDialog::KameraConfigDialog(Camera *camera,
 					CameraWidget *widget,
 					QWidget *parent,
 					const char *name) :
-KDialog(parent, name, true),
+KDialogBase(parent, name, true, QString::null, Ok|Cancel, Ok ),
 m_widgetRoot(widget)
 {
-	QVBoxLayout *topLayout = new QVBoxLayout(this,
-						 KDialog::marginHint(),
-						 KDialog::spacingHint());
+    QFrame *main = makeMainWidget();
+	QVBoxLayout *topLayout = new QVBoxLayout(main, 0, spacingHint());
 	topLayout->setAutoAdd(true);
 
 	m_tabWidget = 0;
 
-	appendWidget(this, widget);
-
-	KButtonBox *bbox = new KButtonBox(this);
-
-	QPushButton *okButton = bbox->addButton(i18n("OK"));
-	okButton->setDefault(true);
-	connect(okButton, SIGNAL(clicked()),
-		this, SLOT(slotOK()));
-
-	QPushButton *cancelButton = bbox->addButton(i18n("Cancel"));
-	connect(cancelButton, SIGNAL(clicked()),
-		this, SLOT(reject()));
-
+	appendWidget(main, widget);
 }
 
 void KameraConfigDialog::appendWidget(QWidget *parent, CameraWidget *widget)
@@ -84,13 +70,15 @@ void KameraConfigDialog::appendWidget(QWidget *parent, CameraWidget *widget)
 				m_tabWidget = new QTabWidget(parent);
 			QWidget *tab = new QWidget(m_tabWidget);
 			// widgets are to be aligned vertically in the tab
-			QVBoxLayout *tabLayout = new QVBoxLayout(tab);
+			QVBoxLayout *tabLayout = new QVBoxLayout(tab, marginHint(),
+				spacingHint());
 			m_tabWidget->insertTab(tab, widget_label);
 			QVBox *tabContainer = new QVBox(tab);
+			tabContainer->setSpacing(spacingHint());
 			tabLayout->addWidget(tabContainer);
 			newParent = tabContainer;
 
-			tabLayout->addItem( new QSpacerItem(0, 0, QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding) );
+			tabLayout->addStretch();
 		
 			break;
 		}
@@ -98,8 +86,9 @@ void KameraConfigDialog::appendWidget(QWidget *parent, CameraWidget *widget)
 		{
 			gp_widget_get_value(widget, &widget_value_string);
 
-			QGrid *grid = new QGrid(2, parent);
-			new QLabel(widget_label, grid);
+			QGrid *grid = new QGrid(2, Horizontal, parent);
+			grid->setSpacing(spacingHint());
+			new QLabel(QString::fromLocal8Bit( widget_label )+":", grid);
 			QLineEdit *lineEdit = new QLineEdit(widget_value_string, grid);
 			m_wmap.insert(widget, lineEdit);
 
@@ -118,10 +107,10 @@ void KameraConfigDialog::appendWidget(QWidget *parent, CameraWidget *widget)
 	
 			QGroupBox *groupBox = new QVGroupBox(widget_label, parent);
 			QSlider *slider = new QSlider(
-				widget_low,
-				widget_high,
-				widget_increment,
-				widget_value_float,
+				( int )widget_low,
+				( int )widget_high,
+				( int )widget_increment,
+				( int )widget_value_float,
 				QSlider::Horizontal,
 				groupBox );
 			m_wmap.insert(widget, slider);
@@ -151,7 +140,6 @@ void KameraConfigDialog::appendWidget(QWidget *parent, CameraWidget *widget)
 			int count = gp_widget_count_choices(widget);
 
 			// for less than 5 options, align them horizontally
-			// for more than 5 options, align them vertically
 			QButtonGroup *buttonGroup;
 			if (count > 4)
 				buttonGroup = new QVButtonGroup(widget_label, parent);
