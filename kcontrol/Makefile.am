@@ -1,4 +1,4 @@
-lib_LTLIBRARIES = libkcm_kamera.la
+kde_module_LTLIBRARIES = libkcm_kamera.la
 
 libkcm_kamera_la_SOURCES = kamera.cpp kameradevice.cpp kameraconfigdialog.cpp
 
