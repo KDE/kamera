@@ -376,7 +376,7 @@ GPContextFeedback KKameraConfig::cbGPCancel(GPContext *context, void *data)
 
 QString KKameraConfig::quickHelp() const
 {
-	return i18n("<h1>Kamera Configuration</h1>\n"
+	return i18n("<h1>Digital Camera</h1>\n"
 	  "This module allows you to configure support for your digital camera.\n"
 	  "You would need to select the camera's model and the port it is connected\n"
 	  "to on your computer (e.g. USB, Serial, Firewire). If your camera doesn't\n"
