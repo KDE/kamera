@@ -20,9 +20,7 @@ extern "C" {
 }
 
 class KCamera : public QObject {
-#ifdef GPHOTO_BETA3
 	friend class KameraDeviceSelectDialog;
-#endif
 	Q_OBJECT
 public:
 	KCamera(const QString &name);
@@ -64,9 +62,7 @@ protected:
 	QString m_model;
 	QString m_path;
 	CameraAbilities m_abilities;
-#ifdef GPHOTO_BETA3
 	CameraAbilitiesList *m_abilitylist;
-#endif
 };
 
 class KameraDeviceSelectDialog : public KDialogBase
