@@ -1,1 +1,0 @@
-SUBDIRS = kcontrol kioslave
