@@ -172,7 +172,6 @@ void KameraProtocol::get(const KURL &url)
 	}
 	
 	// fetch the data
-	m_fileSize = 0;
 	gpr = gp_camera_file_get(m_camera, tocstr(url.directory(false)), tocstr(url.filename()), fileType, m_file, m_context);
 	switch(gpr) {
 		case GP_OK:
@@ -189,13 +188,8 @@ void KameraProtocol::get(const KURL &url)
 			closeCamera();
 			return;
 	}
-	const char *xdata;
-	unsigned long int xsize;
-	gp_file_get_data_and_size(m_file,&xdata,&xsize);
-	QByteArray	barr(xsize);
-	barr.setRawData(xdata,xsize);
-	data(barr);
-	barr.resetRawData(xdata,xsize);
+	// no need to pass the downloaded data to data() here
+	// since it was already done in the progress update callback
 
 	// emit the mimetype
 	// NOTE: we must first get the file, so that CameraFile->name would be set
@@ -599,7 +593,26 @@ void KameraProtocol::frontendProgressUpdate(
 ) {
 	KameraProtocol *object = (KameraProtocol*)data;
 
-	object->processedSize(current); // hack: call slot directly 
+	// This code will get the last chunk of data retrieved from the
+	// camera and pass it to KIO, to allow progressive display
+	// of the downloaded photo.
+
+	const char *fileData;
+	long unsigned int fileSize;
+	// This merely returns us a pointer to gphoto's internal data
+	// buffer -- there's no expensive memcpy
+	gp_file_get_data_and_size(object->m_file, &fileData, &fileSize);
+	// make sure we're not sending zero-sized chunks (=EOF)
+	if (fileSize > 0) {
+		// XXX using assign() here causes segfault, prolly because
+		// gp_file_free is called before chunkData goes out of scope
+		QByteArray chunkDataBuffer;
+		chunkDataBuffer.setRawData(fileData + object->m_fileSize, fileSize - object->m_fileSize);
+		object->data(chunkDataBuffer);
+		object->processedSize(fileSize);
+		chunkDataBuffer.resetRawData(fileData + object->m_fileSize, fileSize - object->m_fileSize);
+		object->m_fileSize = fileSize;
+	}
 }
 
 unsigned int KameraProtocol::frontendProgressStart(
