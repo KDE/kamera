@@ -52,7 +52,7 @@ AC_CACHE_VAL(ac_cv_gphoto2_includes,
 [
 ac_gphoto2_save_LIBS="$LIBS"
 #
-LIBS="-lgphoto2 $LIBS"
+LIBS="-lgphoto2 -lgphoto2_port $LIBS"
 #
 ac_cv_gphoto2_includes="none"
 AC_TRY_COMPILE([#include <gphoto2.h>
@@ -126,7 +126,7 @@ AC_CACHE_VAL(ac_cv_gphoto2_libraries,
 [
 ac_gphoto2_save_LIBS="$LIBS"
 #
-LIBS="-lgphoto2 $LIBS"
+LIBS="-lgphoto2 -lgphoto2_port $LIBS"
 #
 ac_cv_gphoto2_libraries="none"
 AC_TRY_LINK([#include <gphoto2.h>],[gp_init(0);],
@@ -203,9 +203,9 @@ else
         fi
 
         if test "$gphoto2_libraries" = ""; then
-                GPHOTO2_LIBS="-lgphoto2"
+                GPHOTO2_LIBS="-lgphoto2 -lgphoto2_port"
         else
-                GPHOTO2_LIBS="-L$gphoto2_libraries -lgphoto2"
+                GPHOTO2_LIBS="-L$gphoto2_libraries -lgphoto2 -lgphoto2_port"
         fi
 
 
