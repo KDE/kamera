@@ -3,6 +3,7 @@
     Copyright (C) 2001 The Kompany
 		  2002-2003	Ilya Konstantinov <kde-devel@future.shiny.co.il>
 		  2002-2003	Marcus Meissner <marcus@jet.franken.de>
+		  2003		Nadeem Hasan <nhasan@nadmm.com>
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
