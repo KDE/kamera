@@ -121,7 +121,7 @@ QString KCamera::summary()
 {
 	int result;
 	CameraText	summary;
-	
+
 	initCamera();
 
 	result = gp_camera_get_summary(m_camera, &summary, glob_context);
@@ -134,13 +134,13 @@ bool KCamera::configure()
 {
 	CameraWidget *window;
 	int result;
-	
+
 	initCamera();
 
 	result = gp_camera_get_config(m_camera, &window, glob_context);
 	if (result != GP_OK) {
 		emit error(i18n("Camera configuration failed."), gp_result_as_string(result));
-		return false; 
+		return false;
 	}
 
 	KameraConfigDialog kcd(m_camera, window);
@@ -153,7 +153,7 @@ bool KCamera::configure()
 			return false;
 		}
 	}
-	
+
 	return true;
 }
 
@@ -249,7 +249,7 @@ KameraDeviceSelectDialog::KameraDeviceSelectDialog(QWidget *parent, KCamera *dev
 	connect(m_device, SIGNAL(error(const QString &)), SLOT(slot_error(const QString &)));
 	connect(m_device, SIGNAL(error(const QString &, const QString &)), SLOT(slot_error(const QString &, const QString &)));
 
-	QWidget *page = new QWidget( this ); 
+	QWidget *page = new QWidget( this );
 	setMainWidget(page);
 
 	// a layout with vertical boxes
@@ -331,12 +331,13 @@ KameraDeviceSelectDialog::KameraDeviceSelectDialog(QWidget *parent, KCamera *dev
 		}
 	}
 	gp_port_info_list_free(list);
-	
+
 	// add a spacer
 	rightLayout->addItem( new QSpacerItem(0, 0, QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding) );
 
 	populateCameraListView();
 	load();
+        enableButtonOK(false );
 }
 
 bool KameraDeviceSelectDialog::populateCameraListView()
@@ -383,7 +384,7 @@ void KameraDeviceSelectDialog::load()
 
 	if (port == "serial") setPortType(INDEX_SERIAL);
 	if (port == "usb") setPortType(INDEX_USB);
-	
+
 	QListViewItem *modelItem = m_modelSel->firstChild();
 	do {
 		if (modelItem->text(0) == m_device->model()) {
@@ -395,8 +396,9 @@ void KameraDeviceSelectDialog::load()
 
 void KameraDeviceSelectDialog::slot_setModel(QListViewItem *item)
 {
-	QString model = item->text(0);
-	
+    enableButtonOK( item );
+    QString model = item->text(0);
+
 	CameraAbilities abilities;
 	int index = gp_abilities_list_lookup_model(m_device->m_abilitylist, model.local8Bit().data());
 	if(index < 0) {
