@@ -13,3 +13,4 @@ linking=false
 moving=false
 Icon=camera
 maxInstances=1
+Class=:local
