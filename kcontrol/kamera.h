@@ -30,7 +30,7 @@ class KToolBar;
 class KKameraConfig : public KCModule
 {
 	Q_OBJECT
-	friend KameraDeviceSelectDialog;
+	friend class KameraDeviceSelectDialog;
 
 public:
 	KKameraConfig(QWidget *parent = 0L, const char *name = 0L);
