@@ -44,6 +44,7 @@ bool KCamera::initInformation()
 	if (!m_model)
 		return false;
 
+#ifndef GPHOTO_BETA3
 	int result = gp_camera_abilities_by_name(m_model.local8Bit().data(), &m_abilities);
 	if (result == GP_OK)
 		return true;
@@ -52,6 +53,24 @@ bool KCamera::initInformation()
 			     " Configuration options may be incorrect.").arg(m_model));
 		return false;
 	}
+#else
+	if(gp_abilities_list_new(&m_abilitylist) != GP_OK) {
+		emit error(i18n("Could not allocate memory for abilities list."));
+		return false;
+	}
+	if(gp_abilities_list_load(m_abilitylist) != GP_OK) {
+		emit error(i18n("Could not load ability list."));
+		return false;
+	}
+	int index = gp_abilities_list_lookup_model(m_abilitylist, m_model.local8Bit().data());
+	if(index < 0) {
+		emit error(i18n("Description of abilities for camera %1 is not available."
+					" Configuration options may be incorrect.").arg(m_model));
+		return false;
+	}
+					        gp_abilities_list_get_abilities(m_abilitylist, index, &m_abilities);
+
+#endif
 }
 
 bool KCamera::initCamera()
