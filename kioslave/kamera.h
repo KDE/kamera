@@ -4,10 +4,7 @@
 
 #include <config.h>
 #include <kio/slavebase.h>
-
-extern "C" {
-	#include <gphoto2.h>
-}
+#include <gphoto2.h>
 
 class KSimpleConfig;
 
@@ -53,10 +50,5 @@ private:
 
 	CameraFile *m_file;
 	int m_fileSize;
-
-	// gphoto2 frontend callbacks
-	static void frontendCameraStatus(GPContext *context, const char *format, va_list args, void *data);
-	static unsigned int frontendProgressStart(GPContext *, float, const char *, va_list, void *);
-	static void frontendProgressUpdate(GPContext *context, unsigned int id, float current, void *data);
 };
 #endif

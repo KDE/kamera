@@ -17,8 +17,9 @@
 #include <kprotocolinfo.h>
 #include <kio/slaveconfig.h>
 
-#include "kamera.h"
 #include <config.h>
+
+#include "kamera.h"
 
 #define tocstr(x) ((x).local8Bit())
 
@@ -27,6 +28,15 @@ using namespace KIO;
 extern "C"
 {
 	int kdemain(int argc, char **argv);
+
+	static void frontendCameraStatus(GPContext *context, const char *format, va_list args, void *data);
+	static unsigned int frontendProgressStart(
+		GPContext *context, float totalsize, const char *format,
+		va_list args, void *data
+	);
+	static void frontendProgressUpdate(
+		GPContext *context, unsigned int id, float current, void *data
+	);
 }
 
 int kdemain(int argc, char **argv)
@@ -594,15 +604,15 @@ int KameraProtocol::readCameraFolder(const QString &folder, CameraList *dirList,
 	return GP_OK;
 }
 
-void KameraProtocol::frontendProgressUpdate(
+static void frontendProgressUpdate(
 	GPContext *context, unsigned int id, float current, void *data
 ) {
 	KameraProtocol *object = (KameraProtocol*)data;
 
-	object->processedSize(current); // hack: call slot directly 
+	object->processedSize((int)current); // hack: call slot directly 
 }
 
-unsigned int KameraProtocol::frontendProgressStart(
+static unsigned int frontendProgressStart(
 	GPContext *context, float totalsize, const char *format, va_list args,
 	void *data
 ) {
@@ -618,13 +628,13 @@ unsigned int KameraProtocol::frontendProgressStart(
 	object->infoMessage(QString::fromLocal8Bit(status));
 	delete status;
 
-	object->totalSize(totalsize); // hack: call slot directly 
+	object->totalSize((int)totalsize); // hack: call slot directly 
 
 	return GP_OK;
 }
 
 // this callback function is activated on every status message from gphoto2
-void KameraProtocol::frontendCameraStatus(GPContext *context, const char *format, va_list args, void *data)
+static void frontendCameraStatus(GPContext *context, const char *format, va_list args, void *data)
 {
 	KameraProtocol *object = (KameraProtocol*)data;
 	int size=vsnprintf(NULL, 0, format, args);
