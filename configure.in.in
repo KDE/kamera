@@ -149,6 +149,6 @@ AC_MSG_RESULT(
 
 KDE_FIND_GPHOTO2
 if test "$with_kamera" = "no"; then
-dnl  AC_MSG_ERROR([You need to install gphoto 2.0 (or later), e.g. http://gphoto.net/dist/gphoto2-2.0.tar.gz if your distributor doesn't have a package])
+dnl  AC_MSG_WARN([You need to install gphoto 2.0 (or later), e.g. http://gphoto.net/dist/gphoto2-2.0.tar.gz if your distributor doesn't have a package])
   DO_NOT_COMPILE="$DO_NOT_COMPILE kamera"
 fi
