@@ -30,97 +30,101 @@ AC_ARG_WITH(gphoto2-libraries,
 gphoto2_libraries="$withval")
 
 AC_MSG_CHECKING(for gPhoto2)
-
-
+# the pkg-config way first ... 
+AC_CHECK_PROG(gphoto_devel,gphoto2-config,gphoto2-config,no)
+if test "$gphoto_devel" = "gphoto2-config"
+then
+	GPHOTO2_INCS="`$gphoto_devel --cflags`"
+	GPHOTO2_LIBS="`$gphoto_devel --libs`"
+	ac_gphoto2_save_LIBS="$LIBS"
+	ac_gphoto2_save_CFLAGS="$CFLAGS"
+	LIBS="$LIBS $GPHOTO2_LIBS"
+	CFLAGS="$CFLAGS $GPHOTO2_INCS"
+	AC_TRY_LINK([#include <gphoto2.h>],[gp_context_progress_start(0,0,0,0);], [
+		# It works.
+		with_kamera="yes"
+		AC_DEFINE(HAVE_GPHOTO2,1,[Define if you have gPhoto2 installed])
+	],[
+		with_kamera="no"
+	])
+	LIBS="$ac_gphoto2_save_LIBS"
+	CFLAGS="$ac_gphoto2_save_CFLAGS"
+else
 #
 # Search for gphoto2 include files.
 #
-if test "$gphoto2_includes" = ""; then
-AC_CACHE_VAL(ac_cv_gphoto2_includes,
-[
-ac_gphoto2_save_LIBS="$LIBS"
-#
-LIBS="-lgphoto2 $LIBS"
-#
-ac_cv_gphoto2_includes="none"
-AC_TRY_COMPILE([#include <gphoto2.h>
-],[int a;],
-[
-# gphoto2.h is in the standard search path.
-ac_cv_gphoto2_includes=
-],
-[
-# gphoto2.h is not in the standard search path.
-# Locate it and put its directory in `gphoto2_includes'
-#
-for dir in /usr/include /usr/local/include \
-           /usr/include/gphoto2 /usr/local/include/gphoto2; do
-if test -f "$dir/gphoto2.h"; then
-ac_cv_gphoto2_includes="$dir"
-break
-fi
-done
-])
-#
-LIBS="$ac_gphoto2_save_LIBS"
-])
-gphoto2_includes="$ac_cv_gphoto2_includes"
-fi
+	if test "$gphoto2_includes" = ""; then
+		AC_CACHE_VAL(ac_cv_gphoto2_includes, [
+			ac_gphoto2_save_LIBS="$LIBS"
+			LIBS="-lgphoto2 $LIBS"
+			ac_cv_gphoto2_includes="none"
+			AC_TRY_COMPILE([#include <gphoto2.h>],[int a;],
+			[
+			# gphoto2.h is in the standard search path.
+				ac_cv_gphoto2_includes=
+			],[
+			# gphoto2.h is not in the standard search path.
+			# Locate it and put its directory in `gphoto2_includes'
+			for dir in /usr/include /usr/local/include \
+			   /usr/include/gphoto2 /usr/local/include/gphoto2; do
+				if test -f "$dir/gphoto2.h"; then
+					ac_cv_gphoto2_includes="$dir"
+					break
+				fi
+			done
+			])
+			#
+			LIBS="$ac_gphoto2_save_LIBS"
+		])
+		gphoto2_includes="$ac_cv_gphoto2_includes"
+	fi
 
-#
-# Search for libgphoto2
-#
-if test "$gphoto2_libraries" = ""; then
-AC_CACHE_VAL(ac_cv_gphoto2_libraries,
-[
-ac_gphoto2_save_LIBS="$LIBS"
-#
-LIBS="-lgphoto2_port -lgphoto2 $LIBS"
-#
-ac_cv_gphoto2_libraries="none"
-AC_TRY_LINK([#include <gphoto2.h>],[gp_init(0);],
-[
-# libgphoto2 is in the standard search path.
-ac_cv_gphoto2_libraries=
-],
-[
-# libgphoto2 is not in the standard search path.
-# Locate it and put its directory in `gphoto2_libraries'
-
-for dir in /usr/lib /usr/local/lib; do
-if test -d "$dir" && test "`ls $dir/libgphoto2.* 2> /dev/null`" != ""; then
-ac_cv_gphoto2_libraries="$dir"
-break
-fi
-done
-])
-#
-LIBS="$ac_gphoto2_save_LIBS"
-])
-#
-gphoto2_libraries="$ac_cv_gphoto2_libraries"
-fi
-
-
-
+	#
+	# Search for libgphoto2
+	#
+	if test "$gphoto2_libraries" = ""; then
+		AC_CACHE_VAL(ac_cv_gphoto2_libraries,[
+			ac_gphoto2_save_LIBS="$LIBS"
+			LIBS="-lgphoto2_port -lgphoto2 $LIBS"
+			ac_cv_gphoto2_libraries="none"
+			AC_TRY_LINK([#include <gphoto2.h>],[gp_context_progress_start(0,0,0,0);], [
+				# libgphoto2 is in the standard search path.
+				ac_cv_gphoto2_libraries=
+			],[
+				# libgphoto2 is not in the standard search path.
+				# Locate it and put its directory in `gphoto2_libraries'
+				for dir in /usr/lib /usr/local/lib; do
+					if test -d "$dir" && test "`ls $dir/libgphoto2.* 2> /dev/null`" != ""; then
+						ac_cv_gphoto2_libraries="$dir"
+						break
+					fi
+				done
+			])
+			#
+			LIBS="$ac_gphoto2_save_LIBS"
+		])
+		#
+		gphoto2_libraries="$ac_cv_gphoto2_libraries"
+	fi
 # Initialise compiler and linker flag variables for export
-if test "$gphoto2_includes" = "none" -o "$gphoto2_libraries" = "none" ; then
-        with_kamera="no"
-else
-        with_kamera="yes"
+	if test "$gphoto2_includes" = "none" -o "$gphoto2_libraries" = "none" ; then
+		with_kamera="no"
+	else
+		with_kamera="yes"
 
-        if test "$gphoto2_libraries" = "" -o "$gphoto2_libraries" = "none"; then
-                GPHOTO2_LIBS="-lgphoto2"
-        else
-                GPHOTO2_LIBS="-L$gphoto2_libraries -lgphoto2"
-        fi
+		if test "$gphoto2_libraries" = "" -o "$gphoto2_libraries" = "none"; then
+			GPHOTO2_LIBS="-lgphoto2"
+		else
+			GPHOTO2_LIBS="-L$gphoto2_libraries -lgphoto2"
+		fi
 
 
-        if test "$gphoto2_includes" != "" -a "$gphoto2_includes" != "none"; then
-                GPHOTO2_INCS="-I$gphoto2_includes"
-        fi
+		if test "$gphoto2_includes" != "" -a "$gphoto2_includes" != "none"; then
+			GPHOTO2_INCS="-I$gphoto2_includes"
+		fi
 
-	AC_DEFINE(HAVE_GPHOTO2,1,[Define if you have gPhoto2 installed])
+		AC_DEFINE(HAVE_GPHOTO2,1,[Define if you have gPhoto2 installed])
+	fi
 fi
 
 
