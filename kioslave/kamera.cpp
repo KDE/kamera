@@ -107,7 +107,7 @@ void KameraProtocol::autoDetect(void)
 		if (groupList.contains(model))
 			continue;
 		kdDebug(7123) << "Adding " << model << " at " << value << endl;
-		m_config->setGroup(model);
+		m_config->setGroup(QString::fromLatin1(model).lower());
 		m_config->writeEntry("Model",model);
 		m_config->writeEntry("Path",value);
 	}
@@ -550,7 +550,7 @@ void KameraProtocol::setHost(const QString& host, int port, const QString& user,
 
 	if (!host.isEmpty()) {
 		// Read configuration
-		m_config->setGroup(host);
+		m_config->setGroup(host.lower());
 		QString m_cfgModel = m_config->readEntry("Model");
 		QString m_cfgPath = m_config->readEntry("Path");
 
