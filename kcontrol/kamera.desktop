@@ -1,0 +1,15 @@
+[Desktop Entry]
+Comment=Configure Kamera
+Exec=kcmshell Peripherals/kamera
+Icon=
+Keywords=gphoto,camera,digicam,webcam,kamera
+Name=Kamera
+SwallowExec=
+SwallowTitle=
+Terminal=false
+TerminalOptions=
+Type=Application
+X-KDE-Library=kamera
+X-KDE-ModuleType=Library
+X-KDE-SubstituteUID=false
+X-KDE-Username=
