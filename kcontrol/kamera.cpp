@@ -370,14 +370,14 @@ void KKameraConfig::slot_deviceSelected(QIconViewItem *item)
 	m_actions->action("camera_summary")->setEnabled(item);
 }
 
-void KKameraConfig::cbGPIdle(GPContext *context, void *data)
+void KKameraConfig::cbGPIdle(GPContext * /*context*/, void * /*data*/)
 {
-	KKameraConfig *self( reinterpret_cast<KKameraConfig*>(data) );
+	/*KKameraConfig *self( reinterpret_cast<KKameraConfig*>(data) );*/
 
 	qApp->processEvents();
 }
 
-GPContextFeedback KKameraConfig::cbGPCancel(GPContext *context, void *data)
+GPContextFeedback KKameraConfig::cbGPCancel(GPContext * /*context*/, void *data)
 {
 	KKameraConfig *self( reinterpret_cast<KKameraConfig*>(data) );
 
