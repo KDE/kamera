@@ -40,6 +40,9 @@ static const int INDEX_PARALLEL = 2;
 static const int INDEX_USB= 3;
 static const int INDEX_IEEE1394 = 4;
 static const int INDEX_NETWORK = 5;
+#ifdef GPHOTO_BETA4
+static GPContext *glob_context = 0;
+#endif
 
 KCamera::KCamera(const QString &name)
 {
@@ -76,7 +79,11 @@ bool KCamera::initInformation()
 		emit error(i18n("Could not allocate memory for abilities list."));
 		return false;
 	}
+#ifdef GPHOTO_BETA4
+	if(gp_abilities_list_load(m_abilitylist, glob_context) != GP_OK) {
+#else
 	if(gp_abilities_list_load(m_abilitylist) != GP_OK) {
+#endif
 		emit error(i18n("Could not load ability list."));
 		return false;
 	}
@@ -126,7 +133,11 @@ bool KCamera::initCamera()
 #endif
 
 		// this might take some time (esp. for non-existant camera) - better be done asynchronously
+#ifdef GPHOTO_BETA4
+		result = gp_camera_init(m_camera, glob_context);
+#else
 		result = gp_camera_init(m_camera);
+#endif
 		if (result != GP_OK) {
 			gp_camera_free(m_camera);
 			m_camera = NULL;
@@ -153,7 +164,11 @@ bool KCamera::configure()
 	
 	initCamera();
 
+#ifdef GPHOTO_BETA4
+	result = gp_camera_get_config(m_camera, &window, glob_context);
+#else
 	result = gp_camera_get_config(m_camera, &window);
+#endif
 	if (result != GP_OK) {
 		emit error(i18n("Camera configuration failed."), gp_camera_get_result_as_string(m_camera, result));
 		return false; 
@@ -163,7 +178,11 @@ bool KCamera::configure()
 	result = kcd.exec() ? GP_PROMPT_OK : GP_PROMPT_CANCEL;
 
 	if (result == GP_PROMPT_OK) {
+#ifdef GPHOTO_BETA4
+		result = gp_camera_set_config(m_camera, window, glob_context);
+#else
 		result = gp_camera_set_config(m_camera, window);
+#endif
 		if (result != GP_OK) {
 			emit error(i18n("Camera configuration failed."), gp_camera_get_result_as_string(m_camera, result));
 			return false;
