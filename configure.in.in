@@ -84,12 +84,16 @@ AC_MSG_CHECKING(version of gphoto2)
 AC_TRY_COMPILE([#include <gphoto2.h>],
 [gp_camera_name(0, "");], 
 [ AC_MSG_RESULT(beta2 or earlier) ],
-[ AC_MSG_RESULT(beta3 or later)
+[ # Versions >= beta4 don't need the gp_camera_exit hack
+  ver_gp="beta3"
+  if grep -q "gp_camera_exit" $gphoto2_includes/gphoto2.h &>/dev/null; then
+    AC_DEFINE(GPHOTO_BETA4, 1, [Define if your gphoto2 is beta 4 or higher])
+    ver_gp="beta4"
+  fi
+
+  AC_MSG_RESULT([$ver_gp or later])
   AC_DEFINE(GPHOTO_BETA3, 1, [Define if your gphoto2 is beta 3 or higher])
 ])
-# Versions >= beta4 don't need the gp_camera_exit hack
-if grep -q "gp_camera_exit" $gphoto2_includes/gphoto2.h &>/dev/null; then
-AC_DEFINE(GPHOTO_BETA4, 1, [Define if your gphoto2 is beta 4 or higher])
 
 # Search for gpio include files.
 #
