@@ -489,7 +489,7 @@ void KameraProtocol::listDir(const KURL &url)
 		}
 
 		/* Avoid duplicated entry for usb: and usb:001,042 entries. */
-		if (ports.contains("usb:") && names.contains(ports["usb:"]))
+		if (ports.contains("usb:") && names[ports["usb:"]]!="usb:")
 			ports.remove("usb:");
 
 		for (it = groupList.begin(); it != groupList.end(); it++) {
