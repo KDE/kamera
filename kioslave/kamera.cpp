@@ -822,7 +822,7 @@ unsigned int frontendProgressStart(
 # elif HAVE___VA_COPY
 	__va_copy(xvalist, args);
 # endif
-	vsnprintf(status, size, format, xvalist);
+	vsnprintf(status, size+1, format, xvalist);
 #else
 	/* We cannot copy the va_list, so make sure we 
 	 * walk it just _once_.
@@ -863,7 +863,7 @@ static void frontendCameraStatus(GPContext *context, const char *format, va_list
 # elif HAVE___VA_COPY
 	__va_copy(xvalist, args);
 # endif
-	vsnprintf(status, size, format, xvalist);
+	vsnprintf(status, size+1, format, xvalist);
 #else
 	/* We cannot copy the va_list, so make sure we 
 	 * walk it just _once_.
