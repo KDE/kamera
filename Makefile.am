@@ -1,1 +1,1 @@
-SUBDIRS = kcontrol kioslave
+SUBDIRS = kcontrol kioslave pics

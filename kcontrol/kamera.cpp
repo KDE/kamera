@@ -12,15 +12,25 @@
 #include <qwidgetstack.h>
 #include <qcheckbox.h>
 #include <qdir.h>
+#include <qwhatsthis.h>
+#include <qregexp.h>
+#include <qpopupmenu.h>
 
-#include <kconfig.h>
-#include <klistview.h>
+#include <ksimpleconfig.h>
+#include <kaction.h>
+#include <kiconloader.h>
+#include <kmessagebox.h>
+#include <kiconview.h>
 #include <kdialog.h>
 #include <klocale.h>
 #include <kglobal.h>
-#include <kmessagebox.h>
+#include <ktoolbar.h>
+
+#include <kprotocolinfo.h>
+#include <kdebug.h>
 
 #include "kameraconfigdialog.h"
+#include "kameradevice.h"
 #include "kamera.h"
 #include "kamera.moc"
 
@@ -29,17 +39,6 @@
 // XXX string.latin1() as soon as the gphoto2 API uses 'const char *'
 // XXX instead of 'char *' in calls that don't modify the string
 #define tocstr(x) ((char *)((x).latin1()))
-
-// Undefined constant from struct CameraAbilities
-// definition in gphoto2-datatypes.h
-static const int GPHOTO2_CAMERA_NAME_MAX = 128;
-
-static const int INDEX_NONE= 0;
-static const int INDEX_SERIAL = 1;
-static const int INDEX_PARALLEL = 2;
-static const int INDEX_USB= 3;
-static const int INDEX_IEEE1394 = 4;
-static const int INDEX_NETWORK = 5;
 
 extern "C"
 {
@@ -56,17 +55,29 @@ KKameraConfig::KKameraConfig(QWidget *parent, const char *name)
 :KCModule(parent, name),
 m_gpInitialised(false)
 {
-	m_cameraModel = new QString;
-	if(gp_init(GP_DEBUG_HIGH) == GP_ERROR) {
+	#ifdef DEBUG
+	int debug = GP_DEBUG_HIGH; 
+	#else
+	int debug = GP_DEBUG_NONE;
+	#endif
+	
+	m_devicePopup = new QPopupMenu(this);
+	m_actions = new KActionCollection(this);
+	
+        gp_debug_set_level(debug);
+	/*if(gp_init(debug) == GP_ERROR) {
 		displayGPFailureDialogue();
-	} else if(gp_frontend_register(NULL,
-				       NULL,
-				       NULL,
-				       NULL,
-				       frontend_prompt) == GP_ERROR) {
+	} else*/ if(gp_frontend_register(NULL, // TODO: CameraStatus
+				       NULL, // TODO: CameraProgress
+				       NULL, // TODO: CameraMessage
+				       NULL, // TODO: CameraConfirm
+				       NULL) // TODO: CameraPrompt
+				       == GP_ERROR) {
 		gp_exit();
 		displayGPFailureDialogue();
  	} else {
+		m_config = new KSimpleConfig(KProtocolInfo::config("camera"));
+
 		// store instance for frontend_prompt
 		m_instance = this;
 
@@ -75,9 +86,6 @@ m_gpInitialised(false)
 
 		// build and display normal dialogue
 		displayGPSuccessDialogue();
-
-		// XXX unchecked return
-		populateCameraListView();
 
 		// load existing configuration
 		load();
@@ -104,444 +112,178 @@ void KKameraConfig::displayGPFailureDialogue(void)
 
 void KKameraConfig::displayGPSuccessDialogue(void)
 {
-	QHBoxLayout *topLayout = new QHBoxLayout(this,
-						KDialog::marginHint(),
-						KDialog::spacingHint());
-
+	// create a layout with two vertical boxes
+	QVBoxLayout *topLayout = new QVBoxLayout(this, KDialog::marginHint(), KDialog::spacingHint());
 	topLayout->setAutoAdd(true);
-
-	m_camSel = new KListView(this);
-	m_camSel->addColumn(i18n("Supported Cameras"));
-	m_camSel->setColumnWidthMode(0, QListView::Maximum);
-
-	// Make sure listview only as wide as it needs to be
-	QSizePolicy camSelSizePolicy(QSizePolicy::Maximum,
-				     QSizePolicy::Preferred);
-	m_camSel->setSizePolicy(camSelSizePolicy);
-
-	connect(m_camSel, SIGNAL(selectionChanged(QListViewItem *)),
-		SLOT(setCameraType(QListViewItem *)));
-
-	QVBox *rightLayout = new QVBox(this);
-	rightLayout->setSpacing(10);
-						
-	m_portSelectGroup = new QVButtonGroup(i18n("Port"), rightLayout);
-	QVGroupBox *portSettingsGroup = new QVGroupBox(i18n("Port Settings"),
-							rightLayout);
-	QVGroupBox *miscSettingsGroup = new QVGroupBox(i18n("Miscellaneous"),
-							rightLayout);
-
-	QGrid *grid = new QGrid(2, rightLayout);
-	grid->setSpacing(5);
-	QPushButton *testCamera = new QPushButton(i18n("Test"), grid);
-	m_configureCamera = new QPushButton(i18n("Configure"), grid);
-
-	connect(testCamera, SIGNAL(clicked()),
-		this, SLOT(testCamera()));
-	connect(m_configureCamera, SIGNAL(clicked()),
-		this, SLOT(configureCamera()));
-
-	m_cacheHackCB = new QCheckBox(i18n("Use camera previews for"
-					" Konqueror thumbnails"),
-					miscSettingsGroup);
-
-	// Create port type selection radiobuttons.
-	m_serialRB = new QRadioButton(i18n("Serial"), m_portSelectGroup);
-	m_portSelectGroup->insert(m_serialRB, INDEX_SERIAL);
-	m_parallelRB = new QRadioButton(i18n("Parallel"), m_portSelectGroup);
-	m_portSelectGroup->insert(m_parallelRB, INDEX_PARALLEL);
-	m_USBRB = new QRadioButton(i18n("USB"), m_portSelectGroup);
-	m_portSelectGroup->insert(m_USBRB, INDEX_USB);
-	m_IEEE1394RB = new QRadioButton(i18n("IEEE1394"), m_portSelectGroup);
-	m_portSelectGroup->insert(m_IEEE1394RB, INDEX_IEEE1394);
-	m_networkRB = new QRadioButton(i18n("Network"), m_portSelectGroup);
-	m_portSelectGroup->insert(m_networkRB, INDEX_NETWORK);
-
-	// Create port settings widget stack
-	m_settingsStack = new QWidgetStack(portSettingsGroup);
-
-	connect(m_portSelectGroup, SIGNAL(clicked(int)),
-		m_settingsStack, SLOT(raiseWidget(int)));
-
-	// none tab
-	m_settingsStack->addWidget(new
-		QLabel(i18n("No port type selected."),
-		m_settingsStack), INDEX_NONE);
-
-	// serial tab
-	grid = new QGrid(2, m_settingsStack);
-	grid->setSpacing(5);
-	new QLabel(i18n("Port"), grid);
-	m_serialPortCombo = new QComboBox(TRUE, grid);
-	new QLabel(i18n("Speed"), grid);
-	m_serialSpeedCombo = new QComboBox(FALSE, grid);
-	m_settingsStack->addWidget(grid, INDEX_SERIAL);
-
-	// parallel tab
-	grid = new QGrid(2, m_settingsStack);
-	grid->setSpacing(5);
-	new QLabel(i18n("Port"), grid);
-	m_parallelPortLineEdit = new QLineEdit(grid);
-	m_settingsStack->addWidget(grid, INDEX_PARALLEL);
-
-	// USB tab
-	m_settingsStack->addWidget(new
-		QLabel(i18n("No user definable settings for USB"),
-		m_settingsStack), INDEX_USB);
 	
-	// IEEE1394 tab
-	m_settingsStack->addWidget(new
-		QLabel(i18n("No user definable settings for IEEE1394"),
-		m_settingsStack), INDEX_IEEE1394);
-
-	// network tab
-	grid = new QGrid(2, m_settingsStack);
-	grid->setSpacing(5);
-	new QLabel(i18n("Host"), grid);
-	m_networkHostLineEdit = new QLineEdit(grid);
-	new QLabel(i18n("port"), grid);
-	m_networkPortLineEdit = new QLineEdit(grid);
-	m_settingsStack->addWidget(grid, INDEX_NETWORK);
-
-	// query gphoto2 for existing ports
-	int gphoto_ports = gp_port_count_get();
-	gp_port_info info;
-	for (int i = 0; i < gphoto_ports; i++) {
-		if (gp_port_info_get(i, &info) >= 0) {
-			if (strncmp(info.path, "serial:", 7) == 0)
-				m_serialPortCombo->insertItem(QString::fromLatin1(info.path).mid(7));
-		}
-	}
+	m_toolbar = new KToolBar(this, "ToolBar");
+	
+	// create list of devices
+	m_deviceSel = new KIconView(this);
+	connect(m_deviceSel, SIGNAL(rightButtonClicked(QIconViewItem *, const QPoint &)), SLOT(slot_deviceMenu(QIconViewItem *, const QPoint &)));
+	connect(m_deviceSel, SIGNAL(selectionChanged(QIconViewItem *)), SLOT(slot_deviceSelected(QIconViewItem *)));
+	m_deviceSel->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
+	
+	// create actions
+	KAction *act;
+	
+	act = new KAction(i18n("Add"), "camera_add", 0, this, SLOT(slot_addCamera()), m_actions, "camera_add");
+	act->setWhatsThis(i18n("Click this button to add a new camera."));
+	act->plug(m_toolbar);
+	m_toolbar->insertLineSeparator();
+	act = new KAction(i18n("Test"), "camera_test", 0, this, SLOT(slot_testCamera()), m_actions, "camera_test");
+	act->setWhatsThis(i18n("Click this button to remove the selected camera from the list."));
+	act->plug(m_toolbar);
+	act = new KAction(i18n("Remove"), "edittrash", 0, this, SLOT(slot_removeCamera()), m_actions, "camera_remove");
+	act->setWhatsThis(i18n("Click this button to remove the selected camera from the list."));
+	act->plug(m_toolbar);
+	act = new KAction(i18n("Configure"), "configure", 0, this, SLOT(slot_configureCamera()), m_actions, "camera_configure");
+	act->setWhatsThis(i18n("Click this button to change the configuration of the selected camera.<br><br>The availability of this feature and the contents of the Configuration dialog depend on the camera model."));
+	act->plug(m_toolbar);
 }
 
-void KKameraConfig::displayCameraAbilities(const CameraAbilities &abilities)
+void KKameraConfig::populateDeviceListView(void)
 {
-	// turn off any selected port
-	QButton *selected = m_portSelectGroup->selected();
-	if(selected != NULL)
-		selected->toggle();
-	
-	// enable radiobuttons for supported port types
-	m_serialRB->setEnabled(SERIAL_SUPPORTED(abilities.port));
-	m_parallelRB->setEnabled(PARALLEL_SUPPORTED(abilities.port));
-	m_USBRB->setEnabled(USB_SUPPORTED(abilities.port));
-	m_IEEE1394RB->setEnabled(IEEE1394_SUPPORTED(abilities.port));
-	m_networkRB->setEnabled(NETWORK_SUPPORTED(abilities.port));
-	
-        // if there's only one available port type, make sure it's selected
-	if ((SERIAL_SUPPORTED(abilities.port)?1:0) + (PARALLEL_SUPPORTED(abilities.port)?1:0) + (USB_SUPPORTED(abilities.port)?1:0) + (IEEE1394_SUPPORTED(abilities.port)?1:0) + (NETWORK_SUPPORTED(abilities.port)?1:0)) {
-		if (SERIAL_SUPPORTED(abilities.port)) setPortType(INDEX_SERIAL);
-		if (PARALLEL_SUPPORTED(abilities.port)) setPortType(INDEX_PARALLEL);
-		if (USB_SUPPORTED(abilities.port)) setPortType(INDEX_USB);
-		if (IEEE1394_SUPPORTED(abilities.port)) setPortType(INDEX_IEEE1394);
-		if (NETWORK_SUPPORTED(abilities.port)) setPortType(INDEX_NETWORK);
-	};
-
-	// enable camera configuration button if supported
-	m_configureCamera->setEnabled(abilities.operations & GP_OPERATION_CONFIG);
-
-	// populate serial speed listbox from abilities
-	if(SERIAL_SUPPORTED(abilities.port)) {
-		m_serialSpeedCombo->clear();
-
-		for(int i = 0; abilities.speed[i]; ++i)
-			m_serialSpeedCombo->insertItem(QString::number(abilities.speed[i]));
-
-		// default to max speed
-		m_serialSpeedCombo->setCurrentItem(m_serialSpeedCombo->count() - 1);
-	}
-}
-
-bool KKameraConfig::populateCameraListView(void)
-{
-	int numCams = gp_camera_count();
-
-	if(numCams < 0) {
-		// XXX libgphoto2 failed to get the camera list
-		return false;
-	} else {
-		for(int x = 0; x < numCams; ++x) {
-			char camName[GPHOTO2_CAMERA_NAME_MAX];
-
-			if(gp_camera_name(x, camName) == GP_OK) {
-				new QListViewItem(m_camSel, camName);
-			}
+	m_deviceSel->clear();
+	CameraDevicesMap::Iterator it;
+	for (it = m_devices.begin(); it != m_devices.end(); it++) {
+		if (it.data()) {
+			new QIconViewItem(m_deviceSel, it.key(), KGlobal::iconLoader()->loadIcon("camera", KIcon::Desktop));
 		}
-
-		return true;
 	}
+	slot_deviceSelected(m_deviceSel->currentItem());
 }
 
 void KKameraConfig::save(void)
 {
-	// open konfiguration object
-	KConfig *config = new KConfig("kioslaverc");
-	config->setGroup("Kamera Settings");
+	CameraDevicesMap::Iterator it;
 
-	QListViewItem *driver = m_camSel->selectedItem();
-
-	if(driver == NULL) {
-		delete config;
-		return;
+	for (it = m_devices.begin(); it != m_devices.end(); it++)
+	{
+		it.data()->save(m_config);
 	}
-
-	// Store driver name
-	config->writeEntry("Driver", driver->text(0));
-
-	QButton *selected = m_portSelectGroup->selected();
-
-	if(selected == NULL) {
-		delete config;
-		return;
-	}
-
-	// A port type is selected, store related settings
-	QString type = selected->text();
-
-	if(type == i18n("serial")) {
-		config->writeEntry("Port", "serial");
-		config->writeEntry("Path", m_serialPortCombo->currentText());
-		config->writeEntry("Speed", m_serialSpeedCombo->currentText());
-	} else if(type == i18n("parallel")) {
-		config->writeEntry("Port", "parallel");
-		config->writeEntry("Path", m_parallelPortLineEdit->text());
-	} else if(type == i18n("USB")) {
-		config->writeEntry("Port", "usb");
-	} else if(type == i18n("IEEE1394")) {
-		config->writeEntry("Port", "ieee1394");
-	} else if(type == i18n("network")) {
-		config->writeEntry("Port", "network");
-		config->writeEntry("NetHost", m_networkHostLineEdit->text());
-		config->writeEntry("NetPort", m_networkPortLineEdit->text());
-	}
-
-	config->writeEntry("PreviewThumbs",
-			   m_cacheHackCB->isChecked() ? "true" : "false");
-
-	delete config;
+	m_config->sync();
 }
 
 void KKameraConfig::load(void)
 {
-	KConfig *config = new KConfig("kioslaverc");
-	config->setGroup("Kamera Settings");
-
-	QString driver = config->readEntry("Driver", "");
-
-	bool found = false;
-
-	// search m_camSel for driver name
-	for(QListViewItem *tmp = m_camSel->firstChild();
-	    tmp != NULL;
-	    tmp = tmp->nextSibling()) {
-		if(tmp->text(0) == driver) {
-			m_camSel->setSelected(tmp, true);
-			m_camSel->ensureItemVisible(tmp);
-			found = true;
-			break;
+	QStringList groupList = m_config->groupList();
+	QStringList::Iterator it;
+	
+	for (it = groupList.begin(); it != groupList.end(); it++) {
+		if (*it != "<default>")	{
+			KCamera *kcamera = new KCamera(*it);
+			connect(kcamera, SIGNAL(error(const QString &)), SLOT(slot_error(const QString &)));
+			connect(kcamera, SIGNAL(error(const QString &, const QString &)), SLOT(slot_error(const QString &, const QString &)));
+			kcamera->load(m_config);
+			m_devices[*it] = kcamera;
 		}
 	}
-
-	// no driver found, nothing left to do
-	if(found == false) {
-		setPortType(INDEX_NONE);
-		return;
-	}
-
-	QString port = config->readEntry("Port", "none");
-
-	if(port == "none") {
-		setPortType(INDEX_NONE);
-		return;
-	} else if(port == "serial") {
-		QString path = config->readEntry("Path", "");
-		if (!path.isEmpty()) {
-			for (int i = 0; i < m_serialPortCombo->count(); ++i)
-				if (m_serialPortCombo->text(i) == path)
-					m_serialPortCombo->setCurrentItem(i);
-		}
-		QString speed = config->readEntry("Speed", "");
-
-		// see if we can find 'speed' in available list - default
-		// to maximum if not found
-		for(int i = 0; i < m_serialSpeedCombo->count(); ++i) {
-			m_serialSpeedCombo->setCurrentItem(i);
-			if(m_serialSpeedCombo->currentText() == speed)
-				break;
-		}
-
-		setPortType(INDEX_SERIAL);
-	} else if(port == "parallel") {
-		m_parallelPortLineEdit->setText(config->readEntry("Path", ""));
-		setPortType(INDEX_PARALLEL);
-	} else if(port == "usb") {
-		setPortType(INDEX_USB);
-	} else if(port == "ieee1394") {
-		setPortType(INDEX_IEEE1394);
-	} else if(port == "network") {
-		m_networkHostLineEdit->setText(config->readEntry("NetHost",
-								 ""));
-		m_networkPortLineEdit->setText(config->readEntry("NetPort",
-								 ""));
-		setPortType(INDEX_NETWORK);
-	}
-
-	m_cacheHackCB->setChecked(config->readBoolEntry("PreviewThumbs", true));
+	
+	populateDeviceListView();
 }
 
-void KKameraConfig::setCameraType(QListViewItem *item)
+QString KKameraConfig::suggestName(const QString &name)
 {
-	CameraAbilities abilities;
+	QString new_name = name;
+	new_name.replace(QRegExp("/"), ""); // we cannot have a slash in a URI's host
 
-        *m_cameraModel = item->text(0);
-	char *name = tocstr(*m_cameraModel);
+	if (!m_devices.contains(new_name)) return new_name;
+	
+	// try new names with a number appended until we find a free one
+	int i = 1;
+	while (i++ < 0xffff) {
+		new_name = name + " (" + QString::number(i) + ")";
+		if (!m_devices.contains(new_name)) return new_name;
+	}
 
-	// retrieve camera abilities structure
-	if(gp_camera_abilities_by_name(name, &abilities) == GP_OK) {
-		displayCameraAbilities(abilities);
+	return QString::null;
+}
+
+void KKameraConfig::slot_addCamera()
+{
+	KCamera *m_device = new KCamera(QString::null);
+	connect(m_device, SIGNAL(error(const QString &)), SLOT(slot_error(const QString &)));
+	connect(m_device, SIGNAL(error(const QString &, const QString &)), SLOT(slot_error(const QString &, const QString &)));
+	KameraDeviceSelectDialog dialog(this, m_device);
+	if (dialog.exec() == QDialog::Accepted) {
+		dialog.save();
+		m_device->setName(suggestName(m_device->model()));
+		m_devices.insert(m_device->name(), m_device);
+		populateDeviceListView();
 	} else {
-		// XXX display error ?
+		delete m_device;
 	}
 }
 
-void KKameraConfig::setPortType(int type)
+void KKameraConfig::slot_removeCamera()
 {
-	// Enable the correct button
-	m_portSelectGroup->setButton(type);
-
-	// Bring the right tab to the front
-	m_settingsStack->raiseWidget(type);
-}
-
-void KKameraConfig::testCamera(void)
-{
-	// TODO: Make testing non-blocking (maybe via KIO?)
-	// Currently, a failed serial test times out at about 30 sec
-	if(!openSelectedCamera())
-		return;
-
-	KMessageBox::information(this, i18n("Camera test was successful."));
-
-	closeCamera();
-}
-
-void KKameraConfig::configureCamera(void)
-{
-	CameraWidget *window;
-	int result;
-
-	if(!openSelectedCamera())
-		return;
-
-	result = gp_camera_get_config(m_camera, &window);
-	if (result != GP_OK)
-		KMessageBox::detailedError(this,
-			i18n("Camera configuration failed."),
-			gp_camera_get_result_as_string(m_camera, result));
-	
-
-	if (frontend_prompt (m_camera, window) == GP_PROMPT_OK) {
-		result = gp_camera_set_config(m_camera, window);
-		if (result != GP_OK)
-			KMessageBox::detailedError(this,
-				i18n("Camera configuration failed."),
-				gp_camera_get_result_as_string(m_camera, result));
+	QString name = m_deviceSel->currentItem()->text();
+	if (m_devices.contains(name)) {
+		KCamera *m_device = m_devices[name];
+		m_devices.remove(name);
+		delete m_device;
+		m_config->deleteGroup(name, true);
+		populateDeviceListView();
 	}
-
-	closeCamera();
 }
 
-int KKameraConfig::doConfigureCamera(Camera *camera, CameraWidget *widgets)
+void KKameraConfig::slot_testCamera()
 {
-	KameraConfigDialog kcd(camera, widgets);
-
-	return kcd.exec() ? GP_PROMPT_OK : GP_PROMPT_CANCEL;
+	QString name = m_deviceSel->currentItem()->text();
+	if (m_devices.contains(name)) {
+		KCamera *m_device = m_devices[name];
+		if (m_device->test())
+			KMessageBox::information(this, i18n("Camera test was successful."));
+	}
 }
 
-int KKameraConfig::frontend_prompt(Camera *camera, CameraWidget *widgets)
+void KKameraConfig::slot_configureCamera()
 {
-	if(m_instance)
-		return m_instance->doConfigureCamera(camera, widgets);
+	QString name = m_deviceSel->currentItem()->text();
+	if (m_devices.contains(name)) {
+		KCamera *m_device = m_devices[name];
+		m_device->configure();
+	}
 }
 
-bool KKameraConfig::openSelectedCamera(void)
+void KKameraConfig::slot_deviceMenu(QIconViewItem *item, const QPoint &point)
 {
-	QListViewItem *camera = m_camSel->selectedItem();
-	int result;
-
-	if(camera == NULL) {
-		KMessageBox::error(this, i18n("No camera selected!"));
-		return false;
+	if (item) {
+		QString name = item->text();
+		m_devicePopup->clear();
+		m_actions->action("camera_test")->plug(m_devicePopup);
+		m_actions->action("camera_remove")->plug(m_devicePopup);
+		m_actions->action("camera_configure")->plug(m_devicePopup);
+		m_devicePopup->popup(point);
 	}
-
-	result = gp_camera_new(&m_camera);
-	if (result != GP_OK) {
-		// m_camera is not initialized, so we cannot get result as string
-		KMessageBox::error(this, i18n("Could not access driver."
-				" Check your gPhoto2 installation."));
-		return false;
-	}
-	
-	// set the camera's model
-	snprintf(m_camera->model, sizeof(m_camera->model)-1, "%s", m_cameraModel->latin1()); 
-
-	// fill-in the CameraPortInfo structure
-	transferCameraPortInfoFromUI();
-
-	// this might take some time (esp. for non-existant camera) - better be done asynchronously
-	result = gp_camera_init(m_camera);
-	if (result != GP_OK) {
-		gp_camera_free(m_camera);
-		m_camera = NULL;
-		KMessageBox::detailedError(this, i18n("Unable to initialize camera.\n"
-			" Check your port settings and camera connectivity and try again."),
-			gp_camera_get_result_as_string(m_camera, result));
-		return false;
-	}
-
-	return true;
 }
 
-void KKameraConfig::closeCamera(void)
+void KKameraConfig::slot_deviceSelected(QIconViewItem *item)
 {
-	if(m_camera)
-		gp_camera_free(m_camera);
+	m_actions->action("camera_test")->setEnabled(item);
+	m_actions->action("camera_remove")->setEnabled(item);
+	m_actions->action("camera_configure")->setEnabled(item);
 }
 
-void KKameraConfig::transferCameraPortInfoFromUI(void)
+QString KKameraConfig::quickHelp() const
 {
-	QButton *selected = m_portSelectGroup->selected();
-	
-	// According to the current API, there are no functions to access CameraPortInfo internals,
-	// so we modify the members directly.
+	return i18n("<h1>Kamera Configuration</h1>\n"
+	  "This module allows you to configure support for your digital camera.\n"
+	  "You would need to select the camera's model and the port it is connected\n"
+	  "to on your computer (e.g. USB, Serial, Firewire). If your camera doesn't\n"
+	  "appear in the list of <i>Supported Cameras</i>, go to the\n"
+	  "<a href=\"http://www.gphoto.org\">GPhoto web site</a> for a possible update.<br><br>\n"
+	  "To view and download images from the digital camera, go to address\n"
+	  "<a href=\"camera:/\">camera:/</a> in Konqueror and other KDE applications.");
+}
 
-	if(selected == NULL) {
-		m_camera->port->type = GP_PORT_NONE;
-		return;
-	}
+void KKameraConfig::slot_error(const QString &message)
+{
+	KMessageBox::error(this, message);
+}
 
-	QString type = selected->text();
-
-	if(type == i18n("serial")) {
-		m_camera->port->type = GP_PORT_SERIAL;
-		snprintf(m_camera->port->path, sizeof(m_camera->port->path)-1, "serial:%s", m_serialPortCombo->currentText().latin1());
-		m_camera->port->speed =	m_serialSpeedCombo->currentText().toInt();
-	} else if(type == i18n("parallel")) {
-		m_camera->port->type = GP_PORT_PARALLEL;
-		snprintf(m_camera->port->path, sizeof(m_camera->port->path)-1, "parallel:%s", m_parallelPortLineEdit->text().latin1());
-	} else if(type == i18n("USB")) {
-		m_camera->port->type = GP_PORT_USB;
-		snprintf(m_camera->port->path, sizeof(m_camera->port->path)-1, "usb:");
-	} else if(type == i18n("IEEE1394")) {
-		m_camera->port->type = GP_PORT_IEEE1394;
-		snprintf(m_camera->port->path, sizeof(m_camera->port->path)-1, "ieee1394:");
-	} else if(type == i18n("network")) {
-		m_camera->port->type = GP_PORT_NETWORK;
-//		strncpy(m_camera->port->path, "network");
-//lukas: FIXME!!!
-//		strcpy(m_cameraPortInfo.host,
-//			m_networkHostLineEdit->text().local8Bit());	//lukas: FIXME!!!
-//		m_cameraPortInfo.host_port =
-//			m_networkPortLineEdit->text().toInt();
-	}
+void KKameraConfig::slot_error(const QString &message, const QString &details)
+{
+	KMessageBox::detailedError(this, message, details);
 }

@@ -1,0 +1,99 @@
+
+#ifndef __kameradevice_h__
+#define __kameradevice_h__
+
+#include <qmap.h>
+#include <kdialogbase.h>
+
+class KConfig;
+class QString;
+class KListView;
+class QWidgetStack;
+class QVButtonGroup;
+class QComboBox;
+class QLineEdit;
+class QRadioButton;
+
+extern "C" {
+	#include <gphoto2.h>
+}
+
+class KCamera : public QObject {
+	Q_OBJECT
+public:
+	KCamera(const QString &name);
+	~KCamera();
+	void invalidateCamera();
+	bool configure();
+	void load(KConfig *m_config);
+	void save(KConfig *m_config);
+	bool test();
+	QStringList supportedPorts();
+
+	Camera* camera();
+	QString name() { return m_name ; }
+	QString model() { return m_model; }
+	QString path() { return m_path; }
+	QString portName();
+	CameraAbilities abilities();
+
+	void setName(const QString &name);
+	void setModel(const QString &model);
+	void setPath(const QString &path);
+
+	bool isTestable();
+	bool isConfigurable();
+
+signals:
+	void error(const QString &message);
+	void error(const QString &message, const QString &details);
+	
+protected:
+	bool initInformation();
+	bool initCamera();
+//	void doConfigureCamera(Camera *camera, CameraWidget *widgets);
+//	int frontend_prompt(Camera *camera, CameraWidget *widgets);
+
+	Camera *m_camera;
+//	KConfig *m_config;
+	QString m_name; // the camera's real name
+	QString m_model;
+	QString m_path;
+	CameraAbilities m_abilities;
+};
+
+class KameraDeviceSelectDialog : public KDialogBase
+{
+	Q_OBJECT
+public:
+	KameraDeviceSelectDialog(QWidget *parent, KCamera *device);
+	void save();
+	void load();
+protected slots:
+	void slot_setModel(QListViewItem *item);
+	void slot_error(const QString &message);
+	void slot_error(const QString &message, const QString &details);
+protected:
+	KCamera *m_device;
+	
+	bool populateCameraListView(void);
+	void setPortType(int type);
+
+	// port settings widgets
+	KListView *m_modelSel;
+	QLineEdit *m_nameEdit;
+	QWidgetStack *m_settingsStack;
+	QVButtonGroup *m_portSelectGroup;
+	QComboBox *m_serialPortCombo;
+	QComboBox *m_parallelPortCombo;
+	QLineEdit *m_networkHostLineEdit;
+	QLineEdit *m_networkPortLineEdit;
+	// port selection radio buttons
+	QRadioButton *m_serialRB;
+	QRadioButton *m_parallelRB;
+	QRadioButton *m_USBRB;
+	QRadioButton *m_IEEE1394RB;
+	QRadioButton *m_networkRB;
+};
+
+#endif

@@ -1,11 +1,21 @@
-
 #include <stdlib.h>
 #include <unistd.h>
+#include <stdio.h>
 #include <sys/stat.h>
+#include <sys/types.h>
+#include <signal.h>
+#include <errno.h>
+
+#include <qfile.h>
+#include <qtextstream.h>
 
 #include <kdebug.h>
 #include <kinstance.h>
 #include <kconfig.h>
+#include <ksimpleconfig.h>
+#include <klocale.h>
+#include <kprotocolinfo.h>
+#include <kio/slaveconfig.h>
 
 #include "kamera.h"
 
@@ -13,7 +23,10 @@
 // XXX All tocstr(string) references can be safely replaced with
 // XXX string.local8Bit() as soon as the gphoto2 API uses 'const char *'
 // XXX instead of 'char *' in calls that don't modify the string
-#define tocstr(x) ((char *)((x).local8Bit().operator const char *()))
+//#define tocstr(x) ((char *)((x).local8Bit().operator const char *()))
+#define tocstr(x) (((x).local8Bit()))
+
+#define LOCK_DIR "/var/lock"
 
 using namespace KIO;
 
@@ -24,6 +37,7 @@ extern "C"
 
 int kdemain(int argc, char **argv)
 {
+    fprintf(stderr,"kamera's kdemain!");
 	KInstance instance("kio_kamera");
 
 	if(argc != 4) {
@@ -39,114 +53,245 @@ int kdemain(int argc, char **argv)
 	return 0;
 }
 
+QMap<Camera *, KameraProtocol *> KameraProtocol::m_cameraToProtocol;
+
 KameraProtocol::KameraProtocol(const QCString &pool, const QCString &app)
-: SlaveBase("gphoto", pool, app),
+: SlaveBase("camera", pool, app),
 m_camera(NULL)
 {
 	int gpr;
+        gp_debug_set_level(GP_DEBUG_LOW);
+        /*
 	if((gpr = gp_init(GP_DEBUG_LOW)) != GP_OK) {
 		error(KIO::ERR_UNKNOWN, gp_result_as_string(gpr));
-	}
+	}*/
 
-	if((gpr = gp_camera_new(&m_camera)) != GP_OK) {
-		error(KIO::ERR_UNKNOWN, gp_result_as_string(gpr));
-	}
+	// register gphoto2 callback functions
+	gp_frontend_register(
+		frontendCameraStatus,
+		frontendCameraProgress,
+		0, // CameraMessage
+		0, // CameraConfirm
+		0  // CameraPrompt
+	);
+	
+
+	// attempt to initialize libgphoto2 and chosen camera (requires locking)
+	// (will init m_camera, since the m_camera's configuration is empty)
+	m_camera = 0;
+	
+	m_config = new KSimpleConfig(KProtocolInfo::config("camera"));
 }
 
 KameraProtocol::~KameraProtocol()
 {
 	if(m_camera)
-		gp_camera_free(m_camera);	
-	
+ 		gp_camera_free(m_camera);
+		
 	gp_exit();
 }
 
+// returns the filename of the UUCP lock for our device
+QString KameraProtocol::lockFileName() {
+	const char *path;
+	gp_camera_get_port_path(m_camera, &path);
+	QString device(path);
+	device = device.mid(device.findRev('/')+1);
+	if (device.isEmpty())
+		return QString();
+	else
+		return QString(QString::fromLatin1(LOCK_DIR) + QString::fromLatin1("/LCK..") + device);
+}
+
+// initializes the camera for usage - should be done before operations over the wire
+bool KameraProtocol::openCamera(void) {
+	int gpr;
+	QFile lockfile;
+	
+	if (!m_camera)
+		reparseConfiguration();
+		
+	lock();
+	
+
+	return true;
+}
+
+// removes the lock - should be done after operations over the wire
+void KameraProtocol::closeCamera(void)
+{
+	unlock();
+	
+	return;
+}
+
+// implements UUCP locking (conforming to the FHS standard)
+void KameraProtocol::lock()
+{
+	// libgphoto2_port provides UUCP locks now
+#ifdef KAMERA_UUCP_LOCKING
+	QString filename = lockFileName();
+	if (!filename.isEmpty()) {
+		QFile lockfile(filename);
+		if (lockfile.exists()) {
+			if (lockfile.open(IO_ReadOnly)) {
+				kdDebug() << "Lock was succesfully opened for reading" << endl;
+				QTextStream stream(&lockfile);
+				QString pid = stream.readLine().left(10).stripWhiteSpace();
+				bool ok;
+				ulong lock_pid = pid.toULong(&ok);
+				lockfile.close();
+				if (ok) {
+					kdDebug() << "Lock currently owned by " << lock_pid << endl;
+					while (!ok || ((lock_pid != getpid()) && ((kill(lock_pid, 0) == 0) || (errno != ESRCH)))) {
+						kdDebug() << "openCamera waiting for lock by PID " << lock_pid << " to release" << endl;
+						infoMessage( i18n( "Device is busy. Waiting..." ) );
+					
+						// wait for the lock to release
+						sleep(1);
+						if (lockfile.open(IO_ReadOnly)) {
+							QString pid = stream.readLine();
+							pid = pid.stripWhiteSpace();
+							lock_pid = pid.toULong(&ok);
+							lockfile.close();
+						} else
+							break;
+					}
+				}
+			}
+		}
+		if (lockfile.open(IO_WriteOnly | IO_Truncate)) {
+			kdDebug() << "Lock was succesfully opened for writing" << endl;
+			QTextStream stream(&lockfile);
+			stream << QString().setNum(getpid()).rightJustify(10, ' ') << endl;
+			lockfile.close();
+		} else {
+			kdDebug() << "openCamera unable to create a lock file " << filename << endl;
+		}
+	}
+#endif
+}
+
+// implements UUCP locking (conforming to the FHS standard)
+void KameraProtocol::unlock()
+{
+	// libgphoto2_port provides UUCP locks now
+#ifdef KAMERA_UUCP_LOCKING
+	QString device = lockFileName();
+	if (!device.isEmpty()) {
+		QFile lockfile(device);
+		if (lockfile.open(IO_ReadOnly)) {
+			QTextStream stream(&lockfile);
+			QString pid = stream.readLine().left(10).stripWhiteSpace();
+			bool ok;
+			ulong lock_pid = pid.toULong(&ok);
+			if (!ok)
+				kdDebug() << "Invalid PID (" << lock_pid << ") in lock file " << device << " -- Not erasing" << endl;
+			else if (lock_pid != getpid())
+				kdDebug() << "Alien PID (" << lock_pid << ") in lock file " << device << " -- Not erasing" << endl;
+			else
+				lockfile.remove();
+		} else
+			kdDebug() << "Lock file " << device << " mysteriously vanished before closeCamera()" << endl;
+	}
+#endif
+}
+
+// The KIO slave "get" function (starts a download from the camera)
+// The actual returning of the data is done in the frontend callback functions.
 void KameraProtocol::get(const KURL &url)
 {
 	kdDebug() << "KameraProtocol::get(" << url.path() << ")" << endl;
 
+	CameraFileType fileType;
+	int gpr;
+
 	if(openCamera() == false)
 		return;
+		
+	if (url.host().isEmpty()) {
+		error(KIO::ERR_DOES_NOT_EXIST, url.path());
+		return;
+	}
+	
+	// emit info message
+	const char *model;
+	gp_camera_get_model(m_camera, &model);
+	infoMessage( i18n("Retrieving data from camera <b>%1</b>").arg(QString::fromLocal8Bit(model)) );
 
-	int (*gp_get)(Camera *, const  char *, const char *, CameraFile *);
-	KURL tmpUrl(url);
+	// Note: There's no need to re-read directory for each get() anymore
+	CameraFile *cameraFile; 
+	gp_file_new(&cameraFile);
 
-	if(m_previewThumbs &&
-	   cameraSupportsPreview() &&
-	   stripCachePath(tmpUrl)) {
-		gp_get = gp_camera_file_get_preview;
-	} else {
-		gp_get = gp_camera_file_get_file;
+	// emit the mimetype
+	const char *fileMimeType;
+	gp_file_get_mime_type(cameraFile, &fileMimeType);
+	mimeType(fileMimeType);
+
+	// emit the total size (we must do it before sending data to allow preview)
+	CameraFileInfo info;
+	gpr = gp_camera_file_get_info(m_camera, tocstr(url.directory(false)), tocstr(url.fileName()), &info);
+	if (gpr != GP_OK) {
+		if ((gpr == GP_ERROR_FILE_NOT_FOUND) || (gpr == GP_ERROR_DIRECTORY_NOT_FOUND))
+			error(KIO::ERR_DOES_NOT_EXIST, url.path());
+		closeCamera();
+		return;
 	}
 
-	CameraFile *cameraFile = gp_file_new();
-
-//	We must list filename in the folder before get it!!
-
-	CameraList *list = gp_list_new();
-        int ret;
- 
-        ret = readCameraFolder(list, tocstr(tmpUrl.directory()));
-	gp_list_free(list);
-	if(ret != GP_OK){
-                error(KIO::ERR_COULD_NOT_READ, gp_result_as_string(ret));
-		closeCamera();
-                return;
-        }
-
-	int gpr = gp_get(m_camera, 
-			tocstr(tmpUrl.directory()),
-			tocstr(tmpUrl.filename()),cameraFile);
+	// at last, a proper API to determine whether a thumbnail was requested.
+	if(cameraSupportsPreview() && metaData("thumbnail") == "1") {
+		kdDebug() << "get() retrieving the thumbnail" << endl;
+		fileType = GP_FILE_TYPE_PREVIEW;
+		if (info.preview.fields & GP_FILE_INFO_SIZE)
+			totalSize(info.preview.size);
+	} else {
+		kdDebug() << "get() retrieving the full-scale photo" << endl;
+		fileType = GP_FILE_TYPE_NORMAL;
+		if (info.file.fields & GP_FILE_INFO_SIZE)
+			totalSize(info.file.size);
+	}
+	
+	// fetch the data
+	fileSize = 0;
+	gpr = gp_camera_file_get(m_camera, tocstr(url.directory(false)), tocstr(url.filename()), fileType, cameraFile);
 
 	switch(gpr) {
 	case GP_OK:
 		break;
 	case GP_ERROR_FILE_NOT_FOUND:
 	case GP_ERROR_DIRECTORY_NOT_FOUND:
-		error(KIO::ERR_DOES_NOT_EXIST, tmpUrl.filename());
+		gp_file_free(cameraFile);
+		error(KIO::ERR_DOES_NOT_EXIST, url.filename());
 		closeCamera();
 		return ;
 	default:
+		gp_file_free(cameraFile);
 		error(KIO::ERR_UNKNOWN, gp_result_as_string(gpr));
 		closeCamera();
 		return;
 	}
 
-	totalSize(cameraFile->size);
-	mimeType(cameraFile->type);
-
-	QByteArray fileData;
-
-	// XXX using assign() here causes segfault, prolly because
-	// gp_file_free is called before fileData goes out of scope
-	fileData.duplicate(cameraFile->data, cameraFile->size);
-	data(fileData);
+	data(QByteArray()); // signal an EOF
+	finished();
 
 	gp_file_free(cameraFile);
-
-	processedSize(cameraFile->size);
-
-	finished();
 
 	closeCamera();
 }
 
+// The KIO slave "stat" function.
 void KameraProtocol::stat(const KURL &url)
 {
 	kdDebug() << "KameraProtocol::stat(" << url.path() << ")" << endl;
-
-	if(openCamera() == false)
-		return;
 
 	if(url.path() == "/") {
 		statRoot();
 	} else {
 		statRegular(url);
 	}
-
-	closeCamera();
 }
 
+// Implements stat("/") -- which always returns the same value.
 void KameraProtocol::statRoot(void)
 {
 	UDSEntry entry;
@@ -170,49 +315,59 @@ void KameraProtocol::statRoot(void)
 	finished();
 }
 
+// Implements a regular stat() of a file / directory, returning all we know about it
 void KameraProtocol::statRegular(const KURL &url)
 {
-	CameraListEntry cle;
 	UDSEntry entry;
-	KURL tmpUrl(url);
+	int gpr;
 
-	if(m_previewThumbs && cameraSupportsPreview())
-		stripCachePath(tmpUrl);
+	if (openCamera() == false)
+		return;
 
-	if(findCameraListEntry(tmpUrl, cle)) {
-		translateCLEToUDS(entry, cle);
-		statEntry(entry);
-		finished();
-	} else {
-		error(KIO::ERR_DOES_NOT_EXIST, url.path());
+	// Is "url" a directory?
+	CameraList *dirList;
+	gp_list_new(&dirList);
+	kdDebug() << "statRegular() Requesting directories list for " << url.directory() << endl;
+	gpr = gp_camera_folder_list_folders(m_camera, tocstr(url.directory()), dirList);
+	if (gpr != GP_OK) {
+		if ((gpr == GP_ERROR_FILE_NOT_FOUND) || (gpr == GP_ERROR_DIRECTORY_NOT_FOUND))
+			error(KIO::ERR_DOES_NOT_EXIST, url.path());
+		gp_list_free(dirList);
+		return;
 	}
-}
 
-bool KameraProtocol::stripCachePath(KURL &url)
-{
-	kdDebug() << "KameraProtocol::stripCachePath(" << url.path() <<
-		")" << endl;
-
-	const char *paths[] = { ".pics/small/",
-				".pics/med/",
-				".pics/large/",
-				NULL };
-
-	for(int p = 0; paths[p] != NULL; ++p) {
-		if(url.path().contains(paths[p]) == 1) {
-			int i = url.path().find(paths[p]);
-			QString newPath = url.path();
-			newPath.replace(i, strlen(paths[p]), "");
-
-			url.setPath(newPath);
-
-			return true;
+	const char *name;
+	for(int i = 0; i < gp_list_count(dirList); i++) {
+		gp_list_get_name(dirList, i, &name);
+		if (url.filename().compare(name) == 0) {
+			gp_list_free(dirList);
+			UDSEntry entry;
+			translateDirectoryToUDS(entry, url.fileName());
+			statEntry(entry);
+			finished();
+			closeCamera();
+			return;
 		}
 	}
+	gp_list_free(dirList);
+	
+	// Is "url" a file?
+	CameraFileInfo info;
+	gpr = gp_camera_file_get_info(m_camera, tocstr(url.directory(false)), tocstr(url.fileName()), &info);
+	if (gpr != GP_OK) {
+		if ((gpr == GP_ERROR_FILE_NOT_FOUND) || (gpr == GP_ERROR_DIRECTORY_NOT_FOUND))
+			error(KIO::ERR_DOES_NOT_EXIST, url.path());
+		closeCamera();
+		return;
+	}
 
-	return false;
+	translateFileToUDS(entry, info);
+	statEntry(entry);
+	finished();
+	closeCamera();
 }
 
+// The KIO slave "del" function.
 void KameraProtocol::del(const KURL &url, bool isFile)
 {
 	kdDebug() << "KameraProtocol::del(" << url.path() << ")" << endl;
@@ -221,20 +376,11 @@ void KameraProtocol::del(const KURL &url, bool isFile)
 		return;
 
 	if(cameraSupportsDel() && isFile){
-		CameraList *list = gp_list_new();
-        	KURL tmpUrl(url);
+		CameraList *list;
+		gp_list_new(&list);
 		int ret;
  
-        	ret = readCameraFolder(list, tocstr(tmpUrl.directory()));
-        	gp_list_free(list);
-        	if(ret != GP_OK){
-                	error(KIO::ERR_COULD_NOT_READ, gp_result_as_string(ret));
-                	closeCamera();
-                	return;
-        	}
-
-		ret = gp_camera_file_delete(m_camera, tocstr(url.directory()),
-					tocstr(url.filename()));
+		ret = gp_camera_file_delete(m_camera, tocstr(url.directory(false)), tocstr(url.filename()));
 
 		if(ret != GP_OK) {
 			error(KIO::ERR_CANNOT_DELETE, url.filename());
@@ -242,134 +388,210 @@ void KameraProtocol::del(const KURL &url, bool isFile)
 			finished();
 		}
 	}
+
 	closeCamera();
 }
 
+// The KIO slave "listDir" function.
 void KameraProtocol::listDir(const KURL &url)
 {
 	kdDebug() << "KameraProtocol::listDir(" << url.path() << ")" << endl;
 
+	if (url.host().isEmpty()) {
+		// List the available cameras
+		QStringList groupList = m_config->groupList(); 
+		QStringList::Iterator it;
+		UDSEntry entry;
+		UDSAtom atom;
+		for (it = groupList.begin(); it != groupList.end(); it++) {
+			if (*it != "<default>") {
+				entry.clear();
+				atom.m_uds = UDS_FILE_TYPE; // UDS type
+				atom.m_long = S_IFDIR; // directory
+				entry.append(atom);
+
+				atom.m_uds = UDS_NAME;
+				atom.m_str = *it;
+				entry.append(atom);
+
+				atom.m_uds = UDS_ACCESS;
+				atom.m_long = S_IRUSR | S_IRGRP | S_IROTH |
+					S_IWUSR | S_IWGRP | S_IWOTH;
+				entry.append(atom);
+				
+				atom.m_uds = UDS_URL;
+				atom.m_str = QString::fromLatin1("camera://") + *it + QString::fromLatin1("/");
+				entry.append(atom);
+				
+				listEntry(entry, false);
+			}
+		}
+		listEntry(entry, true);
+		finished();
+		return;
+	}
+	
 	if(openCamera() == false)
 		return;
 
-	CameraList *list = gp_list_new();
-	int ret;
+	CameraList *dirList;
+	CameraList *fileList;
+	gp_list_new(&dirList);
+	gp_list_new(&fileList);
+	int gpr;
 
-	if((ret = readCameraFolder(list, url.path())) != GP_OK) {
-		gp_list_free(list);
-		error(KIO::ERR_COULD_NOT_READ, gp_result_as_string(ret));
+	gpr = readCameraFolder(url.path(), dirList, fileList);
+	if(gpr != GP_OK) {
+		gp_list_free(dirList);
+		gp_list_free(fileList);
+		error(KIO::ERR_COULD_NOT_READ, gp_result_as_string(gpr));
 		return;
 	}
 
-	totalSize(gp_list_count(list));
+	totalSize(gp_list_count(dirList) + gp_list_count(fileList));
 
 	UDSEntry entry;
-
-	for(int i = 0; i < gp_list_count(list); ++i) {
-		CameraListEntry *cameraListEntry = gp_list_entry(list, i);
-
-		translateCLEToUDS(entry, *cameraListEntry);
+	const char *name;
+	
+	for(int i = 0; i < gp_list_count(dirList); ++i) {
+		gp_list_get_name(dirList, i, &name);
+		translateDirectoryToUDS(entry, QString::fromLocal8Bit(name));
 		listEntry(entry, false);
 	}
 
-	listEntry(entry, true);
+	CameraFileInfo info;
 
-	gp_list_free(list);
+	for(int i = 0; i < gp_list_count(fileList); ++i) {
+		gp_list_get_name(fileList, i, &name);
+		// we want to know more info about files (size, type...)
+		gp_camera_file_get_info(m_camera, tocstr(url.path()), name, &info);
+		translateFileToUDS(entry, info);
+		listEntry(entry, false);
+	}
 
+	gp_list_free(fileList);
+	gp_list_free(dirList);
+
+	listEntry(entry, true); // 'entry' is not used in this case - we only signal list completion
 	finished();
 
 	closeCamera();
 }
 
-void KameraProtocol::loadSettings(void)
-{
-
-	KConfig config("kioslaverc");
-	config.setGroup("Kamera Settings");
-
-	QString driver = config.readEntry("Driver", "Directory Browse");
-	QString port = config.readEntry("Port", "none");
-
-	strcpy(m_camera->model, tocstr(driver));
-
-	if(port == "none") {
-		m_camera->port->type=GP_PORT_NONE;
-	} else if(port == "serial") {
-		m_camera->port->type=GP_PORT_SERIAL;
-		QString path = config.readEntry("Path");
-		strcpy(m_camera->port->path, tocstr(path));
-		m_camera->port->speed = config.readNumEntry("Speed");
-	} else if(port == "parallel") {
-                m_camera->port->type=GP_PORT_PARALLEL;
-		QString path = config.readEntry("Path");
-                strcpy(m_camera->port->path, tocstr(path));
-	} else if(port == "usb") {
-                m_camera->port->type=GP_PORT_USB;
-// XXX HACK!!                
-		strcpy(m_camera->port->name,"Universal Serial Bus");
-		QString path = config.readEntry("Path");
-                strcpy(m_camera->port->path,tocstr(path));
-	} else if(port == "ieee1394") {
-                m_camera->port->type=GP_PORT_IEEE1394;
-	} else if(port == "network") {
-                m_camera->port->type=GP_PORT_NETWORK;
-	}
-
-	m_previewThumbs = config.readBoolEntry("PreviewThumbs", false);
-}
-
-bool KameraProtocol::openCamera(void)
+void KameraProtocol::setHost(const QString& host, int port, const QString& user, const QString& pass )
 {
 	int gpr;
-
-	// load camera settings from kioslaverc
-
-	// attempt to initialise libgphoto2 and chosen camera
-	// XXX Move library init to constructor/destructor for efficiency ?
-	loadSettings();
-	if((gpr = gp_camera_init(m_camera)) != GP_OK) {
-		error(KIO::ERR_UNKNOWN, gp_result_as_string(gpr));
-		return false;
-	}
-	if(gp_camera_abilities_by_name(m_camera->model,
-                                        m_camera->abilities) != GP_OK){
-		gp_camera_exit(m_camera);
-                return false;
-	}
 	
-	return true;
+	// Read configuration
+	QString m_cfgModel = config()->readEntry("Model");
+	QString m_cfgPath = config()->readEntry("Path");
+	
+	if (m_camera) {
+		kdDebug() << "Configuration change detected" << endl;
+		m_cameraToProtocol.remove(m_camera);
+		gp_camera_unref(m_camera);
+		infoMessage( i18n("Reinitializing camera") );
+	} else {
+		kdDebug() << "Initializing camera" << endl;
+		infoMessage( i18n("Initializing camera") );
+	}
+
+	// create a new Camera object
+	gpr = gp_camera_new(&m_camera);
+	if(gpr != GP_OK) {
+		error(KIO::ERR_UNKNOWN, gp_result_as_string(gpr));
+		return;
+	}
+	gp_camera_set_model(m_camera, tocstr(m_cfgModel));
+	gp_camera_set_port_path(m_camera, tocstr(m_cfgPath));
+		
+	kdDebug() << "Opening camera model " << m_cfgModel << " at " << m_cfgPath << endl;
+
+	// initialize the camera (might take time on a non-existant or disconnected camera)
+	lock();
+	gpr = gp_camera_init(m_camera);
+	unlock();
+		
+	if(gpr != GP_OK) {
+		m_cfgModel = ""; // force a configuration reload (since init didn't complete)
+		error(KIO::ERR_UNKNOWN, gp_result_as_string(gpr));
+		return;
+	}
+
+	// Add Camera => KameraProtocol mapping, so that frontend callbacks could
+	// retrieve the original 'this' object.
+	m_cameraToProtocol[m_camera] = this;
 }
 
-void KameraProtocol::closeCamera(void)
+void KameraProtocol::reparseConfiguration(void)
 {
-	gp_camera_exit(m_camera);
+	// we have no global config, do we?
 }
 
-void KameraProtocol::translateCLEToUDS(UDSEntry &udsEntry,
-					const CameraListEntry &cleEntry)
+// translate a CameraFileInfo to a UDSEntry which we can return as a directory listing entry
+void KameraProtocol::translateFileToUDS(UDSEntry &udsEntry, const CameraFileInfo &info)
 {
 	UDSAtom atom;
 
 	udsEntry.clear();
 
+	atom.m_uds = UDS_FILE_TYPE; // UDS type
+	atom.m_long = S_IFREG; // file
+	udsEntry.append(atom);
+	
+	if (info.file.fields & GP_FILE_INFO_NAME) {
+		atom.m_uds = UDS_NAME;
+		atom.m_str = QString::fromLocal8Bit(info.file.name);
+		udsEntry.append(atom);
+	}
+
+	if (info.file.fields & GP_FILE_INFO_SIZE) {
+		atom.m_uds = UDS_SIZE;
+		atom.m_long = info.file.size;
+		udsEntry.append(atom);
+	}
+	
+	if (info.file.fields & GP_FILE_INFO_TYPE) {
+		atom.m_uds = UDS_MIME_TYPE;
+		atom.m_str = QString::fromLatin1(info.file.type);
+		udsEntry.append(atom);
+	}
+	
+	if (info.file.fields & GP_FILE_INFO_PERMISSIONS) {
+		atom.m_uds = UDS_ACCESS;
+		atom.m_long = 0;
+		atom.m_long |= (info.file.permissions & GP_FILE_PERM_READ) ? (S_IRUSR | S_IRGRP | S_IROTH) : 0;
+		// we cannot represent individual FP_FILE_PERM_DELETE permission in the Unix access scheme
+		// since the parent directory's write permission defines that
+		udsEntry.append(atom);
+	} else {
+		// basic permissions, in case the camera doesn't provide permissions info
+		atom.m_uds = UDS_ACCESS;
+		atom.m_long = S_IRUSR | S_IRGRP | S_IROTH;
+		udsEntry.append(atom);
+	}
+
+	// TODO: We do not handle info.preview in any way
+}
+
+// translate a directory name to a UDSEntry which we can return as a directory listing entry
+void KameraProtocol::translateDirectoryToUDS(UDSEntry &udsEntry, const QString &dirname)
+{
+	UDSAtom atom;
+
+	udsEntry.clear();
+
+	atom.m_uds = UDS_FILE_TYPE; // UDS type
+	atom.m_long = S_IFDIR; // directory
+	udsEntry.append(atom);
+
 	atom.m_uds = UDS_NAME;
-	atom.m_str = cleEntry.name;
+	atom.m_str = dirname;
 	udsEntry.append(atom);
 
 	atom.m_uds = UDS_ACCESS;
 	atom.m_long = S_IRUSR | S_IRGRP | S_IROTH |
 			S_IWUSR | S_IWGRP | S_IWOTH;
-	udsEntry.append(atom);
-
-	atom.m_uds = UDS_FILE_TYPE;
-	switch(cleEntry.type) {
-	case GP_LIST_FILE:
-		 atom.m_long = S_IFREG; break;
-//XXX I don't how to handle GP_LIST_CAMERA so...
-	case GP_LIST_CAMERA:
-	case GP_LIST_FOLDER:
-		 atom.m_long = S_IFDIR; break;
-	}
 	udsEntry.append(atom);
 }
 
@@ -391,53 +613,48 @@ bool KameraProtocol::cameraSupportsPreview(void)
 			GP_FILE_OPERATION_PREVIEW);
 }
 
-bool KameraProtocol::findCameraListEntry(const KURL &url,
-					 CameraListEntry &cle)
+int KameraProtocol::readCameraFolder(const QString &folder, CameraList *dirList, CameraList *fileList)
 {
-	CameraList *list = gp_list_new();
+	kdDebug() << "KameraProtocol::readCameraFolder(" << folder << ")" << endl;
 
-	if(readCameraFolder(list, url.directory()) != GP_OK) {
-		gp_list_free(list);
-		return false;
-	}
-
-	for(int i = 0; i < gp_list_count(list); ++i) {
-		CameraListEntry *tmp= gp_list_entry(list, i);
-
-		if(url.fileName() == tmp->name) {
-			memcpy(&cle, tmp, sizeof(CameraListEntry));
-			gp_list_free(list);
-			return true;
-		}
-	}
-
-	gp_list_free(list);
-
-	return false;
-}
-
-int KameraProtocol::readCameraFolder(CameraList *list, const QString &folder)
-{
 	int gpr;
 
-	if((gpr = gp_camera_folder_list_folders(m_camera, tocstr(folder),
-					list)) != GP_OK)
+	if((gpr = gp_camera_folder_list_folders(m_camera, tocstr(folder), dirList)) != GP_OK)
 		return gpr;
 	
-	CameraList *fl = gp_list_new();
-
-	if((gpr = gp_camera_folder_list_files(m_camera, tocstr(folder),
-					fl)) != GP_OK) {
-		gp_list_free(fl);
+	if((gpr = gp_camera_folder_list_files(m_camera, tocstr(folder), fileList)) != GP_OK)
 		return gpr;
-	}
-
-	for(int i = 0; i < gp_list_count(fl); ++i) {
-		CameraListEntry *e = gp_list_entry(fl, i);
-		gp_list_append(list, e->name, e->type);
-	}
-
-	gp_list_free(fl);
 
 	return GP_OK;
+}
+
+// this callback function is activated on every status message from gphoto2
+int KameraProtocol::frontendCameraStatus(Camera *camera, char *status)
+{
+	if (KameraProtocol *object = m_cameraToProtocol[camera])
+		object->infoMessage(QString::fromLocal8Bit(status));
+        return 0; /// #### what should we return here ?
+}
+
+// this callback function is activated on every new chunk of data read
+int KameraProtocol::frontendCameraProgress(Camera *camera, CameraFile *file, float progress)
+{
+	if (KameraProtocol *object = m_cameraToProtocol[camera]) {
+		char *chunkData;
+		long int chunkSize;
+		gp_file_get_last_chunk(file, &chunkData, &chunkSize);
+		// make sure we're not sending zero-sized chunks (=EOF)
+		if (chunkSize > 0) {
+			object->fileSize += chunkSize;
+			// XXX using assign() here causes segfault, prolly because
+			// gp_file_free is called before chunkData goes out of scope
+			QByteArray chunkDataBuffer;
+			chunkDataBuffer.setRawData(chunkData, chunkSize);
+			object->data(chunkDataBuffer);
+			object->processedSize(object->fileSize);
+			chunkDataBuffer.resetRawData(chunkData, chunkSize);
+		}
+	}
+#warning what should we return here ?
+        return 0; /// #### what should we return here ?
 }

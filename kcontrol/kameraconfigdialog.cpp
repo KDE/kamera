@@ -60,8 +60,10 @@ void KameraConfigDialog::appendWidget(QWidget *parent, CameraWidget *widget)
 	QComboBox *comboBox;
 	QSlider *slider;
 	QGrid *grid;
-	QVBox *vBox;
 	QVGroupBox *vGroupBox;
+	QVBoxLayout *tabLayout;
+	QWidget *tab;
+	QVBox *tabContainer;
 	
 	CameraWidgetType widget_type;
 	const char *widget_name;
@@ -85,9 +87,12 @@ void KameraConfigDialog::appendWidget(QWidget *parent, CameraWidget *widget)
 	case GP_WIDGET_SECTION:
 		if (!m_tabWidget)
 			m_tabWidget = new QTabWidget(parent);
-		vBox = new QVBox(m_tabWidget);
-		m_tabWidget->insertTab(vBox, widget_label);
-		newParent = vBox;
+		tab = new QWidget(m_tabWidget);
+		tabLayout = new QVBoxLayout(tab); // attach a layouting policy (so we could also add a spacer)
+		m_tabWidget->insertTab(tab, widget_label);
+		tabContainer = new QVBox(tab);
+		tabLayout->addWidget(tabContainer);
+		newParent = tabContainer;
 		break;
 	case GP_WIDGET_TEXT:
 		gp_widget_get_value(widget, &widget_value_string);
@@ -189,6 +194,12 @@ void KameraConfigDialog::appendWidget(QWidget *parent, CameraWidget *widget)
 		CameraWidget *widget_child;
 		gp_widget_get_child(widget, i, &widget_child);
 		appendWidget(newParent, widget_child);
+	}
+	
+	switch (widget_type) {
+	case GP_WIDGET_SECTION:
+		tabLayout->addItem( new QSpacerItem(0, 0, QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding) );
+		break;
 	}
 }
 

@@ -1,4 +1,3 @@
-
 #ifndef __kamera_h__
 #define __kamera_h__
 
@@ -12,7 +11,6 @@ extern "C"
 }
 
 class QWidget;
-class KListView;
 class QRadioButton;
 class QPushButton;
 class QComboBox;
@@ -20,10 +18,19 @@ class QVButtonGroup;
 class QLineEdit;
 class QWidgetStack;
 class QCheckBox;
+class QIconViewItem;
+
+class KCamera;
+class KameraDeviceSelectDialog;
+class KSimpleConfig;
+class KIconView;
+class KActionCollection;
+class KToolBar;
 
 class KKameraConfig : public KCModule
 {
 	Q_OBJECT
+	friend KameraDeviceSelectDialog;
 
 public:
 	KKameraConfig(QWidget *parent = 0L, const char *name = 0L);
@@ -34,61 +41,44 @@ public:
 	void save();
 	void defaults();
 	int buttons();
+	QString quickHelp() const;
 
-	static int frontend_prompt(Camera *camera, CameraWidget *widgets);
-	int doConfigureCamera(Camera *camera, CameraWidget *widgets);
+protected:
+	QString suggestName(const QString &name);
 
 protected slots:
-	void setCameraType(QListViewItem *item);
-	void setPortType(int type);
-
-	void configureCamera(void);
-	void testCamera(void);
+	void slot_deviceMenu(QIconViewItem *item, const QPoint &point);
+	void slot_deviceSelected(QIconViewItem *item);
+	void slot_addCamera();
+	void slot_removeCamera();
+	void slot_configureCamera();
+	void slot_testCamera();
+	void slot_error(const QString &message);
+	void slot_error(const QString &message, const QString &details);
 
 private:
+	KSimpleConfig *m_config;
+	typedef QMap<QString, KCamera *> CameraDevicesMap;
+	CameraDevicesMap m_devices;
+
 	// manage widgets
 	void displayGPFailureDialogue(void);
 	void displayGPSuccessDialogue(void);
 	void displayCameraAbilities(const CameraAbilities &abilities);
-	bool populateCameraListView(void);
-	bool openSelectedCamera(void);
-	void closeCamera(void);
-	void transferCameraPortInfoFromUI(void);
+	void populateDeviceListView(void);
 	
-	// camera model selection listview
-	KListView *m_camSel;
-	QString *m_cameraModel;
-
-	QWidgetStack *m_settingsStack;
-
-	// port selection radio buttons
-	QRadioButton *m_serialRB;
-	QRadioButton *m_parallelRB;
-	QRadioButton *m_USBRB;
-	QRadioButton *m_IEEE1394RB;
-	QRadioButton *m_networkRB;
-
-	// configure camera options push button
-	QPushButton *m_configureCamera;
-
-	QCheckBox *m_cacheHackCB;
-
-	// port settings widgets
-	QVButtonGroup *m_portSelectGroup;
-	QComboBox *m_serialSpeedCombo;
-	QComboBox *m_serialPortCombo;
-	QLineEdit *m_parallelPortLineEdit;
-	QLineEdit *m_networkHostLineEdit;
-	QLineEdit *m_networkPortLineEdit;
+	// camera device selection listview
+	KIconView *m_deviceSel;
+	KActionCollection *m_actions;
+	QPushButton *m_addCamera, *m_removeCamera, *m_testCamera, *m_configureCamera;
+	KToolBar *m_toolbar;
+	QPopupMenu *m_devicePopup;
 
 	// true if libgphoto2 was initialised successfully in
 	// the constructor
 	bool m_gpInitialised;
 
 	static KKameraConfig *m_instance;
-
-	Camera *m_camera;
 };
 
 #endif
-
