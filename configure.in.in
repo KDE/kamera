@@ -67,23 +67,6 @@ LIBS="$ac_gphoto2_save_LIBS"
 gphoto2_includes="$ac_cv_gphoto2_includes"
 fi
 
-# Find version of gphoto2
-AC_MSG_CHECKING(version of gphoto2)
-AC_TRY_COMPILE([#include <gphoto2.h>],
-[gp_camera_name(0, "");], 
-[ AC_MSG_RESULT(beta2 or earlier) ],
-[ # Versions >= beta4 don't need the gp_camera_exit hack
-  ver_gp="beta3"
-  if grep -q "gp_camera_exit" $gphoto2_includes/gphoto2-camera.h &>/dev/null; then
-    AC_DEFINE(GPHOTO_BETA4, 1, [Define if your gphoto2 is beta 4 or higher])
-    ver_gp="beta4"
-  fi
-
-  AC_MSG_RESULT([$ver_gp or later])
-  AC_DEFINE(GPHOTO_BETA3, 1, [Define if your gphoto2 is beta 3 or higher])
-])
-
-
 #
 # Search for libgphoto2
 #
@@ -92,7 +75,7 @@ AC_CACHE_VAL(ac_cv_gphoto2_libraries,
 [
 ac_gphoto2_save_LIBS="$LIBS"
 #
-LIBS="-lgphoto2 -lgphoto2_port $LIBS"
+LIBS="-lgphoto2_port -lgphoto2 $LIBS"
 #
 ac_cv_gphoto2_libraries="none"
 AC_TRY_LINK([#include <gphoto2.h>],[gp_init(0);],
