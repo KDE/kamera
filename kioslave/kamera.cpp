@@ -607,13 +607,16 @@ int KameraProtocol::frontendCameraProgress(Camera *camera, CameraFile *file, flo
 		char *chunkData;
 		long int chunkSize;
 		gp_file_get_last_chunk(file, &chunkData, &chunkSize);
-		object->fileSize += chunkSize;
-		// XXX using assign() here causes segfault, prolly because
-		// gp_file_free is called before chunkData goes out of scope
-		QByteArray chunkDataBuffer;
-		chunkDataBuffer.setRawData(chunkData, chunkSize);
-		object->data(chunkDataBuffer);
-		object->processedSize(object->fileSize);
-		chunkDataBuffer.resetRawData(chunkData, chunkSize);
+		// make sure we're not sending zero-sized chunks (=EOF)
+		if (chunkSize > 0) {
+			object->fileSize += chunkSize;
+			// XXX using assign() here causes segfault, prolly because
+			// gp_file_free is called before chunkData goes out of scope
+			QByteArray chunkDataBuffer;
+			chunkDataBuffer.setRawData(chunkData, chunkSize);
+			object->data(chunkDataBuffer);
+			object->processedSize(object->fileSize);
+			chunkDataBuffer.resetRawData(chunkData, chunkSize);
+		}
 	}
 }
