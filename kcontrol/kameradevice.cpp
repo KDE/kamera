@@ -193,9 +193,9 @@ bool KCamera::test()
 void KCamera::load(KConfig *config)
 {
 	config->setGroup(m_name);
-	if (m_model == QString::null)
+	if (m_model.isNull())
 		m_model = config->readEntry("Model");
-	if (m_path == QString::null)
+	if (m_path.isNull())
 		m_path = config->readEntry("Path");
 	invalidateCamera();
 }
