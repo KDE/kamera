@@ -8,6 +8,8 @@ extern "C" {
 	#include <gphoto2.h>
 }
 
+class KSimpleConfig;
+
 class KameraProtocol : public KIO::SlaveBase
 {
 public:
@@ -21,7 +23,7 @@ public:
 
 private:
 	Camera *m_camera;
-	bool m_previewThumbs;
+	KSimpleConfig *m_config;
 
 	void reparseConfiguration(void);
 	bool openCamera(void);
@@ -39,10 +41,8 @@ private:
 	void lock();
 	void unlock();
 
-	QMap<QString, QString> *m_listDirCache;
-	QMap<QString, QString> *m_listFileCache;
-	QString m_cfgDriver;
-	QString m_cfgPort;
+	QString m_host;
+	QString m_cfgModel;
 	QString m_cfgPath;
 
 	static QMap<Camera *, KameraProtocol *> m_cameraToProtocol;

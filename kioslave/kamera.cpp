@@ -8,10 +8,14 @@
 
 #include <qfile.h>
 #include <qtextstream.h>
+
 #include <kdebug.h>
 #include <kinstance.h>
 #include <kconfig.h>
+#include <ksimpleconfig.h>
 #include <klocale.h>
+#include <kprotocolinfo.h>
+#include <kio/slaveconfig.h>
 
 #include "kamera.h"
 
@@ -67,15 +71,12 @@ m_camera(NULL)
 		0  // CameraPrompt
 	);
 	
+
 	// attempt to initialize libgphoto2 and chosen camera (requires locking)
 	// (will init m_camera, since the m_camera's configuration is empty)
 	m_camera = 0;
-	openCamera();
-	closeCamera();
-
-	// Add Camera => KameraProtocol mapping, so that frontend callbacks could
-	// retrieve the original 'this' object.
-	m_cameraToProtocol[m_camera] = this;
+	
+	m_config = new KSimpleConfig(KProtocolInfo::config("camera"));
 }
 
 KameraProtocol::~KameraProtocol()
@@ -102,9 +103,12 @@ QString KameraProtocol::lockFileName() {
 bool KameraProtocol::openCamera(void) {
 	int gpr;
 	QFile lockfile;
-
-	reparseConfiguration(); // or is it already done automatically?
+	
+	if (!m_camera)
+		reparseConfiguration();
+		
 	lock();
+	
 
 	return true;
 }
@@ -195,20 +199,17 @@ void KameraProtocol::get(const KURL &url)
 {
 	kdDebug() << "KameraProtocol::get(" << url.path() << ")" << endl;
 
-	if(openCamera() == false)
-		return;
-
-	KURL tmpUrl(url);
 	CameraFileType fileType;
 	int gpr;
 
-	// Finally, a proper API to determine whether a thumbnail was requested.
-	if(m_previewThumbs && cameraSupportsPreview() && metaData("thumbnail") == "1") {
-		fileType = GP_FILE_TYPE_PREVIEW;
-		kdDebug() << "get() retrieving the thumbnail" << endl;
-	} else {
-		fileType = GP_FILE_TYPE_NORMAL;
-		kdDebug() << "get() retrieving the full-scale photo" << endl;
+	m_host = url.host(); // setting it up for reparseConfiguration
+
+	if(openCamera() == false)
+		return;
+		
+	if (url.host().isEmpty()) {
+		error(KIO::ERR_DOES_NOT_EXIST, url.path());
+		return;
 	}
 	
 	// emit info message
@@ -227,16 +228,16 @@ void KameraProtocol::get(const KURL &url)
 
 	// emit the total size (we must do it before sending data to allow preview)
 	CameraFileInfo info;
-	gpr = gp_camera_file_get_info(m_camera, tocstr(tmpUrl.directory(false)), tocstr(tmpUrl.fileName()), &info);
+	gpr = gp_camera_file_get_info(m_camera, tocstr(url.directory(false)), tocstr(url.fileName()), &info);
 	if (gpr != GP_OK) {
 		if ((gpr == GP_ERROR_FILE_NOT_FOUND) || (gpr == GP_ERROR_DIRECTORY_NOT_FOUND))
-			error(KIO::ERR_DOES_NOT_EXIST, tmpUrl.path());
+			error(KIO::ERR_DOES_NOT_EXIST, url.path());
 		closeCamera();
 		return;
 	}
 
 	// at last, a proper API to determine whether a thumbnail was requested.
-	if(m_previewThumbs && cameraSupportsPreview() && metaData("thumbnail") == "1") {
+	if(cameraSupportsPreview() && metaData("thumbnail") == "1") {
 		kdDebug() << "get() retrieving the thumbnail" << endl;
 		fileType = GP_FILE_TYPE_PREVIEW;
 		if (info.preview.fields & GP_FILE_INFO_SIZE)
@@ -250,7 +251,7 @@ void KameraProtocol::get(const KURL &url)
 	
 	// fetch the data
 	fileSize = 0;
-	gpr = gp_camera_file_get(m_camera, tocstr(tmpUrl.directory(false)), tocstr(tmpUrl.filename()), fileType, cameraFile);
+	gpr = gp_camera_file_get(m_camera, tocstr(url.directory(false)), tocstr(url.filename()), fileType, cameraFile);
 
 	switch(gpr) {
 	case GP_OK:
@@ -258,7 +259,7 @@ void KameraProtocol::get(const KURL &url)
 	case GP_ERROR_FILE_NOT_FOUND:
 	case GP_ERROR_DIRECTORY_NOT_FOUND:
 		gp_file_free(cameraFile);
-		error(KIO::ERR_DOES_NOT_EXIST, tmpUrl.filename());
+		error(KIO::ERR_DOES_NOT_EXIST, url.filename());
 		closeCamera();
 		return ;
 	default:
@@ -280,6 +281,8 @@ void KameraProtocol::get(const KURL &url)
 void KameraProtocol::stat(const KURL &url)
 {
 	kdDebug() << "KameraProtocol::stat(" << url.path() << ")" << endl;
+
+	m_host = url.host(); // setting it up for reparseConfiguration
 
 	if(url.path() == "/") {
 		statRoot();
@@ -316,7 +319,6 @@ void KameraProtocol::statRoot(void)
 void KameraProtocol::statRegular(const KURL &url)
 {
 	UDSEntry entry;
-	KURL tmpUrl(url);
 	int gpr;
 
 	if (openCamera() == false)
@@ -370,13 +372,14 @@ void KameraProtocol::del(const KURL &url, bool isFile)
 {
 	kdDebug() << "KameraProtocol::del(" << url.path() << ")" << endl;
 
+	m_host = url.host(); // setting it up for reparseConfiguration
+
 	if(openCamera() == false)
 		return;
 
 	if(cameraSupportsDel() && isFile){
 		CameraList *list;
 		gp_list_new(&list);
-        	KURL tmpUrl(url);
 		int ret;
  
 		ret = gp_camera_file_delete(m_camera, tocstr(url.directory(false)), tocstr(url.filename()));
@@ -396,6 +399,42 @@ void KameraProtocol::listDir(const KURL &url)
 {
 	kdDebug() << "KameraProtocol::listDir(" << url.path() << ")" << endl;
 
+	m_host = url.host(); // setting it up for reparseConfiguration
+
+	if (url.host().isEmpty()) {
+		// List the available cameras
+		QStringList groupList = m_config->groupList(); 
+		QStringList::Iterator it;
+		UDSEntry entry;
+		UDSAtom atom;
+		for (it = groupList.begin(); it != groupList.end(); it++) {
+			if (*it != "<default>") {
+				entry.clear();
+				atom.m_uds = UDS_FILE_TYPE; // UDS type
+				atom.m_long = S_IFDIR; // directory
+				entry.append(atom);
+
+				atom.m_uds = UDS_NAME;
+				atom.m_str = *it;
+				entry.append(atom);
+
+				atom.m_uds = UDS_ACCESS;
+				atom.m_long = S_IRUSR | S_IRGRP | S_IROTH |
+					S_IWUSR | S_IWGRP | S_IWOTH;
+				entry.append(atom);
+				
+				atom.m_uds = UDS_URL;
+				atom.m_str = QString::fromLatin1("camera://") + *it + QString::fromLatin1("/");
+				entry.append(atom);
+				
+				listEntry(entry, false);
+			}
+		}
+		listEntry(entry, true);
+		finished();
+		return;
+	}
+	
 	if(openCamera() == false)
 		return;
 
@@ -447,23 +486,22 @@ void KameraProtocol::listDir(const KURL &url)
 void KameraProtocol::reparseConfiguration(void)
 {
 	int gpr;
-	KConfig config("kioslaverc");
-	config.setGroup("Kamera Settings");
+	KConfigBase *config = this->config();
 	
-	m_previewThumbs = config.readBoolEntry("PreviewThumbs", false);
-	QString tmp_driver = config.readEntry("Driver", "Directory Browse");
-	QString tmp_port = config.readEntry("Port", "none");
-	QString tmp_path = config.readEntry("Path");
-	// TODO: Should we have a hack to remove known (e.g. "serial:") prefixes?
+	m_config->setGroup(m_host);
+	QString tmp_model = m_config->readEntry("Model");
+	QString tmp_path = m_config->readEntry("Path");
 	
-	// Did the configuration change since the last read?
-	if ((tmp_driver != m_cfgDriver) || (tmp_port != m_cfgPort) || (tmp_path != m_cfgPath)) {
-		m_cfgDriver = tmp_driver;
-		m_cfgPort = tmp_port;
+	kdDebug() << "Host: " << m_host << ", Found: " << tmp_model << "/" << tmp_path << endl;
+	
+	// Did the configuration change since the last read? (do we need a reinit?)
+	if ((tmp_model != m_cfgModel) || (tmp_path != m_cfgPath)) {
+		m_cfgModel = tmp_model;
 		m_cfgPath = tmp_path;
 
 		if (m_camera) {
 			kdDebug() << "Configuration change detected" << endl;
+			m_cameraToProtocol.remove(m_camera);
 			gp_camera_unref(m_camera);
 			infoMessage( i18n("Reinitializing camera") );
 		} else {
@@ -476,20 +514,24 @@ void KameraProtocol::reparseConfiguration(void)
 			error(KIO::ERR_UNKNOWN, gp_result_as_string(gpr));
 			return;
 		}
-		gp_camera_set_model(m_camera, tocstr(m_cfgDriver));
-		gp_camera_set_port_path(m_camera, tocstr(m_cfgPort + QString::fromLatin1(":") + m_cfgPath));
+		gp_camera_set_model(m_camera, tocstr(m_cfgModel));
+		gp_camera_set_port_path(m_camera, tocstr(m_cfgPath));
 		
-		kdDebug() << "Opening camera model " << m_cfgDriver << " at " << (m_cfgPort + QString::fromLatin1(":") + m_cfgPath) << endl;
+		kdDebug() << "Opening camera model " << m_cfgModel << " at " << m_cfgPath << endl;
 
 		lock();
 		gpr = gp_camera_init(m_camera);
 		unlock();
 		
 		if(gpr != GP_OK) {
-			m_cfgDriver = ""; // force a configuration reload (since init didn't complete)
+			m_cfgModel = ""; // force a configuration reload (since init didn't complete)
 			error(KIO::ERR_UNKNOWN, gp_result_as_string(gpr));
 			return;
 		}
+
+		// Add Camera => KameraProtocol mapping, so that frontend callbacks could
+		// retrieve the original 'this' object.
+		m_cameraToProtocol[m_camera] = this;
 	}
 }
 
