@@ -16,6 +16,7 @@
 #include <klistview.h>
 #include <kdialog.h>
 #include <klocale.h>
+#include <kglobal.h>
 #include <kmessagebox.h>
 
 #include "kameraconfigdialog.h"
@@ -43,6 +44,7 @@ extern "C"
 {
 	KCModule *create_kamera(QWidget *parent, const char *name)
 	{
+		KGlobal::locale()->insertCatalogue("kcmkamera");
 		return new KKameraConfig(parent, name);
 	}
 }
