@@ -574,7 +574,7 @@ void KameraProtocol::setHost(const QString& host, int port, const QString& user,
 		if (idx < 0) {
 			gp_abilities_list_free(abilities_list);
 			kdDebug(7123) << "Unable to get abilities for model: " << m_cfgModel << endl;
-			error(KIO::ERR_UNKNOWN, gp_result_as_string(gpr));
+			error(KIO::ERR_UNKNOWN, gp_result_as_string(idx));
 			return;
 		}
 		gp_abilities_list_get_abilities(abilities_list, idx, &m_abilities);
@@ -589,7 +589,7 @@ void KameraProtocol::setHost(const QString& host, int port, const QString& user,
 		if (idx < 0) {
 			gp_port_info_list_free(port_info_list);
 			kdDebug(7123) << "Unable to get port info for path: " << m_cfgPath << endl;
-			error(KIO::ERR_UNKNOWN, gp_result_as_string(gpr));
+			error(KIO::ERR_UNKNOWN, gp_result_as_string(idx));
 			return;
 		}
 		gp_port_info_list_get_info(port_info_list, idx, &port_info);
@@ -798,19 +798,40 @@ unsigned int frontendProgressStart(
 	void *data
 ) {
 	KameraProtocol *object = (KameraProtocol*)data;
+	char *status;
 
-	int size=vsnprintf(NULL, 0, format, args);
+	/* We must copy the va_list to walk it twice, or all hell 
+	 * breaks loose on non-i386 platforms.
+	 */
+#if defined(HAVE_VA_COPY) || defined(HAVE___VA_COPY)
+	va_list xvalist;
+# ifdef HAVE_VA_COPY
+	va_copy(xvalist, args);
+# elif HAVE___VA_COPY
+	__va_copy(xvalist, args);
+# endif
+	int size=vsnprintf(NULL, 0, format, xvalist);
 	if(size<=0)
 		return GP_OK; // vsnprintf is broken, better don't do anything.
 
-	char *status=new char[size+1];
-	vsnprintf(status, size, format, args);
+	status=new char[size+1];
+# ifdef HAVE_VA_COPY
+	va_copy(xvalist, args);
+# elif HAVE___VA_COPY
+	__va_copy(xvalist, args);
+# endif
+	vsnprintf(status, size, format, xvalist);
+#else
+	/* We cannot copy the va_list, so make sure we 
+	 * walk it just _once_.
+	 */
+	status=new char[300];
+	vsnprintf(status, 300, format, args);
+#endif
 
 	object->infoMessage(QString::fromLocal8Bit(status));
 	delete status;
-
 	object->totalSize((int)totalsize); // hack: call slot directly
-
 	return GP_OK;
 }
 
@@ -818,13 +839,36 @@ unsigned int frontendProgressStart(
 static void frontendCameraStatus(GPContext * /*context*/, const char *format, va_list args, void *data)
 {
 	KameraProtocol *object = (KameraProtocol*)data;
-	int size=vsnprintf(NULL, 0, format, args);
+	char *status;
+
+	/* We must copy the va_list to walk it twice, or all hell 
+	 * breaks loose on non-i386 platforms.
+	 */
+#if defined(HAVE_VA_COPY) || defined(HAVE___VA_COPY)
+	va_list xvalist;
+# ifdef HAVE_VA_COPY
+	va_copy(xvalist, args);
+# elif HAVE___VA_COPY
+	__va_copy(xvalist, args);
+# endif
+	int size=vsnprintf(NULL, 0, format, xvalist);
 	if(size<=0)
 		return; // vsnprintf is broken, better don't do anything.
 
-	char *status=new char[size+1];
-	vsnprintf(status, size, format, args);
-
+	status=new char[size+1];
+# ifdef HAVE_VA_COPY
+	va_copy(xvalist, args);
+# elif HAVE___VA_COPY
+	__va_copy(xvalist, args);
+# endif
+	vsnprintf(status, size, format, xvalist);
+#else
+	/* We cannot copy the va_list, so make sure we 
+	 * walk it just _once_.
+	 */
+	status=new char[300];
+	vsnprintf(status, 300, format, args);
+#endif
 	object->infoMessage(QString::fromLocal8Bit(status));
 	delete status;
 }
