@@ -72,6 +72,7 @@ m_camera(NULL)
 
 KameraProtocol::~KameraProtocol()
 {
+  delete m_config;
 	if(m_camera) {
 		closeCamera();
  		gp_camera_free(m_camera);
