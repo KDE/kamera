@@ -111,6 +111,10 @@ void KKameraConfig::displayGPSuccessDialogue(void)
 	act = new KAction(i18n("Configure"), "configure", 0, this, SLOT(slot_configureCamera()), m_actions, "camera_configure");
 	act->setWhatsThis(i18n("Click this button to change the configuration of the selected camera.<br><br>The availability of this feature and the contents of the Configuration dialog depend on the camera model."));
 	act->plug(m_toolbar);
+
+	act = new KAction(i18n("Information"), "hwinfo", 0, this, SLOT(slot_cameraSummary()), m_actions, "camera_summary");
+	act->setWhatsThis(i18n("Click this button to view a summary of the current status of the selected camera.<br><br>The availability of this feature and the contents of the Configuration dialog depend on the camera model."));
+	act->plug(m_toolbar);
 }
 
 void KKameraConfig::populateDeviceListView(void)
@@ -218,6 +222,19 @@ void KKameraConfig::slot_configureCamera()
 	}
 }
 
+void KKameraConfig::slot_cameraSummary()
+{
+	QString summary;
+	QString name = m_deviceSel->currentItem()->text();
+	if (m_devices.contains(name)) {
+		KCamera *m_device = m_devices[name];
+		summary = m_device->summary();
+		if (QString::null != summary) {
+			KMessageBox::information(this, summary);
+		}
+	}
+}
+
 void KKameraConfig::slot_deviceMenu(QIconViewItem *item, const QPoint &point)
 {
 	if (item) {
@@ -226,6 +243,7 @@ void KKameraConfig::slot_deviceMenu(QIconViewItem *item, const QPoint &point)
 		m_actions->action("camera_test")->plug(m_devicePopup);
 		m_actions->action("camera_remove")->plug(m_devicePopup);
 		m_actions->action("camera_configure")->plug(m_devicePopup);
+		m_actions->action("camera_summary")->plug(m_devicePopup);
 		m_devicePopup->popup(point);
 	}
 }
@@ -235,6 +253,7 @@ void KKameraConfig::slot_deviceSelected(QIconViewItem *item)
 	m_actions->action("camera_test")->setEnabled(item);
 	m_actions->action("camera_remove")->setEnabled(item);
 	m_actions->action("camera_configure")->setEnabled(item);
+	m_actions->action("camera_summary")->setEnabled(item);
 }
 
 QString KKameraConfig::quickHelp() const

@@ -50,6 +50,7 @@ protected slots:
 	void slot_addCamera();
 	void slot_removeCamera();
 	void slot_configureCamera();
+	void slot_cameraSummary();
 	void slot_testCamera();
 	void slot_error(const QString &message);
 	void slot_error(const QString &message, const QString &details);

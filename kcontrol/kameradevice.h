@@ -37,6 +37,8 @@ public:
 	QString model() { return m_model; }
 	QString path() { return m_path; }
 	QString portName();
+
+	QString summary();
 	CameraAbilities abilities();
 
 	void setName(const QString &name);

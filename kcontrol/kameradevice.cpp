@@ -22,9 +22,8 @@
 #include "kameradevice.moc"
 
 // Define some parts of the old API
-#define SERIAL_SUPPORTED(port) (port & GP_PORT_SERIAL) != 0
-#define USB_SUPPORTED(port) (port & GP_PORT_USB) != 0
-#define gp_camera_get_result_as_string(dev, res) gp_result_as_string(res)
+#define SERIAL_SUPPORTED(port) ((port & GP_PORT_SERIAL) != 0)
+#define USB_SUPPORTED(port) ((port & GP_PORT_USB) != 0)
 #define GP_PROMPT_OK 0
 #define GP_PROMPT_CANCEL -1
 
@@ -105,7 +104,7 @@ bool KCamera::initCamera()
 			m_camera = NULL;
 			emit error(
 				i18n("Unable to initialize camera. Check your port settings and camera connectivity and try again."),
-				gp_camera_get_result_as_string(m_camera, result));
+				gp_result_as_string(result));
 			return false;
 		}
 
@@ -119,6 +118,19 @@ Camera* KCamera::camera()
 	return m_camera;
 }
 
+QString KCamera::summary()
+{
+	int result;
+	CameraText	summary;
+	
+	initCamera();
+
+	result = gp_camera_get_summary(m_camera, &summary, glob_context);
+	if (result != GP_OK)
+		return i18n("No camera summary information is available.\n");
+	return QString(summary.text);
+}
+
 bool KCamera::configure()
 {
 	CameraWidget *window;
@@ -128,7 +140,7 @@ bool KCamera::configure()
 
 	result = gp_camera_get_config(m_camera, &window, glob_context);
 	if (result != GP_OK) {
-		emit error(i18n("Camera configuration failed."), gp_camera_get_result_as_string(m_camera, result));
+		emit error(i18n("Camera configuration failed."), gp_result_as_string(result));
 		return false; 
 	}
 
@@ -138,7 +150,7 @@ bool KCamera::configure()
 	if (result == GP_PROMPT_OK) {
 		result = gp_camera_set_config(m_camera, window, glob_context);
 		if (result != GP_OK) {
-			emit error(i18n("Camera configuration failed."), gp_camera_get_result_as_string(m_camera, result));
+			emit error(i18n("Camera configuration failed."), gp_result_as_string(result));
 			return false;
 		}
 	}
