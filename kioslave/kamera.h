@@ -4,10 +4,7 @@
 
 #include <config.h>
 #include <kio/slavebase.h>
-
-extern "C" {
-	#include <gphoto2.h>
-}
+#include <gphoto2.h>
 
 class KSimpleConfig;
 
@@ -22,6 +19,10 @@ public:
 	virtual void del(const KURL &url, bool isFile);
         virtual void setHost(const QString& host, int port, const QString& user, const QString& pass );
 	virtual void listDir(const KURL &url);
+
+        CameraFile *getFile() { return m_file; }
+        int getFileSize() { return m_fileSize; }
+        void setFileSize(int newfs) { m_fileSize = newfs; }
 
 private:
 	Camera *m_camera;
@@ -52,12 +53,7 @@ private:
 	QString m_cfgModel;
 	QString m_cfgPath;
 
-	CameraFile *m_file;
 	int m_fileSize;
-
-	// gphoto2 frontend callbacks
-	static void frontendCameraStatus(GPContext *context, const char *format, va_list args, void *data);
-	static unsigned int frontendProgressStart(GPContext *, float, const char *, va_list, void *);
-	static void frontendProgressUpdate(GPContext *context, unsigned int id, float current, void *data);
+	CameraFile *m_file;
 };
 #endif

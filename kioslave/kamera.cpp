@@ -17,8 +17,9 @@
 #include <kprotocolinfo.h>
 #include <kio/slaveconfig.h>
 
-#include "kamera.h"
 #include <config.h>
+
+#include "kamera.h"
 
 #define tocstr(x) ((x).local8Bit())
 
@@ -27,6 +28,15 @@ using namespace KIO;
 extern "C"
 {
 	int kdemain(int argc, char **argv);
+
+	static void frontendCameraStatus(GPContext *context, const char *format, va_list args, void *data);
+	static unsigned int frontendProgressStart(
+		GPContext *context, float totalsize, const char *format,
+		va_list args, void *data
+	);
+	static void frontendProgressUpdate(
+		GPContext *context, unsigned int id, float current, void *data
+	);
 }
 
 int kdemain(int argc, char **argv)
@@ -765,7 +775,7 @@ int KameraProtocol::readCameraFolder(const QString &folder, CameraList *dirList,
 	return GP_OK;
 }
 
-void KameraProtocol::frontendProgressUpdate(
+void frontendProgressUpdate(
 	GPContext *context, unsigned int id, float current, void *data
 ) {
 	KameraProtocol *object = (KameraProtocol*)data;
@@ -779,23 +789,23 @@ void KameraProtocol::frontendProgressUpdate(
 
 	// This merely returns us a pointer to gphoto's internal data
 	// buffer -- there's no expensive memcpy
-	if (!object->m_file)
+	if (!object->getFile())
 		return;
-	gp_file_get_data_and_size(object->m_file, &fileData, &fileSize);
+	gp_file_get_data_and_size(object->getFile(), &fileData, &fileSize);
 	// make sure we're not sending zero-sized chunks (=EOF)
 	if (fileSize > 0) {
 		// XXX using assign() here causes segfault, prolly because
 		// gp_file_free is called before chunkData goes out of scope
 		QByteArray chunkDataBuffer;
-		chunkDataBuffer.setRawData(fileData + object->m_fileSize, fileSize - object->m_fileSize);
+		chunkDataBuffer.setRawData(fileData + object->getFileSize(), fileSize - object->getFileSize());
 		object->data(chunkDataBuffer);
 		object->processedSize(fileSize);
-		chunkDataBuffer.resetRawData(fileData + object->m_fileSize, fileSize - object->m_fileSize);
-		object->m_fileSize = fileSize;
+		chunkDataBuffer.resetRawData(fileData + object->getFileSize(), fileSize - object->getFileSize());
+		object->setFileSize(fileSize);
 	}
 }
 
-unsigned int KameraProtocol::frontendProgressStart(
+unsigned int frontendProgressStart(
 	GPContext *context, float totalsize, const char *format, va_list args,
 	void *data
 ) {
@@ -811,13 +821,13 @@ unsigned int KameraProtocol::frontendProgressStart(
 	object->infoMessage(QString::fromLocal8Bit(status));
 	delete status;
 
-	object->totalSize(totalsize); // hack: call slot directly 
+	object->totalSize((int)totalsize); // hack: call slot directly 
 
 	return GP_OK;
 }
 
 // this callback function is activated on every status message from gphoto2
-void KameraProtocol::frontendCameraStatus(GPContext *context, const char *format, va_list args, void *data)
+static void frontendCameraStatus(GPContext *context, const char *format, va_list args, void *data)
 {
 	KameraProtocol *object = (KameraProtocol*)data;
 	int size=vsnprintf(NULL, 0, format, args);
