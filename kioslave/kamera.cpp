@@ -138,6 +138,15 @@ void KameraProtocol::closeCamera(void)
 	return;
 }
 
+static QString fix_foldername(QString ofolder) {
+	QString folder = ofolder;
+	if (folder.length() > 1) {
+		while ((folder.length()>1) && (folder.right(1) == "/"))
+			folder = folder.left(folder.length()-1);
+	}
+	return folder;
+}
+
 // The KIO slave "get" function (starts a download from the camera)
 // The actual returning of the data is done in the frontend callback functions.
 void KameraProtocol::get(const KURL &url)
@@ -187,8 +196,10 @@ void KameraProtocol::get(const KURL &url)
 
 	// emit the total size (we must do it before sending data to allow preview)
 	CameraFileInfo info;
-	gpr = gp_camera_file_get_info(m_camera, tocstr(url.directory(false)), tocstr(url.fileName()), &info, m_context);
+	
+	gpr = gp_camera_file_get_info(m_camera, tocstr(fix_foldername(url.directory(false))), tocstr(url.fileName()), &info, m_context);
 	if (gpr != GP_OK) {
+		// fprintf(stderr,"Folder %s / File %s not found, gpr is %d\n",folder.latin1(), url.fileName().latin1(), gpr);
 		gp_file_free(m_file);
 		if ((gpr == GP_ERROR_FILE_NOT_FOUND) || (gpr == GP_ERROR_DIRECTORY_NOT_FOUND))
 			error(KIO::ERR_DOES_NOT_EXIST, url.path());
@@ -215,7 +226,7 @@ void KameraProtocol::get(const KURL &url)
 
 	// fetch the data
 	m_fileSize = 0;
-	gpr = gp_camera_file_get(m_camera, tocstr(url.directory(false)), tocstr(url.filename()), fileType, m_file, m_context);
+	gpr = gp_camera_file_get(m_camera, tocstr(fix_foldername(url.directory(false))), tocstr(url.filename()), fileType, m_file, m_context);
 	switch(gpr) {
 		case GP_OK:
 			break;
@@ -317,7 +328,7 @@ void KameraProtocol::statRegular(const KURL &url)
 	CameraList *dirList;
 	gp_list_new(&dirList);
 	kdDebug(7123) << "statRegular() Requesting directories list for " << url.directory() << endl;
-	gpr = gp_camera_folder_list_folders(m_camera, tocstr(url.directory()), dirList, m_context);
+	gpr = gp_camera_folder_list_folders(m_camera, tocstr(fix_foldername(url.directory(false))), dirList, m_context);
 	if (gpr != GP_OK) {
 		if ((gpr == GP_ERROR_FILE_NOT_FOUND) || (gpr == GP_ERROR_DIRECTORY_NOT_FOUND))
 			error(KIO::ERR_DOES_NOT_EXIST, url.path());
@@ -362,7 +373,7 @@ void KameraProtocol::statRegular(const KURL &url)
 
 	// Is "url" a file?
 	CameraFileInfo info;
-	gpr = gp_camera_file_get_info(m_camera, tocstr(url.directory(false)), tocstr(url.fileName()), &info, m_context);
+	gpr = gp_camera_file_get_info(m_camera, tocstr(fix_foldername(url.directory(false))), tocstr(url.fileName()), &info, m_context);
 	if (gpr != GP_OK) {
 		if ((gpr == GP_ERROR_FILE_NOT_FOUND) || (gpr == GP_ERROR_DIRECTORY_NOT_FOUND))
 			error(KIO::ERR_DOES_NOT_EXIST, url.path());
@@ -391,7 +402,7 @@ void KameraProtocol::del(const KURL &url, bool isFile)
 		gp_list_new(&list);
 		int ret;
 
-		ret = gp_camera_file_delete(m_camera, tocstr(url.directory(false)), tocstr(url.filename()), m_context);
+		ret = gp_camera_file_delete(m_camera, tocstr(fix_foldername(url.directory(false))), tocstr(url.filename()), m_context);
 
 		if(ret != GP_OK) {
 			error(KIO::ERR_CANNOT_DELETE, url.filename());
