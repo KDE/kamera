@@ -54,18 +54,29 @@ KKameraConfig::KKameraConfig(QWidget *parent, const char *name, const QStringLis
 	m_devicePopup = new QPopupMenu(this);
 	m_actions = new KActionCollection(this);
 	m_config = new KSimpleConfig(KProtocolInfo::config("camera"));
+	
+	m_context = gp_context_new();
+	if (m_context) {
+
+		// Register the callback functions
+		gp_context_set_cancel_func(m_context, cbGPCancel, this);
+		gp_context_set_idle_func(m_context, cbGPIdle, this);
+
+		displayGPSuccessDialogue();
+
+		// autodetect new cameras
+		autoDetect();
+
+		// load existing configuration
+		load();
+
+	} else {
+
+		displayGPFailureDialogue();
+	}
 
 	// store instance for frontend_prompt
 	m_instance = this;
-
-	// build and display normal dialogue
-	displayGPSuccessDialogue();
-
-	// autodetect new cameras
-	autoDetect();
-
-	// load existing configuration
-	load();
 }
 
 KKameraConfig::~KKameraConfig()
@@ -118,6 +129,11 @@ void KKameraConfig::displayGPSuccessDialogue(void)
 	act = new KAction(i18n("Information"), "hwinfo", 0, this, SLOT(slot_cameraSummary()), m_actions, "camera_summary");
 	act->setWhatsThis(i18n("Click this button to view a summary of the current status of the selected camera.<br><br>The availability of this feature and the contents of the Configuration dialog depend on the camera model."));
 	act->plug(m_toolbar);
+	m_toolbar->insertLineSeparator();
+	act = new KAction(i18n("Cancel"), "stop", 0, this, SLOT(slot_cancelOperation()), m_actions, "camera_cancel");
+	act->setWhatsThis(i18n("Click this button to cancel the current camera operation."));
+	act->setEnabled(false);
+	act->plug(m_toolbar);
 }
 
 void KKameraConfig::populateDeviceListView(void)
@@ -145,7 +161,8 @@ void KKameraConfig::save(void)
 
 void KKameraConfig::autoDetect(void)
 {
-	GPContext *glob_context = NULL;
+	m_cancelPending = false;
+
 	QStringList groupList = m_config->groupList();
 
         int i, count;
@@ -155,10 +172,10 @@ void KKameraConfig::autoDetect(void)
         const char *model, *value;
 
         gp_abilities_list_new (&al);
-        gp_abilities_list_load (al, glob_context);
+        gp_abilities_list_load (al, m_context);
         gp_port_info_list_new (&il);
         gp_port_info_list_load (il);
-        gp_abilities_list_detect (al, il, &list, glob_context);
+        gp_abilities_list_detect (al, il, &list, m_context);
         gp_abilities_list_free (al);
         gp_port_info_list_free (il);
 
@@ -193,6 +210,33 @@ void KKameraConfig::load(void)
 	}
 	
 	populateDeviceListView();
+}
+
+void KKameraConfig::beforeCameraOperation(void)
+{
+	m_cancelPending = false;
+
+	m_actions->action("camera_test")->setEnabled(false);
+	m_actions->action("camera_remove")->setEnabled(false);
+	m_actions->action("camera_configure")->setEnabled(false);
+	m_actions->action("camera_summary")->setEnabled(false);
+
+	m_actions->action("camera_cancel")->setEnabled(true);
+}
+
+void KKameraConfig::afterCameraOperation(void)
+{
+	m_actions->action("camera_cancel")->setEnabled(false);
+
+	// if we're regaining control after a Cancel...
+	if (m_cancelPending) {
+		qApp->restoreOverrideCursor();
+		m_cancelPending = false;
+	}
+	
+	// if any item was selected before the operation was run
+	// it makes sense for the relevant toolbar buttons to be enabled
+	slot_deviceSelected(m_deviceSel->currentItem());
 }
 
 QString KKameraConfig::suggestName(const QString &name)
@@ -244,12 +288,16 @@ void KKameraConfig::slot_removeCamera()
 
 void KKameraConfig::slot_testCamera()
 {
+	beforeCameraOperation();
+
 	QString name = m_deviceSel->currentItem()->text();
 	if (m_devices.contains(name)) {
 		KCamera *m_device = m_devices[name];
 		if (m_device->test())
 			KMessageBox::information(this, i18n("Camera test was successful."));
 	}
+	
+	afterCameraOperation();
 }
 
 void KKameraConfig::slot_configureCamera()
@@ -274,6 +322,15 @@ void KKameraConfig::slot_cameraSummary()
 	}
 }
 
+void KKameraConfig::slot_cancelOperation()
+{
+	m_cancelPending = true;
+	// Prevent the user from keeping clicking Cancel
+	m_actions->action("camera_cancel")->setEnabled(false);
+	// and indicate that the click on Cancel did have some effect
+	qApp->setOverrideCursor(Qt::WaitCursor);
+}
+
 void KKameraConfig::slot_deviceMenu(QIconViewItem *item, const QPoint &point)
 {
 	if (item) {
@@ -293,6 +350,28 @@ void KKameraConfig::slot_deviceSelected(QIconViewItem *item)
 	m_actions->action("camera_remove")->setEnabled(item);
 	m_actions->action("camera_configure")->setEnabled(item);
 	m_actions->action("camera_summary")->setEnabled(item);
+}
+
+void KKameraConfig::cbGPIdle(GPContext *context, void *data)
+{
+	KKameraConfig *self( reinterpret_cast<KKameraConfig*>(data) );
+
+	qApp->processEvents();
+}
+
+GPContextFeedback KKameraConfig::cbGPCancel(GPContext *context, void *data)
+{
+	KKameraConfig *self( reinterpret_cast<KKameraConfig*>(data) );
+
+	// Since in practice no camera driver supports idle callbacks yet,
+	// we'll use the cancel callback as opportunity to process events
+	qApp->processEvents();
+
+	// If a cancel request is pending, ask gphoto to cancel
+	if (self->m_cancelPending)
+		return GP_CONTEXT_FEEDBACK_CANCEL;
+	else
+		return GP_CONTEXT_FEEDBACK_OK;
 }
 
 QString KKameraConfig::quickHelp() const
@@ -316,3 +395,4 @@ void KKameraConfig::slot_error(const QString &message, const QString &details)
 {
 	KMessageBox::detailedError(this, message, details);
 }
+
