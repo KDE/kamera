@@ -19,12 +19,7 @@
 
 #include "kamera.h"
 
-// XXX HACK HACK HACK
-// XXX All tocstr(string) references can be safely replaced with
-// XXX string.local8Bit() as soon as the gphoto2 API uses 'const char *'
-// XXX instead of 'char *' in calls that don't modify the string
-//#define tocstr(x) ((char *)((x).local8Bit().operator const char *()))
-#define tocstr(x) (((x).local8Bit()))
+#define tocstr(x) ((x).local8Bit())
 
 #define LOCK_DIR "/var/lock"
 
@@ -37,7 +32,6 @@ extern "C"
 
 int kdemain(int argc, char **argv)
 {
-    fprintf(stderr,"kamera's kdemain!");
 	KInstance instance("kio_kamera");
 
 	if(argc != 4) {
