@@ -4,6 +4,7 @@
 
 #include <qmap.h>
 #include <kdialog.h>
+#include <qtabwidget.h>
 
 extern "C" {
 	#include <gphoto2.h>
@@ -17,7 +18,7 @@ public:
 			   QWidget *parent = 0, const char *name = 0);
 
 private slots:
-	void slotOK(void);
+	void slotOK();
 
 private:
 	void appendWidget(QWidget *parent, CameraWidget *widget);
@@ -25,6 +26,7 @@ private:
 	
 	QMap<CameraWidget *, QWidget *> m_wmap;
 	CameraWidget *m_widgetRoot;
+	QTabWidget *m_tabWidget;
 };
 
 #endif
