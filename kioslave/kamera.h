@@ -2,6 +2,7 @@
 #ifndef __kamera_h__
 #define __kamera_h__
 
+#include <config.h>
 #include <kio/slavebase.h>
 
 extern "C" {
@@ -50,8 +51,13 @@ private:
 	int m_fileSize;
 
 	// static frontend callbacks
+#ifndef GPHOTO_BETA4
 	static void frontendCameraStatus(Camera *camera, const char *status, void *data);
 	static void frontendCameraProgress(Camera *camera, float progress, void *data);
+#else
+	static void frontendCameraStatus(GPContext *context, const char *format, va_list args, void *data);
+
+#endif
 };
 
 #endif

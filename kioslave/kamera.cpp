@@ -104,11 +104,7 @@ void KameraProtocol::get(const KURL &url)
 	infoMessage( i18n("Retrieving data from camera <b>%1</b>").arg(m_cfgModel) );
 
 	// Note: There's no need to re-read directory for each get() anymore
-#ifdef GPHOTO_BETA4
-	gp_file_new(&m_file, context);
-#else
 	gp_file_new(&m_file);
-#endif
 
 	// emit the total size (we must do it before sending data to allow preview)
 	CameraFileInfo info;
@@ -372,7 +368,11 @@ void KameraProtocol::listDir(const KURL &url)
 	for(int i = 0; i < gp_list_count(fileList); ++i) {
 		gp_list_get_name(fileList, i, &name);
 		// we want to know more info about files (size, type...)
+#ifdef GPHOTO_BETA4
+		gp_camera_file_get_info(m_camera, tocstr(url.path()), name, &info, context);
+#else
 		gp_camera_file_get_info(m_camera, tocstr(url.path()), name, &info);
+#endif
 		translateFileToUDS(entry, info);
 		listEntry(entry, false);
 	}
@@ -447,8 +447,12 @@ void KameraProtocol::setHost(const QString& host, int port, const QString& user,
 		}
 	
 		// register gphoto2 callback functions
+#ifdef GPHOTO_BETA4
+		gp_context_set_status_func(context, frontendCameraStatus, this);
+#else
 		gp_camera_set_status_func(m_camera, frontendCameraStatus, this);
 		gp_camera_set_progress_func(m_camera, frontendCameraProgress, this);
+#endif
 		// gp_camera_set_message_func(m_camera, ..., this)
 
 		// set model and port
@@ -457,7 +461,11 @@ void KameraProtocol::setHost(const QString& host, int port, const QString& user,
 		kdDebug() << "Opening camera model " << m_cfgModel << " at " << m_cfgPath << endl;
 
 		// initialize the camera (might take time on a non-existant or disconnected camera)
+#ifdef GPHOTO_BETA4
+		gpr = gp_camera_init(m_camera, context);
+#else
 		gpr = gp_camera_init(m_camera);
+#endif
 		
 		if(gpr != GP_OK) {
 			gp_camera_unref(m_camera);
@@ -567,14 +575,14 @@ int KameraProtocol::readCameraFolder(const QString &folder, CameraList *dirList,
 	int gpr;
 
 #ifdef GPHOTO_BETA4
-	if((gpr = gp_camera_folder_list_folders(m_camera, tocstr(folder), dirList), context) != GP_OK)
+	if((gpr = gp_camera_folder_list_folders(m_camera, tocstr(folder), dirList, context)) != GP_OK)
 #else
 	if((gpr = gp_camera_folder_list_folders(m_camera, tocstr(folder), dirList)) != GP_OK)
 #endif
 		return gpr;
 	
 #ifdef GPHOTO_BETA4
-	if((gpr = gp_camera_folder_list_files(m_camera, tocstr(folder), fileList), context) != GP_OK)
+	if((gpr = gp_camera_folder_list_files(m_camera, tocstr(folder), fileList, context)) != GP_OK)
 #else
 	if((gpr = gp_camera_folder_list_files(m_camera, tocstr(folder), fileList)) != GP_OK)
 #endif
@@ -583,6 +591,7 @@ int KameraProtocol::readCameraFolder(const QString &folder, CameraList *dirList,
 	return GP_OK;
 }
 
+#ifndef GPHOTO_BETA4
 // this callback function is activated on every status message from gphoto2
 void KameraProtocol::frontendCameraStatus(Camera *camera, const char *status, void *data)
 {
@@ -590,7 +599,6 @@ void KameraProtocol::frontendCameraStatus(Camera *camera, const char *status, vo
 
 	object->infoMessage(QString::fromLocal8Bit(status));
 }
-
 // this callback function is activated on every new chunk of data read
 void KameraProtocol::frontendCameraProgress(Camera *camera, float progress, void *data)
 {
@@ -611,3 +619,19 @@ void KameraProtocol::frontendCameraProgress(Camera *camera, float progress, void
 		chunkDataBuffer.resetRawData(chunkData, chunkSize);
 	}
 }
+#else
+// this callback function is activated on every status message from gphoto2
+void KameraProtocol::frontendCameraStatus(GPContext *context, const char *format, va_list args, void *data)
+{
+	KameraProtocol *object = (KameraProtocol*)data;
+	int size=vsnprintf(NULL, 0, format, args);
+	if(size<=0)
+		return; // vsnprintf is broken, better don't do anything.
+
+	char *status=new char[size+1];
+	vsnprintf(status, size, format, args);
+	
+	object->infoMessage(QString::fromLocal8Bit(status));
+	delete status;
+}
+#endif
