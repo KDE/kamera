@@ -1,7 +1,7 @@
 [Desktop Entry]
 Encoding=UTF-8
 Comment=Configure Kamera
-Comment[af]=konfigureer kamera
+Comment[af]=Konfigureer Kamera
 Comment[ar]=اعداد Kamera
 Comment[az]=Kameranı Quraşdır
 Comment[bg]=Конфигуриране на Камера
@@ -84,7 +84,7 @@ Keywords[xx]=xx
 Keywords[zh_CN]=gphoto,camera,digicam,webcam,kamera,照相机,数字相机
 Keywords[zu]=gphoto,ikhamera,digicam,webcam,ikhamera
 Name=Digital Camera
-Name[af]=digitaal kamera
+Name[af]=Digitaal Kamera
 Name[ar]=كاميرا رقمية
 Name[az]=Digital Kamera
 Name[bs]=Digitalna kamera
