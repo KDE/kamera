@@ -189,8 +189,26 @@ void KameraProtocol::get(const KURL &url)
 			closeCamera();
 			return;
 	}
-	// no need to pass the downloaded data to data() here
-	// since it was already done in the progress update callback
+	// We need to pass left over data here. Some camera drivers do not
+	// implement progress callbacks!
+	const char *fileData;
+	long unsigned int fileSize;
+	// This merely returns us a pointer to gphoto's internal data
+	// buffer -- there's no expensive memcpy
+	gp_file_get_data_and_size(m_file, &fileData, &fileSize);
+	// make sure we're not sending zero-sized chunks (=EOF)
+	// also make sure we send only if the progress did not send the data
+	// already.
+	if ((fileSize > 0)  && (fileSize - m_fileSize)>0) {
+		// XXX using assign() here causes segfault, prolly because
+		// gp_file_free is called before chunkData goes out of scope
+		QByteArray chunkDataBuffer;
+		chunkDataBuffer.setRawData(fileData + m_fileSize, fileSize - m_fileSize);
+		data(chunkDataBuffer);
+		processedSize(fileSize);
+		chunkDataBuffer.resetRawData(fileData + m_fileSize, fileSize - m_fileSize);
+		m_fileSize = fileSize;
+	}
 
 	// emit the mimetype
 	// NOTE: we must first get the file, so that CameraFile->name would be set
