@@ -4,6 +4,7 @@
 
 #include <qmap.h>
 #include <kdialogbase.h>
+#include <config.h>
 
 class KConfig;
 class QString;
