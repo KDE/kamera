@@ -28,6 +28,8 @@ private:
 	CameraAbilities m_abilities;
 	KSimpleConfig *m_config;
 
+	GPContext	*m_context;
+
 	void reparseConfiguration(void);
 	bool openCamera(void);
 	void closeCamera(void);
@@ -50,7 +52,9 @@ private:
 	CameraFile *m_file;
 	int m_fileSize;
 
-	// static frontend callback
+	// gphoto2 frontend callbacks
 	static void frontendCameraStatus(GPContext *context, const char *format, va_list args, void *data);
+	static unsigned int frontendProgressStart(GPContext *, float, const char *, void *, void *);
+	static void frontendProgressUpdate(GPContext *context, unsigned int id, float current, void *data);
 };
 #endif

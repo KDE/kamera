@@ -22,8 +22,6 @@
 
 #define tocstr(x) ((x).local8Bit())
 
-static GPContext *context=0;
-
 using namespace KIO;
 
 extern "C"
@@ -57,6 +55,8 @@ m_camera(NULL)
 	m_camera = 0;
 	
 	m_config = new KSimpleConfig(KProtocolInfo::config("camera"));
+
+	m_context = gp_context_new();
 }
 
 KameraProtocol::~KameraProtocol()
@@ -78,7 +78,7 @@ bool KameraProtocol::openCamera(void) {
 void KameraProtocol::closeCamera(void)
 {
 	int gpr;
-	if ((gpr=gp_camera_exit(m_camera,context))!=GP_OK) {
+	if ((gpr=gp_camera_exit(m_camera,m_context))!=GP_OK) {
 		kdDebug() << "closeCamera failed with " << gp_result_as_string(gpr) << endl;
 	}
 	// HACK: gp_camera_exit() in gp 2.0 does not close the port if there
@@ -111,7 +111,7 @@ void KameraProtocol::get(const KURL &url)
 
 	// emit the total size (we must do it before sending data to allow preview)
 	CameraFileInfo info;
-	gpr = gp_camera_file_get_info(m_camera, tocstr(url.directory(false)), tocstr(url.fileName()), &info, context);
+	gpr = gp_camera_file_get_info(m_camera, tocstr(url.directory(false)), tocstr(url.fileName()), &info, m_context);
 	if (gpr != GP_OK) {
 		gp_file_free(m_file);
 		if ((gpr == GP_ERROR_FILE_NOT_FOUND) || (gpr == GP_ERROR_DIRECTORY_NOT_FOUND))
@@ -137,7 +137,7 @@ void KameraProtocol::get(const KURL &url)
 	
 	// fetch the data
 	m_fileSize = 0;
-	gpr = gp_camera_file_get(m_camera, tocstr(url.directory(false)), tocstr(url.filename()), fileType, m_file, context);
+	gpr = gp_camera_file_get(m_camera, tocstr(url.directory(false)), tocstr(url.filename()), fileType, m_file, m_context);
 	switch(gpr) {
 		case GP_OK:
 			break;
@@ -221,7 +221,7 @@ void KameraProtocol::statRegular(const KURL &url)
 	CameraList *dirList;
 	gp_list_new(&dirList);
 	kdDebug() << "statRegular() Requesting directories list for " << url.directory() << endl;
-	gpr = gp_camera_folder_list_folders(m_camera, tocstr(url.directory()), dirList, context);
+	gpr = gp_camera_folder_list_folders(m_camera, tocstr(url.directory()), dirList, m_context);
 	closeCamera();
 	if (gpr != GP_OK) {
 		if ((gpr == GP_ERROR_FILE_NOT_FOUND) || (gpr == GP_ERROR_DIRECTORY_NOT_FOUND))
@@ -246,7 +246,7 @@ void KameraProtocol::statRegular(const KURL &url)
 	
 	// Is "url" a file?
 	CameraFileInfo info;
-	gpr = gp_camera_file_get_info(m_camera, tocstr(url.directory(false)), tocstr(url.fileName()), &info, context);
+	gpr = gp_camera_file_get_info(m_camera, tocstr(url.directory(false)), tocstr(url.fileName()), &info, m_context);
 	closeCamera();
 	if (gpr != GP_OK) {
 		if ((gpr == GP_ERROR_FILE_NOT_FOUND) || (gpr == GP_ERROR_DIRECTORY_NOT_FOUND))
@@ -265,12 +265,16 @@ void KameraProtocol::del(const KURL &url, bool isFile)
 
 	if(!openCamera())
 		return;
-	if(cameraSupportsDel() && isFile){
+	if (!cameraSupportsDel()) {
+		error(KIO::ERR_CANNOT_DELETE, url.filename());
+		return;
+	}
+	if(isFile){
 		CameraList *list;
 		gp_list_new(&list);
 		int ret;
  
-		ret = gp_camera_file_delete(m_camera, tocstr(url.directory(false)), tocstr(url.filename()), context);
+		ret = gp_camera_file_delete(m_camera, tocstr(url.directory(false)), tocstr(url.filename()), m_context);
 
 		if(ret != GP_OK) {
 			error(KIO::ERR_CANNOT_DELETE, url.filename());
@@ -356,7 +360,7 @@ void KameraProtocol::listDir(const KURL &url)
 	for(int i = 0; i < gp_list_count(fileList); ++i) {
 		gp_list_get_name(fileList, i, &name);
 		// we want to know more info about files (size, type...)
-		gp_camera_file_get_info(m_camera, tocstr(url.path()), name, &info, context);
+		gp_camera_file_get_info(m_camera, tocstr(url.path()), name, &info, m_context);
 		translateFileToUDS(entry, info);
 		listEntry(entry, false);
 	}
@@ -384,7 +388,7 @@ void KameraProtocol::setHost(const QString& host, int port, const QString& user,
 
 		if (m_camera) {
 			kdDebug() << "Configuration change detected" << endl;
-			if (GP_OK!=gp_camera_exit(m_camera,context)) {
+			if (GP_OK!=gp_camera_exit(m_camera,m_context)) {
 				kdDebug() << "camera exit failed for old cam?\n";
 			}
 			gp_camera_unref(m_camera);
@@ -397,7 +401,7 @@ void KameraProtocol::setHost(const QString& host, int port, const QString& user,
 		// fetch abilities
 		CameraAbilitiesList *abilities_list;
 		gp_abilities_list_new(&abilities_list);
-		gp_abilities_list_load(abilities_list, context);
+		gp_abilities_list_load(abilities_list, m_context);
 		idx = gp_abilities_list_lookup_model(abilities_list, tocstr(m_cfgModel));
 		if (idx < 0) {
 			gp_abilities_list_free(abilities_list);
@@ -431,7 +435,8 @@ void KameraProtocol::setHost(const QString& host, int port, const QString& user,
 		}
 	
 		// register gphoto2 callback functions
-		gp_context_set_status_func(context, frontendCameraStatus, this);
+		gp_context_set_status_func(m_context, frontendCameraStatus, this);
+		gp_context_set_progress_funcs(m_context, frontendProgressStart, frontendProgressUpdate, NULL, this);
 		// gp_camera_set_message_func(m_camera, ..., this)
 
 		// set model and port
@@ -440,7 +445,7 @@ void KameraProtocol::setHost(const QString& host, int port, const QString& user,
 		kdDebug() << "Opening camera model " << m_cfgModel << " at " << m_cfgPath << endl;
 #if 0
 		// initialize the camera (might take time on a non-existant or disconnected camera)
-		gpr = gp_camera_init(m_camera, context);
+		gpr = gp_camera_init(m_camera, m_context);
 		if(gpr != GP_OK) {
 			gp_camera_unref(m_camera);
 			m_camera = NULL;
@@ -449,7 +454,7 @@ void KameraProtocol::setHost(const QString& host, int port, const QString& user,
 			error(KIO::ERR_UNKNOWN, gp_result_as_string(gpr));
 			return;
 		}
-		gp_camera_exit(m_camera, context);
+		gp_camera_exit(m_camera, m_context);
 #endif
 	}
 }
@@ -546,10 +551,39 @@ int KameraProtocol::readCameraFolder(const QString &folder, CameraList *dirList,
 	kdDebug() << "KameraProtocol::readCameraFolder(" << folder << ")" << endl;
 
 	int gpr;
-	if((gpr = gp_camera_folder_list_folders(m_camera, tocstr(folder), dirList, context)) != GP_OK)
+	if((gpr = gp_camera_folder_list_folders(m_camera, tocstr(folder), dirList, m_context)) != GP_OK)
 		return gpr;
-	if((gpr = gp_camera_folder_list_files(m_camera, tocstr(folder), fileList, context)) != GP_OK)
+	if((gpr = gp_camera_folder_list_files(m_camera, tocstr(folder), fileList, m_context)) != GP_OK)
 		return gpr;
+	return GP_OK;
+}
+
+void KameraProtocol::frontendProgressUpdate(
+	GPContext *context, unsigned int id, float current, void *data
+) {
+	KameraProtocol *object = (KameraProtocol*)data;
+
+	object->processedSize(current); // hack: call slot directly 
+}
+
+unsigned int KameraProtocol::frontendProgressStart(
+	GPContext *context, float totalsize, const char *format, va_list args,
+	void *data
+) {
+	KameraProtocol *object = (KameraProtocol*)data;
+
+	int size=vsnprintf(NULL, 0, format, args);
+	if(size<=0)
+		return GP_OK; // vsnprintf is broken, better don't do anything.
+
+	char *status=new char[size+1];
+	vsnprintf(status, size, format, args);
+	
+	object->infoMessage(QString::fromLocal8Bit(status));
+	delete status;
+
+	object->totalSize(totalsize); // hack: call slot directly 
+
 	return GP_OK;
 }
 
