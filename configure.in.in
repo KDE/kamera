@@ -15,18 +15,18 @@ gphoto2_libraries=
 
 # Process user input to configure
 AC_ARG_WITH(kamera,
-[  --without-kamera         do not build kamera (gphoto2 required) ],
+AC_HELP_STRING([--without-kamera],[do not build kamera (gphoto2 required)]),
 [if test "$withval" = "no" ; then
   gphoto2_includes=none
   gphoto2_libraries=none
 fi])dnl
 
 AC_ARG_WITH(gphoto2-includes,
-[  --with-gphoto2-includes=DIR    gphoto2 include files are in DIR],
+AC_HELP_STRING([--with-gphoto2-includes=DIR],[gphoto2 include files are in DIR]),
 gphoto2_includes="$withval")
 
 AC_ARG_WITH(gphoto2-libraries,
-[  --with-gphoto2-libraries=DIR   gphoto2 libraries are in DIR],
+AC_HELP_STRING([--with-gphoto2-libraries=DIR],[gphoto2 libraries are in DIR]),
 gphoto2_libraries="$withval")
 
 AC_MSG_CHECKING(for gPhoto2)
