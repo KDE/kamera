@@ -273,8 +273,8 @@ KameraDeviceSelectDialog::KameraDeviceSelectDialog(QWidget *parent, KCamera *dev
 
 	m_portSelectGroup = new QVButtonGroup(i18n("Port"), page);
 	rightLayout->addWidget(m_portSelectGroup);
-	QVGroupBox *portSettingsGroup = new QVGroupBox(i18n("Port Settings"), page);
-	rightLayout->addWidget(portSettingsGroup);
+	m_portSettingsGroup = new QVGroupBox(i18n("Port Settings"), page);
+	rightLayout->addWidget(m_portSettingsGroup);
 
 	// Create port type selection radiobuttons.
 	m_serialRB = new QRadioButton(i18n("Serial"), m_portSelectGroup);
@@ -284,7 +284,7 @@ KameraDeviceSelectDialog::KameraDeviceSelectDialog(QWidget *parent, KCamera *dev
 	m_portSelectGroup->insert(m_USBRB, INDEX_USB);
 	QWhatsThis::add(m_USBRB, i18n("If this option is checked, the camera would have to be connected to one of the USB slots in your computer or USB hub."));
 	// Create port settings widget stack
-	m_settingsStack = new QWidgetStack(portSettingsGroup);
+	m_settingsStack = new QWidgetStack(m_portSettingsGroup);
 	connect(m_portSelectGroup, SIGNAL(clicked(int)),
 		m_settingsStack, SLOT(raiseWidget(int)));
 
@@ -329,7 +329,10 @@ KameraDeviceSelectDialog::KameraDeviceSelectDialog(QWidget *parent, KCamera *dev
 
 	populateCameraListView();
 	load();
+
 	enableButtonOK(false );
+    m_portSelectGroup->setEnabled( false );
+    m_portSettingsGroup->setEnabled( false );
 }
 
 bool KameraDeviceSelectDialog::populateCameraListView()
@@ -388,7 +391,10 @@ void KameraDeviceSelectDialog::load()
 
 void KameraDeviceSelectDialog::slot_setModel(QListViewItem *item)
 {
-    enableButtonOK( item );
+    enableButtonOK(true);
+    m_portSelectGroup->setEnabled(true);
+    m_portSettingsGroup->setEnabled(true);
+
     QString model = item->text(0);
 
 	CameraAbilities abilities;

@@ -89,6 +89,7 @@ protected:
 	QLineEdit *m_nameEdit;
 	QWidgetStack *m_settingsStack;
 	QVButtonGroup *m_portSelectGroup;
+	QVGroupBox *m_portSettingsGroup;
 	QComboBox *m_serialPortCombo;
 	// port selection radio buttons
 	QRadioButton *m_serialRB;
