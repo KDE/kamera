@@ -1,4 +1,5 @@
 #include <qobject.h>
+#include <qgrid.h>
 #include <qlayout.h>
 #include <qwidgetstack.h>
 #include <qvbuttongroup.h>
@@ -41,17 +42,6 @@ KCamera::~KCamera()
 
 bool KCamera::initInformation()
 {
-	if (!m_model)
-		return false;
-
-	int result = gp_camera_abilities_by_name(m_model.local8Bit().data(), &m_abilities);
-	if (result == GP_OK)
-		return true;
-	else {
-		emit error(i18n("Description of abilities for camera %1 is not available."
-			     " Configuration options may be incorrect.").arg(m_model));
-		return false;
-	}
 }
 
 bool KCamera::initCamera()
@@ -61,30 +51,52 @@ bool KCamera::initCamera()
 	else {
 		int result;
 
-		initInformation();
+		if (!m_model) return false;
 
-		if (!m_model || !m_path)
-			return false;
+		// get the model's abilities
+		CameraAbilitiesList *abilities_list;
+		gp_abilities_list_new(&abilities_list);
+		gp_abilities_list_load(abilities_list);
+		int idx = gp_abilities_list_lookup_model(abilities_list, m_model.local8Bit().data());
 
-		result = gp_camera_new(&m_camera);
-		if (result != GP_OK) {
-			// m_camera is not initialized, so we cannot get result as string
-			emit error(i18n("Could not access driver. Check your gPhoto2 installation."));
+		// if we cannot get abilities, we cannot go forward anymore
+		if (idx < 0) {
+			gp_abilities_list_free(abilities_list);
+			emit error(i18n("No drivers found for camera model <b>%1</b>.").arg(m_model));
 			return false;
 		}
+		gp_abilities_list_get_abilities(abilities_list, idx, &m_abilities);
+		gp_abilities_list_free(abilities_list);
+		
+		// get the port's info
+		GPPortInfoList *port_list;
+		GPPortInfo port;
+		gp_port_info_list_new(&port_list);
+		gp_port_info_list_load(port_list);
+		idx = gp_port_info_list_lookup_path(port_list, m_path.local8Bit().data());
+		if (idx < 0) {
+			gp_port_info_list_free(port_list);
+			emit error(i18n("No drivers found for port <b>%1</b>.").arg(m_path));
+			return false;
+		}
+		gp_port_info_list_get_info(port_list, idx, &port);
+		gp_port_info_list_free(port_list);
+		
+		// initialize the camera object
+		gp_camera_new(&m_camera);
+		gp_camera_set_abilities(m_camera, m_abilities);
+		gp_camera_set_port_info(m_camera, port);
+		// TODO: gp_camera_set_port_speed(camera, int speed)
 
-		// set the camera's model
-		gp_camera_set_model(m_camera, m_model.local8Bit().data()); 
-		gp_camera_set_port_path(m_camera, m_path.local8Bit().data());
-
-		// this might take some time (esp. for non-existant camera) - better be done asynchronously
+		// This might take some time (esp. for non-existant camera).
+		// TODO: Should be done asynchronously.
 		result = gp_camera_init(m_camera);
 		if (result != GP_OK) {
 			gp_camera_free(m_camera);
 			m_camera = NULL;
 			emit error(
-				i18n("Unable to initialize camera. Check your port settings and camera connectivity and try again."),
-				gp_camera_get_result_as_string(m_camera, result));
+				i18n("Unable to initialize camera. Check your port settings and camera connection and try again."),
+				gp_result_as_string(result));
 			return false;
 		}
 
@@ -107,17 +119,17 @@ bool KCamera::configure()
 
 	result = gp_camera_get_config(m_camera, &window);
 	if (result != GP_OK) {
-		emit error(i18n("Camera configuration failed."), gp_camera_get_result_as_string(m_camera, result));
+		emit error(i18n("Camera configuration failed."), QString::fromLocal8Bit(gp_camera_get_error(m_camera)));
 		return false; 
 	}
 
 	KameraConfigDialog kcd(m_camera, window);
-	result = kcd.exec() ? GP_PROMPT_OK : GP_PROMPT_CANCEL;
+	result = kcd.exec();
 
-	if (result == GP_PROMPT_OK) {
+	if (result) {
 		result = gp_camera_set_config(m_camera, window);
 		if (result != GP_OK) {
-			emit error(i18n("Camera configuration failed."), gp_camera_get_result_as_string(m_camera, result));
+			emit error(i18n("Camera configuration failed."), gp_camera_get_error(m_camera));
 			return false;
 		}
 	}
@@ -197,18 +209,6 @@ bool KCamera::isConfigurable()
 	return m_abilities.operations & GP_OPERATION_CONFIG;
 }
 
-QStringList KCamera::supportedPorts()
-{
-	initInformation();
-	QStringList ports;
-	if (SERIAL_SUPPORTED(m_abilities.port)) ports.append("serial");
-	if (PARALLEL_SUPPORTED(m_abilities.port)) ports.append("parallel");
-	if (USB_SUPPORTED(m_abilities.port)) ports.append("usb");
-	if (IEEE1394_SUPPORTED(m_abilities.port)) ports.append("ieee1394");
-	if (NETWORK_SUPPORTED(m_abilities.port)) ports.append("network");
-	return ports;
-}
-
 CameraAbilities KCamera::abilities()
 {
 	return m_abilities;
@@ -262,17 +262,26 @@ KameraDeviceSelectDialog::KameraDeviceSelectDialog(QWidget *parent, KCamera *dev
 	m_serialRB = new QRadioButton(i18n("Serial"), m_portSelectGroup);
 	m_portSelectGroup->insert(m_serialRB, INDEX_SERIAL);
 	QWhatsThis::add(m_serialRB, i18n("If this option is checked, the camera would have to be connected one of the serial ports (known as COM in Microsoft Windows) in your computer."));
-	m_parallelRB = new QRadioButton(i18n("Parallel"), m_portSelectGroup);
-	m_portSelectGroup->insert(m_parallelRB, INDEX_PARALLEL);
-	QWhatsThis::add(m_parallelRB, i18n("If this option is checked, the camera would have to be connected one the parallel ports (known as LPT in Microsoft Windows) in your computer."));
+	m_serialRB->setEnabled(false);
+
 	m_USBRB = new QRadioButton(i18n("USB"), m_portSelectGroup);
 	m_portSelectGroup->insert(m_USBRB, INDEX_USB);
 	QWhatsThis::add(m_USBRB, i18n("If this option is checked, the camera would have to be connected to one of the USB slots in your computer or USB hub."));
+	m_USBRB->setEnabled(false);
+
+	m_parallelRB = new QRadioButton(i18n("Parallel"), m_portSelectGroup);
+	m_portSelectGroup->insert(m_parallelRB, INDEX_PARALLEL);
+	QWhatsThis::add(m_parallelRB, i18n("If this option is checked, the camera would have to be connected one the parallel ports (known as LPT in Microsoft Windows) in your computer."));
+	m_parallelRB->setEnabled(false);
+
 	m_IEEE1394RB = new QRadioButton(i18n("IEEE1394"), m_portSelectGroup);
 	m_portSelectGroup->insert(m_IEEE1394RB, INDEX_IEEE1394);
 	QWhatsThis::add(m_IEEE1394RB, i18n("If this option is checked, the camera would have to be connected to one of the IEEE1394 (FireWire) ports in your computer."));
+	m_IEEE1394RB->setEnabled(false);
+
 	m_networkRB = new QRadioButton(i18n("Network"), m_portSelectGroup);
 	m_portSelectGroup->insert(m_networkRB, INDEX_NETWORK);
+	m_networkRB->setEnabled(false);
 
 	// Create port settings widget stack
 	m_settingsStack = new QWidgetStack(portSettingsGroup);
@@ -319,14 +328,18 @@ KameraDeviceSelectDialog::KameraDeviceSelectDialog(QWidget *parent, KCamera *dev
 	m_settingsStack->addWidget(grid, INDEX_NETWORK);
 
 	// query gphoto2 for existing serial ports
-	int gphoto_ports = gp_port_count_get();
-	gp_port_info info;
+	GPPortInfoList *port_list;
+	gp_port_info_list_new(&port_list);
+	gp_port_info_list_load(port_list);
+	int gphoto_ports = gp_port_info_list_count(port_list);
+	
+	GPPortInfo port_info;
 	for (int i = 0; i < gphoto_ports; i++) {
-		if (gp_port_info_get(i, &info) >= 0) {
-			if (strncmp(info.path, "serial:", 7) == 0)
-				m_serialPortCombo->insertItem(QString::fromLatin1(info.path).mid(7));
-			if (strncmp(info.path, "parallel:", 9) == 0)
-				m_parallelPortCombo->insertItem(QString::fromLatin1(info.path).mid(7));
+		if (gp_port_info_list_get_info(port_list, i, &port_info) >= 0) {
+			if (strncmp(port_info.path, "serial:", 7) == 0)
+				m_serialPortCombo->insertItem(QString::fromLatin1(port_info.path).mid(7));
+			if (strncmp(port_info.path, "parallel:", 9) == 0)
+				m_parallelPortCombo->insertItem(QString::fromLatin1(port_info.path).mid(7));
 		}
 	}
 	
@@ -339,20 +352,24 @@ KameraDeviceSelectDialog::KameraDeviceSelectDialog(QWidget *parent, KCamera *dev
 
 bool KameraDeviceSelectDialog::populateCameraListView()
 {
-	int numCams = gp_camera_count();
+	CameraAbilitiesList *al;
+	CameraAbilities a;
+	gp_abilities_list_new(&al);
+	gp_abilities_list_load(al);
+	int count = gp_abilities_list_count(al);
 
-	if(numCams < 0) {
-		// XXX libgphoto2 failed to get the camera list
+	if (count < 0) {
+		// failed to get cameras list
+		gp_abilities_list_free(al);
 		return false;
-	} else {
-		for(int x = 0; x < numCams; ++x) {
-			const char *modelName;
-			if(gp_camera_name(x, &modelName) == GP_OK) {
-				new QListViewItem(m_modelSel, modelName);
-			}
-		}
-		return true;
 	}
+	
+	for (int i=0; i<count; i++) {
+		gp_abilities_list_get_abilities(al, i, &a);
+		// TODO: Handle a.status
+		new QListViewItem(m_modelSel, QString::fromLocal8Bit(a.model));
+	}
+	gp_abilities_list_free(al);
 }
 
 void KameraDeviceSelectDialog::save()
@@ -397,33 +414,42 @@ void KameraDeviceSelectDialog::slot_setModel(QListViewItem *item)
 {
 	QString model = item->text(0);
 	
+	// get the model's abilities
+	CameraAbilitiesList *abilities_list;
 	CameraAbilities abilities;
-	int result = gp_camera_abilities_by_name(model.local8Bit().data(), &abilities);
-	if (result == GP_OK) {
-		// enable radiobuttons for supported port types
-		m_serialRB->setEnabled(SERIAL_SUPPORTED(abilities.port));
-		m_parallelRB->setEnabled(PARALLEL_SUPPORTED(abilities.port));
-		m_USBRB->setEnabled(USB_SUPPORTED(abilities.port));
-		m_IEEE1394RB->setEnabled(IEEE1394_SUPPORTED(abilities.port));
-		m_networkRB->setEnabled(NETWORK_SUPPORTED(abilities.port));
+	gp_abilities_list_new(&abilities_list);
+	gp_abilities_list_load(abilities_list);
+	int idx = gp_abilities_list_lookup_model(abilities_list, model.local8Bit().data());
 
-		// turn off any selected port
-		QButton *selected = m_portSelectGroup->selected();
-		if(selected != NULL)
-			selected->toggle();
-	
-	        // if there's only one available port type, make sure it's selected
-		if ((SERIAL_SUPPORTED(abilities.port)?1:0) + (PARALLEL_SUPPORTED(abilities.port)?1:0) + (USB_SUPPORTED(abilities.port)?1:0) + (IEEE1394_SUPPORTED(abilities.port)?1:0) + (NETWORK_SUPPORTED(abilities.port)?1:0)) {
-			if (SERIAL_SUPPORTED(abilities.port)) setPortType(INDEX_SERIAL);
-			if (PARALLEL_SUPPORTED(abilities.port)) setPortType(INDEX_PARALLEL);
-			if (USB_SUPPORTED(abilities.port)) setPortType(INDEX_USB);
-			if (IEEE1394_SUPPORTED(abilities.port)) setPortType(INDEX_IEEE1394);
-			if (NETWORK_SUPPORTED(abilities.port)) setPortType(INDEX_NETWORK);
-		};
-	} else {
-		slot_error(i18n("Description of abilities for camera %1 is not available."
-			     " Configuration options may be incorrect.").arg(model));
+	// if we cannot get abilities, we cannot go forward anymore
+	if (idx == GP_ERROR_MODEL_NOT_FOUND) {
+		gp_abilities_list_free(abilities_list);
+		slot_error(i18n("No drivers found for camera model <b>%1</b>.").arg(model));
+		return;
 	}
+	gp_abilities_list_get_abilities(abilities_list, idx, &abilities);
+	gp_abilities_list_free(abilities_list);
+	
+	// enable radiobuttons for supported port types
+	m_serialRB->setEnabled(abilities.port & GP_PORT_SERIAL);
+	m_USBRB->setEnabled(abilities.port & GP_PORT_USB);
+
+	/* -- those port types were never implemented --
+	m_parallelRB->setEnabled(abilities.port);
+	m_IEEE1394RB->setEnabled(abilities.port);
+	m_networkRB->setEnabled(abilities.port);
+	*/
+
+	// turn off any selected port
+	QButton *selected = m_portSelectGroup->selected();
+	if(selected != NULL)
+		selected->toggle();
+	
+        // if there's only one available port type, make sure it's selected
+	if (abilities.port == GP_PORT_SERIAL)
+		setPortType(INDEX_SERIAL);
+	if (abilities.port == GP_PORT_USB)
+		setPortType(INDEX_USB);
 }
 
 void KameraDeviceSelectDialog::setPortType(int type)

@@ -7,6 +7,7 @@
 #include <qlineedit.h>
 #include <qcombobox.h>
 #include <qslider.h>
+#include <qpushbutton.h>
 #include <qvbuttongroup.h>
 #include <qradiobutton.h>
 #include <qvbox.h>

@@ -52,53 +52,24 @@ extern "C"
 KKameraConfig *KKameraConfig::m_instance = NULL;
 
 KKameraConfig::KKameraConfig(QWidget *parent, const char *name)
-:KCModule(parent, name),
-m_gpInitialised(false)
+:KCModule(parent, name)
 {
-	#ifndef nDEBUG
-	int debug = GP_DEBUG_HIGH; 
-	#else
-	int debug = GP_DEBUG_NONE;
-	#endif
-	
 	m_devicePopup = new QPopupMenu(this);
 	m_actions = new KActionCollection(this);
-	
-        gp_debug_set_level(debug);
-	/*if(gp_init(debug) == GP_ERROR) {
-		displayGPFailureDialogue();
-	} else*/ if(gp_frontend_register(NULL, // TODO: CameraStatus
-				       NULL, // TODO: CameraProgress
-				       NULL, // TODO: CameraMessage
-				       NULL, // TODO: CameraConfirm
-				       NULL) // TODO: CameraPrompt
-				       == GP_ERROR) {
-		gp_exit();
-		displayGPFailureDialogue();
- 	} else {
-		m_config = new KSimpleConfig(KProtocolInfo::config("camera"));
+	m_config = new KSimpleConfig(KProtocolInfo::config("camera"));
 
-		// store instance for frontend_prompt
-		m_instance = this;
+	// store instance for frontend_prompt
+	m_instance = this;
 
-		// remember to gp_exit() in destructor
-		m_gpInitialised = true;
+	// build and display normal dialogue
+	displayGPSuccessDialogue();
 
-		// build and display normal dialogue
-		displayGPSuccessDialogue();
-
-		// load existing configuration
-		load();
-	}
+	// load existing configuration
+	load();
 }
 
 KKameraConfig::~KKameraConfig()
 {
-	// shutdown libgphoto2 if necessary
-
-	if(m_gpInitialised == true) {
-		gp_exit();
-	}
 }
 
 void KKameraConfig::defaults()

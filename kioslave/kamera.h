@@ -24,6 +24,7 @@ public:
 
 private:
 	Camera *m_camera;
+	CameraAbilities m_abilities;
 	KSimpleConfig *m_config;
 
 	void reparseConfiguration(void);
@@ -45,12 +46,12 @@ private:
 	QString m_cfgModel;
 	QString m_cfgPath;
 
-	static QMap<Camera *, KameraProtocol *> m_cameraToProtocol;
-	int fileSize;
+	CameraFile *m_file;
+	int m_fileSize;
 
 	// static frontend callbacks
-	static int frontendCameraStatus(Camera *camera, char *status);
-	static int frontendCameraProgress(Camera *camera, CameraFile *file, float progress);
+	static void frontendCameraStatus(Camera *camera, const char *status, void *data);
+	static void frontendCameraProgress(Camera *camera, float progress, void *data);
 };
 
 #endif
