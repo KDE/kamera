@@ -248,6 +248,12 @@ void KameraProtocol::get(const KURL &url)
 			closeCamera();
 			return;
 	}
+	// emit the mimetype
+	// NOTE: we must first get the file, so that CameraFile->name would be set
+	const char *fileMimeType;
+	gp_file_get_mime_type(m_file, &fileMimeType);
+	mimeType(fileMimeType);
+
 	// We need to pass left over data here. Some camera drivers do not
 	// implement progress callbacks!
 	const char *fileData;
@@ -268,12 +274,6 @@ void KameraProtocol::get(const KURL &url)
 		chunkDataBuffer.resetRawData(fileData + m_fileSize, fileSize - m_fileSize);
 		m_fileSize = fileSize;
 	}
-
-	// emit the mimetype
-	// NOTE: we must first get the file, so that CameraFile->name would be set
-	const char *fileMimeType;
-	gp_file_get_mime_type(m_file, &fileMimeType);
-	mimeType(fileMimeType);
 
 	finished();
 	gp_file_free(m_file);
