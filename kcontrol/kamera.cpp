@@ -98,7 +98,7 @@ void KKameraConfig::displayGPSuccessDialogue(void)
 	// create actions
 	KAction *act;
 	
-	act = new KAction(i18n("Add"), "camera_add", 0, this, SLOT(slot_addCamera()), m_actions, "camera_add");
+	act = new KAction(i18n("Add"), "camera", 0, this, SLOT(slot_addCamera()), m_actions, "camera_add");
 	act->setWhatsThis(i18n("Click this button to add a new camera."));
 	act->plug(m_toolbar);
 	m_toolbar->insertLineSeparator();
