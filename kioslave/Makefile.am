@@ -8,8 +8,8 @@ INCLUDES= -I$(srcdir)/../.. -I$(srcdir)/.. $(all_includes) $(GPHOTO2_INCS) $(GPI
 lib_LTLIBRARIES = kio_kamera.la
 
 kio_kamera_la_SOURCES = kamera.cpp
-kio_kamera_la_LIBADD  = $(LIB_KIO) $(GPHOTO2_LIBS)
-kio_kamera_la_LDFLAGS = $(all_libraries) -module -avoid-version
+kio_kamera_la_LIBADD  = $(LIB_KIO) -lgphoto2
+kio_kamera_la_LDFLAGS = $(all_libraries) $(GPHOTO2_LIBS) -module -avoid-version
 
 noinst_HEADERS = kamera.h
 
