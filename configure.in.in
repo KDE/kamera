@@ -88,14 +88,9 @@ AC_TRY_COMPILE([#include <gphoto2.h>],
   AC_DEFINE(GPHOTO_BETA3, 1, [Define if your gphoto2 is beta 3 or higher])
 ])
 # Versions >= beta4 don't need the gp_camera_exit hack
-save_CFLAGS="$CFLAGS"
-CFLAGS="$CFLAGS -I$gphoto2_includes"
-AC_CHECK_DECL(gp_camera_exit,
- [AC_DEFINE(GPHOTO_BETA4, 1, [Define if your gphoto2 is beta 4 or higher])],
- [],
- [#include <gphoto2.h>])
-CFLAGS="$save_CFLAGS"
-#
+if grep -q "gp_camera_exit" $gphoto2_includes/gphoto2.h &>/dev/null; then
+AC_DEFINE(GPHOTO_BETA4, 1, [Define if your gphoto2 is beta 4 or higher])
+
 # Search for gpio include files.
 #
 if test "$gpio_includes" = ""; then
