@@ -369,7 +369,7 @@ void KameraProtocol::statRegular(const KURL &url)
 		closeCamera();
 		return;
 	}
-	translateFileToUDS(entry, info);
+	translateFileToUDS(entry, info, url.fileName());
 	statEntry(entry);
 	finished();
 	closeCamera();
@@ -491,7 +491,7 @@ void KameraProtocol::listDir(const KURL &url)
 		gp_list_get_name(fileList, i, &name);
 		// we want to know more info about files (size, type...)
 		gp_camera_file_get_info(m_camera, tocstr(url.path()), name, &info, m_context);
-		translateFileToUDS(entry, info);
+		translateFileToUDS(entry, info, QString::fromLocal8Bit(name));
 		listEntry(entry, false);
 	}
 	if (!url.path().compare("/")) {
@@ -636,7 +636,7 @@ void KameraProtocol::translateTextToUDS(UDSEntry &udsEntry, const QString &fn,
 }
 
 // translate a CameraFileInfo to a UDSEntry which we can return as a directory listing entry
-void KameraProtocol::translateFileToUDS(UDSEntry &udsEntry, const CameraFileInfo &info)
+void KameraProtocol::translateFileToUDS(UDSEntry &udsEntry, const CameraFileInfo &info, QString name)
 {
 	UDSAtom atom;
 
@@ -646,11 +646,12 @@ void KameraProtocol::translateFileToUDS(UDSEntry &udsEntry, const CameraFileInfo
 	atom.m_long = S_IFREG; // file
 	udsEntry.append(atom);
 
-	if (info.file.fields & GP_FILE_INFO_NAME) {
-		atom.m_uds = UDS_NAME;
+	atom.m_uds = UDS_NAME;
+	if (info.file.fields & GP_FILE_INFO_NAME)
 		atom.m_str = QString::fromLocal8Bit(info.file.name);
-		udsEntry.append(atom);
-	}
+	else
+		atom.m_str = name;
+	udsEntry.append(atom);
 
 	if (info.file.fields & GP_FILE_INFO_SIZE) {
 		atom.m_uds = UDS_SIZE;
