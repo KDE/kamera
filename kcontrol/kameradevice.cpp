@@ -243,7 +243,7 @@ CameraAbilities KCamera::abilities()
 // ---------- KameraSelectCamera ------------
 
 KameraDeviceSelectDialog::KameraDeviceSelectDialog(QWidget *parent, KCamera *device)
-	: KDialogBase(parent, "kkameradeviceselect", true, i18n("Select camera device"), Ok | Cancel)
+	: KDialogBase(parent, "kkameradeviceselect", true, i18n("Select Camera Device"), Ok | Cancel)
 {
 	m_device = device;
 	connect(m_device, SIGNAL(error(const QString &)), SLOT(slot_error(const QString &)));
