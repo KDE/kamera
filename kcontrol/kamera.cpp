@@ -368,7 +368,7 @@ void KKameraConfig::setCameraType(QListViewItem *item)
 {
 	CameraAbilities abilities;
 
-	char *name = tocstr(item->text(0).latin1());
+	char *name = tocstr(item->text(0));
 
 	// retrieve camera abilities structure
 	if(gp_camera_abilities_by_name(name, &abilities) == GP_OK) {
