@@ -227,6 +227,14 @@ void KameraProtocol::get(const KURL &url)
 	// fetch the data
 	m_fileSize = 0;
 	gpr = gp_camera_file_get(m_camera, tocstr(fix_foldername(url.directory(false))), tocstr(url.filename()), fileType, m_file, m_context);
+	if (	(gpr == GP_ERROR_NOT_SUPPORTED) &&
+		(fileType == GP_FILE_TYPE_PREVIEW)
+	) {
+		// If we get here, the file info command information 
+		// will either not be used, or still valid.
+		fileType = GP_FILE_TYPE_NORMAL;
+		gpr = gp_camera_file_get(m_camera, tocstr(fix_foldername(url.directory(false))), tocstr(url.filename()), fileType, m_file, m_context);
+	}
 	switch(gpr) {
 		case GP_OK:
 			break;
