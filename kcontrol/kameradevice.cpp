@@ -303,7 +303,7 @@ KameraDeviceSelectDialog::KameraDeviceSelectDialog(QWidget *parent, KCamera *dev
 	// serial tab
 	grid = new QGrid(2, m_settingsStack);
 	grid->setSpacing(5);
-	new QLabel(i18n("Port"), grid);
+	new QLabel(i18n("Port:"), grid);
 	m_serialPortCombo = new QComboBox(TRUE, grid);
 	QWhatsThis::add(m_serialPortCombo, i18n("Here you should choose the serial port you connect the camera to."));
 	m_settingsStack->addWidget(grid, INDEX_SERIAL);
