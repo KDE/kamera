@@ -3,7 +3,7 @@ kde_module_LTLIBRARIES = libkcm_kamera.la
 libkcm_kamera_la_SOURCES = kamera.cpp kameradevice.cpp kameraconfigdialog.cpp
 
 libkcm_kamera_la_LDFLAGS  = $(all_libraries) -module -avoid-version -no-undefined
-libkcm_kamera_la_LIBADD = -lkdeui -lkfile $(GPHOTO2_LIBS) $(GPIO_LIBS)
+libkcm_kamera_la_LIBADD = $(LIB_KDEUI) $(LIB_KIO) $(GPHOTO2_LIBS) $(GPIO_LIBS)
 INCLUDES= $(all_includes) $(GPHOTO2_INCS) $(GPIO_INCS)
 
 libkcm_kamera_la_METASOURCES = kamera.moc kameradevice.moc kameraconfigdialog.moc
