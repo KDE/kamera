@@ -116,8 +116,22 @@ void KameraProtocol::autoDetect(void)
 
 // initializes the camera for usage - should be done before operations over the wire
 bool KameraProtocol::openCamera(void) {
-	if (!m_camera)
+	if (!m_camera) {
 		reparseConfiguration();
+	} else {
+		int ret, tries = 15;
+		
+		while (tries--) {
+			ret = gp_camera_init(m_camera, m_context);
+			if (	(ret == GP_ERROR_IO_USB_CLAIM) || 
+				(ret == GP_ERROR_IO_LOCK)) {
+				sleep(1);
+				continue;
+			}
+			if (ret == GP_OK) break;
+			return false;
+		}
+	}
 	return true;
 }
 
@@ -160,8 +174,10 @@ void KameraProtocol::get(const KURL &url)
 		return;
 	}
 
-	if(!openCamera())
+	if(!openCamera()) {
+		error(KIO::ERR_DOES_NOT_EXIST, url.path());
 		return;
+	}
 
 	// fprintf(stderr,"get(%s)\n",url.path().latin1());
 
@@ -327,8 +343,10 @@ void KameraProtocol::statRegular(const KURL &url)
 	UDSEntry entry;
 	int gpr;
 
-	if (openCamera() == false)
+	if (openCamera() == false) {
+		error(KIO::ERR_DOES_NOT_EXIST, url.path());
 		return;
+	}
 
 	// fprintf(stderr,"statRegular(%s)\n",url.path().latin1());
 
@@ -399,8 +417,10 @@ void KameraProtocol::del(const KURL &url, bool isFile)
 {
 	kdDebug(7123) << "KameraProtocol::del(" << url.path() << ")" << endl;
 
-	if(!openCamera())
+	if(!openCamera()) {
+		error(KIO::ERR_CANNOT_DELETE, url.filename());
 		return;
+	}
 	if (!cameraSupportsDel()) {
 		error(KIO::ERR_CANNOT_DELETE, url.filename());
 		return;
@@ -465,8 +485,10 @@ void KameraProtocol::listDir(const KURL &url)
 		return;
 	}
 
-	if (!openCamera())
+	if (!openCamera()) {
+		error(KIO::ERR_COULD_NOT_READ,url.path());
 		return;
+	}
 
 	CameraList *dirList;
 	CameraList *fileList;
