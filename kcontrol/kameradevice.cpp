@@ -93,8 +93,12 @@ bool KCamera::initCamera()
 		}
 
 		// set the camera's model
+#ifdef GPHOTO_BETA3
+		gp_camera_set_abilities(m_camera, m_abilities);
+#else
 		gp_camera_set_model(m_camera, m_model.local8Bit().data()); 
 		gp_camera_set_port_path(m_camera, m_path.local8Bit().data());
+#endif
 
 		// this might take some time (esp. for non-existant camera) - better be done asynchronously
 		result = gp_camera_init(m_camera);
