@@ -363,12 +363,15 @@ void KameraDeviceSelectDialog::save()
 {
 	m_device->setModel(m_modelSel->currentItem()->text(0));
 
-	QString type = m_portSelectGroup->selected()->text();
+	// This is to handle cameras with no port type (e.g. Directory Browse)
+	if (m_portSelectGroup->selected()) {
+		QString type = m_portSelectGroup->selected()->text();
 
-	if(type == i18n("Serial"))
-		m_device->setPath("serial:" + m_serialPortCombo->currentText());
-	else if(type == i18n("USB"))
- 		m_device->setPath("usb:");
+		if(type == i18n("Serial"))
+			m_device->setPath("serial:" + m_serialPortCombo->currentText());
+		else if(type == i18n("USB"))
+ 			m_device->setPath("usb:");
+ 	}
 }
 
 void KameraDeviceSelectDialog::load()
