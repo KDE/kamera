@@ -12,3 +12,4 @@ makedir=false
 linking=false
 moving=false
 Icon=camera
+maxInstances=1
