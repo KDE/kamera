@@ -55,7 +55,7 @@ KKameraConfig::KKameraConfig(QWidget *parent, const char *name)
 :KCModule(parent, name),
 m_gpInitialised(false)
 {
-	#ifdef DEBUG
+	#ifndef nDEBUG
 	int debug = GP_DEBUG_HIGH; 
 	#else
 	int debug = GP_DEBUG_NONE;

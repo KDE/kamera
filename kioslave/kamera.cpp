@@ -54,7 +54,12 @@ KameraProtocol::KameraProtocol(const QCString &pool, const QCString &app)
 m_camera(NULL)
 {
 	int gpr;
-        gp_debug_set_level(GP_DEBUG_LOW);
+        #ifndef nDEBUG
+        int debug = GP_DEBUG_HIGH;
+        #else
+        int debug = GP_DEBUG_NONE;
+        #endif
+        gp_debug_set_level(debug);
         /*
 	if((gpr = gp_init(GP_DEBUG_LOW)) != GP_OK) {
 		error(KIO::ERR_UNKNOWN, gp_result_as_string(gpr));
