@@ -4,7 +4,6 @@
 #include <qvbuttongroup.h>
 #include <qvgroupbox.h>
 #include <qcombobox.h>
-#include <qcombobox.h>
 #include <qlineedit.h>
 #include <qradiobutton.h>
 #include <qwhatsthis.h>
