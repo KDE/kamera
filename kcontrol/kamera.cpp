@@ -215,7 +215,7 @@ void KKameraConfig::load(void)
 		if (!strcmp(value,"usb:"))
 			names[model] = value;
 	}
-	if (ports.contains("usb:") && names.contains(ports["usb:"]))
+	if (ports.contains("usb:") && names[ports["usb:"]]!="usb:")
 		ports.remove("usb:");
 
 	QMap<QString,QString>::iterator portit;
