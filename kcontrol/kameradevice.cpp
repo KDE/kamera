@@ -338,6 +338,8 @@ KameraDeviceSelectDialog::KameraDeviceSelectDialog(QWidget *parent, KCamera *dev
 
 	populateCameraListView();
 	load();
+	enableButtonOK( false );
+
 }
 
 bool KameraDeviceSelectDialog::populateCameraListView()
@@ -391,6 +393,8 @@ void KameraDeviceSelectDialog::load()
 
 void KameraDeviceSelectDialog::slot_setModel(QListViewItem *item)
 {
+  enableButtonOK( item );
+
 	QString model = item->text(0);
 	
 	CameraAbilities abilities;
