@@ -367,9 +367,12 @@ void KameraProtocol::setHost(const QString& host, int port, const QString& user,
 
 	if (!host.isEmpty()) {
 		// Read configuration
-		QString m_cfgModel = config()->readEntry("Model");
-		QString m_cfgPath = config()->readEntry("Path");
-		
+		m_config->setGroup(host);
+		QString m_cfgModel = m_config->readEntry("Model");
+		QString m_cfgPath = m_config->readEntry("Path");
+
+		kdDebug() << "model is " << m_cfgModel << ", port is " << m_cfgPath << endl;
+
 		if (m_camera) {
 			kdDebug() << "Configuration change detected" << endl;
 			gp_camera_unref(m_camera);
