@@ -26,7 +26,7 @@
 // XXX All tocstr(string) references can be safely replaced with
 // XXX string.local8Bit() as soon as the gphoto2 API uses 'const char *'
 // XXX instead of 'char *' in calls that don't modify the string
-#define tocstr(x) ((char *)((x).local8Bit().operator const char *()))           
+#define tocstr(x) ((char *)((x).local8Bit().operator const char *()))
 
 // Undefined constant from struct CameraAbilities
 // definition in gphoto2-datatypes.h
@@ -138,19 +138,19 @@ void KKameraConfig::displayGPSuccessDialogue(void)
 		this, SLOT(configureCamera()));
 
 	m_cacheHackCB = new QCheckBox(i18n("Use camera previews for"
-					" konqueror thumbnails"),
+					" Konqueror thumbnails"),
 					miscSettingsGroup);
 
 	// Create port type selection radiobuttons.
-	m_serialRB = new QRadioButton("serial", m_portSelectGroup);
+	m_serialRB = new QRadioButton(i18n("serial"), m_portSelectGroup);
 	m_portSelectGroup->insert(m_serialRB, INDEX_SERIAL);
-	m_parallelRB = new QRadioButton("parallel", m_portSelectGroup);
+	m_parallelRB = new QRadioButton(i18n("parallel"), m_portSelectGroup);
 	m_portSelectGroup->insert(m_parallelRB, INDEX_PARALLEL);
-	m_USBRB = new QRadioButton("USB", m_portSelectGroup);
+	m_USBRB = new QRadioButton(i18n("USB"), m_portSelectGroup);
 	m_portSelectGroup->insert(m_USBRB, INDEX_USB);
-	m_IEEE1394RB = new QRadioButton("IEEE1394", m_portSelectGroup);
+	m_IEEE1394RB = new QRadioButton(i18n("IEEE1394"), m_portSelectGroup);
 	m_portSelectGroup->insert(m_IEEE1394RB, INDEX_IEEE1394);
-	m_networkRB = new QRadioButton("network", m_portSelectGroup);
+	m_networkRB = new QRadioButton(i18n("network"), m_portSelectGroup);
 	m_portSelectGroup->insert(m_networkRB, INDEX_NETWORK);
 
 	// Create port settings widget stack
@@ -275,18 +275,18 @@ void KKameraConfig::save(void)
 	// A port type is selected, store related settings
 	QString type = selected->text();
 
-	if(type == "serial") {
+	if(type == i18n("serial")) {
 		config->writeEntry("Port", "serial");
 		config->writeEntry("Path", m_serialPortLineEdit->text());
 		config->writeEntry("Speed", m_serialSpeedCombo->currentText());
-	} else if(type == "parallel") {
+	} else if(type == i18n("parallel")) {
 		config->writeEntry("Port", "parallel");
 		config->writeEntry("Path", m_parallelPortLineEdit->text());
-	} else if(type == "USB") {
+	} else if(type == i18n("USB")) {
 		config->writeEntry("Port", "usb");
-	} else if(type == "IEEE1394") {
+	} else if(type == i18n("IEEE1394")) {
 		config->writeEntry("Port", "ieee1394");
-	} else if(type == "network") {
+	} else if(type == i18n("network")) {
 		config->writeEntry("Port", "network");
 		config->writeEntry("NetHost", m_networkHostLineEdit->text());
 		config->writeEntry("NetPort", m_networkPortLineEdit->text());
@@ -440,7 +440,7 @@ bool KKameraConfig::openSelectedCamera(void)
 	if(gp_camera_init(m_camera, &m_cameraPortInfo) != GP_OK) {
 		gp_camera_free(m_camera);
 		m_camera = NULL;
-		KMessageBox::error(this, i18n("Unable to intialise camera."
+		KMessageBox::error(this, i18n("Unable to initialise camera."
 			" Check your port settings and camera connectivity"
 			" and try again."));
 		return false;
@@ -468,27 +468,27 @@ void KKameraConfig::transferCameraPortInfoFromUI(void)
 
 	QString type = selected->text();
 
-	if(type == "serial") {
+	if(type == i18n("serial")) {
 		m_cameraPortInfo.type = GP_PORT_SERIAL;
 		strcpy(m_cameraPortInfo.path,
-			m_serialPortLineEdit->text().local8Bit());
+			m_serialPortLineEdit->text().local8Bit());		//lukas: FIXME!!! no strcpy never ever
 		m_cameraPortInfo.speed =
 			m_serialSpeedCombo->currentText().toInt();
-	} else if(type == "parallel") {
+	} else if(type == i18n("parallel")) {
 		m_cameraPortInfo.type = GP_PORT_PARALLEL;
 		strcpy(m_cameraPortInfo.path,
-			m_parallelPortLineEdit->text().local8Bit());
-	} else if(type == "USB") {
+			m_parallelPortLineEdit->text().local8Bit());	//lukas: FIXME!!!
+	} else if(type == i18n("USB")) {
 		m_cameraPortInfo.type = GP_PORT_USB;
 		strcpy(m_cameraPortInfo.path, "usb");
-	} else if(type == "IEEE1394") {
+	} else if(type == i18n("IEEE1394")) {
 		m_cameraPortInfo.type = GP_PORT_IEEE1394;
 		strcpy(m_cameraPortInfo.path, "ieee1394");
-	} else if(type == "network") {
+	} else if(type == i18n("network")) {
 		m_cameraPortInfo.type = GP_PORT_NETWORK;
-		strcpy(m_cameraPortInfo.path, "network");
+		strcpy(m_cameraPortInfo.path, "network");		//lukas: FIXME!!!
 		strcpy(m_cameraPortInfo.host,
-			m_networkHostLineEdit->text().local8Bit());
+			m_networkHostLineEdit->text().local8Bit());	//lukas: FIXME!!!
 		m_cameraPortInfo.host_port =
 			m_networkPortLineEdit->text().toInt();
 	}
