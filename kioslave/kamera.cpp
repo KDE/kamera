@@ -87,54 +87,18 @@ m_camera(NULL)
 	m_camera = 0;
 	m_file = NULL;
 	m_config = new KSimpleConfig(KProtocolInfo::config("camera"));
-	autoDetect();
 	m_context = gp_context_new();
 }
 
 KameraProtocol::~KameraProtocol()
 {
-    delete m_config;
+	delete m_config;
 	if(m_camera) {
 		closeCamera();
  		gp_camera_free(m_camera);
 		m_camera = NULL;
 	}
 }
-
-void KameraProtocol::autoDetect(void)
-{
-	GPContext *glob_context = NULL;
-	QStringList groupList = m_config->groupList();
-
-        int i, count;
-        CameraList list;
-        CameraAbilitiesList *al;
-        GPPortInfoList *il;
-        const char *model, *value;
-
-        gp_abilities_list_new (&al);
-        gp_abilities_list_load (al, glob_context);
-        gp_port_info_list_new (&il);
-        gp_port_info_list_load (il);
-        gp_abilities_list_detect (al, il, &list, glob_context);
-        gp_abilities_list_free (al);
-        gp_port_info_list_free (il);
-
-        count = gp_list_count (&list);
-
-	for (i = 0 ; i<count ; i++) {
-		gp_list_get_name  (&list, i, &model);
-		gp_list_get_value (&list, i, &value);
-
-		if (groupList.contains(model))
-			continue;
-		kdDebug(7123) << "Adding " << model << " at " << value << endl;
-		m_config->setGroup(QString::fromLatin1(model).lower());
-		m_config->writeEntry("Model",model);
-		m_config->writeEntry("Path",value);
-	}
-}
-
 
 // initializes the camera for usage - should be done before operations over the wire
 bool KameraProtocol::openCamera(void) {
@@ -227,7 +191,7 @@ void KameraProtocol::get(const KURL &url)
 
 #undef GPHOTO_TEXT_FILE
 	// emit info message
-	infoMessage( i18n("Retrieving data from camera <b>%1</b>").arg(m_cfgModel) );
+	infoMessage( i18n("Retrieving data from camera <b>%1</b>").arg(url.user()) );
 
 	// Note: There's no need to re-read directory for each get() anymore
 	gp_file_new(&m_file);
@@ -469,40 +433,131 @@ void KameraProtocol::listDir(const KURL &url)
 	kdDebug(7123) << "KameraProtocol::listDir(" << url.path() << ")" << endl;
 
 	if (url.host().isEmpty()) {
+		KURL xurl;
 		// List the available cameras
 		QStringList groupList = m_config->groupList();
 		kdDebug(7123) << "Found cameras: " << groupList.join(", ") << endl;
 		QStringList::Iterator it;
 		UDSEntry entry;
 		UDSAtom atom;
+
+
+		/*
+		 * What we do:
+		 * - Autodetect cameras and remember them with their ports.
+		 * - List all saved and possible offline cameras.
+		 * - List all autodetected and not yet printed cameras.
+		 */
+		QMap<QString,QString>	ports, names;
+		QMap<QString,int>	modelcnt;
+
+		/* Autodetect USB cameras ... */
+		GPContext *glob_context = NULL;
+		int i, count;
+		CameraList list;
+		CameraAbilitiesList *al;
+		GPPortInfoList *il;
+
+		gp_abilities_list_new (&al);
+		gp_abilities_list_load (al, glob_context);
+		gp_port_info_list_new (&il);
+		gp_port_info_list_load (il);
+		gp_abilities_list_detect (al, il, &list, glob_context);
+		gp_abilities_list_free (al);
+		gp_port_info_list_free (il);
+
+		count = gp_list_count (&list);
+
+		for (i = 0 ; i<count ; i++) {
+			const char *model, *value;
+
+			gp_list_get_name  (&list, i, &model);
+			gp_list_get_value (&list, i, &value);
+	
+			ports[value] = model;
+			// NOTE: We might get different ports than usb: later!
+			if (value != "usb:")
+				names[model] = value;
+
+			/* Save them, even though we can autodetect them for
+			 * offline listing.
+			 */
+			m_config->setGroup(model);
+			m_config->writeEntry("Model",model);
+			m_config->writeEntry("Path",value);
+			modelcnt[model]++;
+		}
+
+		/* Avoid duplicated entry for usb: and usb:001,042 entries. */
+		if (ports.contains("usb:") && names.contains(ports["usb:"]))
+			ports.remove("usb:");
+
 		for (it = groupList.begin(); it != groupList.end(); it++) {
-			if (*it != "<default>") {
-				entry.clear();
-				atom.m_uds = UDS_FILE_TYPE; // UDS type
-				atom.m_long = S_IFDIR; // directory
-				entry.append(atom);
+			QString m_cfgPath;
+			if (*it == "<default>")
+				continue;
 
-				atom.m_uds = UDS_NAME;
-				atom.m_str = *it;
-				entry.append(atom);
+			m_config->setGroup(*it);
+			m_cfgPath = m_config->readEntry("Path");
 
-				atom.m_uds = UDS_ACCESS;
-				atom.m_long = S_IRUSR | S_IRGRP | S_IROTH |
-					S_IWUSR | S_IWGRP | S_IWOTH;
-				entry.append(atom);
+			/* If autodetect by USB autodetect ... skip it here.
+			 * We leave unattached USB cameras in here, because the user
+			 * might plug them in later and does not want to press reload.
+			 * We add them with port "usb:".
+			 */
+			if (modelcnt[*it] > 0)
+				continue;
 
-				atom.m_uds = UDS_URL;
-				KURL xurl;
-				xurl.setProtocol("camera");
-				xurl.setHost(*it);
-				xurl.setPath("/");
-				atom.m_str = xurl.url();
-				entry.append(atom);
+			entry.clear();
+			atom.m_uds = UDS_FILE_TYPE;atom.m_long = S_IFDIR;entry.append(atom);
+			atom.m_uds = UDS_NAME;atom.m_str = *it;entry.append(atom);
+			atom.m_uds = UDS_ACCESS;
+			atom.m_long = S_IRUSR | S_IRGRP | S_IROTH |
+				S_IWUSR | S_IWGRP | S_IWOTH;
+			entry.append(atom);
 
-				listEntry(entry, false);
+			atom.m_uds = UDS_URL;
+
+			xurl.setProtocol("camera");
+			xurl.setUser(*it);
+			/* Avoid setting usb:xxx,yyy. */
+			if (m_cfgPath.contains("usb:")>0) {
+				names[*it] = "usb:";
+				xurl.setHost("usb:");
+			} else {
+				xurl.setHost(m_cfgPath);
 			}
+			xurl.setPath("/");
+			atom.m_str = xurl.url();
+			entry.append(atom);
+
+			listEntry(entry, false);
+		}
+	
+		QMap<QString,QString>::iterator portsit;
+
+		for (portsit = ports.begin(); portsit != ports.end(); portsit++) {
+			entry.clear();
+			atom.m_uds = UDS_FILE_TYPE;atom.m_long = S_IFDIR; entry.append(atom);
+			atom.m_uds = UDS_NAME;atom.m_str = portsit.data();entry.append(atom);
+
+			atom.m_uds = UDS_ACCESS;
+			atom.m_long = S_IRUSR | S_IRGRP | S_IROTH |
+				S_IWUSR | S_IWGRP | S_IWOTH;
+			entry.append(atom);
+
+			atom.m_uds = UDS_URL;
+			xurl.setProtocol("camera");
+			xurl.setHost(portsit.key());
+			xurl.setUser(portsit.data());
+			xurl.setPath("/");
+			atom.m_str = xurl.url();
+			entry.append(atom);
+
+			listEntry(entry, false);
 		}
 		listEntry(entry, true);
+
 		finished();
 		return;
 	}
@@ -593,13 +648,7 @@ void KameraProtocol::setHost(const QString& host, int port, const QString& user,
 	int gpr, idx;
 
 	if (!host.isEmpty()) {
-		// Read configuration
-		m_config->setGroup(host.lower());
-		QString m_cfgModel = m_config->readEntry("Model");
-		QString m_cfgPath = m_config->readEntry("Path");
-
-		kdDebug(7123) << "model is " << m_cfgModel << ", port is " << m_cfgPath << endl;
-
+		kdDebug(7123) << "model is " << user << ", port is " << host << endl;
 		if (m_camera) {
 			kdDebug(7123) << "Configuration change detected" << endl;
 			closeCamera();
@@ -614,10 +663,10 @@ void KameraProtocol::setHost(const QString& host, int port, const QString& user,
 		CameraAbilitiesList *abilities_list;
 		gp_abilities_list_new(&abilities_list);
 		gp_abilities_list_load(abilities_list, m_context);
-		idx = gp_abilities_list_lookup_model(abilities_list, tocstr(m_cfgModel));
+		idx = gp_abilities_list_lookup_model(abilities_list, tocstr(user));
 		if (idx < 0) {
 			gp_abilities_list_free(abilities_list);
-			kdDebug(7123) << "Unable to get abilities for model: " << m_cfgModel << endl;
+			kdDebug(7123) << "Unable to get abilities for model: " << user << endl;
 			error(KIO::ERR_UNKNOWN, gp_result_as_string(idx));
 			return;
 		}
@@ -629,10 +678,10 @@ void KameraProtocol::setHost(const QString& host, int port, const QString& user,
 		GPPortInfo port_info;
 		gp_port_info_list_new(&port_info_list);
 		gp_port_info_list_load(port_info_list);
-		idx = gp_port_info_list_lookup_path(port_info_list, tocstr(m_cfgPath));
+		idx = gp_port_info_list_lookup_path(port_info_list, tocstr(host));
 		if (idx < 0) {
 			gp_port_info_list_free(port_info_list);
-			kdDebug(7123) << "Unable to get port info for path: " << m_cfgPath << endl;
+			kdDebug(7123) << "Unable to get port info for path: " << host << endl;
 			error(KIO::ERR_UNKNOWN, gp_result_as_string(idx));
 			return;
 		}
@@ -655,14 +704,13 @@ void KameraProtocol::setHost(const QString& host, int port, const QString& user,
 		gp_camera_set_abilities(m_camera, m_abilities);
 		gp_camera_set_port_info(m_camera, port_info);
 		gp_camera_set_port_speed(m_camera, 0); // TODO: the value needs to be configurable
-		kdDebug(7123) << "Opening camera model " << m_cfgModel << " at " << m_cfgPath << endl;
+		kdDebug(7123) << "Opening camera model " << user << " at " << host << endl;
 #if 0
 		// initialize the camera (might take time on a non-existant or disconnected camera)
 		gpr = gp_camera_init(m_camera, m_context);
 		if(gpr != GP_OK) {
 			gp_camera_unref(m_camera);
 			m_camera = NULL;
-			m_cfgModel = ""; // force a configuration reload (since init didn't complete)
 			kdDebug(7123) << "Unable to init camera: " << gp_result_as_string(gpr) << endl;
 			error(KIO::ERR_UNKNOWN, gp_result_as_string(gpr));
 			return;
