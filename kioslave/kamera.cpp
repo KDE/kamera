@@ -756,7 +756,7 @@ int KameraProtocol::readCameraFolder(const QString &folder, CameraList *dirList,
 }
 
 void frontendProgressUpdate(
-	GPContext *context, unsigned int id, float current, void *data
+	GPContext * /*context*/, unsigned int /*id*/, float /*current*/, void *data 
 ) {
 	KameraProtocol *object = (KameraProtocol*)data;
 
@@ -786,7 +786,7 @@ void frontendProgressUpdate(
 }
 
 unsigned int frontendProgressStart(
-	GPContext *context, float totalsize, const char *format, va_list args,
+	GPContext * /*context*/, float totalsize, const char *format, va_list args,
 	void *data
 ) {
 	KameraProtocol *object = (KameraProtocol*)data;
@@ -807,7 +807,7 @@ unsigned int frontendProgressStart(
 }
 
 // this callback function is activated on every status message from gphoto2
-static void frontendCameraStatus(GPContext *context, const char *format, va_list args, void *data)
+static void frontendCameraStatus(GPContext * /*context*/, const char *format, va_list args, void *data)
 {
 	KameraProtocol *object = (KameraProtocol*)data;
 	int size=vsnprintf(NULL, 0, format, args);
