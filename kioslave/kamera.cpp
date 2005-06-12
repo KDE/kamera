@@ -454,25 +454,26 @@ void KameraProtocol::listDir(const KURL &url)
 		/* Autodetect USB cameras ... */
 		GPContext *glob_context = NULL;
 		int i, count;
-		CameraList list;
+		CameraList *list;
 		CameraAbilitiesList *al;
 		GPPortInfoList *il;
 
+		gp_list_new (&list);
 		gp_abilities_list_new (&al);
 		gp_abilities_list_load (al, glob_context);
 		gp_port_info_list_new (&il);
 		gp_port_info_list_load (il);
-		gp_abilities_list_detect (al, il, &list, glob_context);
+		gp_abilities_list_detect (al, il, list, glob_context);
 		gp_abilities_list_free (al);
 		gp_port_info_list_free (il);
 
-		count = gp_list_count (&list);
+		count = gp_list_count (list);
 
 		for (i = 0 ; i<count ; i++) {
 			const char *model, *value;
 
-			gp_list_get_name  (&list, i, &model);
-			gp_list_get_value (&list, i, &value);
+			gp_list_get_name  (list, i, &model);
+			gp_list_get_value (list, i, &value);
 	
 			ports[value] = model;
 			// NOTE: We might get different ports than usb: later!
@@ -487,6 +488,7 @@ void KameraProtocol::listDir(const KURL &url)
 			m_config->writeEntry("Path",value);
 			modelcnt[model]++;
 		}
+		gp_list_free (list);
 
 		/* Avoid duplicated entry for usb: and usb:001,042 entries. */
 		if (ports.contains("usb:") && names[ports["usb:"]]!="usb:")
