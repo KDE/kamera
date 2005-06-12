@@ -173,7 +173,7 @@ void KKameraConfig::load(void)
 	QStringList groupList = m_config->groupList();
 	QStringList::Iterator it;
         int i, count;
-        CameraList list;
+        CameraList *list;
         CameraAbilitiesList *al;
         GPPortInfoList *il;
         const char *model, *value;
@@ -194,22 +194,23 @@ void KKameraConfig::load(void)
 	}
 	m_cancelPending = false;
 
+	gp_list_new (&list);
 
         gp_abilities_list_new (&al);
         gp_abilities_list_load (al, m_context);
         gp_port_info_list_new (&il);
         gp_port_info_list_load (il);
-        gp_abilities_list_detect (al, il, &list, m_context);
+        gp_abilities_list_detect (al, il, list, m_context);
         gp_abilities_list_free (al);
         gp_port_info_list_free (il);
 
-        count = gp_list_count (&list);
+        count = gp_list_count (list);
 
 	QMap<QString,QString>	ports, names;
 	
 	for (i = 0 ; i<count ; i++) {
-		gp_list_get_name  (&list, i, &model);
-		gp_list_get_value (&list, i, &value);
+		gp_list_get_name  (list, i, &model);
+		gp_list_get_value (list, i, &value);
 
 		ports[value] = model;
 		if (!strcmp(value,"usb:"))
@@ -229,6 +230,8 @@ void KKameraConfig::load(void)
 		m_devices[portit.data()] = kcamera;
 	}
 	populateDeviceListView();
+
+	gp_list_free (list);
 }
 
 void KKameraConfig::beforeCameraOperation(void)
