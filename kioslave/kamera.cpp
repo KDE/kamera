@@ -30,6 +30,8 @@
 
 #include <qfile.h>
 #include <qtextstream.h>
+//Added by qt3to4:
+#include <Q3CString>
 
 #include <kdebug.h>
 #include <kinstance.h>
@@ -78,7 +80,7 @@ int kdemain(int argc, char **argv)
 	return 0;
 }
 
-KameraProtocol::KameraProtocol(const QCString &pool, const QCString &app)
+KameraProtocol::KameraProtocol(const Q3CString &pool, const Q3CString &app)
 : SlaveBase("camera", pool, app),
 m_camera(NULL)
 {

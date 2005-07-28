@@ -30,11 +30,11 @@ class QWidget;
 class QRadioButton;
 class QPushButton;
 class QComboBox;
-class QVButtonGroup;
+class Q3VButtonGroup;
 class QLineEdit;
-class QWidgetStack;
+class Q3WidgetStack;
 class QCheckBox;
-class QIconViewItem;
+class Q3IconViewItem;
 
 class KCamera;
 class KameraDeviceSelectDialog;
@@ -64,8 +64,8 @@ protected:
 	QString suggestName(const QString &name);
 
 protected slots:
-	void slot_deviceMenu(QIconViewItem *item, const QPoint &point);
-	void slot_deviceSelected(QIconViewItem *item);
+	void slot_deviceMenu(Q3IconViewItem *item, const QPoint &point);
+	void slot_deviceSelected(Q3IconViewItem *item);
 	void slot_addCamera();
 	void slot_removeCamera();
 	void slot_configureCamera();

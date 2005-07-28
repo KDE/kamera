@@ -21,15 +21,17 @@
 
 */
 #include <qlayout.h>
-#include <qwidgetstack.h>
-#include <qvbuttongroup.h>
-#include <qvgroupbox.h>
+#include <q3widgetstack.h>
+
 #include <qcombobox.h>
 #include <qlineedit.h>
 #include <qradiobutton.h>
-#include <qwhatsthis.h>
+#include <q3whatsthis.h>
 #include <qlabel.h>
-#include <qgrid.h>
+#include <q3grid.h>
+//Added by qt3to4:
+#include <QHBoxLayout>
+#include <QVBoxLayout>
 
 #include <klocale.h>
 #include <kconfig.h>
@@ -72,7 +74,7 @@ KCamera::~KCamera()
 
 bool KCamera::initInformation()
 {
-	if (!m_model)
+	if (!m_model.isNull())
 		return false;
 
 	if(gp_abilities_list_new(&m_abilitylist) != GP_OK) {
@@ -102,7 +104,7 @@ bool KCamera::initCamera()
 
 		initInformation();
 
-		if (!m_model || !m_path)
+		if (!m_model.isNull() || !m_path.isNull())
 			return false;
 
 		result = gp_camera_new(&m_camera);
@@ -289,9 +291,9 @@ KameraDeviceSelectDialog::KameraDeviceSelectDialog(QWidget *parent, KCamera *dev
 	m_modelSel = new KListView(page);
 	topLayout->addWidget( m_modelSel );
 	m_modelSel->addColumn(i18n("Supported Cameras"));
-	m_modelSel->setColumnWidthMode(0, QListView::Maximum);
-	connect(m_modelSel, SIGNAL(selectionChanged(QListViewItem *)),
-        SLOT(slot_setModel(QListViewItem *)));
+	m_modelSel->setColumnWidthMode(0, Q3ListView::Maximum);
+	connect(m_modelSel, SIGNAL(selectionChanged(Q3ListViewItem *)),
+        SLOT(slot_setModel(Q3ListViewItem *)));
 	// make sure listview only as wide as it needs to be
 	m_modelSel->setSizePolicy(QSizePolicy(QSizePolicy::Maximum,
 		QSizePolicy::Preferred));
@@ -299,7 +301,7 @@ KameraDeviceSelectDialog::KameraDeviceSelectDialog(QWidget *parent, KCamera *dev
 	QVBoxLayout *rightLayout = new QVBoxLayout(0L, 0, KDialog::spacingHint());
 	topLayout->addLayout( rightLayout );
 
-	m_portSelectGroup = new QVButtonGroup(i18n("Port"), page);
+	m_portSelectGroup = new Q3VButtonGroup(i18n("Port"), page);
 	rightLayout->addWidget(m_portSelectGroup);
 	m_portSettingsGroup = new QVGroupBox(i18n("Port Settings"), page);
 	rightLayout->addWidget(m_portSettingsGroup);
@@ -307,12 +309,12 @@ KameraDeviceSelectDialog::KameraDeviceSelectDialog(QWidget *parent, KCamera *dev
 	// Create port type selection radiobuttons.
 	m_serialRB = new QRadioButton(i18n("Serial"), m_portSelectGroup);
 	m_portSelectGroup->insert(m_serialRB, INDEX_SERIAL);
-	QWhatsThis::add(m_serialRB, i18n("If this option is checked, the camera would have to be connected one of the serial ports (known as COM in Microsoft Windows) in your computer."));
+	Q3WhatsThis::add(m_serialRB, i18n("If this option is checked, the camera would have to be connected one of the serial ports (known as COM in Microsoft Windows) in your computer."));
 	m_USBRB = new QRadioButton(i18n("USB"), m_portSelectGroup);
 	m_portSelectGroup->insert(m_USBRB, INDEX_USB);
-	QWhatsThis::add(m_USBRB, i18n("If this option is checked, the camera would have to be connected to one of the USB slots in your computer or USB hub."));
+	Q3WhatsThis::add(m_USBRB, i18n("If this option is checked, the camera would have to be connected to one of the USB slots in your computer or USB hub."));
 	// Create port settings widget stack
-	m_settingsStack = new QWidgetStack(m_portSettingsGroup);
+	m_settingsStack = new Q3WidgetStack(m_portSettingsGroup);
 	connect(m_portSelectGroup, SIGNAL(clicked(int)),
 		m_settingsStack, SLOT(raiseWidget(int)));
 
@@ -321,14 +323,14 @@ KameraDeviceSelectDialog::KameraDeviceSelectDialog(QWidget *parent, KCamera *dev
 		m_settingsStack), INDEX_NONE);
 
 	// serial tab
-	QGrid *grid = new QGrid(2, m_settingsStack);
+	Q3Grid *grid = new Q3Grid(2, m_settingsStack);
 	grid->setSpacing(KDialog::spacingHint());
 	new QLabel(i18n("Port:"), grid);
 	m_serialPortCombo = new QComboBox(TRUE, grid);
-	QWhatsThis::add(m_serialPortCombo, i18n("Here you should choose the serial port you connect the camera to."));
+	Q3WhatsThis::add(m_serialPortCombo, i18n("Here you should choose the serial port you connect the camera to."));
 	m_settingsStack->addWidget(grid, INDEX_SERIAL);
 
-	grid = new QGrid(2, m_settingsStack);
+	grid = new Q3Grid(2, m_settingsStack);
 	grid->setSpacing(KDialog::spacingHint());
 	new QLabel(i18n("Port"), grid);
 
@@ -376,7 +378,7 @@ bool KameraDeviceSelectDialog::populateCameraListView()
 	} else {
 		for(int x = 0; x < numCams; ++x) {
 			if(gp_abilities_list_get_abilities(m_device->m_abilitylist, x, &a) == GP_OK) {
-				new QListViewItem(m_modelSel, a.model);
+				new Q3ListViewItem(m_modelSel, a.model);
 			}
 		}
 		return true;
@@ -408,7 +410,7 @@ void KameraDeviceSelectDialog::load()
 	if (port == "serial") setPortType(INDEX_SERIAL);
 	if (port == "usb") setPortType(INDEX_USB);
 
-	QListViewItem *modelItem = m_modelSel->firstChild();
+	Q3ListViewItem *modelItem = m_modelSel->firstChild();
 	do {
 		if (modelItem->text(0) == m_device->model()) {
 			m_modelSel->setSelected(modelItem, true);
@@ -417,7 +419,7 @@ void KameraDeviceSelectDialog::load()
 	} while ( ( modelItem = modelItem->nextSibling() ) );
 }
 
-void KameraDeviceSelectDialog::slot_setModel(QListViewItem *item)
+void KameraDeviceSelectDialog::slot_setModel(Q3ListViewItem *item)
 {
     enableButtonOK(true);
     m_portSelectGroup->setEnabled(true);
@@ -438,7 +440,7 @@ void KameraDeviceSelectDialog::slot_setModel(QListViewItem *item)
 		m_USBRB->setEnabled(abilities.port & GP_PORT_USB);
 
 		// turn off any selected port
-		QButton *selected = m_portSelectGroup->selected();
+		Q3Button *selected = m_portSelectGroup->selected();
 		if(selected != NULL)
 			selected->toggle();
 

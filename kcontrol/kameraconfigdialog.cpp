@@ -21,7 +21,7 @@
 
 */
 #include <qlayout.h>
-#include <qgrid.h>
+#include <q3grid.h>
 #include <qlabel.h>
 #include <qvgroupbox.h>
 #include <qcheckbox.h>
@@ -29,11 +29,14 @@
 #include <qlineedit.h>
 #include <qcombobox.h>
 #include <qslider.h>
-#include <qvbuttongroup.h>
+
 #include <qhbuttongroup.h>
-#include <qvbox.h>
+#include <q3vbox.h>
 #include <qtabwidget.h>
-#include <qwhatsthis.h>
+#include <q3whatsthis.h>
+//Added by qt3to4:
+#include <Q3Frame>
+#include <QVBoxLayout>
 
 #include <klocale.h>
 
@@ -47,7 +50,7 @@ KameraConfigDialog::KameraConfigDialog(Camera */*camera*/,
 KDialogBase(parent, name, true, QString::null, Ok|Cancel, Ok ),
 m_widgetRoot(widget)
 {
-    QFrame *main = makeMainWidget();
+    Q3Frame *main = makeMainWidget();
 	QVBoxLayout *topLayout = new QVBoxLayout(main, 0, spacingHint());
 	topLayout->setAutoAdd(true);
 
@@ -91,7 +94,7 @@ void KameraConfigDialog::appendWidget(QWidget *parent, CameraWidget *widget)
 			QVBoxLayout *tabLayout = new QVBoxLayout(tab, marginHint(),
 				spacingHint());
 			m_tabWidget->insertTab(tab, widget_label);
-			QVBox *tabContainer = new QVBox(tab);
+			Q3VBox *tabContainer = new Q3VBox(tab);
 			tabContainer->setSpacing(spacingHint());
 			tabLayout->addWidget(tabContainer);
 			newParent = tabContainer;
@@ -104,14 +107,14 @@ void KameraConfigDialog::appendWidget(QWidget *parent, CameraWidget *widget)
 		{
 			gp_widget_get_value(widget, &widget_value_string);
 
-			QGrid *grid = new QGrid(2, Horizontal, parent);
+			Q3Grid *grid = new Q3Grid(2, Horizontal, parent);
 			grid->setSpacing(spacingHint());
 			new QLabel(QString::fromLocal8Bit( widget_label )+":", grid);
 			QLineEdit *lineEdit = new QLineEdit(widget_value_string, grid);
 			m_wmap.insert(widget, lineEdit);
 
 			if (!whats_this.isEmpty())
-				QWhatsThis::add(grid, whats_this);
+				Q3WhatsThis::add(grid, whats_this);
 
 			break;
 		}
@@ -123,7 +126,7 @@ void KameraConfigDialog::appendWidget(QWidget *parent, CameraWidget *widget)
 			gp_widget_get_range(widget, &widget_low, &widget_high, &widget_increment);
 			gp_widget_get_value(widget, &widget_value_float);
 	
-			QGroupBox *groupBox = new QVGroupBox(widget_label, parent);
+			Q3GroupBox *groupBox = new QVGroupBox(widget_label, parent);
 			QSlider *slider = new QSlider(
 				( int )widget_low,
 				( int )widget_high,
@@ -134,7 +137,7 @@ void KameraConfigDialog::appendWidget(QWidget *parent, CameraWidget *widget)
 			m_wmap.insert(widget, slider);
 		
 			if (!whats_this.isEmpty())
-				QWhatsThis::add(groupBox, whats_this);
+				Q3WhatsThis::add(groupBox, whats_this);
 		
 			break;
 		}
@@ -147,7 +150,7 @@ void KameraConfigDialog::appendWidget(QWidget *parent, CameraWidget *widget)
 			m_wmap.insert(widget, checkBox);
 
 			if (!whats_this.isEmpty())
-				QWhatsThis::add(checkBox, whats_this);
+				Q3WhatsThis::add(checkBox, whats_this);
 
 			break;
 		}
@@ -158,11 +161,11 @@ void KameraConfigDialog::appendWidget(QWidget *parent, CameraWidget *widget)
 			int count = gp_widget_count_choices(widget);
 
 			// for less than 5 options, align them horizontally
-			QButtonGroup *buttonGroup;
+			Q3ButtonGroup *buttonGroup;
 			if (count > 4)
-				buttonGroup = new QVButtonGroup(widget_label, parent);
+				buttonGroup = new Q3VButtonGroup(widget_label, parent);
 			else
-				buttonGroup = new QHButtonGroup(widget_label, parent);
+				buttonGroup = new Q3HButtonGroup(widget_label, parent);
 			
 			for(int i = 0; i < count; ++i) {
 				const char *widget_choice;
@@ -175,7 +178,7 @@ void KameraConfigDialog::appendWidget(QWidget *parent, CameraWidget *widget)
 			m_wmap.insert(widget, buttonGroup);
 
 			if (!whats_this.isEmpty())
-				QWhatsThis::add(buttonGroup, whats_this);
+				Q3WhatsThis::add(buttonGroup, whats_this);
 
 			break;
 		}
@@ -196,7 +199,7 @@ void KameraConfigDialog::appendWidget(QWidget *parent, CameraWidget *widget)
 			m_wmap.insert(widget, comboBox);
 
 			if (!whats_this.isEmpty())
-				QWhatsThis::add(comboBox, whats_this);
+				Q3WhatsThis::add(comboBox, whats_this);
 
 			break;
 		}
@@ -277,7 +280,7 @@ void KameraConfigDialog::updateWidgetValue(CameraWidget *widget)
 		}
 	case GP_WIDGET_RADIO:
 		{
-			QButtonGroup *buttonGroup = static_cast<QVButtonGroup *>(m_wmap[widget]);
+			Q3ButtonGroup *buttonGroup = static_cast<Q3VButtonGroup *>(m_wmap[widget]);
 			gp_widget_set_value(widget, (void *)buttonGroup->selected()->text().local8Bit().data());
 
 			break;

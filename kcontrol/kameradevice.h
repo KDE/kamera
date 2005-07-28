@@ -30,8 +30,8 @@
 class KConfig;
 class QString;
 class KListView;
-class QWidgetStack;
-class QVButtonGroup;
+class Q3WidgetStack;
+class Q3VButtonGroup;
 class QVGroupBox;
 class QComboBox;
 class QLineEdit;
@@ -93,7 +93,7 @@ public:
 	void save();
 	void load();
 protected slots:
-	void slot_setModel(QListViewItem *item);
+	void slot_setModel(Q3ListViewItem *item);
 	void slot_error(const QString &message);
 	void slot_error(const QString &message, const QString &details);
 protected:
@@ -105,8 +105,8 @@ protected:
 	// port settings widgets
 	KListView *m_modelSel;
 	QLineEdit *m_nameEdit;
-	QWidgetStack *m_settingsStack;
-	QVButtonGroup *m_portSelectGroup;
+	Q3WidgetStack *m_settingsStack;
+	Q3VButtonGroup *m_portSelectGroup;
 	QVGroupBox *m_portSettingsGroup;
 	QComboBox *m_serialPortCombo;
 	// port selection radio buttons

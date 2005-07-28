@@ -22,7 +22,9 @@
 */
 #include <qlabel.h>
 #include <qlayout.h>
-
+//Added by qt3to4:
+#include <QVBoxLayout>
+#include <QApplication>
 #include <kgenericfactory.h>
 #include <ksimpleconfig.h>
 #include <kaction.h>
@@ -55,7 +57,7 @@ K_EXPORT_COMPONENT_FACTORY( kcm_kamera, KKameraConfigFactory( "kcmkamera" ) )
 KKameraConfig *KKameraConfig::m_instance = NULL;
 
 KKameraConfig::KKameraConfig(QWidget *parent, const char *name, const QStringList &)
-	: KCModule(KKameraConfigFactory::instance(), parent, name)
+	: KCModule(KKameraConfigFactory::instance(), parent/*, name*/)
 {
 	m_devicePopup = new KPopupMenu(this);
 	m_actions = new KActionCollection(this);
@@ -110,12 +112,12 @@ void KKameraConfig::displayGPSuccessDialogue(void)
 	// create list of devices
 	m_deviceSel = new KIconView(this);
 
-	connect(m_deviceSel, SIGNAL(rightButtonClicked(QIconViewItem *, const QPoint &)),
-		SLOT(slot_deviceMenu(QIconViewItem *, const QPoint &)));
-	connect(m_deviceSel, SIGNAL(doubleClicked(QIconViewItem *)),
+	connect(m_deviceSel, SIGNAL(rightButtonClicked(Q3IconViewItem *, const QPoint &)),
+		SLOT(slot_deviceMenu(Q3IconViewItem *, const QPoint &)));
+	connect(m_deviceSel, SIGNAL(doubleClicked(Q3IconViewItem *)),
 		SLOT(slot_configureCamera()));
-	connect(m_deviceSel, SIGNAL(selectionChanged(QIconViewItem *)),
-		SLOT(slot_deviceSelected(QIconViewItem *)));
+	connect(m_deviceSel, SIGNAL(selectionChanged(Q3IconViewItem *)),
+		SLOT(slot_deviceSelected(Q3IconViewItem *)));
 
 	m_deviceSel->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
 	
@@ -151,7 +153,7 @@ void KKameraConfig::populateDeviceListView(void)
 	CameraDevicesMap::Iterator it;
 	for (it = m_devices.begin(); it != m_devices.end(); it++) {
 		if (it.data()) {
-			new QIconViewItem(m_deviceSel, it.key(), DesktopIcon("camera"));
+			new Q3IconViewItem(m_deviceSel, it.key(), DesktopIcon("camera"));
 		}
 	}
 	slot_deviceSelected(m_deviceSel->currentItem());
@@ -353,7 +355,7 @@ void KKameraConfig::slot_cancelOperation()
 	qApp->setOverrideCursor(Qt::WaitCursor);
 }
 
-void KKameraConfig::slot_deviceMenu(QIconViewItem *item, const QPoint &point)
+void KKameraConfig::slot_deviceMenu(Q3IconViewItem *item, const QPoint &point)
 {
 	if (item) {
 		m_devicePopup->clear();
@@ -365,7 +367,7 @@ void KKameraConfig::slot_deviceMenu(QIconViewItem *item, const QPoint &point)
 	}
 }
 
-void KKameraConfig::slot_deviceSelected(QIconViewItem *item)
+void KKameraConfig::slot_deviceSelected(Q3IconViewItem *item)
 {
 	m_actions->action("camera_test")->setEnabled(item);
 	m_actions->action("camera_remove")->setEnabled(item);
