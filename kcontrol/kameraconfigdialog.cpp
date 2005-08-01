@@ -50,7 +50,7 @@ KameraConfigDialog::KameraConfigDialog(Camera */*camera*/,
 KDialogBase(parent, name, true, QString::null, Ok|Cancel, Ok ),
 m_widgetRoot(widget)
 {
-    Q3Frame *main = makeMainWidget();
+    QFrame *main = makeMainWidget();
 	QVBoxLayout *topLayout = new QVBoxLayout(main, 0, spacingHint());
 	topLayout->setAutoAdd(true);
 
