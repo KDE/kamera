@@ -146,6 +146,8 @@ static QString fix_foldername(QString ofolder) {
 		while ((folder.length()>1) && (folder.right(1) == "/"))
 			folder = folder.left(folder.length()-1);
 	}
+	if (folder.length() == 0)
+		folder = "/";
 	return folder;
 }
 
@@ -207,6 +209,8 @@ void KameraProtocol::get(const KURL &url)
 		gp_file_free(m_file);
 		if ((gpr == GP_ERROR_FILE_NOT_FOUND) || (gpr == GP_ERROR_DIRECTORY_NOT_FOUND))
 			error(KIO::ERR_DOES_NOT_EXIST, url.path());
+		else
+			error(KIO::ERR_UNKNOWN, gp_result_as_string(gpr));
 		closeCamera();
 		return;
 	}
@@ -292,13 +296,22 @@ void KameraProtocol::get(const KURL &url)
 // The KIO slave "stat" function.
 void KameraProtocol::stat(const KURL &url)
 {
-	kdDebug(7123) << "KameraProtocol("<<this<<")::stat(" << url.path() << ")" << endl;
+	kdDebug(7123) << "stat(\"" << url.path() << "\")" << endl;
+	
+	if (url.path() == "") {
+		KURL rooturl(url);
 
-	if(url.path() == "/") {
-		statRoot();
-	} else {
-		statRegular(url);
+		kdDebug(7123) << "redirecting to /" << endl;
+		rooturl.setPath("/");
+		redirection(rooturl);
+		finished();
+		return;
 	}
+
+	if(url.path() == "/")
+		statRoot();
+	else
+		statRegular(url);
 }
 
 // Implements stat("/") -- which always returns the same value.
@@ -342,10 +355,13 @@ void KameraProtocol::statRegular(const KURL &url)
 	CameraList *dirList;
 	gp_list_new(&dirList);
 	kdDebug(7123) << "statRegular() Requesting directories list for " << url.directory() << endl;
+
 	gpr = gp_camera_folder_list_folders(m_camera, tocstr(fix_foldername(url.directory(false))), dirList, m_context);
 	if (gpr != GP_OK) {
 		if ((gpr == GP_ERROR_FILE_NOT_FOUND) || (gpr == GP_ERROR_DIRECTORY_NOT_FOUND))
 			error(KIO::ERR_DOES_NOT_EXIST, url.path());
+		else
+			error(KIO::ERR_UNKNOWN, gp_result_as_string(gpr));
 		gp_list_free(dirList);
 		closeCamera();
 		return;
@@ -391,6 +407,8 @@ void KameraProtocol::statRegular(const KURL &url)
 	if (gpr != GP_OK) {
 		if ((gpr == GP_ERROR_FILE_NOT_FOUND) || (gpr == GP_ERROR_DIRECTORY_NOT_FOUND))
 			error(KIO::ERR_DOES_NOT_EXIST, url.path());
+		else
+			error(KIO::ERR_UNKNOWN, gp_result_as_string(gpr));
 		closeCamera();
 		return;
 	}
