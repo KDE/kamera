@@ -701,6 +701,10 @@ void KameraProtocol::setHost(const QString& host, int port, const QString& user,
 		gp_port_info_list_new(&port_info_list);
 		gp_port_info_list_load(port_info_list);
 		idx = gp_port_info_list_lookup_path(port_info_list, tocstr(host));
+
+		/* Handle erronously passed usb:XXX,YYY */
+		if ((idx < 0) && host.startsWith("usb:"))
+			idx = gp_port_info_list_lookup_path(port_info_list, "usb:");
 		if (idx < 0) {
 			gp_port_info_list_free(port_info_list);
 			kdDebug(7123) << "Unable to get port info for path: " << host << endl;
