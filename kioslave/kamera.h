@@ -26,15 +26,13 @@
 #include <config.h>
 #include <kio/slavebase.h>
 #include <gphoto2.h>
-//Added by qt3to4:
-#include <Q3CString>
 
 class KSimpleConfig;
 
 class KameraProtocol : public KIO::SlaveBase
 {
 public:
-	KameraProtocol(const Q3CString &pool, const Q3CString &app);
+	KameraProtocol(const QByteArray &pool, const QByteArray &app);
 	virtual ~KameraProtocol();
 
 	virtual void get(const KURL &url);

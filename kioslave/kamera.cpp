@@ -80,7 +80,7 @@ int kdemain(int argc, char **argv)
 	return 0;
 }
 
-KameraProtocol::KameraProtocol(const Q3CString &pool, const Q3CString &app)
+KameraProtocol::KameraProtocol(const QByteArray &pool, const QByteArray &app)
 : SlaveBase("camera", pool, app),
 m_camera(NULL)
 {
