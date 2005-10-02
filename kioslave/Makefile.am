@@ -13,5 +13,5 @@ kio_kamera_la_LDFLAGS = $(all_libraries) $(GPHOTO2_LIBS) -module $(KDE_PLUGIN)
 
 noinst_HEADERS = kamera.h
 
-kdelnk_DATA = kamera.protocol
-kdelnkdir = $(kde_servicesdir)
+kde_services_DATA = camera.protocol
+
