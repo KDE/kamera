@@ -34,7 +34,7 @@
 #include <kdialog.h>
 #include <klocale.h>
 #include <ktoolbar.h>
-#include <kpopupmenu.h>
+#include <kmenu.h>
 #include <kprotocolinfo.h>
 #include <kdebug.h>
 
@@ -59,7 +59,7 @@ KKameraConfig *KKameraConfig::m_instance = NULL;
 KKameraConfig::KKameraConfig(QWidget *parent, const char *name, const QStringList &)
 	: KCModule(KKameraConfigFactory::instance(), parent/*, name*/)
 {
-	m_devicePopup = new KPopupMenu(this);
+	m_devicePopup = new KMenu(this);
 	m_actions = new KActionCollection(this);
 	m_config = new KSimpleConfig(KProtocolInfo::config("camera"));
 	

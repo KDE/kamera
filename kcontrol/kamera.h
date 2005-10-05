@@ -42,7 +42,7 @@ class KSimpleConfig;
 class KIconView;
 class KActionCollection;
 class KToolBar;
-class KPopupMenu;
+class KMenu;
 
 class KKameraConfig : public KCModule
 {
@@ -102,7 +102,7 @@ private:
 	KActionCollection *m_actions;
 	QPushButton *m_addCamera, *m_removeCamera, *m_testCamera, *m_configureCamera;
 	KToolBar *m_toolbar;
-	KPopupMenu *m_devicePopup;
+	KMenu *m_devicePopup;
 
 	// true if libgphoto2 was initialised successfully in
 	// the constructor
