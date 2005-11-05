@@ -318,20 +318,12 @@ void KameraProtocol::stat(const KURL &url)
 void KameraProtocol::statRoot(void)
 {
 	UDSEntry entry;
- 	UDSAtom atom;
 
-	atom.m_uds = UDS_NAME;
-	atom.m_str = "/";
-	entry.append(atom);
+	entry.insert( UDS_NAME, QString::fromLocal8Bit("/"));
 
-	atom.m_uds = UDS_FILE_TYPE;
-	atom.m_long = S_IFDIR;
-	entry.append(atom);
+	entry.insert(UDS_FILE_TYPE,S_IFDIR);
 
-	atom.m_uds = UDS_ACCESS;
-	atom.m_long = S_IRUSR | S_IRGRP | S_IROTH |
-			S_IWUSR | S_IWGRP | S_IWOTH;
-	entry.append(atom);
+	entry.insert(UDS_ACCESS,(S_IRUSR | S_IRGRP | S_IROTH |S_IWUSR | S_IWGRP | S_IWOTH));
 
 	statEntry(entry);
 
@@ -459,7 +451,6 @@ void KameraProtocol::listDir(const KURL &url)
 		kdDebug(7123) << "Found cameras: " << groupList.join(", ") << endl;
 		QStringList::Iterator it;
 		UDSEntry entry;
-		UDSAtom atom;
 
 
 		/*
@@ -531,15 +522,11 @@ void KameraProtocol::listDir(const KURL &url)
 				continue;
 
 			entry.clear();
-			atom.m_uds = UDS_FILE_TYPE;atom.m_long = S_IFDIR;entry.append(atom);
-			atom.m_uds = UDS_NAME;atom.m_str = *it;entry.append(atom);
-			atom.m_uds = UDS_ACCESS;
-			atom.m_long = S_IRUSR | S_IRGRP | S_IROTH |
-				S_IWUSR | S_IWGRP | S_IWOTH;
-			entry.append(atom);
+			entry.insert(UDS_FILE_TYPE,S_IFDIR);
+			entry.insert(UDS_NAME,*it);
+			entry.insert(UDS_ACCESS,(S_IRUSR | S_IRGRP | S_IROTH |S_IWUSR | S_IWGRP | S_IWOTH));
 
-			atom.m_uds = UDS_URL;
-
+			
 			xurl.setProtocol("camera");
 			xurl.setUser(*it);
 			/* Avoid setting usb:xxx,yyy. */
@@ -550,8 +537,7 @@ void KameraProtocol::listDir(const KURL &url)
 				xurl.setHost(m_cfgPath);
 			}
 			xurl.setPath("/");
-			atom.m_str = xurl.url();
-			entry.append(atom);
+			entry.insert(UDS_URL,xurl.url());
 
 			listEntry(entry, false);
 		}
@@ -560,21 +546,16 @@ void KameraProtocol::listDir(const KURL &url)
 
 		for (portsit = ports.begin(); portsit != ports.end(); portsit++) {
 			entry.clear();
-			atom.m_uds = UDS_FILE_TYPE;atom.m_long = S_IFDIR; entry.append(atom);
-			atom.m_uds = UDS_NAME;atom.m_str = portsit.data();entry.append(atom);
+			entry.insert(UDS_FILE_TYPE,S_IFDIR);
+			entry.insert(UDS_NAME,portsit.data());
 
-			atom.m_uds = UDS_ACCESS;
-			atom.m_long = S_IRUSR | S_IRGRP | S_IROTH |
-				S_IWUSR | S_IWGRP | S_IWOTH;
-			entry.append(atom);
+			entry.insert(UDS_ACCESS,(S_IRUSR | S_IRGRP | S_IROTH |S_IWUSR | S_IWGRP | S_IWOTH));
 
-			atom.m_uds = UDS_URL;
 			xurl.setProtocol("camera");
 			xurl.setHost(portsit.key());
 			xurl.setUser(portsit.data());
 			xurl.setPath("/");
-			atom.m_str = xurl.url();
-			entry.append(atom);
+			entry.insert(UDS_URL,xurl.url());
 
 			listEntry(entry, false);
 		}
@@ -755,79 +736,49 @@ void KameraProtocol::reparseConfiguration(void)
 void KameraProtocol::translateTextToUDS(UDSEntry &udsEntry, const QString &fn,
 	const char *text
 ) {
-	UDSAtom atom;
 
 	udsEntry.clear();
 
-	atom.m_uds = UDS_FILE_TYPE; // UDS type
-	atom.m_long = S_IFREG; // file
-	udsEntry.append(atom);
+	udsEntry.insert(UDS_FILE_TYPE,S_IFREG);
 
-	atom.m_uds = UDS_NAME;
-	atom.m_str = fn;
-	udsEntry.append(atom);
+	udsEntry.insert(UDS_NAME,fn);
 
-	atom.m_uds = UDS_SIZE;
-	atom.m_long = strlen(text);
-	udsEntry.append(atom);
+	udsEntry.insert(UDS_SIZE,strlen(text));
 
-	atom.m_uds = UDS_ACCESS;
-	atom.m_long = S_IRUSR | S_IRGRP | S_IROTH;
-	udsEntry.append(atom);
+	udsEntry.insert(UDS_ACCESS,(S_IRUSR | S_IRGRP | S_IROTH));
 }
 
 // translate a CameraFileInfo to a UDSEntry which we can return as a directory listing entry
 void KameraProtocol::translateFileToUDS(UDSEntry &udsEntry, const CameraFileInfo &info, QString name)
 {
-	UDSAtom atom;
 
 	udsEntry.clear();
 
-	atom.m_uds = UDS_FILE_TYPE; // UDS type
-	atom.m_long = S_IFREG; // file
-	udsEntry.append(atom);
+	udsEntry.insert(UDS_FILE_TYPE,S_IFREG);
 
-	atom.m_uds = UDS_NAME;
 	if (info.file.fields & GP_FILE_INFO_NAME)
-		atom.m_str = QString::fromLocal8Bit(info.file.name);
+			udsEntry.insert(UDS_NAME,QString::fromLocal8Bit(info.file.name));
 	else
-		atom.m_str = name;
-	udsEntry.append(atom);
+		udsEntry.insert(UDS_NAME,name);
 
 	if (info.file.fields & GP_FILE_INFO_SIZE) {
-		atom.m_uds = UDS_SIZE;
-		atom.m_long = info.file.size;
-		udsEntry.append(atom);
+		udsEntry.insert(UDS_SIZE,info.file.size);
 	}
 
 	if (info.file.fields & GP_FILE_INFO_MTIME) {
-		atom.m_uds = UDS_MODIFICATION_TIME;
-		atom.m_long = info.file.mtime;
-		udsEntry.append(atom);
+		udsEntry.insert(UDS_MODIFICATION_TIME,info.file.mtime);
 	} else {
-		atom.m_uds = UDS_MODIFICATION_TIME;
-		atom.m_long = time(NULL); /* NOW */
-		udsEntry.append(atom);
+		udsEntry.insert(UDS_MODIFICATION_TIME,time(NULL));
 	}
 
 	if (info.file.fields & GP_FILE_INFO_TYPE) {
-		atom.m_uds = UDS_MIME_TYPE;
-		atom.m_str = QString::fromLatin1(info.file.type);
-		udsEntry.append(atom);
+		udsEntry.insert(UDS_MIME_TYPE,QString::fromLatin1(info.file.type));
 	}
 
 	if (info.file.fields & GP_FILE_INFO_PERMISSIONS) {
-		atom.m_uds = UDS_ACCESS;
-		atom.m_long = 0;
-		atom.m_long |= (info.file.permissions & GP_FILE_PERM_READ) ? (S_IRUSR | S_IRGRP | S_IROTH) : 0;
-		// we cannot represent individual FP_FILE_PERM_DELETE permission in the Unix access scheme
-		// since the parent directory's write permission defines that
-		udsEntry.append(atom);
+		udsEntry.insert(UDS_ACCESS,((info.file.permissions & GP_FILE_PERM_READ) ? (S_IRUSR | S_IRGRP | S_IROTH) : 0));
 	} else {
-		// basic permissions, in case the camera doesn't provide permissions info
-		atom.m_uds = UDS_ACCESS;
-		atom.m_long = S_IRUSR | S_IRGRP | S_IROTH;
-		udsEntry.append(atom);
+		udsEntry.insert(UDS_ACCESS,S_IRUSR | S_IRGRP | S_IROTH);
 	}
 
 	// TODO: We do not handle info.preview in any way
@@ -836,22 +787,14 @@ void KameraProtocol::translateFileToUDS(UDSEntry &udsEntry, const CameraFileInfo
 // translate a directory name to a UDSEntry which we can return as a directory listing entry
 void KameraProtocol::translateDirectoryToUDS(UDSEntry &udsEntry, const QString &dirname)
 {
-	UDSAtom atom;
 
 	udsEntry.clear();
 
-	atom.m_uds = UDS_FILE_TYPE; // UDS type
-	atom.m_long = S_IFDIR; // directory
-	udsEntry.append(atom);
+	udsEntry.insert(UDS_FILE_TYPE,S_IFDIR);
 
-	atom.m_uds = UDS_NAME;
-	atom.m_str = dirname;
-	udsEntry.append(atom);
+	udsEntry.insert(UDS_NAME,dirname);
 
-	atom.m_uds = UDS_ACCESS;
-	atom.m_long = S_IRUSR | S_IRGRP | S_IROTH |
-			S_IWUSR | S_IWGRP | S_IWOTH;
-	udsEntry.append(atom);
+	udsEntry.insert(UDS_ACCESS,S_IRUSR | S_IRGRP | S_IROTH |S_IWUSR | S_IWGRP | S_IWOTH);
 }
 
 bool KameraProtocol::cameraSupportsDel(void)
