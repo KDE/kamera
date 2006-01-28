@@ -153,7 +153,7 @@ static QString fix_foldername(QString ofolder) {
 
 // The KIO slave "get" function (starts a download from the camera)
 // The actual returning of the data is done in the frontend callback functions.
-void KameraProtocol::get(const KURL &url)
+void KameraProtocol::get(const KUrl &url)
 {
 	kdDebug(7123) << "KameraProtocol::get(" << url.path() << ")" << endl;
 
@@ -294,12 +294,12 @@ void KameraProtocol::get(const KURL &url)
 }
 
 // The KIO slave "stat" function.
-void KameraProtocol::stat(const KURL &url)
+void KameraProtocol::stat(const KUrl &url)
 {
 	kdDebug(7123) << "stat(\"" << url.path() << "\")" << endl;
 	
 	if (url.path() == "") {
-		KURL rooturl(url);
+		KUrl rooturl(url);
 
 		kdDebug(7123) << "redirecting to /" << endl;
 		rooturl.setPath("/");
@@ -331,7 +331,7 @@ void KameraProtocol::statRoot(void)
 }
 
 // Implements a regular stat() of a file / directory, returning all we know about it
-void KameraProtocol::statRegular(const KURL &url)
+void KameraProtocol::statRegular(const KUrl &url)
 {
 	UDSEntry entry;
 	int gpr;
@@ -411,7 +411,7 @@ void KameraProtocol::statRegular(const KURL &url)
 }
 
 // The KIO slave "del" function.
-void KameraProtocol::del(const KURL &url, bool isFile)
+void KameraProtocol::del(const KUrl &url, bool isFile)
 {
 	kdDebug(7123) << "KameraProtocol::del(" << url.path() << ")" << endl;
 
@@ -440,12 +440,12 @@ void KameraProtocol::del(const KURL &url, bool isFile)
 }
 
 // The KIO slave "listDir" function.
-void KameraProtocol::listDir(const KURL &url)
+void KameraProtocol::listDir(const KUrl &url)
 {
 	kdDebug(7123) << "KameraProtocol::listDir(" << url.path() << ")" << endl;
 
 	if (url.host().isEmpty()) {
-		KURL xurl;
+		KUrl xurl;
 		// List the available cameras
 		QStringList groupList = m_config->groupList();
 		kdDebug(7123) << "Found cameras: " << groupList.join(", ") << endl;

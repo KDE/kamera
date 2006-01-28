@@ -35,11 +35,11 @@ public:
 	KameraProtocol(const QByteArray &pool, const QByteArray &app);
 	virtual ~KameraProtocol();
 
-	virtual void get(const KURL &url);
-	virtual void stat(const KURL &url);
-	virtual void del(const KURL &url, bool isFile);
+	virtual void get(const KUrl &url);
+	virtual void stat(const KUrl &url);
+	virtual void del(const KUrl &url, bool isFile);
         virtual void setHost(const QString& host, int port, const QString& user, const QString& pass );
-	virtual void listDir(const KURL &url);
+	virtual void listDir(const KUrl &url);
 
         CameraFile *getFile() { return m_file; }
         int getFileSize() { return m_fileSize; }
@@ -57,7 +57,7 @@ private:
 	void closeCamera(void);
 
 	void statRoot(void);
-	void statRegular(const KURL &url);
+	void statRegular(const KUrl &url);
         void translateTextToUDS(KIO::UDSEntry &udsEntry, const QString &info, const char *txt);
         void translateFileToUDS(KIO::UDSEntry &udsEntry, const CameraFileInfo &info, QString name);
 	void translateDirectoryToUDS(KIO::UDSEntry &udsEntry, const QString &dirname);
