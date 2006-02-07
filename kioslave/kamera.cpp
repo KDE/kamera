@@ -68,7 +68,7 @@ int kdemain(int argc, char **argv)
 	KInstance instance("kio_kamera");
 
 	if(argc != 4) {
-		kdDebug(7123) << "Usage: kio_kamera protocol "
+		kDebug(7123) << "Usage: kio_kamera protocol "
 			     "domain-socket1 domain-socket2" << endl;
 		exit(-1);
 	}
@@ -132,7 +132,7 @@ void KameraProtocol::closeCamera(void)
 		return;
 
 	if ((gpr=gp_camera_exit(m_camera,m_context))!=GP_OK) {
-		kdDebug(7123) << "closeCamera failed with " << gp_result_as_string(gpr) << endl;
+		kDebug(7123) << "closeCamera failed with " << gp_result_as_string(gpr) << endl;
 	}
 	// HACK: gp_camera_exit() in gp 2.0 does not close the port if there
 	//       is no camera_exit function.
@@ -155,7 +155,7 @@ static QString fix_foldername(QString ofolder) {
 // The actual returning of the data is done in the frontend callback functions.
 void KameraProtocol::get(const KUrl &url)
 {
-	kdDebug(7123) << "KameraProtocol::get(" << url.path() << ")" << endl;
+	kDebug(7123) << "KameraProtocol::get(" << url.path() << ")" << endl;
 
 	CameraFileType fileType;
 	int gpr;
@@ -217,14 +217,14 @@ void KameraProtocol::get(const KUrl &url)
 
 	// at last, a proper API to determine whether a thumbnail was requested.
 	if(cameraSupportsPreview() && metaData("thumbnail") == "1") {
-		kdDebug(7123) << "get() retrieving the thumbnail" << endl;
+		kDebug(7123) << "get() retrieving the thumbnail" << endl;
 		fileType = GP_FILE_TYPE_PREVIEW;
 		if (info.preview.fields & GP_FILE_INFO_SIZE)
 			totalSize(info.preview.size);
 		if (info.preview.fields & GP_FILE_INFO_TYPE)
 			mimeType(info.preview.type);
 	} else {
-		kdDebug(7123) << "get() retrieving the full-scale photo" << endl;
+		kDebug(7123) << "get() retrieving the full-scale photo" << endl;
 		fileType = GP_FILE_TYPE_NORMAL;
 		if (info.file.fields & GP_FILE_INFO_SIZE)
 			totalSize(info.file.size);
@@ -296,12 +296,12 @@ void KameraProtocol::get(const KUrl &url)
 // The KIO slave "stat" function.
 void KameraProtocol::stat(const KUrl &url)
 {
-	kdDebug(7123) << "stat(\"" << url.path() << "\")" << endl;
+	kDebug(7123) << "stat(\"" << url.path() << "\")" << endl;
 	
 	if (url.path() == "") {
 		KUrl rooturl(url);
 
-		kdDebug(7123) << "redirecting to /" << endl;
+		kDebug(7123) << "redirecting to /" << endl;
 		rooturl.setPath("/");
 		redirection(rooturl);
 		finished();
@@ -346,7 +346,7 @@ void KameraProtocol::statRegular(const KUrl &url)
 	// Is "url" a directory?
 	CameraList *dirList;
 	gp_list_new(&dirList);
-	kdDebug(7123) << "statRegular() Requesting directories list for " << url.directory() << endl;
+	kDebug(7123) << "statRegular() Requesting directories list for " << url.directory() << endl;
 
 	gpr = gp_camera_folder_list_folders(m_camera, tocstr(fix_foldername(url.directory(false))), dirList, m_context);
 	if (gpr != GP_OK) {
@@ -413,7 +413,7 @@ void KameraProtocol::statRegular(const KUrl &url)
 // The KIO slave "del" function.
 void KameraProtocol::del(const KUrl &url, bool isFile)
 {
-	kdDebug(7123) << "KameraProtocol::del(" << url.path() << ")" << endl;
+	kDebug(7123) << "KameraProtocol::del(" << url.path() << ")" << endl;
 
 	if(!openCamera()) {
 		error(KIO::ERR_CANNOT_DELETE, url.fileName());
@@ -442,13 +442,13 @@ void KameraProtocol::del(const KUrl &url, bool isFile)
 // The KIO slave "listDir" function.
 void KameraProtocol::listDir(const KUrl &url)
 {
-	kdDebug(7123) << "KameraProtocol::listDir(" << url.path() << ")" << endl;
+	kDebug(7123) << "KameraProtocol::listDir(" << url.path() << ")" << endl;
 
 	if (url.host().isEmpty()) {
 		KUrl xurl;
 		// List the available cameras
 		QStringList groupList = m_config->groupList();
-		kdDebug(7123) << "Found cameras: " << groupList.join(", ") << endl;
+		kDebug(7123) << "Found cameras: " << groupList.join(", ") << endl;
 		QStringList::Iterator it;
 		UDSEntry entry;
 
@@ -590,7 +590,7 @@ void KameraProtocol::listDir(const KUrl &url)
 
 	gpr = readCameraFolder(url.path(), dirList, fileList);
 	if(gpr != GP_OK) {
-		kdDebug(7123) << "read Camera Folder failed:" << gp_result_as_string(gpr) <<endl;
+		kDebug(7123) << "read Camera Folder failed:" << gp_result_as_string(gpr) <<endl;
 		closeCamera();
 		gp_list_free(dirList);
 		gp_list_free(fileList);
@@ -647,19 +647,19 @@ void KameraProtocol::listDir(const KUrl &url)
 
 void KameraProtocol::setHost(const QString& host, int port, const QString& user, const QString& pass )
 {
-	kdDebug(7123) << "KameraProtocol::setHost(" << host << ", " << port << ", " << user << ", " << pass << ")" << endl;
+	kDebug(7123) << "KameraProtocol::setHost(" << host << ", " << port << ", " << user << ", " << pass << ")" << endl;
 	int gpr, idx;
 
 	if (!host.isEmpty()) {
-		kdDebug(7123) << "model is " << user << ", port is " << host << endl;
+		kDebug(7123) << "model is " << user << ", port is " << host << endl;
 		if (m_camera) {
-			kdDebug(7123) << "Configuration change detected" << endl;
+			kDebug(7123) << "Configuration change detected" << endl;
 			closeCamera();
 			gp_camera_unref(m_camera);
 			m_camera = NULL;
 			infoMessage( i18n("Reinitializing camera") );
 		} else {
-			kdDebug(7123) << "Initializing camera" << endl;
+			kDebug(7123) << "Initializing camera" << endl;
 			infoMessage( i18n("Initializing camera") );
 		}
 		// fetch abilities
@@ -669,7 +669,7 @@ void KameraProtocol::setHost(const QString& host, int port, const QString& user,
 		idx = gp_abilities_list_lookup_model(abilities_list, tocstr(user));
 		if (idx < 0) {
 			gp_abilities_list_free(abilities_list);
-			kdDebug(7123) << "Unable to get abilities for model: " << user << endl;
+			kDebug(7123) << "Unable to get abilities for model: " << user << endl;
 			error(KIO::ERR_UNKNOWN, gp_result_as_string(idx));
 			return;
 		}
@@ -688,7 +688,7 @@ void KameraProtocol::setHost(const QString& host, int port, const QString& user,
 			idx = gp_port_info_list_lookup_path(port_info_list, "usb:");
 		if (idx < 0) {
 			gp_port_info_list_free(port_info_list);
-			kdDebug(7123) << "Unable to get port info for path: " << host << endl;
+			kDebug(7123) << "Unable to get port info for path: " << host << endl;
 			error(KIO::ERR_UNKNOWN, gp_result_as_string(idx));
 			return;
 		}
@@ -711,14 +711,14 @@ void KameraProtocol::setHost(const QString& host, int port, const QString& user,
 		gp_camera_set_abilities(m_camera, m_abilities);
 		gp_camera_set_port_info(m_camera, port_info);
 		gp_camera_set_port_speed(m_camera, 0); // TODO: the value needs to be configurable
-		kdDebug(7123) << "Opening camera model " << user << " at " << host << endl;
+		kDebug(7123) << "Opening camera model " << user << " at " << host << endl;
 #if 0
 		// initialize the camera (might take time on a non-existant or disconnected camera)
 		gpr = gp_camera_init(m_camera, m_context);
 		if(gpr != GP_OK) {
 			gp_camera_unref(m_camera);
 			m_camera = NULL;
-			kdDebug(7123) << "Unable to init camera: " << gp_result_as_string(gpr) << endl;
+			kDebug(7123) << "Unable to init camera: " << gp_result_as_string(gpr) << endl;
 			error(KIO::ERR_UNKNOWN, gp_result_as_string(gpr));
 			return;
 		}
@@ -814,7 +814,7 @@ bool KameraProtocol::cameraSupportsPreview(void)
 
 int KameraProtocol::readCameraFolder(const QString &folder, CameraList *dirList, CameraList *fileList)
 {
-	kdDebug(7123) << "KameraProtocol::readCameraFolder(" << folder << ")" << endl;
+	kDebug(7123) << "KameraProtocol::readCameraFolder(" << folder << ")" << endl;
 
 	int gpr;
 	if((gpr = gp_camera_folder_list_folders(m_camera, tocstr(folder), dirList, m_context)) != GP_OK)
