@@ -304,7 +304,7 @@ void KKameraConfig::slot_removeCamera()
 		KCamera *m_device = m_devices[name];
 		m_devices.remove(name);
 		delete m_device;
-		m_config->deleteGroup(name, true);
+		m_config->deleteGroup(name);
 		populateDeviceListView();
 		emit changed(true);
 	}
