@@ -1,11 +1,14 @@
 [Desktop Entry]
 Encoding=UTF-8
 Comment=Configure Kamera
+Comment[fr]=Configuration de Kamera
 Comment[x-test]=xxConfigure Kameraxx
 Exec=kcmshell kamera
 Keywords=gphoto,camera,digicam,webcam,kamera
+Keywords[fr]=gphoto,camera,digicam,webcam,kamera,caméscope,caméra,appareil photo
 Keywords[x-test]=xxgphoto,camera,digicam,webcam,kameraxx
 Name=Digital Camera
+Name[fr]=Appareil photo numérique
 Name[x-test]=xxDigital Cameraxx
 SwallowExec=
 SwallowTitle=
