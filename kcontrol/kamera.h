@@ -39,7 +39,7 @@ class Q3IconViewItem;
 class KCamera;
 class KameraDeviceSelectDialog;
 class KSimpleConfig;
-class KIconView;
+class K3IconView;
 class KActionCollection;
 class KToolBar;
 class KMenu;
@@ -98,7 +98,7 @@ private:
 	GPContext *m_context;
 
 	// widgets for the cameras listview
-	KIconView *m_deviceSel;
+	K3IconView *m_deviceSel;
 	KActionCollection *m_actions;
 	QPushButton *m_addCamera, *m_removeCamera, *m_testCamera, *m_configureCamera;
 	KToolBar *m_toolbar;

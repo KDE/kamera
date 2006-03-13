@@ -29,7 +29,7 @@
 #include <Q3ListViewItem>
 class KConfig;
 class QString;
-class KListView;
+class K3ListView;
 class Q3WidgetStack;
 class Q3VButtonGroup;
 class QVGroupBox;
@@ -103,7 +103,7 @@ protected:
 	void setPortType(int type);
 
 	// port settings widgets
-	KListView *m_modelSel;
+	K3ListView *m_modelSel;
 	QLineEdit *m_nameEdit;
 	Q3WidgetStack *m_settingsStack;
 	Q3VButtonGroup *m_portSelectGroup;

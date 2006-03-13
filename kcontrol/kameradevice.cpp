@@ -35,7 +35,7 @@
 
 #include <klocale.h>
 #include <kconfig.h>
-#include <klistview.h>
+#include <k3listview.h>
 #include <kmessagebox.h>
 #include <kdebug.h>
 
@@ -288,7 +288,7 @@ KameraDeviceSelectDialog::KameraDeviceSelectDialog(QWidget *parent, KCamera *dev
 	QHBoxLayout *topLayout = new QHBoxLayout(page, 0, KDialog::spacingHint());
 
 	// the models list
-	m_modelSel = new KListView(page);
+	m_modelSel = new K3ListView(page);
 	topLayout->addWidget( m_modelSel );
 	m_modelSel->addColumn(i18n("Supported Cameras"));
 	m_modelSel->setColumnWidthMode(0, Q3ListView::Maximum);

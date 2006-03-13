@@ -30,7 +30,7 @@
 #include <kaction.h>
 #include <kiconloader.h>
 #include <kmessagebox.h>
-#include <kiconview.h>
+#include <k3iconview.h>
 #include <kdialog.h>
 #include <klocale.h>
 #include <ktoolbar.h>
@@ -110,7 +110,7 @@ void KKameraConfig::displayGPSuccessDialogue(void)
 	m_toolbar->setMovingEnabled(false);
 	
 	// create list of devices
-	m_deviceSel = new KIconView(this);
+	m_deviceSel = new K3IconView(this);
 
 	connect(m_deviceSel, SIGNAL(rightButtonClicked(Q3IconViewItem *, const QPoint &)),
 		SLOT(slot_deviceMenu(Q3IconViewItem *, const QPoint &)));
