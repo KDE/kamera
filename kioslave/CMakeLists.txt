@@ -13,7 +13,7 @@ kde4_add_plugin(kio_kamera ${kio_kamera_PART_SRCS})
 
 kde4_install_libtool_file( ${PLUGIN_INSTALL_DIR} kio_kamera )
 
-target_link_libraries(kio_kamera  ${QT_AND_KDECORE_LIBS} kio gphoto2 )
+target_link_libraries(kio_kamera  ${KDE4_KDECORE_LIBS} kio gphoto2 )
 
 install_targets(${LIB_INSTALL_DIR}/kde4 kio_kamera )
 
