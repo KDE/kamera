@@ -31,12 +31,13 @@ gphoto2_libraries="$withval")
 
 AC_MSG_CHECKING(for gPhoto2)
 # the pkg-config way first, if user did not use --with-
-AC_CHECK_PROG(gphoto_devel,gphoto2-config,gphoto2-config,no)
-if test "$gphoto2_includes" = "" -a "$gphoto2_libraries" = "" -a "$gphoto_devel" = "gphoto2-config" 
+AC_CHECK_PROG(gphoto2_config,gphoto2-config,gphoto2-config,no)
+AC_CHECK_PROG(gphoto2_port_config,gphoto2-port-config,gphoto2-port-config,no)
+if test "$gphoto2_includes" = "" -a "$gphoto2_libraries" = "" -a "$gphoto2_config" != "no" -a "$gphoto2_port_config" != "no"
 then
 	with_kamera="yes"
-	GPHOTO2_INCS="`$gphoto_devel --cflags`"
-	GPHOTO2_LIBS="`$gphoto_devel --libs`"
+	GPHOTO2_INCS="`$gphoto2_config --cflags` `$gphoto2_port_config --cflags`"
+	GPHOTO2_LIBS="`$gphoto2_config --libs` `$gphoto2_port_config --libs`"
 else
 #
 # Search for gphoto2 include files.
