@@ -13,7 +13,7 @@ kde4_add_plugin(kcm_kamera ${kcm_kamera_PART_SRCS})
 
 kde4_install_libtool_file( ${PLUGIN_INSTALL_DIR} kcm_kamera )
 
-target_link_libraries(kcm_kamera  ${KDE4_KDECORE_LIBS} kio )
+target_link_libraries(kcm_kamera  ${KDE4_KIO_LIBS} )
 
 install_targets(${LIB_INSTALL_DIR}/kde4 kcm_kamera )
 
