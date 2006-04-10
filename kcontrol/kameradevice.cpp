@@ -88,7 +88,7 @@ bool KCamera::initInformation()
 	int index = gp_abilities_list_lookup_model(m_abilitylist, m_model.local8Bit().data());
 	if(index < 0) {
 		emit error(i18n("Description of abilities for camera %1 is not available."
-					" Configuration options may be incorrect.").arg(m_model));
+					" Configuration options may be incorrect.", m_model));
 		return false;
 	}
         gp_abilities_list_get_abilities(m_abilitylist, index, &m_abilities);
@@ -431,7 +431,7 @@ void KameraDeviceSelectDialog::slot_setModel(Q3ListViewItem *item)
 	int index = gp_abilities_list_lookup_model(m_device->m_abilitylist, model.local8Bit().data());
 	if(index < 0) {
 		slot_error(i18n("Description of abilities for camera %1 is not available."
-				" Configuration options may be incorrect.").arg(model));
+				" Configuration options may be incorrect.", model));
 	}
 	int result = gp_abilities_list_get_abilities(m_device->m_abilitylist, index, &abilities);
 	if (result == GP_OK) {
@@ -451,7 +451,7 @@ void KameraDeviceSelectDialog::slot_setModel(Q3ListViewItem *item)
 			setPortType(INDEX_USB);
 	} else {
 		slot_error(i18n("Description of abilities for camera %1 is not available."
-			     " Configuration options may be incorrect.").arg(model));
+			     " Configuration options may be incorrect.", model));
 	}
 }
 

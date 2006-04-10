@@ -195,7 +195,7 @@ void KameraProtocol::get(const KUrl &url)
 
 #undef GPHOTO_TEXT_FILE
 	// emit info message
-	infoMessage( i18n("Retrieving data from camera <b>%1</b>").arg(url.user()) );
+	infoMessage( i18n("Retrieving data from camera <b>%1</b>", url.user()) );
 
 	// Note: There's no need to re-read directory for each get() anymore
 	gp_file_new(&m_file);
