@@ -791,10 +791,9 @@ void KameraProtocol::translateDirectoryToUDS(UDSEntry &udsEntry, const QString &
 	udsEntry.clear();
 
 	udsEntry.insert(UDS_FILE_TYPE,S_IFDIR);
-
 	udsEntry.insert(UDS_NAME,dirname);
-
 	udsEntry.insert(UDS_ACCESS,S_IRUSR | S_IRGRP | S_IROTH |S_IWUSR | S_IWGRP | S_IWOTH);
+        udsEntry.insert(UDS_MIME_TYPE, "inode/directory");
 }
 
 bool KameraProtocol::cameraSupportsDel(void)
