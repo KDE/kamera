@@ -303,6 +303,8 @@ void KameraProtocol::stat(const KUrl &url)
 
 		kDebug(7123) << "redirecting to /" << endl;
 		rooturl.setPath("/");
+		rooturl.setHost(url.host());
+		rooturl.setUser(url.user());
 		redirection(rooturl);
 		finished();
 		return;
@@ -336,6 +338,7 @@ void KameraProtocol::statRegular(const KUrl &url)
 	UDSEntry entry;
 	int gpr;
 
+	kdDebug(7123) << "statRegular(\"" << url.path() << "\")" << endl;
 	if (openCamera() == false) {
 		error(KIO::ERR_DOES_NOT_EXIST, url.path());
 		return;
@@ -561,6 +564,18 @@ void KameraProtocol::listDir(const KUrl &url)
 		}
 		listEntry(entry, true);
 
+		finished();
+		return;
+	}
+
+	if (url.path() == "") {
+		KURL rooturl(url);
+
+		kdDebug(7123) << "redirecting to /" << endl;
+		rooturl.setPath("/");
+		rooturl.setHost(url.host());
+		rooturl.setUser(url.user());
+		redirection(rooturl);
 		finished();
 		return;
 	}
