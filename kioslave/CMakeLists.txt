@@ -15,7 +15,7 @@ kde4_install_libtool_file( ${PLUGIN_INSTALL_DIR} kio_kamera )
 
 target_link_libraries(kio_kamera  ${KDE4_KIO_LIBS} gphoto2 )
 
-install_targets(${LIB_INSTALL_DIR}/kde4 kio_kamera )
+install_targets(${PLUGIN_INSTALL_DIR} kio_kamera )
 
 
 ########### install files ###############
