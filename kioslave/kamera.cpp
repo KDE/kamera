@@ -905,7 +905,7 @@ unsigned int frontendProgressStart(
 #endif
 
 	object->infoMessage(QString::fromLocal8Bit(status));
-	delete status;
+	delete [] status;
 	object->totalSize((int)totalsize); // hack: call slot directly
 	return GP_OK;
 }
@@ -945,5 +945,5 @@ static void frontendCameraStatus(GPContext * /*context*/, const char *format, va
 	vsnprintf(status, 300, format, args);
 #endif
 	object->infoMessage(QString::fromLocal8Bit(status));
-	delete status;
+	delete [] status;
 }
