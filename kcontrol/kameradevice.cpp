@@ -26,7 +26,7 @@
 #include <qcombobox.h>
 #include <qlineedit.h>
 #include <qradiobutton.h>
-#include <q3whatsthis.h>
+
 #include <qlabel.h>
 #include <q3grid.h>
 //Added by qt3to4:
@@ -303,16 +303,16 @@ KameraDeviceSelectDialog::KameraDeviceSelectDialog(QWidget *parent, KCamera *dev
 
 	m_portSelectGroup = new Q3VButtonGroup(i18n("Port"), page);
 	rightLayout->addWidget(m_portSelectGroup);
-	m_portSettingsGroup = new QVGroupBox(i18n("Port Settings"), page);
+	m_portSettingsGroup = new Q3GroupBox(1, Qt::Horizontal,i18n("Port Settings"), page);
 	rightLayout->addWidget(m_portSettingsGroup);
 
 	// Create port type selection radiobuttons.
 	m_serialRB = new QRadioButton(i18n("Serial"), m_portSelectGroup);
 	m_portSelectGroup->insert(m_serialRB, INDEX_SERIAL);
-	Q3WhatsThis::add(m_serialRB, i18n("If this option is checked, the camera would have to be connected one of the serial ports (known as COM in Microsoft Windows) in your computer."));
+	m_serialRB->setWhatsThis( i18n("If this option is checked, the camera would have to be connected one of the serial ports (known as COM in Microsoft Windows) in your computer."));
 	m_USBRB = new QRadioButton(i18n("USB"), m_portSelectGroup);
 	m_portSelectGroup->insert(m_USBRB, INDEX_USB);
-	Q3WhatsThis::add(m_USBRB, i18n("If this option is checked, the camera would have to be connected to one of the USB slots in your computer or USB hub."));
+	m_USBRB->setWhatsThis( i18n("If this option is checked, the camera would have to be connected to one of the USB slots in your computer or USB hub."));
 	// Create port settings widget stack
 	m_settingsStack = new Q3WidgetStack(m_portSettingsGroup);
 	connect(m_portSelectGroup, SIGNAL(clicked(int)),
@@ -327,7 +327,7 @@ KameraDeviceSelectDialog::KameraDeviceSelectDialog(QWidget *parent, KCamera *dev
 	grid->setSpacing(KDialog::spacingHint());
 	new QLabel(i18n("Port:"), grid);
 	m_serialPortCombo = new QComboBox(TRUE, grid);
-	Q3WhatsThis::add(m_serialPortCombo, i18n("Here you should choose the serial port you connect the camera to."));
+	m_serialPortCombo->setWhatsThis( i18n("Here you should choose the serial port you connect the camera to."));
 	m_settingsStack->addWidget(grid, INDEX_SERIAL);
 
 	grid = new Q3Grid(2, m_settingsStack);

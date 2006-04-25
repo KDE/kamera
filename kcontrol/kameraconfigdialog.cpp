@@ -23,7 +23,7 @@
 #include <qlayout.h>
 #include <q3grid.h>
 #include <qlabel.h>
-#include <qvgroupbox.h>
+
 #include <qcheckbox.h>
 #include <qradiobutton.h>
 #include <qlineedit.h>
@@ -33,7 +33,7 @@
 #include <qhbuttongroup.h>
 #include <q3vbox.h>
 #include <qtabwidget.h>
-#include <q3whatsthis.h>
+
 //Added by qt3to4:
 #include <Q3Frame>
 #include <QVBoxLayout>
@@ -114,7 +114,7 @@ void KameraConfigDialog::appendWidget(QWidget *parent, CameraWidget *widget)
 			m_wmap.insert(widget, lineEdit);
 
 			if (!whats_this.isEmpty())
-				Q3WhatsThis::add(grid, whats_this);
+				grid->setWhatsThis( whats_this);
 
 			break;
 		}
@@ -126,7 +126,7 @@ void KameraConfigDialog::appendWidget(QWidget *parent, CameraWidget *widget)
 			gp_widget_get_range(widget, &widget_low, &widget_high, &widget_increment);
 			gp_widget_get_value(widget, &widget_value_float);
 	
-			Q3GroupBox *groupBox = new QVGroupBox(widget_label, parent);
+			Q3GroupBox *groupBox = new Q3GroupBox(1, Qt::Horizontal,widget_label, parent);
 			QSlider *slider = new QSlider(
 				( int )widget_low,
 				( int )widget_high,
@@ -137,7 +137,7 @@ void KameraConfigDialog::appendWidget(QWidget *parent, CameraWidget *widget)
 			m_wmap.insert(widget, slider);
 		
 			if (!whats_this.isEmpty())
-				Q3WhatsThis::add(groupBox, whats_this);
+				groupBox->setWhatsThis( whats_this);
 		
 			break;
 		}
@@ -150,7 +150,7 @@ void KameraConfigDialog::appendWidget(QWidget *parent, CameraWidget *widget)
 			m_wmap.insert(widget, checkBox);
 
 			if (!whats_this.isEmpty())
-				Q3WhatsThis::add(checkBox, whats_this);
+				checkBox->setWhatsThis( whats_this);
 
 			break;
 		}
@@ -178,7 +178,7 @@ void KameraConfigDialog::appendWidget(QWidget *parent, CameraWidget *widget)
 			m_wmap.insert(widget, buttonGroup);
 
 			if (!whats_this.isEmpty())
-				Q3WhatsThis::add(buttonGroup, whats_this);
+				buttonGroup->setWhatsThis( whats_this);
 
 			break;
 		}
@@ -199,7 +199,7 @@ void KameraConfigDialog::appendWidget(QWidget *parent, CameraWidget *widget)
 			m_wmap.insert(widget, comboBox);
 
 			if (!whats_this.isEmpty())
-				Q3WhatsThis::add(comboBox, whats_this);
+				comboBox->setWhatsThis( whats_this);
 
 			break;
 		}
