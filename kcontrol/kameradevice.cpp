@@ -285,7 +285,9 @@ KameraDeviceSelectDialog::KameraDeviceSelectDialog(QWidget *parent, KCamera *dev
 	setMainWidget(page);
 
 	// a layout with vertical boxes
-	QHBoxLayout *topLayout = new QHBoxLayout(page, 0, KDialog::spacingHint());
+	QHBoxLayout *topLayout = new QHBoxLayout(page);
+	topLayout->setSpacing(KDialog::spacingHint());
+	topLayout->setMargin(0);
 
 	// the models list
 	m_modelSel = new K3ListView(page);
@@ -298,7 +300,10 @@ KameraDeviceSelectDialog::KameraDeviceSelectDialog(QWidget *parent, KCamera *dev
 	m_modelSel->setSizePolicy(QSizePolicy(QSizePolicy::Maximum,
 		QSizePolicy::Preferred));
 
-	QVBoxLayout *rightLayout = new QVBoxLayout(0L, 0, KDialog::spacingHint());
+	QVBoxLayout *rightLayout = new QVBoxLayout();
+	rightLayout->setObjectName(KDialog::spacingHint());
+	rightLayout->setSpacing(0);
+	rightLayout->setMargin(0L);
 	topLayout->addLayout( rightLayout );
 
 	m_portSelectGroup = new Q3VButtonGroup(i18n("Port"), page);

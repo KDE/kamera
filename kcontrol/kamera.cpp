@@ -103,7 +103,9 @@ void KKameraConfig::displayGPSuccessDialogue(void)
 	setButtons(Help | Apply | Cancel | Ok);
 
 	// create a layout with two vertical boxes
-	QVBoxLayout *topLayout = new QVBoxLayout(this, 0, 0);
+	QVBoxLayout *topLayout = new QVBoxLayout(this);
+	topLayout->setSpacing(0);
+	topLayout->setMargin(0);
 	topLayout->setAutoAdd(true);
 	
 	m_toolbar = new KToolBar(this, "ToolBar");

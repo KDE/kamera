@@ -51,7 +51,9 @@ KDialogBase(parent, name, true, QString::null, Ok|Cancel, Ok ),
 m_widgetRoot(widget)
 {
     QFrame *main = makeMainWidget();
-	QVBoxLayout *topLayout = new QVBoxLayout(main, 0, spacingHint());
+	QVBoxLayout *topLayout = new QVBoxLayout(main);
+	topLayout->setSpacing(spacingHint());
+	topLayout->setMargin(0);
 	topLayout->setAutoAdd(true);
 
 	m_tabWidget = 0;
