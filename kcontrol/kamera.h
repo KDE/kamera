@@ -50,7 +50,7 @@ class KKameraConfig : public KCModule
 	friend class KameraDeviceSelectDialog;
 
 public:
-	KKameraConfig(QWidget *parent, const char *name, const QStringList &);
+	KKameraConfig(QWidget *parent, const QStringList &);
 	virtual ~KKameraConfig();
 
 	// KCModule interface methods

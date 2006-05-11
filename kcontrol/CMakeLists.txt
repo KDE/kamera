@@ -1,9 +1,11 @@
 kde4_header()
 
-include_directories( ${KDE4_INCLUDE_DIR} ${QT_INCLUDES} ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR}  )
+include_directories(${KDE4_INCLUDE_DIR} ${QT_INCLUDES} ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR}  )
 
-
+add_definitions(${GPHOTO2_INCLUDE_DIRS})
 ########### next target ###############
+
+MESSAGE(STATUS "GPHOTO2_INCLUDE_DIRS :<${GPHOTO2_INCLUDE_DIRS}>")
 
 set(kcm_kamera_PART_SRCS kamera.cpp kameradevice.cpp kameraconfigdialog.cpp )
 
@@ -13,7 +15,7 @@ kde4_add_plugin(kcm_kamera ${kcm_kamera_PART_SRCS})
 
 kde4_install_libtool_file( ${PLUGIN_INSTALL_DIR} kcm_kamera )
 
-target_link_libraries(kcm_kamera  ${KDE4_KIO_LIBS} )
+target_link_libraries(kcm_kamera  ${KDE4_KIO_LIBS} ${GPHOTO2_LIBRARIES})
 
 install_targets(${PLUGIN_INSTALL_DIR} kcm_kamera )
 
