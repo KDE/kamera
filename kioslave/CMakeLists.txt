@@ -1,8 +1,8 @@
 kde4_header()
 
-include_directories( ${KDE4_INCLUDE_DIR} ${QT_INCLUDES} ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR}  )
 
 add_definitions(${GPHOTO2_INCLUDE_DIRS})
+
 
 ########### next target ###############
 
