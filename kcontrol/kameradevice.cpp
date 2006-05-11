@@ -33,7 +33,7 @@
 //Added by qt3to4:
 #include <QHBoxLayout>
 #include <QVBoxLayout>
-
+#include <Q3VButtonGroup>
 #include <klocale.h>
 #include <kconfig.h>
 #include <k3listview.h>
@@ -302,9 +302,8 @@ KameraDeviceSelectDialog::KameraDeviceSelectDialog(QWidget *parent, KCamera *dev
 		QSizePolicy::Preferred));
 
 	QVBoxLayout *rightLayout = new QVBoxLayout();
-	rightLayout->setObjectName(KDialog::spacingHint());
-	rightLayout->setSpacing(0);
-	rightLayout->setMargin(0L);
+	rightLayout->setSpacing(KDialog::spacingHint());
+	rightLayout->setMargin(0);
 	topLayout->addLayout( rightLayout );
 
 	m_portSelectGroup = new Q3VButtonGroup(i18n("Port"), page);
