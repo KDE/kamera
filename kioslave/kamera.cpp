@@ -569,7 +569,7 @@ void KameraProtocol::listDir(const KUrl &url)
 	}
 
 	if (url.path() == "") {
-		KURL rooturl(url);
+		KUrl rooturl(url);
 
 		kdDebug(7123) << "redirecting to /" << endl;
 		rooturl.setPath("/");
@@ -808,7 +808,7 @@ void KameraProtocol::translateDirectoryToUDS(UDSEntry &udsEntry, const QString &
 	udsEntry.insert(UDS_FILE_TYPE,S_IFDIR);
 	udsEntry.insert(UDS_NAME,dirname);
 	udsEntry.insert(UDS_ACCESS,S_IRUSR | S_IRGRP | S_IROTH |S_IWUSR | S_IWGRP | S_IWOTH);
-        udsEntry.insert(UDS_MIME_TYPE, "inode/directory");
+        udsEntry.insert(UDS_MIME_TYPE, QString("inode/directory"));
 }
 
 bool KameraProtocol::cameraSupportsDel(void)
