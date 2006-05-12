@@ -1,4 +1,3 @@
-kde4_header()
 
 
 add_definitions(${GPHOTO2_INCLUDE_DIRS})
@@ -24,7 +23,6 @@ install_targets(${PLUGIN_INSTALL_DIR} kcm_kamera )
 
 install_files( ${XDG_APPS_DIR} FILES kamera.desktop )
 
-kde4_footer()
 
 
 

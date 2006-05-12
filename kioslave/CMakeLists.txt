@@ -1,4 +1,3 @@
-kde4_header()
 
 
 add_definitions(${GPHOTO2_INCLUDE_DIRS})
@@ -23,7 +22,6 @@ install_targets(${PLUGIN_INSTALL_DIR} kio_kamera )
 
 install_files( ${SERVICES_INSTALL_DIR} FILES camera.protocol )
 
-kde4_footer()
 
 
 
