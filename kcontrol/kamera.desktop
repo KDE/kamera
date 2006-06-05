@@ -63,7 +63,6 @@ Comment[zh_CN]=配置 Kamera
 Comment[zh_HK]=設定 Kamera
 Comment[zh_TW]=設定照相機
 Comment[zu]=Hlanganisa ikhamera
-Exec=kcmshell kamera
 Keywords=gphoto,camera,digicam,webcam,kamera
 Keywords[ar]=gphoto,كاميرا,كاميرا رقمية,كاميرا ويب,kamera
 Keywords[az]=gphoto,kamera,digicam,veb kamera,Kamera,webcam
