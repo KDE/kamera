@@ -365,7 +365,7 @@ KameraDeviceSelectDialog::KameraDeviceSelectDialog(QWidget *parent, KCamera *dev
 	populateCameraListView();
 	load();
 
-	enableButtonOK(false );
+	enableButtonOk(false );
     m_portSelectGroup->setEnabled( false );
     m_portSettingsGroup->setEnabled( false );
 }
@@ -426,7 +426,7 @@ void KameraDeviceSelectDialog::load()
 
 void KameraDeviceSelectDialog::slot_setModel(Q3ListViewItem *item)
 {
-    enableButtonOK(true);
+    enableButtonOk(true);
     m_portSelectGroup->setEnabled(true);
     m_portSettingsGroup->setEnabled(true);
 
