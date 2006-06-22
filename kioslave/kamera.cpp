@@ -498,7 +498,7 @@ void KameraProtocol::listDir(const KURL &url)
 	
 			ports[value] = model;
 			// NOTE: We might get different ports than usb: later!
-			if (value != "usb:")
+			if (strcmp(value, "usb:"))
 				names[model] = value;
 
 			/* Save them, even though we can autodetect them for
