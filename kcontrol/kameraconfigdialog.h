@@ -24,14 +24,14 @@
 #define __kameraconfigdialog_h__
 
 #include <qmap.h>
-#include <kdialogbase.h>
+#include <kdialog.h>
 #include <qtabwidget.h>
 
 extern "C" {
 	#include <gphoto2.h>
 }
 
-class KameraConfigDialog : public KDialogBase
+class KameraConfigDialog : public KDialog
 {
 	Q_OBJECT
 public:

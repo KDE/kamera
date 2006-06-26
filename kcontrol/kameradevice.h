@@ -24,7 +24,7 @@
 #define __kameradevice_h__
 
 #include <qmap.h>
-#include <kdialogbase.h>
+#include <kdialog.h>
 #include <config.h>
 #include <Q3ListViewItem>
 class KConfig;
@@ -85,7 +85,7 @@ protected:
 	CameraAbilitiesList *m_abilitylist;
 };
 
-class KameraDeviceSelectDialog : public KDialogBase
+class KameraDeviceSelectDialog : public KDialog
 {
 	Q_OBJECT
 public:

@@ -47,24 +47,29 @@ KameraConfigDialog::KameraConfigDialog(Camera */*camera*/,
 					CameraWidget *widget,
 					QWidget *parent,
 					const char *name) :
-KDialogBase(parent, name, true, QString::null, Ok|Cancel, Ok ),
-m_widgetRoot(widget)
+    KDialog(parent),
+    m_widgetRoot(widget)
 {
-    QFrame *main = makeMainWidget();
-	QVBoxLayout *topLayout = new QVBoxLayout(main);
-	topLayout->setSpacing(spacingHint());
-	topLayout->setMargin(0);
-	topLayout->setAutoAdd(true);
+    setButtons( Ok|Cancel );
+    setDefaultButton( Ok );
+    setModal( true );
 
-	m_tabWidget = 0;
+    QFrame *main = new QFrame( this );
+    setMainWidget( main );
+    QVBoxLayout *topLayout = new QVBoxLayout(main);
+    topLayout->setSpacing(spacingHint());
+    topLayout->setMargin(0);
+    topLayout->setAutoAdd(true);
 
-	appendWidget(main, widget);
+    m_tabWidget = 0;
+
+    appendWidget(main, widget);
 }
 
 void KameraConfigDialog::appendWidget(QWidget *parent, CameraWidget *widget)
 {
 	QWidget *newParent = parent;
-	
+
 	CameraWidgetType widget_type;
 	const char *widget_name;
 	const char *widget_info;
@@ -76,7 +81,7 @@ void KameraConfigDialog::appendWidget(QWidget *parent, CameraWidget *widget)
 	gp_widget_get_label(widget, &widget_label);
 	gp_widget_get_info(widget, &widget_info);
 	gp_widget_get_name(widget, &widget_name);
-	
+
 	QString whats_this = QString::fromLocal8Bit(widget_info);	// gphoto2 doesn't seem to have any standard for i18n
 
 	// Add this widget to parent
@@ -84,7 +89,7 @@ void KameraConfigDialog::appendWidget(QWidget *parent, CameraWidget *widget)
 	case GP_WIDGET_WINDOW:
 		{
 			setCaption(widget_label);
-			
+
 			break;
 		}
 	case GP_WIDGET_SECTION:
@@ -102,7 +107,7 @@ void KameraConfigDialog::appendWidget(QWidget *parent, CameraWidget *widget)
 			newParent = tabContainer;
 
 			tabLayout->addStretch();
-		
+
 			break;
 		}
 	case GP_WIDGET_TEXT:
@@ -127,7 +132,7 @@ void KameraConfigDialog::appendWidget(QWidget *parent, CameraWidget *widget)
 			float widget_increment;
 			gp_widget_get_range(widget, &widget_low, &widget_high, &widget_increment);
 			gp_widget_get_value(widget, &widget_value_float);
-	
+
 			Q3GroupBox *groupBox = new Q3GroupBox(1, Qt::Horizontal,widget_label, parent);
 			QSlider *slider = new QSlider(
 				( int )widget_low,
@@ -137,16 +142,16 @@ void KameraConfigDialog::appendWidget(QWidget *parent, CameraWidget *widget)
 				QSlider::Horizontal,
 				groupBox );
 			m_wmap.insert(widget, slider);
-		
+
 			if (!whats_this.isEmpty())
 				groupBox->setWhatsThis( whats_this);
-		
+
 			break;
 		}
 	case GP_WIDGET_TOGGLE:
 		{
 			gp_widget_get_value(widget, &widget_value_int);
-		
+
 			QCheckBox *checkBox = new QCheckBox(widget_label, parent);
 			checkBox->setChecked(widget_value_int);
 			m_wmap.insert(widget, checkBox);
@@ -159,7 +164,7 @@ void KameraConfigDialog::appendWidget(QWidget *parent, CameraWidget *widget)
 	case GP_WIDGET_RADIO:
 		{
 			gp_widget_get_value(widget, &widget_value_string);
-	
+
 			int count = gp_widget_count_choices(widget);
 
 			// for less than 5 options, align them horizontally
@@ -168,7 +173,7 @@ void KameraConfigDialog::appendWidget(QWidget *parent, CameraWidget *widget)
 				buttonGroup = new Q3VButtonGroup(widget_label, parent);
 			else
 				buttonGroup = new Q3HButtonGroup(widget_label, parent);
-			
+
 			for(int i = 0; i < count; ++i) {
 				const char *widget_choice;
 				gp_widget_get_choice(widget, i, &widget_choice);
@@ -187,7 +192,7 @@ void KameraConfigDialog::appendWidget(QWidget *parent, CameraWidget *widget)
 	case GP_WIDGET_MENU:
 		{
 			gp_widget_get_value(widget, &widget_value_string);
-	
+
 			QComboBox *comboBox = new QComboBox(FALSE, parent);
 			comboBox->clear();
 			for(int i = 0; i < gp_widget_count_choices(widget); ++i) {
@@ -212,7 +217,7 @@ void KameraConfigDialog::appendWidget(QWidget *parent, CameraWidget *widget)
 			// no way of telling which button sent you a signal, we
 			// can't map to the appropriate widget->callback
 			new QLabel(i18n("Button (not supported by KControl)"), parent);
-	
+
 			break;
 		}
 	case GP_WIDGET_DATE:
@@ -232,7 +237,7 @@ void KameraConfigDialog::appendWidget(QWidget *parent, CameraWidget *widget)
 		gp_widget_get_child(widget, i, &widget_child);
 		appendWidget(newParent, widget_child);
 	}
-	
+
 	// Things that must be done after all children were added
 /*
 	switch (widget_type) {
@@ -261,7 +266,7 @@ void KameraConfigDialog::updateWidgetValue(CameraWidget *widget)
 		{
 			QLineEdit *lineEdit = static_cast<QLineEdit *>(m_wmap[widget]);
 			gp_widget_set_value(widget, (void *)lineEdit->text().local8Bit().data());
-	
+
 			break;
 		}
 	case GP_WIDGET_RANGE:
@@ -269,7 +274,7 @@ void KameraConfigDialog::updateWidgetValue(CameraWidget *widget)
 			QSlider *slider = static_cast<QSlider *>(m_wmap[widget]);
 			float value_float = slider->value();
 			gp_widget_set_value(widget, (void *)&value_float);
-			
+
 			break;
 		}
 	case GP_WIDGET_TOGGLE:
@@ -277,7 +282,7 @@ void KameraConfigDialog::updateWidgetValue(CameraWidget *widget)
 			QCheckBox *checkBox = static_cast<QCheckBox *>(m_wmap[widget]);
 			int value_int = checkBox->isChecked() ? 1 : 0;
 			gp_widget_set_value(widget, (void *)&value_int);
-			
+
 			break;
 		}
 	case GP_WIDGET_RADIO:
@@ -291,7 +296,7 @@ void KameraConfigDialog::updateWidgetValue(CameraWidget *widget)
 		{
 			QComboBox *comboBox = static_cast<QComboBox *>(m_wmap[widget]);
 			gp_widget_set_value(widget, (void *)comboBox->currentText().local8Bit().data());
-	
+
 			break;
 		}
 	case GP_WIDGET_BUTTON:
@@ -303,7 +308,7 @@ void KameraConfigDialog::updateWidgetValue(CameraWidget *widget)
 			break;
 		}
 	}
-	
+
 	// Copy child widget values
 	for(int i = 0; i < gp_widget_count_children(widget); ++i) {
 		CameraWidget *widget_child;
