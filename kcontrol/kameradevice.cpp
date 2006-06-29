@@ -450,7 +450,7 @@ void KameraDeviceSelectDialog::slot_setModel(Q3ListViewItem *item)
 		m_USBRB->setEnabled(abilities.port & GP_PORT_USB);
 
 		// turn off any selected port
-		Q3Button *selected = m_portSelectGroup->selected();
+		QAbstractButton *selected = m_portSelectGroup->selected();
 		if(selected != NULL)
 			selected->toggle();
 

@@ -36,6 +36,7 @@ class QVGroupBox;
 class QComboBox;
 class QLineEdit;
 class QRadioButton;
+class Q3GroupBox;
 
 class KCamera : public QObject {
 	friend class KameraDeviceSelectDialog;
@@ -107,7 +108,7 @@ protected:
 	QLineEdit *m_nameEdit;
 	Q3WidgetStack *m_settingsStack;
 	Q3VButtonGroup *m_portSelectGroup;
-	QVGroupBox *m_portSettingsGroup;
+	Q3GroupBox *m_portSettingsGroup;
 	QComboBox *m_serialPortCombo;
 	// port selection radio buttons
 	QRadioButton *m_serialRB;

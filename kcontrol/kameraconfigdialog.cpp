@@ -23,14 +23,14 @@
 #include <qlayout.h>
 #include <q3grid.h>
 #include <qlabel.h>
-
+#include <Q3GroupBox>
 #include <qcheckbox.h>
 #include <qradiobutton.h>
 #include <qlineedit.h>
 #include <qcombobox.h>
 #include <qslider.h>
+#include <Q3ButtonGroup>
 
-#include <qhbuttongroup.h>
 #include <q3vbox.h>
 #include <qtabwidget.h>
 
@@ -114,7 +114,7 @@ void KameraConfigDialog::appendWidget(QWidget *parent, CameraWidget *widget)
 		{
 			gp_widget_get_value(widget, &widget_value_string);
 
-			Q3Grid *grid = new Q3Grid(2, Horizontal, parent);
+			Q3Grid *grid = new Q3Grid(2, Qt::Horizontal, parent);
 			grid->setSpacing(spacingHint());
 			new QLabel(QString::fromLocal8Bit( widget_label )+":", grid);
 			QLineEdit *lineEdit = new QLineEdit(widget_value_string, grid);
@@ -139,7 +139,7 @@ void KameraConfigDialog::appendWidget(QWidget *parent, CameraWidget *widget)
 				( int )widget_high,
 				( int )widget_increment,
 				( int )widget_value_float,
-				QSlider::Horizontal,
+				Qt::Horizontal,
 				groupBox );
 			m_wmap.insert(widget, slider);
 
