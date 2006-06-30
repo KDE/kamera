@@ -409,12 +409,15 @@ void KameraDeviceSelectDialog::load()
 	if (port == "usb") setPortType(INDEX_USB);
 
 	QListViewItem *modelItem = m_modelSel->firstChild();
+	if( modelItem)
+	{
 	do {
 		if (modelItem->text(0) == m_device->model()) {
 			m_modelSel->setSelected(modelItem, true);
 			m_modelSel->ensureItemVisible(modelItem);
 		}
 	} while ( ( modelItem = modelItem->nextSibling() ) );
+	}
 }
 
 void KameraDeviceSelectDialog::slot_setModel(QListViewItem *item)
