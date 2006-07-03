@@ -421,12 +421,13 @@ void KameraDeviceSelectDialog::load()
 	if (port == "usb") setPortType(INDEX_USB);
 
 	Q3ListViewItem *modelItem = m_modelSel->firstChild();
-	do {
-		if (modelItem->text(0) == m_device->model()) {
-			m_modelSel->setSelected(modelItem, true);
-			m_modelSel->ensureItemVisible(modelItem);
-		}
-	} while ( ( modelItem = modelItem->nextSibling() ) );
+	if( modelItem )
+		do {
+			if (modelItem->text(0) == m_device->model()) {
+				m_modelSel->setSelected(modelItem, true);
+				m_modelSel->ensureItemVisible(modelItem);
+			}
+		} while ( ( modelItem = modelItem->nextSibling() ) );
 }
 
 void KameraDeviceSelectDialog::slot_setModel(Q3ListViewItem *item)
