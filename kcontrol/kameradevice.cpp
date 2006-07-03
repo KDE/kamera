@@ -280,7 +280,7 @@ KameraDeviceSelectDialog::KameraDeviceSelectDialog(QWidget *parent, KCamera *dev
     setButtons( Ok | Cancel );
     setDefaultButton( Ok );
     setModal( true );
-    enableButtonSeparator( true );
+    showButtonSeparator( true );
 	m_device = device;
 	connect(m_device, SIGNAL(error(const QString &)),
 		SLOT(slot_error(const QString &)));
