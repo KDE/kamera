@@ -16,12 +16,12 @@ kde4_install_libtool_file( ${PLUGIN_INSTALL_DIR} kcm_kamera )
 
 target_link_libraries(kcm_kamera  ${KDE4_KIO_LIBS} ${GPHOTO2_LIBRARIES})
 
-install_targets(${PLUGIN_INSTALL_DIR} kcm_kamera )
+install(TARGETS kcm_kamera  DESTINATION ${PLUGIN_INSTALL_DIR} )
 
 
 ########### install files ###############
 
-install_files( ${XDG_APPS_DIR} FILES kamera.desktop )
+install( FILES kamera.desktop  DESTINATION  ${XDG_APPS_DIR} )
 
 
 

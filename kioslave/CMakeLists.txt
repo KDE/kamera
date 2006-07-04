@@ -15,12 +15,12 @@ kde4_install_libtool_file( ${PLUGIN_INSTALL_DIR} kio_kamera )
 
 target_link_libraries(kio_kamera  ${KDE4_KIO_LIBS} ${GPHOTO2_LIBRARIES}  )
 
-install_targets(${PLUGIN_INSTALL_DIR} kio_kamera )
+install(TARGETS kio_kamera  DESTINATION ${PLUGIN_INSTALL_DIR} )
 
 
 ########### install files ###############
 
-install_files( ${SERVICES_INSTALL_DIR} FILES camera.protocol )
+install( FILES camera.protocol  DESTINATION  ${SERVICES_INSTALL_DIR} )
 
 
 
