@@ -101,7 +101,7 @@ void KKameraConfig::displayGPFailureDialogue(void)
 void KKameraConfig::displayGPSuccessDialogue(void)
 {
 	// set the kcontrol module buttons
-	setButtons(Help | Apply | Cancel | Ok);
+	setButtons(Help | Apply );
 
 	// create a layout with two vertical boxes
 	QVBoxLayout *topLayout = new QVBoxLayout(this);
