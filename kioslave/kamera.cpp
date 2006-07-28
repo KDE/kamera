@@ -296,7 +296,7 @@ void KameraProtocol::stat(const KUrl &url)
 {
 	kDebug(7123) << "stat(\"" << url.path() << "\")" << endl;
 	
-	if (url.path() == "") {
+	if (url.path().isEmpty()) {
 		KUrl rooturl(url);
 
 		kDebug(7123) << "redirecting to /" << endl;
@@ -566,7 +566,7 @@ void KameraProtocol::listDir(const KUrl &url)
 		return;
 	}
 
-	if (url.path() == "") {
+	if (url.path().isEmpty()) {
 		KUrl rooturl(url);
 
 		kdDebug(7123) << "redirecting to /" << endl;

@@ -279,7 +279,7 @@ QString KKameraConfig::suggestName(const QString &name)
 	// try new names with a number appended until we find a free one
 	int i = 1;
 	while (i++ < 0xffff) {
-		new_name = name + " (" + QString::number(i) + ")";
+		new_name = name + " (" + QString::number(i) + ')';
 		if (!m_devices.contains(new_name)) return new_name;
 	}
 

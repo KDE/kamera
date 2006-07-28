@@ -116,7 +116,7 @@ void KameraConfigDialog::appendWidget(QWidget *parent, CameraWidget *widget)
 
 			Q3Grid *grid = new Q3Grid(2, Qt::Horizontal, parent);
 			grid->setSpacing(spacingHint());
-			new QLabel(QString::fromLocal8Bit( widget_label )+":", grid);
+			new QLabel(QString::fromLocal8Bit( widget_label )+':', grid);
 			QLineEdit *lineEdit = new QLineEdit(widget_value_string, grid);
 			m_wmap.insert(widget, lineEdit);
 
@@ -193,7 +193,7 @@ void KameraConfigDialog::appendWidget(QWidget *parent, CameraWidget *widget)
 		{
 			gp_widget_get_value(widget, &widget_value_string);
 
-			QComboBox *comboBox = new QComboBox(FALSE, parent);
+			QComboBox *comboBox = new QComboBox(false, parent);
 			comboBox->clear();
 			for(int i = 0; i < gp_widget_count_choices(widget); ++i) {
 				const char *widget_choice;

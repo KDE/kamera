@@ -336,7 +336,7 @@ KameraDeviceSelectDialog::KameraDeviceSelectDialog(QWidget *parent, KCamera *dev
 	Q3Grid *grid = new Q3Grid(2, m_settingsStack);
 	grid->setSpacing(KDialog::spacingHint());
 	new QLabel(i18n("Port:"), grid);
-	m_serialPortCombo = new QComboBox(TRUE, grid);
+	m_serialPortCombo = new QComboBox(true, grid);
 	m_serialPortCombo->setWhatsThis( i18n("Here you should choose the serial port you connect the camera to."));
 	m_settingsStack->addWidget(grid, INDEX_SERIAL);
 
