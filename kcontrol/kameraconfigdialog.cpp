@@ -31,7 +31,7 @@
 #include <qslider.h>
 #include <Q3ButtonGroup>
 
-#include <q3vbox.h>
+#include <kvbox.h>
 #include <qtabwidget.h>
 
 //Added by qt3to4:
@@ -101,7 +101,7 @@ void KameraConfigDialog::appendWidget(QWidget *parent, CameraWidget *widget)
 			QVBoxLayout *tabLayout = new QVBoxLayout(tab, marginHint(),
 				spacingHint());
 			m_tabWidget->insertTab(tab, widget_label);
-			Q3VBox *tabContainer = new Q3VBox(tab);
+			KVBox *tabContainer = new KVBox(tab);
 			tabContainer->setSpacing(spacingHint());
 			tabLayout->addWidget(tabContainer);
 			newParent = tabContainer;
