@@ -88,6 +88,7 @@ KKameraConfig::~KKameraConfig()
 
 void KKameraConfig::defaults()
 {
+	load( true );
 }
 
 void KKameraConfig::displayGPFailureDialogue(void)
@@ -170,6 +171,12 @@ void KKameraConfig::save(void)
 
 void KKameraConfig::load(void)
 {
+	load( false );
+}
+
+void KKameraConfig::load(bool useDefaults )
+{
+	m_config->setReadDefaults( useDefaults );
 	QStringList groupList = m_config->groupList();
 	QStringList::Iterator it;
         int i, count;
@@ -232,6 +239,8 @@ void KKameraConfig::load(void)
 	populateDeviceListView();
 
 	gp_list_free (list);
+
+	emit changed( useDefaults );
 }
 
 void KKameraConfig::beforeCameraOperation(void)

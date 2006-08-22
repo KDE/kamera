@@ -55,6 +55,7 @@ public:
 
 	// KCModule interface methods
 	void load();
+	void load(bool useDefaults);
 	void save();
 	void defaults();
 	int buttons();
