@@ -12,8 +12,13 @@ Name[x-test]=xxDigital Cameraxx
 SwallowExec=
 SwallowTitle=
 Terminal=false
-Type=Application
+Type=Service
+ServiceTypes=KCModule
+
 X-KDE-Library=kamera
+X-KDE-FactoryName=kamera
+X-KDE-ParentApp=kcontrol
+
 X-KDE-ModuleType=Library
 Icon=camera
 Exec=kcmshell kamera
