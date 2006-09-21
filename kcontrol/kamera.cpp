@@ -51,7 +51,7 @@
 #define tocstr(x) ((char *)((x).latin1()))
 
 typedef KGenericFactory<KKameraConfig, QWidget> KKameraConfigFactory;
-K_EXPORT_COMPONENT_FACTORY( kcm_kamera, KKameraConfigFactory( "kcmkamera" ) )
+K_EXPORT_COMPONENT_FACTORY( kamera, KKameraConfigFactory( "kcmkamera" ) )
 
 // --------------- Camera control center module widget ---
 
