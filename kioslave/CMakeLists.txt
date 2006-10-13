@@ -7,7 +7,7 @@ add_definitions(${GPHOTO2_INCLUDE_DIRS})
 
 set(kio_kamera_PART_SRCS kamera.cpp )
 
-kde4_automoc(${kio_kamera_PART_SRCS})
+kde4_automoc(kio_kamera ${kio_kamera_PART_SRCS})
 
 kde4_add_plugin(kio_kamera ${kio_kamera_PART_SRCS})
 
