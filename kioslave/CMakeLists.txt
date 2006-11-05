@@ -11,7 +11,6 @@ kde4_automoc(${kio_kamera_PART_SRCS})
 
 kde4_add_plugin(kio_kamera ${kio_kamera_PART_SRCS})
 
-kde4_install_libtool_file( ${PLUGIN_INSTALL_DIR} kio_kamera )
 
 target_link_libraries(kio_kamera  ${KDE4_KIO_LIBS} ${GPHOTO2_LIBRARIES}  )
 
