@@ -110,7 +110,9 @@ void KKameraConfig::displayGPSuccessDialogue(void)
 	topLayout->setAutoAdd(true);
 	
 	m_toolbar = new KToolBar(this, "ToolBar");
+#ifdef __GNUC__
 #warning "kde4: port it"
+#endif	
 	//m_toolbar->setMovingEnabled(false);
 	
 	// create list of devices
@@ -131,7 +133,9 @@ void KKameraConfig::displayGPSuccessDialogue(void)
 	act = new KAction(i18n("Add"), "camera", 0, this, SLOT(slot_addCamera()), m_actions, "camera_add");
 	act->setWhatsThis(i18n("Click this button to add a new camera."));
 	act->plug(m_toolbar);
+#ifdef __GNUC__
 #warning "kde4: port it"	
+#endif	
 	//m_toolbar->insertLineSeparator();
 	act = new KAction(i18n("Test"), "camera_test", 0, this, SLOT(slot_testCamera()), m_actions, "camera_test");
 	act->setWhatsThis(i18n("Click this button to remove the selected camera from the list."));
@@ -145,7 +149,9 @@ void KKameraConfig::displayGPSuccessDialogue(void)
 	act = new KAction(i18n("Information"), "hwinfo", 0, this, SLOT(slot_cameraSummary()), m_actions, "camera_summary");
 	act->setWhatsThis(i18n("Click this button to view a summary of the current status of the selected camera.<br><br>The availability of this feature and the contents of the Configuration dialog depend on the camera model."));
 	act->plug(m_toolbar);
+#ifdef __GNUC__
 #warning "kde4: port it"	
+#endif	
 	//m_toolbar->insertLineSeparator();
 	act = new KAction(i18n("Cancel"), "stop", 0, this, SLOT(slot_cancelOperation()), m_actions, "camera_cancel");
 	act->setWhatsThis(i18n("Click this button to cancel the current camera operation."));
