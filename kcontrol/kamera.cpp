@@ -130,30 +130,30 @@ void KKameraConfig::displayGPSuccessDialogue(void)
 	// create actions
 	KAction *act;
 	
-	act = new KAction(i18n("Add"), "camera", 0, this, SLOT(slot_addCamera()), m_actions, "camera_add");
+	act = new KAction(i18n("Add"), "camera", KShortcut(), this, SLOT(slot_addCamera()), m_actions, "camera_add");
 	act->setWhatsThis(i18n("Click this button to add a new camera."));
 	act->plug(m_toolbar);
 #ifdef __GNUC__
 #warning "kde4: port it"	
 #endif	
 	//m_toolbar->insertLineSeparator();
-	act = new KAction(i18n("Test"), "camera_test", 0, this, SLOT(slot_testCamera()), m_actions, "camera_test");
+	act = new KAction(i18n("Test"), "camera_test", KShortcut(), this, SLOT(slot_testCamera()), m_actions, "camera_test");
 	act->setWhatsThis(i18n("Click this button to remove the selected camera from the list."));
 	act->plug(m_toolbar);
-	act = new KAction(i18n("Remove"), "edittrash", 0, this, SLOT(slot_removeCamera()), m_actions, "camera_remove");
+	act = new KAction(i18n("Remove"), "edittrash", KShortcut(), this, SLOT(slot_removeCamera()), m_actions, "camera_remove");
 	act->setWhatsThis(i18n("Click this button to remove the selected camera from the list."));
 	act->plug(m_toolbar);
-	act = new KAction(i18n("Configure..."), "configure", 0, this, SLOT(slot_configureCamera()), m_actions, "camera_configure");
+	act = new KAction(i18n("Configure..."), "configure", KShortcut(), this, SLOT(slot_configureCamera()), m_actions, "camera_configure");
 	act->setWhatsThis(i18n("Click this button to change the configuration of the selected camera.<br><br>The availability of this feature and the contents of the Configuration dialog depend on the camera model."));
 	act->plug(m_toolbar);
-	act = new KAction(i18n("Information"), "hwinfo", 0, this, SLOT(slot_cameraSummary()), m_actions, "camera_summary");
+	act = new KAction(i18n("Information"), "hwinfo", KShortcut(), this, SLOT(slot_cameraSummary()), m_actions, "camera_summary");
 	act->setWhatsThis(i18n("Click this button to view a summary of the current status of the selected camera.<br><br>The availability of this feature and the contents of the Configuration dialog depend on the camera model."));
 	act->plug(m_toolbar);
 #ifdef __GNUC__
 #warning "kde4: port it"	
 #endif	
 	//m_toolbar->insertLineSeparator();
-	act = new KAction(i18n("Cancel"), "stop", 0, this, SLOT(slot_cancelOperation()), m_actions, "camera_cancel");
+	act = new KAction(i18n("Cancel"), "stop", KShortcut(), this, SLOT(slot_cancelOperation()), m_actions, "camera_cancel");
 	act->setWhatsThis(i18n("Click this button to cancel the current camera operation."));
 	act->setEnabled(false);
 	act->plug(m_toolbar);
