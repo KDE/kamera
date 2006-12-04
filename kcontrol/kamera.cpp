@@ -371,10 +371,10 @@ void KKameraConfig::slot_deviceMenu(Q3IconViewItem *item, const QPoint &point)
 {
 	if (item) {
 		m_devicePopup->clear();
-		m_actions->action("camera_test")->plug(m_devicePopup);
-		m_actions->action("camera_remove")->plug(m_devicePopup);
-		m_actions->action("camera_configure")->plug(m_devicePopup);
-		m_actions->action("camera_summary")->plug(m_devicePopup);
+		m_devicePopup->addAction(m_actions->action("camera_test"));
+		m_devicePopup->addAction(m_actions->action("camera_remove"));
+		m_devicePopup->addAction(m_actions->action("camera_configure"));
+		m_devicePopup->addAction(m_actions->action("camera_summary"));
 		m_devicePopup->popup(point);
 	}
 }
