@@ -43,7 +43,7 @@
 
 #include "kamera.h"
 
-#define tocstr(x) ((x).local8Bit())
+#define tocstr(x) ((x).toLocal8Bit())
 
 using namespace KIO;
 
@@ -167,7 +167,7 @@ void KameraProtocol::get(const KUrl &url)
 		return;
 	}
 
-	// fprintf(stderr,"get(%s)\n",url.path().latin1());
+	// fprintf(stderr,"get(%s)\n",url.path().toLatin1());
 
 #define GPHOTO_TEXT_FILE(xx)						\
 	if (!url.path().compare("/" #xx ".txt")) {			\
@@ -203,7 +203,7 @@ void KameraProtocol::get(const KUrl &url)
 	
 	gpr = gp_camera_file_get_info(m_camera, tocstr(fix_foldername(url.directory(KUrl::AppendTrailingSlash))), tocstr(url.fileName()), &info, m_context);
 	if (gpr != GP_OK) {
-		// fprintf(stderr,"Folder %s / File %s not found, gpr is %d\n",folder.latin1(), url.fileName().latin1(), gpr);
+		// fprintf(stderr,"Folder %s / File %s not found, gpr is %d\n",folder.toLatin1(), url.fileName().toLatin1(), gpr);
 		gp_file_free(m_file);
 		if ((gpr == GP_ERROR_FILE_NOT_FOUND) || (gpr == GP_ERROR_DIRECTORY_NOT_FOUND))
 			error(KIO::ERR_DOES_NOT_EXIST, url.path());
@@ -342,7 +342,7 @@ void KameraProtocol::statRegular(const KUrl &url)
 		return;
 	}
 
-	// fprintf(stderr,"statRegular(%s)\n",url.path().latin1());
+	// fprintf(stderr,"statRegular(%s)\n",url.path().toLatin1());
 
 	// Is "url" a directory?
 	CameraList *dirList;

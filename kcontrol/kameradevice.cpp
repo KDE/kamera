@@ -86,7 +86,7 @@ bool KCamera::initInformation()
 		emit error(i18n("Could not load ability list."));
 		return false;
 	}
-	int index = gp_abilities_list_lookup_model(m_abilitylist, m_model.local8Bit().data());
+	int index = gp_abilities_list_lookup_model(m_abilitylist, m_model.toLocal8Bit().data());
 	if(index < 0) {
 		emit error(i18n("Description of abilities for camera %1 is not available."
 					" Configuration options may be incorrect.", m_model));
@@ -120,7 +120,7 @@ bool KCamera::initCamera()
 		GPPortInfoList *il;
 		gp_port_info_list_new(&il);
 		gp_port_info_list_load(il);
-		gp_port_info_list_get_info(il, gp_port_info_list_lookup_path(il, m_path.local8Bit().data()), &info);
+		gp_port_info_list_get_info(il, gp_port_info_list_lookup_path(il, m_path.toLocal8Bit().data()), &info);
 		gp_port_info_list_free(il);
 		gp_camera_set_abilities(m_camera, m_abilities);
 		gp_camera_set_port_info(m_camera, info);
@@ -439,7 +439,7 @@ void KameraDeviceSelectDialog::slot_setModel(Q3ListViewItem *item)
     QString model = item->text(0);
 
 	CameraAbilities abilities;
-	int index = gp_abilities_list_lookup_model(m_device->m_abilitylist, model.local8Bit().data());
+	int index = gp_abilities_list_lookup_model(m_device->m_abilitylist, model.toLocal8Bit().data());
 	if(index < 0) {
 		slot_error(i18n("Description of abilities for camera %1 is not available."
 				" Configuration options may be incorrect.", model));

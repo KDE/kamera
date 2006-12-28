@@ -265,7 +265,7 @@ void KameraConfigDialog::updateWidgetValue(CameraWidget *widget)
 	case GP_WIDGET_TEXT:
 		{
 			QLineEdit *lineEdit = static_cast<QLineEdit *>(m_wmap[widget]);
-			gp_widget_set_value(widget, (void *)lineEdit->text().local8Bit().data());
+			gp_widget_set_value(widget, (void *)lineEdit->text().toLocal8Bit().data());
 
 			break;
 		}
@@ -288,14 +288,14 @@ void KameraConfigDialog::updateWidgetValue(CameraWidget *widget)
 	case GP_WIDGET_RADIO:
 		{
 			Q3ButtonGroup *buttonGroup = static_cast<Q3VButtonGroup *>(m_wmap[widget]);
-			gp_widget_set_value(widget, (void *)buttonGroup->selected()->text().local8Bit().data());
+			gp_widget_set_value(widget, (void *)buttonGroup->selected()->text().toLocal8Bit().data());
 
 			break;
 		}
 	case GP_WIDGET_MENU:
 		{
 			QComboBox *comboBox = static_cast<QComboBox *>(m_wmap[widget]);
-			gp_widget_set_value(widget, (void *)comboBox->currentText().local8Bit().data());
+			gp_widget_set_value(widget, (void *)comboBox->currentText().toLocal8Bit().data());
 
 			break;
 		}
