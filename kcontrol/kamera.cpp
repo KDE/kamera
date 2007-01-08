@@ -63,7 +63,7 @@ KKameraConfig::KKameraConfig(QWidget *parent, const QStringList &)
 	m_devicePopup = new KMenu(this);
 	m_actions = new KActionCollection(this);
 	m_config = new KSimpleConfig(KProtocolInfo::config("camera"));
-	
+
 	m_context = gp_context_new();
 	if (m_context) {
 
@@ -108,13 +108,13 @@ void KKameraConfig::displayGPSuccessDialogue(void)
 	topLayout->setSpacing(0);
 	topLayout->setMargin(0);
 	topLayout->setAutoAdd(true);
-	
+
 	m_toolbar = new KToolBar(this, "ToolBar");
 #ifdef __GNUC__
 #warning "kde4: port it"
-#endif	
+#endif
 	//m_toolbar->setMovingEnabled(false);
-	
+
 	// create list of devices
 	m_deviceSel = new K3IconView(this);
 
@@ -126,39 +126,51 @@ void KKameraConfig::displayGPSuccessDialogue(void)
 		SLOT(slot_deviceSelected(Q3IconViewItem *)));
 
 	m_deviceSel->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
-	
+
 	// create actions
-	KAction *act;
-	
-	act = new KAction(KIcon("camera"), i18n("Add"), m_actions, "camera_add");
+	QAction *act;
+
+	act = m_actions->addAction("camera_add");
+        act->setIcon(KIcon("camera"));
+        act->setText(i18n("Add"));
 	connect(act, SIGNAL(triggered(bool)), this, SLOT(slot_addCamera()));
 	act->setWhatsThis(i18n("Click this button to add a new camera."));
 	m_toolbar->addAction(act);
 #ifdef __GNUC__
-#warning "kde4: port it"	
-#endif	
+#warning "kde4: port it"
+#endif
 	//m_toolbar->insertLineSeparator();
-	act = new KAction(KIcon("camera_test"), i18n("Test"), m_actions, "camera_test");
+	act = m_actions->addAction("camera_test");
+        act->setIcon(KIcon("camera_test"));
+        act->setText(i18n("Test"));
 	connect(act, SIGNAL(triggered(bool)), this, SLOT(slot_testCamera()));
 	act->setWhatsThis(i18n("Click this button to remove the selected camera from the list."));
 	m_toolbar->addAction(act);
-	act = new KAction(KIcon("edittrash"), i18n("Remove"), m_actions, "camera_remove");
+	act = m_actions->addAction("camera_remove");
+        act->setIcon(KIcon("edittrash"));
+        act->setText(i18n("Remove"));
 	connect(act, SIGNAL(triggered(bool)), this, SLOT(slot_removeCamera()));
 	act->setWhatsThis(i18n("Click this button to remove the selected camera from the list."));
 	m_toolbar->addAction(act);
-	act = new KAction(KIcon("configure"), i18n("Configure..."), m_actions, "camera_configure");
+	act = m_actions->addAction("camera_configure");
+        act->setIcon(KIcon("configure"));
+        act->setText(i18n("Configure..."));
 	connect(act, SIGNAL(triggered(bool)), this, SLOT(slot_configureCamera()));
 	act->setWhatsThis(i18n("Click this button to change the configuration of the selected camera.<br><br>The availability of this feature and the contents of the Configuration dialog depend on the camera model."));
 	m_toolbar->addAction(act);
-	act = new KAction(KIcon("hwinfo"), i18n("Information"), m_actions, "camera_summary");
+	act = m_actions->addAction("camera_summary");
+        act->setIcon(KIcon("hwinfo"));
+        act->setText(i18n("Information"));
 	connect(act, SIGNAL(triggered(bool)), this, SLOT(slot_cameraSummary()));
 	act->setWhatsThis(i18n("Click this button to view a summary of the current status of the selected camera.<br><br>The availability of this feature and the contents of the Configuration dialog depend on the camera model."));
 	m_toolbar->addAction(act);
 #ifdef __GNUC__
-#warning "kde4: port it"	
-#endif	
+#warning "kde4: port it"
+#endif
 	//m_toolbar->insertLineSeparator();
-	act = new KAction(KIcon("stop"), i18n("Cancel"), m_actions, "camera_cancel");
+	act = m_actions->addAction("camera_cancel");
+        act->setIcon(KIcon("stop"));
+        act->setText(i18n("Cancel"));
 	connect(act, SIGNAL(triggered(bool)), this, SLOT(slot_cancelOperation()));
 	act->setWhatsThis(i18n("Click this button to cancel the current camera operation."));
 	act->setEnabled(false);
@@ -198,7 +210,7 @@ void KKameraConfig::load(void)
         GPPortInfoList *il;
         const char *model, *value;
 	KCamera *kcamera;
-	
+
 	for (it = groupList.begin(); it != groupList.end(); it++) {
 		if (*it != "<default>")	{
 			m_config->setGroup(*it);
@@ -227,7 +239,7 @@ void KKameraConfig::load(void)
         count = gp_list_count (list);
 
 	QMap<QString,QString>	ports, names;
-	
+
 	for (i = 0 ; i<count ; i++) {
 		gp_list_get_name  (list, i, &model);
 		gp_list_get_value (list, i, &value);
@@ -275,7 +287,7 @@ void KKameraConfig::afterCameraOperation(void)
 		qApp->restoreOverrideCursor();
 		m_cancelPending = false;
 	}
-	
+
 	// if any item was selected before the operation was run
 	// it makes sense for the relevant toolbar buttons to be enabled
 	slot_deviceSelected(m_deviceSel->currentItem());
@@ -287,7 +299,7 @@ QString KKameraConfig::suggestName(const QString &name)
 	new_name.replace("/", ""); // we cannot have a slash in a URI's host
 
 	if (!m_devices.contains(new_name)) return new_name;
-	
+
 	// try new names with a number appended until we find a free one
 	int i = 1;
 	while (i++ < 0xffff) {
@@ -338,7 +350,7 @@ void KKameraConfig::slot_testCamera()
 		if (m_device->test())
 			KMessageBox::information(this, i18n("Camera test was successful."));
 	}
-	
+
 	afterCameraOperation();
 }
 
