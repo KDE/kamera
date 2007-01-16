@@ -84,6 +84,7 @@ KKameraConfig::KKameraConfig(QWidget *parent, const char *name, const QStringLis
 
 KKameraConfig::~KKameraConfig()
 {
+    delete m_config;
 }
 
 void KKameraConfig::defaults()
