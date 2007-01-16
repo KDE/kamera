@@ -1,12 +1,15 @@
 [Desktop Entry]
 Encoding=UTF-8
 Comment=Configure Kamera
+Comment[el]=Ρύθμιση Kamera
 Comment[fr]=Configuration de Kamera
 Comment[x-test]=xxConfigure Kameraxx
 Keywords=gphoto,camera,digicam,webcam,kamera
+Keywords[el]=gphoto,κάμερα,digicam,webcam,kamera
 Keywords[fr]=gphoto,camera,digicam,webcam,kamera,caméscope,caméra,appareil photo
 Keywords[x-test]=xxgphoto,camera,digicam,webcam,kameraxx
 Name=Digital Camera
+Name[el]=Ψηφιακή κάμερα
 Name[fr]=Appareil photo numérique
 Name[x-test]=xxDigital Cameraxx
 SwallowExec=
