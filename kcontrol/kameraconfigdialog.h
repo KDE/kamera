@@ -39,7 +39,7 @@ public:
 			   QWidget *parent = 0, const char *name = 0);
 
 private slots:
-	void slotOK();
+	void slotOk();
 
 private:
 	void appendWidget(QWidget *parent, CameraWidget *widget);

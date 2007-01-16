@@ -64,6 +64,7 @@ KameraConfigDialog::KameraConfigDialog(Camera */*camera*/,
     m_tabWidget = 0;
 
     appendWidget(main, widget);
+    connect(this,SIGNAL(okClicked()),this,SLOT(slotOk()));
 }
 
 void KameraConfigDialog::appendWidget(QWidget *parent, CameraWidget *widget)
@@ -317,7 +318,7 @@ void KameraConfigDialog::updateWidgetValue(CameraWidget *widget)
 	}
 }
 
-void KameraConfigDialog::slotOK()
+void KameraConfigDialog::slotOk()
 {
 	// Copy Qt widget values into CameraWidget hierarchy
 	updateWidgetValue(m_widgetRoot);
