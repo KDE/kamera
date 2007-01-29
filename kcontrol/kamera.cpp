@@ -58,7 +58,7 @@ K_EXPORT_COMPONENT_FACTORY( kamera, KKameraConfigFactory( "kcmkamera" ) )
 KKameraConfig *KKameraConfig::m_instance = NULL;
 
 KKameraConfig::KKameraConfig(QWidget *parent, const QStringList &)
-	: KCModule(KKameraConfigFactory::instance(), parent/*, name*/)
+	: KCModule(KKameraConfigFactory::componentData(), parent/*, name*/)
 {
 	m_devicePopup = new KMenu(this);
 	m_actions = new KActionCollection(this);

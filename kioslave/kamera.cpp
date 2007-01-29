@@ -32,7 +32,7 @@
 #include <qtextstream.h>
 
 #include <kdebug.h>
-#include <kinstance.h>
+#include <kcomponentdata.h>
 #include <kconfig.h>
 #include <ksimpleconfig.h>
 #include <klocale.h>
@@ -63,7 +63,7 @@ extern "C"
 
 int kdemain(int argc, char **argv)
 {
-	KInstance instance("kio_kamera");
+	KComponentData componentData("kio_kamera");
 
 	if(argc != 4) {
 		kDebug(7123) << "Usage: kio_kamera protocol "
