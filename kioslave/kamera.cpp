@@ -34,7 +34,6 @@
 #include <kdebug.h>
 #include <kcomponentdata.h>
 #include <kconfig.h>
-#include <ksimpleconfig.h>
 #include <klocale.h>
 #include <kprotocolinfo.h>
 #include <kio/slaveconfig.h>
@@ -86,7 +85,7 @@ m_camera(NULL)
 	// (will init m_camera, since the m_camera's configuration is empty)
 	m_camera = 0;
 	m_file = NULL;
-	m_config = new KSimpleConfig(KProtocolInfo::config("camera"));
+	m_config = new KConfig(KProtocolInfo::config("camera"), KConfig::OnlyLocal);
 	m_context = gp_context_new();
 }
 

@@ -26,7 +26,7 @@
 #include <QVBoxLayout>
 #include <QApplication>
 #include <kgenericfactory.h>
-#include <ksimpleconfig.h>
+#include <kconfig.h>
 #include <kaction.h>
 #include <kiconloader.h>
 #include <kmessagebox.h>
@@ -62,7 +62,7 @@ KKameraConfig::KKameraConfig(QWidget *parent, const QStringList &)
 {
 	m_devicePopup = new KMenu(this);
 	m_actions = new KActionCollection(this);
-	m_config = new KSimpleConfig(KProtocolInfo::config("camera"));
+	m_config = new KConfig(KProtocolInfo::config("camera"), KConfig::OnlyLocal);
 
 	m_context = gp_context_new();
 	if (m_context) {
