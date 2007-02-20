@@ -27,7 +27,7 @@
 #include <kio/slavebase.h>
 #include <gphoto2.h>
 
-class KSimpleConfig;
+class KConfig;
 
 class KameraProtocol : public KIO::SlaveBase
 {
@@ -48,7 +48,7 @@ public:
 private:
 	Camera *m_camera;
 	CameraAbilities m_abilities;
-	KSimpleConfig *m_config;
+	KConfig *m_config;
 
 	GPContext	*m_context;
 

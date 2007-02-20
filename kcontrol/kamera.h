@@ -38,7 +38,7 @@ class Q3IconViewItem;
 
 class KCamera;
 class KameraDeviceSelectDialog;
-class KSimpleConfig;
+class KConfig;
 class K3IconView;
 class KActionCollection;
 class KToolBar;
@@ -90,7 +90,7 @@ private:
 private:
 	typedef QMap<QString, KCamera *> CameraDevicesMap;
 	
-	KSimpleConfig *m_config;
+	KConfig *m_config;
 	CameraDevicesMap m_devices;
 	bool m_cancelPending;
 
