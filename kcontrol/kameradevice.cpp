@@ -195,24 +195,24 @@ bool KCamera::test()
 
 void KCamera::load(KConfig *config)
 {
-	config->setGroup(m_name);
+	KConfigGroup group = config->group(m_name);
 	if (m_model.isNull())
-		m_model = config->readEntry("Model");
+		m_model = group.readEntry("Model");
 	if (m_path.isNull())
-		m_path = config->readEntry("Path");
+		m_path = group.readEntry("Path");
 	invalidateCamera();
 }
 
 void KCamera::save(KConfig *config)
 {
-	config->setGroup(m_name);
-	config->writeEntry("Model", m_model);
-	config->writeEntry("Path", m_path);
+	KConfigGroup group = config->group(m_name);
+	group.writeEntry("Model", m_model);
+	group.writeEntry("Path", m_path);
 }
 
 QString KCamera::portName()
 {
-	QString port = m_path.left(m_path.find(":")).lower();
+	QString port = m_path.left(m_path.find(":")).toLower();
 	if (port == "serial") return i18n("Serial");
 	if (port == "usb") return i18n("USB");
 	return i18n("Unknown port");
@@ -359,7 +359,7 @@ KameraDeviceSelectDialog::KameraDeviceSelectDialog(QWidget *parent, KCamera *dev
 	for (int i = 0; i < gphoto_ports; i++) {
 		if (gp_port_info_list_get_info(list, i, &info) >= 0) {
 			if (strncmp(info.path, "serial:", 7) == 0)
-				m_serialPortCombo->insertItem(QString::fromLatin1(info.path).mid(7));
+				m_serialPortCombo->addItem(QString::fromLatin1(info.path).mid(7));
 		}
 	}
 	gp_port_info_list_free(list);
@@ -415,7 +415,7 @@ void KameraDeviceSelectDialog::save()
 void KameraDeviceSelectDialog::load()
 {
 	QString path = m_device->path();
-	QString port = path.left(path.find(":")).lower();
+	QString port = path.left(path.find(":")).toLower();
 
 	if (port == "serial") setPortType(INDEX_SERIAL);
 	if (port == "usb") setPortType(INDEX_USB);
