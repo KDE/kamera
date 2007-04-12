@@ -59,7 +59,6 @@ KameraConfigDialog::KameraConfigDialog(Camera */*camera*/,
     QVBoxLayout *topLayout = new QVBoxLayout(main);
     topLayout->setSpacing(spacingHint());
     topLayout->setMargin(0);
-    topLayout->setAutoAdd(true);
 
     m_tabWidget = 0;
 
@@ -95,8 +94,10 @@ void KameraConfigDialog::appendWidget(QWidget *parent, CameraWidget *widget)
 		}
 	case GP_WIDGET_SECTION:
 		{
-			if (!m_tabWidget)
+			if (!m_tabWidget) {
 				m_tabWidget = new QTabWidget(parent);
+				parent->layout()->addWidget(m_tabWidget);
+			}
 			QWidget *tab = new QWidget(m_tabWidget);
 			// widgets are to be aligned vertically in the tab
 			QVBoxLayout *tabLayout = new QVBoxLayout(tab, marginHint(),
@@ -116,6 +117,7 @@ void KameraConfigDialog::appendWidget(QWidget *parent, CameraWidget *widget)
 			gp_widget_get_value(widget, &widget_value_string);
 
 			Q3Grid *grid = new Q3Grid(2, Qt::Horizontal, parent);
+			parent->layout()->addWidget(grid);
 			grid->setSpacing(spacingHint());
 			new QLabel(QString::fromLocal8Bit( widget_label )+':', grid);
 			QLineEdit *lineEdit = new QLineEdit(widget_value_string, grid);
@@ -135,6 +137,7 @@ void KameraConfigDialog::appendWidget(QWidget *parent, CameraWidget *widget)
 			gp_widget_get_value(widget, &widget_value_float);
 
 			Q3GroupBox *groupBox = new Q3GroupBox(1, Qt::Horizontal,widget_label, parent);
+			parent->layout()->addWidget(groupBox);
 			QSlider *slider = new QSlider(
 				( int )widget_low,
 				( int )widget_high,
@@ -154,6 +157,7 @@ void KameraConfigDialog::appendWidget(QWidget *parent, CameraWidget *widget)
 			gp_widget_get_value(widget, &widget_value_int);
 
 			QCheckBox *checkBox = new QCheckBox(widget_label, parent);
+			parent->layout()->addWidget(checkBox);
 			checkBox->setChecked(widget_value_int);
 			m_wmap.insert(widget, checkBox);
 
@@ -174,6 +178,7 @@ void KameraConfigDialog::appendWidget(QWidget *parent, CameraWidget *widget)
 				buttonGroup = new Q3VButtonGroup(widget_label, parent);
 			else
 				buttonGroup = new Q3HButtonGroup(widget_label, parent);
+			parent->layout()->addWidget(buttonGroup);
 
 			for(int i = 0; i < count; ++i) {
 				const char *widget_choice;
@@ -194,7 +199,8 @@ void KameraConfigDialog::appendWidget(QWidget *parent, CameraWidget *widget)
 		{
 			gp_widget_get_value(widget, &widget_value_string);
 
-			QComboBox *comboBox = new QComboBox(false, parent);
+			QComboBox *comboBox = new QComboBox(parent);
+			parent->layout()->addWidget(comboBox);
 			comboBox->clear();
 			for(int i = 0; i < gp_widget_count_choices(widget); ++i) {
 				const char *widget_choice;
@@ -217,14 +223,16 @@ void KameraConfigDialog::appendWidget(QWidget *parent, CameraWidget *widget)
 			// I can't see a way of implementing this. Since there is
 			// no way of telling which button sent you a signal, we
 			// can't map to the appropriate widget->callback
-			new QLabel(i18n("Button (not supported by KControl)"), parent);
+			QLabel *label = new QLabel(i18n("Button (not supported by KControl)"), parent);
+			parent->layout()->addWidget(label);
 
 			break;
 		}
 	case GP_WIDGET_DATE:
 		{
 			// TODO
-			new QLabel(i18n("Date (not supported by KControl)"), parent);
+			QLabel * label = new QLabel(i18n("Date (not supported by KControl)"), parent);
+			parent->layout()->addWidget(label);
 
 			break;
 		}

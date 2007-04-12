@@ -494,9 +494,9 @@ void KameraProtocol::listDir(const KUrl &url)
 			/* Save them, even though we can autodetect them for
 			 * offline listing.
 			 */
-			m_config->setGroup(model);
-			m_config->writeEntry("Model",model);
-			m_config->writeEntry("Path",value);
+			KConfigGroup cg(m_config, model);
+			cg.writeEntry("Model", model);
+			cg.writeEntry("Path", value);
 			modelcnt[model]++;
 		}
 		gp_list_free (list);
@@ -510,8 +510,8 @@ void KameraProtocol::listDir(const KUrl &url)
 			if (*it == "<default>")
 				continue;
 
-			m_config->setGroup(*it);
-			m_cfgPath = m_config->readEntry("Path");
+			KConfigGroup cg(m_config, *it);
+			m_cfgPath = cg.readEntry("Path");
 
 			/* If autodetect by USB autodetect ... skip it here.
 			 * We leave unattached USB cameras in here, because the user
@@ -547,13 +547,13 @@ void KameraProtocol::listDir(const KUrl &url)
 		for (portsit = ports.begin(); portsit != ports.end(); portsit++) {
 			entry.clear();
 			entry.insert(UDS_FILE_TYPE,S_IFDIR);
-			entry.insert(UDS_NAME,portsit.data());
+			entry.insert(UDS_NAME, portsit.value());
 
 			entry.insert(UDS_ACCESS,(S_IRUSR | S_IRGRP | S_IROTH |S_IWUSR | S_IWGRP | S_IWOTH));
 
 			xurl.setProtocol("camera");
 			xurl.setHost(portsit.key());
-			xurl.setUser(portsit.data());
+			xurl.setUser(portsit.value());
 			xurl.setPath("/");
 			entry.insert(UDS_URL,xurl.url());
 

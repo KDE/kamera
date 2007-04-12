@@ -96,7 +96,11 @@ void KKameraConfig::defaults()
 
 void KKameraConfig::displayGPFailureDialogue(void)
 {
-	new QLabel(i18n("Unable to initialize the gPhoto2 libraries."), this);
+	QVBoxLayout *topLayout = new QVBoxLayout(this);
+	topLayout->setSpacing(0);
+	topLayout->setMargin(0);
+	QLabel *label = new QLabel(i18n("Unable to initialize the gPhoto2 libraries."), this);
+	topLayout->addWidget(label);
 }
 
 void KKameraConfig::displayGPSuccessDialogue(void)
@@ -108,16 +112,14 @@ void KKameraConfig::displayGPSuccessDialogue(void)
 	QVBoxLayout *topLayout = new QVBoxLayout(this);
 	topLayout->setSpacing(0);
 	topLayout->setMargin(0);
-	topLayout->setAutoAdd(true);
 
 	m_toolbar = new KToolBar(this, "ToolBar");
-#ifdef __GNUC__
-#warning "kde4: port it"
-#endif
-	//m_toolbar->setMovingEnabled(false);
+	topLayout->addWidget(m_toolbar);
+	m_toolbar->setMovable(false);
 
 	// create list of devices
 	m_deviceSel = new K3IconView(this);
+	topLayout->addWidget(m_deviceSel);
 
 	connect(m_deviceSel, SIGNAL(rightButtonClicked(Q3IconViewItem *, const QPoint &)),
 		SLOT(slot_deviceMenu(Q3IconViewItem *, const QPoint &)));
@@ -137,10 +139,7 @@ void KKameraConfig::displayGPSuccessDialogue(void)
 	connect(act, SIGNAL(triggered(bool)), this, SLOT(slot_addCamera()));
 	act->setWhatsThis(i18n("Click this button to add a new camera."));
 	m_toolbar->addAction(act);
-#ifdef __GNUC__
-#warning "kde4: port it"
-#endif
-	//m_toolbar->insertLineSeparator();
+	m_toolbar->addSeparator();
 	act = m_actions->addAction("camera_test");
         act->setIcon(KIcon("camera_test"));
         act->setText(i18n("Test"));
@@ -165,10 +164,7 @@ void KKameraConfig::displayGPSuccessDialogue(void)
 	connect(act, SIGNAL(triggered(bool)), this, SLOT(slot_cameraSummary()));
 	act->setWhatsThis(i18n("Click this button to view a summary of the current status of the selected camera.<br><br>The availability of this feature and the contents of the Configuration dialog depend on the camera model."));
 	m_toolbar->addAction(act);
-#ifdef __GNUC__
-#warning "kde4: port it"
-#endif
-	//m_toolbar->insertLineSeparator();
+	m_toolbar->addSeparator();
 	act = m_actions->addAction("camera_cancel");
         act->setIcon(KIcon("process-stop"));
         act->setText(i18n("Cancel"));
@@ -183,7 +179,7 @@ void KKameraConfig::populateDeviceListView(void)
 	m_deviceSel->clear();
 	CameraDevicesMap::Iterator it;
 	for (it = m_devices.begin(); it != m_devices.end(); it++) {
-		if (it.data()) {
+		if (it.value()) {
 			new Q3IconViewItem(m_deviceSel, it.key(), DesktopIcon("camera"));
 		}
 	}
@@ -196,7 +192,7 @@ void KKameraConfig::save(void)
 
 	for (it = m_devices.begin(); it != m_devices.end(); it++)
 	{
-		it.data()->save(m_config);
+		it.value()->save(m_config);
 	}
 	m_config->sync();
 }
@@ -214,11 +210,11 @@ void KKameraConfig::load(void)
 
 	for (it = groupList.begin(); it != groupList.end(); it++) {
 		if (*it != "<default>")	{
-			m_config->setGroup(*it);
-			if (m_config->readEntry("Path").contains("usb:"))
+			KConfigGroup cg(m_config, *it);
+			if (cg.readEntry("Path").contains("usb:"))
 				continue;
 
-			kcamera = new KCamera(*it,m_config->readEntry("Path"));
+			kcamera = new KCamera(*it, cg.readEntry("Path"));
 			connect(kcamera, SIGNAL(error(const QString &)), SLOT(slot_error(const QString &)));
 			connect(kcamera, SIGNAL(error(const QString &, const QString &)), SLOT(slot_error(const QString &, const QString &)));
 			kcamera->load(m_config);
@@ -257,10 +253,10 @@ void KKameraConfig::load(void)
 	for (portit = ports.begin() ; portit != ports.end(); portit++) {
 		/* kDebug() << "Adding USB camera: " << portit.data() << " at " << portit.key() << endl; */
 
-		kcamera = new KCamera(portit.data(),portit.key());
+		kcamera = new KCamera(portit.value(), portit.key());
 		connect(kcamera, SIGNAL(error(const QString &)), SLOT(slot_error(const QString &)));
 		connect(kcamera, SIGNAL(error(const QString &, const QString &)), SLOT(slot_error(const QString &, const QString &)));
-		m_devices[portit.data()] = kcamera;
+		m_devices[portit.value()] = kcamera;
 	}
 	populateDeviceListView();
 

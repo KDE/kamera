@@ -212,7 +212,7 @@ void KCamera::save(KConfig *config)
 
 QString KCamera::portName()
 {
-	QString port = m_path.left(m_path.find(":")).toLower();
+	QString port = m_path.left(m_path.indexOf(":")).toLower();
 	if (port == "serial") return i18n("Serial");
 	if (port == "usb") return i18n("USB");
 	return i18n("Unknown port");
@@ -336,7 +336,8 @@ KameraDeviceSelectDialog::KameraDeviceSelectDialog(QWidget *parent, KCamera *dev
 	Q3Grid *grid = new Q3Grid(2, m_settingsStack);
 	grid->setSpacing(KDialog::spacingHint());
 	new QLabel(i18n("Port:"), grid);
-	m_serialPortCombo = new QComboBox(true, grid);
+	m_serialPortCombo = new QComboBox(grid);
+	m_serialPortCombo->setEditable(true);
 	m_serialPortCombo->setWhatsThis( i18n("Here you should choose the serial port you connect the camera to."));
 	m_settingsStack->addWidget(grid, INDEX_SERIAL);
 
@@ -415,7 +416,7 @@ void KameraDeviceSelectDialog::save()
 void KameraDeviceSelectDialog::load()
 {
 	QString path = m_device->path();
-	QString port = path.left(path.find(":")).toLower();
+	QString port = path.left(path.indexOf(":")).toLower();
 
 	if (port == "serial") setPortType(INDEX_SERIAL);
 	if (port == "usb") setPortType(INDEX_USB);
