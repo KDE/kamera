@@ -657,7 +657,7 @@ void KameraProtocol::listDir(const KUrl &url)
 	finished();
 }
 
-void KameraProtocol::setHost(const QString& host, int port, const QString& user, const QString& pass )
+void KameraProtocol::setHost(const QString& host, quint16 port, const QString& user, const QString& pass )
 {
 	kDebug(7123) << "KameraProtocol::setHost(" << host << ", " << port << ", " << user << ", " << pass << ")" << endl;
 	int gpr, idx;

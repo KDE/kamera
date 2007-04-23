@@ -38,7 +38,7 @@ public:
 	virtual void get(const KUrl &url);
 	virtual void stat(const KUrl &url);
 	virtual void del(const KUrl &url, bool isFile);
-        virtual void setHost(const QString& host, int port, const QString& user, const QString& pass );
+        virtual void setHost(const QString& host, quint16 port, const QString& user, const QString& pass );
 	virtual void listDir(const KUrl &url);
 
         CameraFile *getFile() { return m_file; }
