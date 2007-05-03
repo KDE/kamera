@@ -269,19 +269,39 @@ void KameraProtocol::get(const KUrl &url)
 	long unsigned int fileSize;
 	// This merely returns us a pointer to gphoto's internal data
 	// buffer -- there's no expensive memcpy
-	gp_file_get_data_and_size(m_file, &fileData, &fileSize);
+	gpr = gp_file_get_data_and_size(m_file, &fileData, &fileSize);
+	if (gpr != GP_OK) {
+		kdDebug(7123) << "get():: get_data_and_size failed." << endl;
+		gp_file_free(m_file);
+		m_file = NULL;
+		error(KIO::ERR_UNKNOWN, gp_result_as_string(gpr));
+		closeCamera();
+		return;
+	}
 	// make sure we're not sending zero-sized chunks (=EOF)
 	// also make sure we send only if the progress did not send the data
 	// already.
 	if ((fileSize > 0)  && (fileSize - m_fileSize)>0) {
-		// XXX using assign() here causes segfault, prolly because
-		// gp_file_free is called before chunkData goes out of scope
+		unsigned long written = 0;
 		QByteArray chunkDataBuffer;
-		chunkDataBuffer.setRawData(fileData + m_fileSize, fileSize - m_fileSize);
-		data(chunkDataBuffer);
-		processedSize(fileSize);
-		chunkDataBuffer.resetRawData(fileData + m_fileSize, fileSize - m_fileSize);
+
+		// We need to split it up here. Someone considered it funny
+		// to discard any data() larger than 16MB.
+		//
+		// So nearly any Movie will just fail....
+		while (written < fileSize-m_fileSize) {
+			unsigned long towrite = 1024*1024; // 1MB
+
+			if (towrite > fileSize-m_fileSize-written)
+				towrite = fileSize-m_fileSize-written;
+			chunkDataBuffer.setRawData(fileData + m_fileSize + written, towrite);
+			processedSize(m_fileSize + written + towrite);
+			data(chunkDataBuffer);
+			chunkDataBuffer.resetRawData(fileData + m_fileSize + written, towrite);
+			written += towrite;
+		}
 		m_fileSize = fileSize;
+		setFileSize(fileSize);
 	}
 
 	finished();
@@ -844,8 +864,8 @@ void frontendProgressUpdate(
 	// camera and pass it to KIO, to allow progressive display
 	// of the downloaded photo.
 
-	const char *fileData;
-	long unsigned int fileSize;
+	const char *fileData = NULL;
+	long unsigned int fileSize = 0;
 
 	// This merely returns us a pointer to gphoto's internal data
 	// buffer -- there's no expensive memcpy
@@ -858,6 +878,7 @@ void frontendProgressUpdate(
 		// gp_file_free is called before chunkData goes out of scope
 		QByteArray chunkDataBuffer;
 		chunkDataBuffer.setRawData(fileData + object->getFileSize(), fileSize - object->getFileSize());
+		// Note: this will fail with sizes > 16MB ... 
 		object->data(chunkDataBuffer);
 		object->processedSize(fileSize);
 		chunkDataBuffer.resetRawData(fileData + object->getFileSize(), fileSize - object->getFileSize());
