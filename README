@@ -1,7 +1,5 @@
 Dependencies:
 
-libgphoto2 which you currently need to get from gphoto's CVS using
-cvs -d:pserver:anonymous@cvs.gphoto.sourceforge.net:/cvsroot/gphoto login
-cvs -d:pserver:anonymous@cvs.gphoto.sourceforge.net:/cvsroot/gphoto co libgphoto2
-
 You need libgphoto 2.0 final (or later).
+
+libgphoto2 2.3.1 or newer is recommended.
