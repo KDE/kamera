@@ -2,7 +2,7 @@
 
     Copyright (C) 2001 The Kompany
 		  2001-2003	Ilya Konstantinov <kde-devel@future.shiny.co.il>
-		  2001-2003	Marcus Meissner <marcus@jet.franken.de>
+		  2001-2007	Marcus Meissner <marcus@jet.franken.de>
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -38,12 +38,13 @@ public:
 	virtual void get(const KURL &url);
 	virtual void stat(const KURL &url);
 	virtual void del(const KURL &url, bool isFile);
-        virtual void setHost(const QString& host, int port, const QString& user, const QString& pass );
+	virtual void setHost(const QString& host, int port, const QString& user, const QString& pass );
 	virtual void listDir(const KURL &url);
+	virtual void special(const QByteArray &data);
 
-        CameraFile *getFile() { return m_file; }
-        int getFileSize() { return m_fileSize; }
-        void setFileSize(int newfs) { m_fileSize = newfs; }
+	CameraFile *getFile() { return m_file; }
+	int getFileSize() { return m_fileSize; }
+	void setFileSize(int newfs) { m_fileSize = newfs; }
 
 private:
 	Camera *m_camera;
@@ -53,26 +54,28 @@ private:
 	GPContext	*m_context;
 
 	void reparseConfiguration(void);
-	bool openCamera(void);
+	bool openCamera(QString& str);
+	bool openCamera(void ) {
+		QString errstr;
+		return openCamera(errstr);
+	}
 	void closeCamera(void);
 
 	void statRoot(void);
 	void statRegular(const KURL &url);
-        void translateTextToUDS(KIO::UDSEntry &udsEntry, const QString &info, const char *txt);
-        void translateFileToUDS(KIO::UDSEntry &udsEntry, const CameraFileInfo &info, QString name);
+	void translateTextToUDS(KIO::UDSEntry &udsEntry, const QString &info, const char *txt);
+	void translateFileToUDS(KIO::UDSEntry &udsEntry, const CameraFileInfo &info, QString name);
 	void translateDirectoryToUDS(KIO::UDSEntry &udsEntry, const QString &dirname);
 	bool cameraSupportsPreview(void);
 	bool cameraSupportsDel(void);
 	bool cameraSupportsPut(void);
 	int readCameraFolder(const QString &folder, CameraList *dirList, CameraList *fileList);
-	QString lockFileName();
-	void lock();
-	void unlock();
 
-	QString m_cfgModel;
-	QString m_cfgPath;
+	QString m_lockfile;
+	int	idletime;
 
 	int m_fileSize;
 	CameraFile *m_file;
+	bool actiondone, cameraopen;
 };
 #endif

@@ -2,7 +2,7 @@
 
     Copyright (C) 2001 The Kompany
 		  2001-2003	Ilya Konstantinov <kde-devel@future.shiny.co.il>
-		  2001-2003	Marcus Meissner <marcus@jet.franken.de>
+		  2001-2007	Marcus Meissner <marcus@jet.franken.de>
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -23,6 +23,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <stdio.h>
+#include <fcntl.h>
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <signal.h>
@@ -33,6 +34,7 @@
 
 #include <kdebug.h>
 #include <kinstance.h>
+#include <kstandarddirs.h>
 #include <kconfig.h>
 #include <ksimpleconfig.h>
 #include <klocale.h>
@@ -42,6 +44,8 @@
 #include <config.h>
 
 #include "kamera.h"
+
+#define MAXIDLETIME	30	/* seconds */
 
 #define tocstr(x) ((x).local8Bit())
 
@@ -63,18 +67,15 @@ extern "C"
 
 int kdemain(int argc, char **argv)
 {
-	KInstance instance("kio_kamera");
+	KInstance	instance("kio_kamera");
 
 	if(argc != 4) {
 		kdDebug(7123) << "Usage: kio_kamera protocol "
 			     "domain-socket1 domain-socket2" << endl;
 		exit(-1);
 	}
-
 	KameraProtocol slave(argv[2], argv[3]);
-
 	slave.dispatchLoop();
-
 	return 0;
 }
 
@@ -88,10 +89,44 @@ m_camera(NULL)
 	m_file = NULL;
 	m_config = new KSimpleConfig(KProtocolInfo::config("camera"));
 	m_context = gp_context_new();
+	actiondone = true;
+	cameraopen = false;
+	m_lockfile = locateLocal("tmp", "kamera");
+	idletime = 0;
+}
+
+// This handler is getting called every second. We use it to do the
+// delayed close of the camera.
+// Logic is:
+// 	- No more requests in the queue (signaled by actiondone) AND
+//		- We are MAXIDLETIME seconds idle OR
+//		- Another slave wants to have access to the camera.
+//
+// The existance of a lockfile is used to signify "please give up camera".
+//
+void KameraProtocol::special(const QByteArray&) {
+	kdDebug(7123) << "KameraProtocol::special() at " << getpid() << endl;
+
+	if (!actiondone && cameraopen) {
+		struct stat	stbuf;
+		if ((-1!=::stat(m_lockfile.utf8(),&stbuf)) || (idletime++ >= MAXIDLETIME)) {
+			kdDebug(7123) << "KameraProtocol::special() closing camera." << endl;
+			closeCamera();
+			setTimeoutSpecialCommand(-1);
+		} else {
+			// continue to wait
+			setTimeoutSpecialCommand(1);
+		}
+	} else {
+		// We let it run until the slave gets no actions anymore.
+		setTimeoutSpecialCommand(1);
+	}
+	actiondone = false;
 }
 
 KameraProtocol::~KameraProtocol()
 {
+	kdDebug(7123) << "KameraProtocol::~KameraProtocol()" << endl;
 	delete m_config;
 	if(m_camera) {
 		closeCamera();
@@ -101,21 +136,34 @@ KameraProtocol::~KameraProtocol()
 }
 
 // initializes the camera for usage - should be done before operations over the wire
-bool KameraProtocol::openCamera(void) {
+bool KameraProtocol::openCamera(QString &str) {
+	idletime = 0;
+	actiondone = true;
 	if (!m_camera) {
 		reparseConfiguration();
 	} else {
-		int ret, tries = 15;
-		
-		while (tries--) {
-			ret = gp_camera_init(m_camera, m_context);
-			if (	(ret == GP_ERROR_IO_USB_CLAIM) || 
-				(ret == GP_ERROR_IO_LOCK)) {
-				sleep(1);
-				continue;
+		if (!cameraopen) {
+			int ret, tries = 15;
+			kdDebug(7123) << "KameraProtocol::openCamera at " << getpid() << endl;
+			while (tries--) {
+				ret = gp_camera_init(m_camera, m_context);
+				if (	(ret == GP_ERROR_IO_USB_CLAIM) || 
+					(ret == GP_ERROR_IO_LOCK)) {
+					// just create / touch if not there
+					int fd = ::open(m_lockfile.utf8(),O_CREAT|O_WRONLY,0600);
+					if (fd != -1) ::close(fd);
+					::sleep(1);
+					kdDebug(7123) << "openCamera at " << getpid() << "- busy, ret " << ret << ", trying again." << endl;
+					continue;
+				}
+				if (ret == GP_OK) break;
+				str = gp_result_as_string(ret);
+				return false;
 			}
-			if (ret == GP_OK) break;
-			return false;
+			::unlink(m_lockfile.utf8());
+			setTimeoutSpecialCommand(1);
+			kdDebug(7123) << "openCamera succeeded at " << getpid() << endl;
+			cameraopen = true;
 		}
 	}
 	return true;
@@ -129,12 +177,14 @@ void KameraProtocol::closeCamera(void)
 	if (!m_camera)
 		return;
 
+	kdDebug(7123) << "KameraProtocol::closeCamera at " << getpid() << endl;
 	if ((gpr=gp_camera_exit(m_camera,m_context))!=GP_OK) {
 		kdDebug(7123) << "closeCamera failed with " << gp_result_as_string(gpr) << endl;
 	}
 	// HACK: gp_camera_exit() in gp 2.0 does not close the port if there
 	//       is no camera_exit function.
 	gp_port_close(m_camera->port);
+	cameraopen = false;
 	return;
 }
 
@@ -183,7 +233,6 @@ void KameraProtocol::get(const KURL &url)
 		processedSize(strlen(xx.text));				\
 		chunkDataBuffer.resetRawData(xx.text, strlen(xx.text));	\
 		finished();						\
-		closeCamera();						\
 		return;							\
 	}
 
@@ -204,12 +253,11 @@ void KameraProtocol::get(const KURL &url)
 	gpr = gp_camera_file_get_info(m_camera, tocstr(fix_foldername(url.directory(false))), tocstr(url.fileName()), &info, m_context);
 	if (gpr != GP_OK) {
 		// fprintf(stderr,"Folder %s / File %s not found, gpr is %d\n",folder.latin1(), url.fileName().latin1(), gpr);
-		gp_file_free(m_file);
+		gp_file_unref(m_file);
 		if ((gpr == GP_ERROR_FILE_NOT_FOUND) || (gpr == GP_ERROR_DIRECTORY_NOT_FOUND))
 			error(KIO::ERR_DOES_NOT_EXIST, url.path());
 		else
 			error(KIO::ERR_UNKNOWN, gp_result_as_string(gpr));
-		closeCamera();
 		return;
 	}
 
@@ -246,16 +294,14 @@ void KameraProtocol::get(const KURL &url)
 			break;
 		case GP_ERROR_FILE_NOT_FOUND:
 		case GP_ERROR_DIRECTORY_NOT_FOUND:
-			gp_file_free(m_file);
+			gp_file_unref(m_file);
 			m_file = NULL;
 			error(KIO::ERR_DOES_NOT_EXIST, url.fileName());
-			closeCamera();
 			return ;
 		default:
-			gp_file_free(m_file);
+			gp_file_unref(m_file);
 			m_file = NULL;
 			error(KIO::ERR_UNKNOWN, gp_result_as_string(gpr));
-			closeCamera();
 			return;
 	}
 	// emit the mimetype
@@ -276,7 +322,6 @@ void KameraProtocol::get(const KURL &url)
 		gp_file_free(m_file);
 		m_file = NULL;
 		error(KIO::ERR_UNKNOWN, gp_result_as_string(gpr));
-		closeCamera();
 		return;
 	}
 	// make sure we're not sending zero-sized chunks (=EOF)
@@ -306,9 +351,8 @@ void KameraProtocol::get(const KURL &url)
 	}
 
 	finished();
-	gp_file_free(m_file);
+	gp_file_unref(m_file); /* just unref, might be stored in fs */
 	m_file = NULL;
-	closeCamera();
 }
 
 // The KIO slave "stat" function.
@@ -384,7 +428,6 @@ void KameraProtocol::statRegular(const KURL &url)
 		else
 			error(KIO::ERR_UNKNOWN, gp_result_as_string(gpr));
 		gp_list_free(dirList);
-		closeCamera();
 		return;
 	}
 
@@ -399,7 +442,6 @@ void KameraProtocol::statRegular(const KURL &url)
 		translateTextToUDS(entry,#xx".txt",xx.text);		\
 		statEntry(entry);					\
 		finished();						\
-		closeCamera();						\
 		return;							\
 	}
 	GPHOTO_TEXT_FILE(about);
@@ -416,7 +458,6 @@ void KameraProtocol::statRegular(const KURL &url)
 			translateDirectoryToUDS(entry, url.fileName());
 			statEntry(entry);
 			finished();
-			closeCamera();
 			return;
 		}
 	}
@@ -430,13 +471,11 @@ void KameraProtocol::statRegular(const KURL &url)
 			error(KIO::ERR_DOES_NOT_EXIST, url.path());
 		else
 			error(KIO::ERR_UNKNOWN, gp_result_as_string(gpr));
-		closeCamera();
 		return;
 	}
 	translateFileToUDS(entry, info, url.fileName());
 	statEntry(entry);
 	finished();
-	closeCamera();
 }
 
 // The KIO slave "del" function.
@@ -465,7 +504,6 @@ void KameraProtocol::del(const KURL &url, bool isFile)
 			finished();
 		}
 	}
-	closeCamera();
 }
 
 // The KIO slave "listDir" function.
@@ -643,7 +681,6 @@ void KameraProtocol::listDir(const KURL &url)
 	gpr = readCameraFolder(url.path(), dirList, fileList);
 	if(gpr != GP_OK) {
 		kdDebug(7123) << "read Camera Folder failed:" << gp_result_as_string(gpr) <<endl;
-		closeCamera();
 		gp_list_free(dirList);
 		gp_list_free(fileList);
 		gp_list_free(specialList);
@@ -687,7 +724,6 @@ void KameraProtocol::listDir(const KURL &url)
 		}
 	}
 
-	closeCamera();
 
 	gp_list_free(fileList);
 	gp_list_free(dirList);
@@ -764,18 +800,14 @@ void KameraProtocol::setHost(const QString& host, int port, const QString& user,
 		gp_camera_set_port_info(m_camera, port_info);
 		gp_camera_set_port_speed(m_camera, 0); // TODO: the value needs to be configurable
 		kdDebug(7123) << "Opening camera model " << user << " at " << host << endl;
-#if 0
-		// initialize the camera (might take time on a non-existant or disconnected camera)
-		gpr = gp_camera_init(m_camera, m_context);
-		if(gpr != GP_OK) {
-			gp_camera_unref(m_camera);
-			m_camera = NULL;
+
+		QString errstr;
+		if (!openCamera(errstr)) {
 			kdDebug(7123) << "Unable to init camera: " << gp_result_as_string(gpr) << endl;
-			error(KIO::ERR_UNKNOWN, gp_result_as_string(gpr));
+			error(KIO::ERR_SERVICE_NOT_AVAILABLE, errstr);
+			gp_camera_exit(m_camera, m_context);
 			return;
 		}
-		gp_camera_exit(m_camera, m_context);
-#endif
 	}
 }
 
