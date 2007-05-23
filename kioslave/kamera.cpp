@@ -394,6 +394,9 @@ void KameraProtocol::statRoot(void)
 	statEntry(entry);
 
 	finished();
+	// If we just do this call, timeout right away if no other requests are
+	// pending. This is for the kdemm autodetection using media://camera
+	idletime = MAXIDLETIME;
 }
 
 // Implements a regular stat() of a file / directory, returning all we know about it
