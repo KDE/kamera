@@ -400,6 +400,10 @@ void KameraProtocol::statRoot(void)
 	statEntry(entry);
 
 	finished();
+
+	// This call happens on autodetect by kdemm. So close the camera, but
+	// only if no more requests are pending. 
+	idletime = MAXIDLETIME;
 }
 
 // Implements a regular stat() of a file / directory, returning all we know about it
