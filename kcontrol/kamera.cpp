@@ -41,12 +41,6 @@
 #include "kamera.h"
 #include "kamera.moc"
 
-// XXX HACK HACK HACK
-// XXX All tocstr(string) references can be safely replaced with
-// XXX string.latin1() as soon as the gphoto2 API uses 'const char *'
-// XXX instead of 'char *' in calls that don't modify the string
-#define tocstr(x) ((char *)((x).latin1()))
-
 typedef KGenericFactory<KKameraConfig, QWidget> KKameraConfigFactory;
 K_EXPORT_COMPONENT_FACTORY( kcm_kamera, KKameraConfigFactory( "kcmkamera" ) )
 
