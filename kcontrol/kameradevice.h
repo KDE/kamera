@@ -32,7 +32,6 @@ class QString;
 class K3ListView;
 class Q3WidgetStack;
 class Q3VButtonGroup;
-class QVGroupBox;
 class QComboBox;
 class QLineEdit;
 class QRadioButton;

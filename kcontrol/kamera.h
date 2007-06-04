@@ -27,13 +27,7 @@
 #include <gphoto2.h>
 
 class QWidget;
-class QRadioButton;
 class QPushButton;
-class QComboBox;
-class Q3VButtonGroup;
-class QLineEdit;
-class Q3WidgetStack;
-class QCheckBox;
 class Q3IconViewItem;
 
 class KCamera;
