@@ -23,7 +23,6 @@
 #ifndef __kamera_h__
 #define __kamera_h__
 
-#include <config.h>
 #include <kio/slavebase.h>
 #include <gphoto2.h>
 

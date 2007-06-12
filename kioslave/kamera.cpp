@@ -40,7 +40,7 @@
 #include <kprotocolinfo.h>
 #include <kio/slaveconfig.h>
 
-#include <config.h>
+#include "config-kamera.h"
 
 #include "kamera.h"
 

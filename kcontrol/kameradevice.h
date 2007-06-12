@@ -25,7 +25,6 @@
 
 #include <qmap.h>
 #include <kdialog.h>
-#include <config.h>
 #include <Q3ListViewItem>
 class KConfig;
 class QString;
