@@ -1,4 +1,4 @@
-include_directories((${GPHOTO2_INCLUDE_DIRS})
+include_directories(${GPHOTO2_INCLUDE_DIRS})
 
 ########### next target ###############
 
