@@ -9,7 +9,7 @@ kde4_automoc(${kcm_kamera_PART_SRCS})
 kde4_add_plugin(kcm_kamera ${kcm_kamera_PART_SRCS})
 
 
-target_link_libraries(kcm_kamera ${KDE4_KIO_LIBS} ${KDE4_KDE3SUPPORT_LIBS} ${GPHOTO2_LIBRARIES})
+target_link_libraries(kcm_kamera  ${KDE4_KDE3SUPPORT_LIBS} ${GPHOTO2_LIBRARIES})
 
 install(TARGETS kcm_kamera  DESTINATION ${PLUGIN_INSTALL_DIR} )
 
