@@ -385,11 +385,11 @@ void KameraProtocol::statRoot(void)
 {
 	UDSEntry entry;
 
-	entry.insert( UDS_NAME, QString::fromLocal8Bit("/"));
+	entry.insert( UDSEntry::UDS_NAME, QString::fromLocal8Bit("/"));
 
-	entry.insert(UDS_FILE_TYPE,S_IFDIR);
+	entry.insert(UDSEntry::UDS_FILE_TYPE,S_IFDIR);
 
-	entry.insert(UDS_ACCESS,(S_IRUSR | S_IRGRP | S_IROTH |S_IWUSR | S_IWGRP | S_IWOTH));
+	entry.insert(UDSEntry::UDS_ACCESS,(S_IRUSR | S_IRGRP | S_IROTH |S_IWUSR | S_IWGRP | S_IWOTH));
 
 	statEntry(entry);
 
@@ -586,9 +586,9 @@ void KameraProtocol::listDir(const KUrl &url)
 				continue;
 
 			entry.clear();
-			entry.insert(UDS_FILE_TYPE,S_IFDIR);
-			entry.insert(UDS_NAME,*it);
-			entry.insert(UDS_ACCESS,(S_IRUSR | S_IRGRP | S_IROTH |S_IWUSR | S_IWGRP | S_IWOTH));
+			entry.insert(UDSEntry::UDS_FILE_TYPE,S_IFDIR);
+			entry.insert(UDSEntry::UDS_NAME,*it);
+			entry.insert(UDSEntry::UDS_ACCESS,(S_IRUSR | S_IRGRP | S_IROTH |S_IWUSR | S_IWGRP | S_IWOTH));
 
 			
 			xurl.setProtocol("camera");
@@ -601,7 +601,7 @@ void KameraProtocol::listDir(const KUrl &url)
 				xurl.setHost(m_cfgPath);
 			}
 			xurl.setPath("/");
-			entry.insert(UDS_URL,xurl.url());
+			entry.insert(UDSEntry::UDS_URL,xurl.url());
 
 			listEntry(entry, false);
 		}
@@ -610,16 +610,16 @@ void KameraProtocol::listDir(const KUrl &url)
 
 		for (portsit = ports.begin(); portsit != ports.end(); portsit++) {
 			entry.clear();
-			entry.insert(UDS_FILE_TYPE,S_IFDIR);
-			entry.insert(UDS_NAME, portsit.value());
+			entry.insert(UDSEntry::UDS_FILE_TYPE,S_IFDIR);
+			entry.insert(UDSEntry::UDS_NAME, portsit.value());
 
-			entry.insert(UDS_ACCESS,(S_IRUSR | S_IRGRP | S_IROTH |S_IWUSR | S_IWGRP | S_IWOTH));
+			entry.insert(UDSEntry::UDS_ACCESS,(S_IRUSR | S_IRGRP | S_IROTH |S_IWUSR | S_IWGRP | S_IWOTH));
 
 			xurl.setProtocol("camera");
 			xurl.setHost(portsit.key());
 			xurl.setUser(portsit.value());
 			xurl.setPath("/");
-			entry.insert(UDS_URL,xurl.url());
+			entry.insert(UDSEntry::UDS_URL,xurl.url());
 
 			listEntry(entry, false);
 		}
@@ -811,13 +811,13 @@ void KameraProtocol::translateTextToUDS(UDSEntry &udsEntry, const QString &fn,
 
 	udsEntry.clear();
 
-	udsEntry.insert(UDS_FILE_TYPE,S_IFREG);
+	udsEntry.insert(UDSEntry::UDS_FILE_TYPE,S_IFREG);
 
-	udsEntry.insert(UDS_NAME,fn);
+	udsEntry.insert(UDSEntry::UDS_NAME,fn);
 
-	udsEntry.insert(UDS_SIZE,strlen(text));
+	udsEntry.insert(UDSEntry::UDS_SIZE,strlen(text));
 
-	udsEntry.insert(UDS_ACCESS,(S_IRUSR | S_IRGRP | S_IROTH));
+	udsEntry.insert(UDSEntry::UDS_ACCESS,(S_IRUSR | S_IRGRP | S_IROTH));
 }
 
 // translate a CameraFileInfo to a UDSEntry which we can return as a directory listing entry
@@ -826,31 +826,31 @@ void KameraProtocol::translateFileToUDS(UDSEntry &udsEntry, const CameraFileInfo
 
 	udsEntry.clear();
 
-	udsEntry.insert(UDS_FILE_TYPE,S_IFREG);
+	udsEntry.insert(UDSEntry::UDS_FILE_TYPE,S_IFREG);
 
 	if (info.file.fields & GP_FILE_INFO_NAME)
-			udsEntry.insert(UDS_NAME,QString::fromLocal8Bit(info.file.name));
+			udsEntry.insert(UDSEntry::UDS_NAME,QString::fromLocal8Bit(info.file.name));
 	else
-		udsEntry.insert(UDS_NAME,name);
+		udsEntry.insert(UDSEntry::UDS_NAME,name);
 
 	if (info.file.fields & GP_FILE_INFO_SIZE) {
-		udsEntry.insert(UDS_SIZE,info.file.size);
+		udsEntry.insert(UDSEntry::UDS_SIZE,info.file.size);
 	}
 
 	if (info.file.fields & GP_FILE_INFO_MTIME) {
-		udsEntry.insert(UDS_MODIFICATION_TIME,info.file.mtime);
+		udsEntry.insert(UDSEntry::UDS_MODIFICATION_TIME,info.file.mtime);
 	} else {
-		udsEntry.insert(UDS_MODIFICATION_TIME,time(NULL));
+		udsEntry.insert(UDSEntry::UDS_MODIFICATION_TIME,time(NULL));
 	}
 
 	if (info.file.fields & GP_FILE_INFO_TYPE) {
-		udsEntry.insert(UDS_MIME_TYPE,QString::fromLatin1(info.file.type));
+		udsEntry.insert(UDSEntry::UDS_MIME_TYPE,QString::fromLatin1(info.file.type));
 	}
 
 	if (info.file.fields & GP_FILE_INFO_PERMISSIONS) {
-		udsEntry.insert(UDS_ACCESS,((info.file.permissions & GP_FILE_PERM_READ) ? (S_IRUSR | S_IRGRP | S_IROTH) : 0));
+		udsEntry.insert(UDSEntry::UDS_ACCESS,((info.file.permissions & GP_FILE_PERM_READ) ? (S_IRUSR | S_IRGRP | S_IROTH) : 0));
 	} else {
-		udsEntry.insert(UDS_ACCESS,S_IRUSR | S_IRGRP | S_IROTH);
+		udsEntry.insert(UDSEntry::UDS_ACCESS,S_IRUSR | S_IRGRP | S_IROTH);
 	}
 
 	// TODO: We do not handle info.preview in any way
@@ -862,10 +862,10 @@ void KameraProtocol::translateDirectoryToUDS(UDSEntry &udsEntry, const QString &
 
 	udsEntry.clear();
 
-	udsEntry.insert(UDS_FILE_TYPE,S_IFDIR);
-	udsEntry.insert(UDS_NAME,dirname);
-	udsEntry.insert(UDS_ACCESS,S_IRUSR | S_IRGRP | S_IROTH |S_IWUSR | S_IWGRP | S_IWOTH);
-        udsEntry.insert(UDS_MIME_TYPE, QString("inode/directory"));
+	udsEntry.insert(UDSEntry::UDS_FILE_TYPE,S_IFDIR);
+	udsEntry.insert(UDSEntry::UDS_NAME,dirname);
+	udsEntry.insert(UDSEntry::UDS_ACCESS,S_IRUSR | S_IRGRP | S_IROTH |S_IWUSR | S_IWGRP | S_IWOTH);
+        udsEntry.insert(UDSEntry::UDS_MIME_TYPE, QString("inode/directory"));
 }
 
 bool KameraProtocol::cameraSupportsDel(void)
