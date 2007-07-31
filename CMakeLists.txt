@@ -6,5 +6,4 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 add_subdirectory( kcontrol ) 
 add_subdirectory( kioslave ) 
-add_subdirectory( pics ) 
 
