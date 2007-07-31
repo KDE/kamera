@@ -11,6 +11,6 @@ source=true
 makedir=false
 linking=false
 moving=false
-Icon=camera
+Icon=camera-photo
 maxInstances=1
 Class=:local

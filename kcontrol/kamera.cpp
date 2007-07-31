@@ -134,14 +134,14 @@ void KKameraConfig::displayGPSuccessDialogue(void)
 	QAction *act;
 
 	act = m_actions->addAction("camera_add");
-        act->setIcon(KIcon("camera"));
+        act->setIcon(KIcon("camera-photo"));
         act->setText(i18n("Add"));
 	connect(act, SIGNAL(triggered(bool)), this, SLOT(slot_addCamera()));
 	act->setWhatsThis(i18n("Click this button to add a new camera."));
 	m_toolbar->addAction(act);
 	m_toolbar->addSeparator();
 	act = m_actions->addAction("camera_test");
-        act->setIcon(KIcon("camera_test"));
+        act->setIcon(KIcon("dialog-ok"));
         act->setText(i18n("Test"));
 	connect(act, SIGNAL(triggered(bool)), this, SLOT(slot_testCamera()));
 	act->setWhatsThis(i18n("Click this button to remove the selected camera from the list."));
@@ -180,7 +180,7 @@ void KKameraConfig::populateDeviceListView(void)
 	CameraDevicesMap::Iterator it;
 	for (it = m_devices.begin(); it != m_devices.end(); it++) {
 		if (it.value()) {
-			new Q3IconViewItem(m_deviceSel, it.key(), DesktopIcon("camera"));
+			new Q3IconViewItem(m_deviceSel, it.key(), DesktopIcon("camera-photo"));
 		}
 	}
 	slot_deviceSelected(m_deviceSel->currentItem());

@@ -165,7 +165,7 @@ X-KDE-FactoryName=kamera
 X-KDE-ParentApp=kcontrol
 
 X-KDE-ModuleType=Library
-Icon=camera
+Icon=camera-photo
 Exec=kcmshell kamera
 DocPath=kamera/index.html
 Categories=Qt;KDE;X-KDE-settings-hardware;
