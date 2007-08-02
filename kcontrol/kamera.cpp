@@ -251,7 +251,7 @@ void KKameraConfig::load(void)
 	QMap<QString,QString>::iterator portit;
 
 	for (portit = ports.begin() ; portit != ports.end(); portit++) {
-		/* kDebug() << "Adding USB camera: " << portit.data() << " at " << portit.key() << endl; */
+		/* kDebug() << "Adding USB camera: " << portit.data() << " at " << portit.key(); */
 
 		kcamera = new KCamera(portit.value(), portit.key());
 		connect(kcamera, SIGNAL(error(const QString &)), SLOT(slot_error(const QString &)));
