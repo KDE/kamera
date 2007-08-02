@@ -2,7 +2,7 @@
 Encoding=UTF-8
 Comment=Configure Kamera
 Comment[af]=Konfigureer Kamera
-Comment[bg]=Comment=Настройване на цифров фотоапарат
+Comment[bg]=Настройване на цифров фотоапарат
 Comment[br]=Kefluniañ Kamera
 Comment[ca]=Configura Kamera
 Comment[cs]=Nastavení Kamery
@@ -56,6 +56,7 @@ Comment[xh]=Qwalasela Umfoti
 Comment[zh_HK]=設定 Kamera
 Comment[zh_TW]=設定照相機
 Keywords=gphoto,camera,digicam,webcam,kamera
+Keywords[bg]=Keywords=фото, апарат, фотоапарат, камера, цифров, цифрова, gphoto, camera, digicam, webcam, kamera
 Keywords[br]=gphoto,kamera,digicam,webcam,kamera
 Keywords[ca]=gphoto,càmera,digicam,webcam,kamera
 Keywords[cs]=gphoto,Kamera,Digitální kamera,Webová kamera,Foto
@@ -102,6 +103,7 @@ Keywords[zh_TW]=gphoto,camera,digicam,webcam,kamera,照相機
 Name=Digital Camera
 Name[af]=Digitaal Kamera
 Name[be]=Камера
+Name[bg]=Фотоапарат
 Name[br]=Kamera niverel
 Name[ca]=Càmera digital
 Name[cs]=Digitální fotoaparát
