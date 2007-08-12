@@ -162,7 +162,7 @@ Terminal=false
 Type=Service
 ServiceTypes=KCModule
 
-X-KDE-Library=kamera
+X-KDE-Library=kcm_kamera
 X-KDE-FactoryName=kamera
 X-KDE-ParentApp=kcontrol
 
