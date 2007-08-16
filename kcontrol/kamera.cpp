@@ -304,12 +304,12 @@ QString KKameraConfig::suggestName(const QString &name)
 		if (!m_devices.contains(new_name)) return new_name;
 	}
 
-	return QString::null;
+	return QString();
 }
 
 void KKameraConfig::slot_addCamera()
 {
-	KCamera *m_device = new KCamera(QString::null,QString::null);
+	KCamera *m_device = new KCamera(QString::null,QString::null);	//krazy:exclusion=nullstrassign for old broken gcc
 	connect(m_device, SIGNAL(error(const QString &)), SLOT(slot_error(const QString &)));
 	connect(m_device, SIGNAL(error(const QString &, const QString &)), SLOT(slot_error(const QString &, const QString &)));
 	KameraDeviceSelectDialog dialog(this, m_device);
