@@ -25,6 +25,7 @@
 
 #include <kcmodule.h>
 #include <gphoto2.h>
+#include <KPluginFactory>
 
 class QWidget;
 class QPushButton;
@@ -44,7 +45,7 @@ class KKameraConfig : public KCModule
 	friend class KameraDeviceSelectDialog;
 
 public:
-	KKameraConfig(QWidget *parent, const QStringList &);
+	KKameraConfig(QWidget *parent, const QVariantList &);
 	virtual ~KKameraConfig();
 
 	// KCModule interface methods

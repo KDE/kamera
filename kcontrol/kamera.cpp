@@ -50,14 +50,14 @@
 // XXX instead of 'char *' in calls that don't modify the string
 #define tocstr(x) ((char *)((x).latin1()))
 
-typedef KGenericFactory<KKameraConfig, QWidget> KKameraConfigFactory;
-K_EXPORT_COMPONENT_FACTORY( kamera, KKameraConfigFactory( "kcmkamera" ) )
+K_PLUGIN_FACTORY(KKameraConfigFactory, registerPlugin<KKameraConfig>();)
+K_EXPORT_PLUGIN(KKameraConfigFactory("kcmkamera"))
 
 // --------------- Camera control center module widget ---
 
 KKameraConfig *KKameraConfig::m_instance = NULL;
 
-KKameraConfig::KKameraConfig(QWidget *parent, const QStringList &)
+KKameraConfig::KKameraConfig(QWidget *parent, const QVariantList &)
 	: KCModule(KKameraConfigFactory::componentData(), parent/*, name*/)
 {
 	m_devicePopup = new KMenu(this);

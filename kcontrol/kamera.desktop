@@ -164,7 +164,6 @@ Type=Service
 ServiceTypes=KCModule
 
 X-KDE-Library=kcm_kamera
-X-KDE-FactoryName=kamera
 X-KDE-ParentApp=kcontrol
 
 X-KDE-ModuleType=Library
