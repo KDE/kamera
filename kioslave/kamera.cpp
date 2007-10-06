@@ -36,6 +36,7 @@
 #include <kcomponentdata.h>
 #include <kstandarddirs.h>
 #include <kconfig.h>
+#include <kconfiggroup.h>
 #include <klocale.h>
 #include <kprotocolinfo.h>
 #include <kio/global.h>
