@@ -147,7 +147,7 @@ void KKameraConfig::displayGPSuccessDialogue(void)
 	act->setWhatsThis(i18n("Click this button to remove the selected camera from the list."));
 	m_toolbar->addAction(act);
 	act = m_actions->addAction("camera_remove");
-        act->setIcon(KIcon("edit-trash"));
+        act->setIcon(KIcon("user-trash"));
         act->setText(i18n("Remove"));
 	connect(act, SIGNAL(triggered(bool)), this, SLOT(slot_removeCamera()));
 	act->setWhatsThis(i18n("Click this button to remove the selected camera from the list."));
