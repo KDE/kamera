@@ -92,7 +92,7 @@ m_camera(NULL)
 	// (will init m_camera, since the m_camera's configuration is empty)
 	m_camera = 0;
 	m_file = NULL;
-	m_config = new KConfig(KProtocolInfo::config("camera"), KConfig::OnlyLocal);
+	m_config = new KConfig(KProtocolInfo::config("camera"), KConfig::SimpleConfig);
 	m_context = gp_context_new();
 	actiondone = true;
 	cameraopen = false;

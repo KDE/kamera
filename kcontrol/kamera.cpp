@@ -62,7 +62,7 @@ KKameraConfig::KKameraConfig(QWidget *parent, const QVariantList &)
 {
 	m_devicePopup = new KMenu(this);
 	m_actions = new KActionCollection(this);
-	m_config = new KConfig(KProtocolInfo::config("camera"), KConfig::OnlyLocal);
+	m_config = new KConfig(KProtocolInfo::config("camera"), KConfig::SimpleConfig);
 
 	m_context = gp_context_new();
 	if (m_context) {
