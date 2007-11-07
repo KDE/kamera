@@ -114,7 +114,7 @@ void KameraProtocol::special(const QByteArray&) {
 
 	if (!actiondone && cameraopen) {
 		struct stat	stbuf;
-		if ((-1!=::stat(m_lockfile.utf8(),&stbuf)) || (idletime++ >= MAXIDLETIME)) {
+		if ((-1!=::stat(m_lockfile.toUtf8(),&stbuf)) || (idletime++ >= MAXIDLETIME)) {
 			kDebug(7123) << "KameraProtocol::special() closing camera.";
 			closeCamera();
 			setTimeoutSpecialCommand(-1);
@@ -155,7 +155,7 @@ bool KameraProtocol::openCamera(QString &str) {
 				if (	(ret == GP_ERROR_IO_USB_CLAIM) || 
 					(ret == GP_ERROR_IO_LOCK)) {
 					// just create / touch if not there
-					int fd = ::open(m_lockfile.utf8(),O_CREAT|O_WRONLY,0600);
+					int fd = ::open(m_lockfile.toUtf8(),O_CREAT|O_WRONLY,0600);
 					if (fd != -1) ::close(fd);
 					::sleep(1);
 					kDebug(7123) << "openCamera at " << getpid() << "- busy, ret " << ret << ", trying again.";
@@ -165,7 +165,7 @@ bool KameraProtocol::openCamera(QString &str) {
 				str = gp_result_as_string(ret);
 				return false;
 			}
-			::unlink(m_lockfile.utf8());
+			::unlink(m_lockfile.toUtf8());
 			setTimeoutSpecialCommand(1);
 			kDebug(7123) << "openCamera succeeded at " << getpid();
 			cameraopen = true;
@@ -233,10 +233,10 @@ void KameraProtocol::get(const KUrl &url)
 			return;						\
 		}							\
 		QByteArray chunkDataBuffer;				\
-		chunkDataBuffer.setRawData(xx.text, strlen(xx.text));	\
+		chunkDataBuffer.fromRawData(xx.text, strlen(xx.text));	\
 		data(chunkDataBuffer);					\
 		processedSize(strlen(xx.text));				\
-		chunkDataBuffer.resetRawData(xx.text, strlen(xx.text));	\
+		chunkDataBuffer.clear();                                \
 		finished();						\
 		return;							\
 	}
@@ -345,10 +345,10 @@ void KameraProtocol::get(const KUrl &url)
 
 			if (towrite > fileSize-m_fileSize-written)
 				towrite = fileSize-m_fileSize-written;
-			chunkDataBuffer.setRawData(fileData + m_fileSize + written, towrite);
+			chunkDataBuffer.fromRawData(fileData + m_fileSize + written, towrite);
 			processedSize(m_fileSize + written + towrite);
 			data(chunkDataBuffer);
-			chunkDataBuffer.resetRawData(fileData + m_fileSize + written, towrite);
+			chunkDataBuffer.clear();
 			written += towrite;
 		}
 		m_fileSize = fileSize;
@@ -920,11 +920,11 @@ void frontendProgressUpdate(
 		// XXX using assign() here causes segfault, prolly because
 		// gp_file_free is called before chunkData goes out of scope
 		QByteArray chunkDataBuffer;
-		chunkDataBuffer.setRawData(fileData + object->getFileSize(), fileSize - object->getFileSize());
+		chunkDataBuffer.fromRawData(fileData + object->getFileSize(), fileSize - object->getFileSize());
 		// Note: this will fail with sizes > 16MB ... 
 		object->data(chunkDataBuffer);
 		object->processedSize(fileSize);
-		chunkDataBuffer.resetRawData(fileData + object->getFileSize(), fileSize - object->getFileSize());
+		chunkDataBuffer.clear();
 		object->setFileSize(fileSize);
 	}
 }
