@@ -15,5 +15,5 @@ install(TARGETS kcm_kamera  DESTINATION ${PLUGIN_INSTALL_DIR} )
 
 ########### install files ###############
 
-install( FILES kamera.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} )
+install( FILES kamera.desktop  DESTINATION  ${XDG_APPS_INSTALL_DIR} )
 
