@@ -232,8 +232,7 @@ void KameraProtocol::get(const KUrl &url)
 			error(KIO::ERR_DOES_NOT_EXIST, url.path());	\
 			return;						\
 		}							\
-		QByteArray chunkDataBuffer;				\
-		chunkDataBuffer.fromRawData(xx.text, strlen(xx.text));	\
+		QByteArray chunkDataBuffer = QByteArray::fromRawData(xx.text, strlen(xx.text));	\
 		data(chunkDataBuffer);					\
 		processedSize(strlen(xx.text));				\
 		chunkDataBuffer.clear();                                \
@@ -345,7 +344,7 @@ void KameraProtocol::get(const KUrl &url)
 
 			if (towrite > fileSize-m_fileSize-written)
 				towrite = fileSize-m_fileSize-written;
-			chunkDataBuffer.fromRawData(fileData + m_fileSize + written, towrite);
+			chunkDataBuffer = QByteArray::fromRawData(fileData + m_fileSize + written, towrite);
 			processedSize(m_fileSize + written + towrite);
 			data(chunkDataBuffer);
 			chunkDataBuffer.clear();
@@ -919,8 +918,7 @@ void frontendProgressUpdate(
 	if (fileSize > 0) {
 		// XXX using assign() here causes segfault, prolly because
 		// gp_file_free is called before chunkData goes out of scope
-		QByteArray chunkDataBuffer;
-		chunkDataBuffer.fromRawData(fileData + object->getFileSize(), fileSize - object->getFileSize());
+		QByteArray chunkDataBuffer = QByteArray::fromRawData(fileData + object->getFileSize(), fileSize - object->getFileSize());
 		// Note: this will fail with sizes > 16MB ... 
 		object->data(chunkDataBuffer);
 		object->processedSize(fileSize);
