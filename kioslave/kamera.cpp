@@ -554,7 +554,7 @@ void KameraProtocol::listDir(const KUrl &url)
 	
 			ports[value] = model;
 			// NOTE: We might get different ports than usb: later!
-			if (strcmp(value,"usb:"))
+			if (strcmp(value,"usb:") != 0)
 				names[model] = value;
 
 			/* Save them, even though we can autodetect them for
@@ -567,8 +567,8 @@ void KameraProtocol::listDir(const KUrl &url)
 		}
 		gp_list_free (list);
 
-		/* Avoid duplicated entry for usb: and usb:001,042 entries. */
-		if (ports.contains("usb:") && names[ports["usb:"]]!="usb:")
+		/* Avoid duplicated entry, that is a camera with both port usb: and usb:001,042 entries. */
+		if (ports.contains("usb:") && names.contains(ports["usb:"]) && names[ports["usb:"]] != "usb:")
 			ports.remove("usb:");
 
 		for (it = groupList.begin(); it != groupList.end(); it++) {
@@ -603,7 +603,8 @@ void KameraProtocol::listDir(const KUrl &url)
 				xurl.setHost(m_cfgPath);
 			}
 			xurl.setPath("/");
-			entry.insert(KIO::UDSEntry::UDS_URL,xurl.url());
+			xurl.setUrl(xurl.url().replace(":", "___"));
+			entry.insert(KIO::UDSEntry::UDS_TARGET_URL,xurl.url());
 
 			listEntry(entry, false);
 		}
@@ -621,7 +622,8 @@ void KameraProtocol::listDir(const KUrl &url)
 			xurl.setHost(portsit.key());
 			xurl.setUser(portsit.value());
 			xurl.setPath("/");
-			entry.insert(KIO::UDSEntry::UDS_URL,xurl.url());
+			xurl.setHost(xurl.host().replace(":", "___"));
+			entry.insert(KIO::UDSEntry::UDS_TARGET_URL,xurl.url());
 
 			listEntry(entry, false);
 		}
@@ -723,11 +725,13 @@ void KameraProtocol::listDir(const KUrl &url)
 
 void KameraProtocol::setHost(const QString& host, quint16 port, const QString& user, const QString& pass )
 {
-	kDebug(7123) << "KameraProtocol::setHost(" << host << ", " << port << ", " << user << ", " << pass << ")";
+	QString theHost = host;
+	theHost.replace("___", ":");
+	kDebug(7123) << "KameraProtocol::setHost(" << theHost << ", " << port << ", " << user << ", " << pass << ")";
 	int gpr, idx;
 
-	if (!host.isEmpty()) {
-		kDebug(7123) << "model is " << user << ", port is " << host;
+	if (!theHost.isEmpty()) {
+		kDebug(7123) << "model is " << user << ", port is " << theHost;
 		if (m_camera) {
 			kDebug(7123) << "Configuration change detected";
 			closeCamera();
@@ -757,14 +761,14 @@ void KameraProtocol::setHost(const QString& host, quint16 port, const QString& u
 		GPPortInfo port_info;
 		gp_port_info_list_new(&port_info_list);
 		gp_port_info_list_load(port_info_list);
-		idx = gp_port_info_list_lookup_path(port_info_list, tocstr(host));
+		idx = gp_port_info_list_lookup_path(port_info_list, tocstr(theHost));
 
 		/* Handle erronously passed usb:XXX,YYY */
-		if ((idx < 0) && host.startsWith("usb:"))
+		if ((idx < 0) && theHost.startsWith("usb:"))
 			idx = gp_port_info_list_lookup_path(port_info_list, "usb:");
 		if (idx < 0) {
 			gp_port_info_list_free(port_info_list);
-			kDebug(7123) << "Unable to get port info for path: " << host;
+			kDebug(7123) << "Unable to get port info for path: " << theHost;
 			error(KIO::ERR_UNKNOWN, gp_result_as_string(idx));
 			return;
 		}
@@ -787,7 +791,7 @@ void KameraProtocol::setHost(const QString& host, quint16 port, const QString& u
 		gp_camera_set_abilities(m_camera, m_abilities);
 		gp_camera_set_port_info(m_camera, port_info);
 		gp_camera_set_port_speed(m_camera, 0); // TODO: the value needs to be configurable
-		kDebug(7123) << "Opening camera model " << user << " at " << host;
+		kDebug(7123) << "Opening camera model " << user << " at " << theHost;
 		
 		QString errstr;
 		if (!openCamera(errstr)) {
