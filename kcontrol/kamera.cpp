@@ -73,9 +73,6 @@ KKameraConfig::KKameraConfig(QWidget *parent, const QVariantList &)
 
 		displayGPSuccessDialogue();
 
-		// load existing configuration
-		load();
-
 	} else {
 
 		displayGPFailureDialogue();
