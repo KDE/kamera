@@ -141,7 +141,7 @@ void KKameraConfig::displayGPSuccessDialogue(void)
         act->setIcon(KIcon("dialog-ok"));
         act->setText(i18n("Test"));
 	connect(act, SIGNAL(triggered(bool)), this, SLOT(slot_testCamera()));
-	act->setWhatsThis(i18n("Click this button to remove the selected camera from the list."));
+	act->setWhatsThis(i18n("Click this button to test the connection to the selected camera."));
 	m_toolbar->addAction(act);
 	act = m_actions->addAction("camera_remove");
         act->setIcon(KIcon("user-trash"));
@@ -159,7 +159,7 @@ void KKameraConfig::displayGPSuccessDialogue(void)
         act->setIcon(KIcon("hwinfo"));
         act->setText(i18n("Information"));
 	connect(act, SIGNAL(triggered(bool)), this, SLOT(slot_cameraSummary()));
-	act->setWhatsThis(i18n("Click this button to view a summary of the current status of the selected camera.<br><br>The availability of this feature and the contents of the Configuration dialog depend on the camera model."));
+	act->setWhatsThis(i18n("Click this button to view a summary of the current status of the selected camera.<br><br>The availability of this feature and the contents of the Information dialog depend on the camera model."));
 	m_toolbar->addAction(act);
 	m_toolbar->addSeparator();
 	act = m_actions->addAction("camera_cancel");
