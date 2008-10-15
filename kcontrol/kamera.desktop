@@ -179,5 +179,5 @@ X-KDE-System-Settings-Parent-Category=advanced-user-settings
 X-KDE-ModuleType=Library
 Icon=camera-photo
 Exec=kcmshell4 kamera
-X-DocPath=kamera/index.html
+X-DocPath=kcontrol/kamera/index.html
 Categories=Qt;KDE;X-KDE-settings-hardware;

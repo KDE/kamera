@@ -1,70 +1,92 @@
 <?xml version="1.0" ?>
-<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd" [
-  <!ENTITY kappname "&kamera;">
-  <!ENTITY package "kdegraphics">
+<!DOCTYPE article PUBLIC "-//KDE//DTD DocBook XML V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd" [
   <!ENTITY % addindex "IGNORE">
   <!ENTITY % English "INCLUDE">
 ]>
 
-<book lang="&language;">
-
-<bookinfo>
-<title>The &kamera; Handbook</title>
+<article>
+<title><guilabel>Digital Camera</guilabel></title>
+<articleinfo>
 
 <authorgroup>
 <author>
-<firstname></firstname>
-<othername></othername>
-<surname></surname>
+<firstname>Burkhard</firstname>
+<surname>Lück</surname>
 <affiliation>
-<address><email></email></address>
+<address><email>lueck@hube-lueck.de</email></address>
 </affiliation>
 </author>
 <!-- TRANS:ROLES_OF_TRANSLATORS -->
 </authorgroup>
 
-<legalnotice>&FDLNotice;</legalnotice>
-
-<!-- Date and version information of the documentation
-Don't forget to include this last date and this last revision number, we
-need them for translation coordination !
-Please respect the format of the date (DD/MM/YYYY) and of the version
-(Major.minor.lesser), it could be used by automation scripts -->
-
-<date>2000-09-02</date>
-<releaseinfo>0.00.00</releaseinfo>
-
-<!-- Abstract about this handbook -->
-
-<abstract>
-<para>
-&kamera; allows you to view and download images on a digital camera.
-</para>
-</abstract>
-
+<date>2008-10-12</date>
+<releaseinfo>&kde; 4.2</releaseinfo>
 
 <keywordset>
 <keyword>KDE</keyword>
-<keyword>Kapp</keyword>
+<keyword>camera</keyword>
+<keyword>photo</keyword>
 </keywordset>
+</articleinfo>
 
-</bookinfo>
+<para>
+This module allows you to configure support for your digital camera.
+</para>
 
-<chapter id="introduction"> <title>Introduction</title> <para>Sorry, but
-the documentation for &kappname; was not finished when &kde; was installed on
-this computer.</para> <para>If you need help, please check <ulink
-url="http://www.kde.org">The &kde; Website</ulink> for updates, or by
-submitting your question to <ulink url="mailto:kde@kde.org">The
-&kde; User Mailing list</ulink>.</para> <para><emphasis>The &kde;
-Team</emphasis></para>
+<variablelist>
+<varlistentry><term><guibutton>Add</guibutton></term>
+<listitem>
+<para>
+Click this button to select the camera's model and the port it is connected
+to on your computer (&eg; USB, Serial). If your camera does not
+appear in the list of <guilabel>Supported Cameras</guilabel>, go to the
+<ulink url="http://www.gphoto.org\">GPhoto web site</ulink> for a possible update.
+</para>
+</listitem>
+</varlistentry>
 
-<!-- TRANS:CREDIT_FOR_TRANSLATORS -->
-&underFDL;
+<varlistentry><term><guibutton>Test</guibutton></term>
+<listitem>
+<para>Click this button to test the connection to the selected camera.</para>
+</listitem>
+</varlistentry>
 
-</chapter>
+<varlistentry><term><guibutton>Remove</guibutton></term>
+<listitem>
+<para>Removes the selected camera from the list.
+</para>
+</listitem>
+</varlistentry>
 
-&documentation.index; 
-</book>
+<varlistentry><term><guibutton>Configure</guibutton></term>
+<listitem>
+<para>Click this button to change the configuration of the selected camera. 
+The availability of this feature and the contents of the Configuration dialog 
+depend on the camera model.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term><guibutton>Information</guibutton></term>
+<listitem>
+<para>Click this button to view a summary of the current status of the selected 
+camera. The availability of this feature and the contents of the Information 
+dialog depend on the camera model.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term><guibutton>Cancel</guibutton></term>
+<listitem>
+<para>Click this button to cancel the current camera operation.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+<para>To view and download images from the digital camera, enter 
+<userinput>camera:/</userinput> in &konqueror;&apos;s location bar.
+</para>
+
+</article>
 
 <!--
 Local Variables:
