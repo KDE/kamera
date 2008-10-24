@@ -125,7 +125,7 @@ bool KCamera::initCamera()
 		gp_camera_set_abilities(m_camera, m_abilities);
 		gp_camera_set_port_info(m_camera, info);
 
-		// this might take some time (esp. for non-existant camera) - better be done asynchronously
+		// this might take some time (esp. for non-existent camera) - better be done asynchronously
 		result = gp_camera_init(m_camera, glob_context);
 		if (result != GP_OK) {
 			gp_camera_free(m_camera);

@@ -107,7 +107,7 @@ m_camera(NULL)
 //		- We are MAXIDLETIME seconds idle OR
 //		- Another slave wants to have access to the camera.
 //
-// The existance of a lockfile is used to signify "please give up camera".
+// The existence of a lockfile is used to signify "please give up camera".
 //
 void KameraProtocol::special(const QByteArray&) {
 	kDebug(7123) << "KameraProtocol::special() at " << getpid();
