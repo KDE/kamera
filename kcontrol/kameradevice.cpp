@@ -75,7 +75,7 @@ KCamera::~KCamera()
 
 bool KCamera::initInformation()
 {
-	if (!m_model.isNull())
+	if (m_model.isNull())
 		return false;
 
 	if(gp_abilities_list_new(&m_abilitylist) != GP_OK) {
@@ -105,7 +105,7 @@ bool KCamera::initCamera()
 
 		initInformation();
 
-		if (!m_model.isNull() || !m_path.isNull())
+		if (m_model.isNull() || m_path.isNull())
 			return false;
 
 		result = gp_camera_new(&m_camera);
