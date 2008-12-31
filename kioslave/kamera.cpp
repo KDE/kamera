@@ -2,7 +2,7 @@
 
     Copyright (C) 2001 The Kompany
 		  2001-2003	Ilya Konstantinov <kde-devel@future.shiny.co.il>
-		  2001-2007	Marcus Meissner <marcus@jet.franken.de>
+		  2001-2008	Marcus Meissner <marcus@jet.franken.de>
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -20,6 +20,8 @@
 
 */
 
+// remove comment to enable debugging
+// #undef QT_NO_DEBUG
 #include <stdlib.h>
 #include <unistd.h>
 #include <stdio.h>
@@ -190,6 +192,8 @@ void KameraProtocol::closeCamera(void)
 	//       is no camera_exit function.
 	gp_port_close(m_camera->port);
 	cameraopen = false;
+	current_camera = "";
+	current_port = "";
 	return;
 }
 
@@ -209,23 +213,19 @@ static QString fix_foldername(QString ofolder) {
 void KameraProtocol::get(const KUrl &url)
 {
 	kDebug(7123) << "KameraProtocol::get(" << url.path() << ")";
-
+	QString directory, file;
 	CameraFileType fileType;
 	int gpr;
-	if (url.host().isEmpty()) {
-		error(KIO::ERR_DOES_NOT_EXIST, url.path());
-		return;
-	}
 
+	split_url2camerapath(url.path(), directory, file);
 	if(!openCamera()) {
 		error(KIO::ERR_DOES_NOT_EXIST, url.path());
 		return;
 	}
 
-	// fprintf(stderr,"get(%s)\n",url.path().toLatin1());
 
 #define GPHOTO_TEXT_FILE(xx)						\
-	if (!url.path().compare("/" #xx ".txt")) {			\
+	if (!directory.compare("/") && !file.compare(#xx ".txt")) {	\
 		CameraText xx;						\
 		gpr = gp_camera_get_##xx(m_camera,  &xx, m_context);	\
 		if (gpr != GP_OK) {					\
@@ -246,7 +246,7 @@ void KameraProtocol::get(const KUrl &url)
 
 #undef GPHOTO_TEXT_FILE
 	// emit info message
-	infoMessage( i18n("Retrieving data from camera <b>%1</b>", url.user()) );
+	infoMessage( i18n("Retrieving data from camera <b>%1</b>", current_camera) );
 
 	// Note: There's no need to re-read directory for each get() anymore
 	gp_file_new(&m_file);
@@ -254,9 +254,8 @@ void KameraProtocol::get(const KUrl &url)
 	// emit the total size (we must do it before sending data to allow preview)
 	CameraFileInfo info;
 	
-	gpr = gp_camera_file_get_info(m_camera, tocstr(fix_foldername(url.directory(KUrl::AppendTrailingSlash))), tocstr(url.fileName()), &info, m_context);
+	gpr = gp_camera_file_get_info(m_camera, tocstr(fix_foldername(directory)), tocstr(file), &info, m_context);
 	if (gpr != GP_OK) {
-		// fprintf(stderr,"Folder %s / File %s not found, gpr is %d\n",folder.toLatin1(), url.fileName().toLatin1(), gpr);
 		gp_file_unref(m_file);
 		if ((gpr == GP_ERROR_FILE_NOT_FOUND) || (gpr == GP_ERROR_DIRECTORY_NOT_FOUND))
 			error(KIO::ERR_DOES_NOT_EXIST, url.path());
@@ -284,14 +283,14 @@ void KameraProtocol::get(const KUrl &url)
 
 	// fetch the data
 	m_fileSize = 0;
-	gpr = gp_camera_file_get(m_camera, tocstr(fix_foldername(url.directory(KUrl::AppendTrailingSlash))), tocstr(url.fileName()), fileType, m_file, m_context);
+	gpr = gp_camera_file_get(m_camera, tocstr(fix_foldername(directory)), tocstr(file), fileType, m_file, m_context);
 	if (	(gpr == GP_ERROR_NOT_SUPPORTED) &&
 		(fileType == GP_FILE_TYPE_PREVIEW)
 	) {
 		// If we get here, the file info command information 
 		// will either not be used, or still valid.
 		fileType = GP_FILE_TYPE_NORMAL;
-		gpr = gp_camera_file_get(m_camera, tocstr(fix_foldername(url.directory(KUrl::AppendTrailingSlash))), tocstr(url.fileName()), fileType, m_file, m_context);
+		gpr = gp_camera_file_get(m_camera, tocstr(fix_foldername(directory)), tocstr(file), fileType, m_file, m_context);
 	}
 	switch(gpr) {
 		case GP_OK:
@@ -369,13 +368,10 @@ void KameraProtocol::stat(const KUrl &url)
 
 		kDebug(7123) << "redirecting to /";
 		rooturl.setPath("/");
-		rooturl.setHost(url.host());
-		rooturl.setUser(url.user());
 		redirection(rooturl);
 		finished();
 		return;
 	}
-
 	if(url.path() == "/")
 		statRoot();
 	else
@@ -391,39 +387,76 @@ void KameraProtocol::statRoot(void)
 
 	entry.insert(KIO::UDSEntry::UDS_FILE_TYPE,S_IFDIR);
 
-	entry.insert(KIO::UDSEntry::UDS_ACCESS,(S_IRUSR | S_IRGRP | S_IROTH |S_IWUSR | S_IWGRP | S_IWOTH));
-
+	entry.insert(KIO::UDSEntry::UDS_ACCESS,(S_IRUSR | S_IRGRP | S_IROTH));
 	statEntry(entry);
-
 	finished();
 	// If we just do this call, timeout right away if no other requests are
 	// pending. This is for the kdemm autodetection using media://camera
 	idletime = MAXIDLETIME;
 }
 
+void KameraProtocol::split_url2camerapath(QString url,
+	QString &directory,
+	QString &file
+) {
+	QStringList	components, camarr;
+	QString		cam, camera, port;
+
+	components	= url.split("/", QString::SkipEmptyParts);
+	if (components.size() == 0) 
+		return;
+	cam		= components.takeFirst();
+	if (!cam.isEmpty()) {
+		camarr		= cam.split("@");
+		camera		= camarr.takeFirst();
+		port		= camarr.takeLast();
+		setCamera (camera, port);
+	}
+	if (components.size() == 0)  {
+		directory = "/";
+		return;
+	}
+	file		= components.takeLast();
+	directory 	= "/"+components.join("/");
+}
+
 // Implements a regular stat() of a file / directory, returning all we know about it
-void KameraProtocol::statRegular(const KUrl &url)
+void KameraProtocol::statRegular(const KUrl &xurl)
 {
 	KIO::UDSEntry entry;
+	QString	directory, file;
 	int gpr;
 
-	kDebug(7123) << "statRegular(\"" << url.path() << "\")";
+	kDebug(7123) << "statRegular(\"" << xurl.path() << "\")";
+
+	split_url2camerapath(xurl.path(), directory, file);
+
 	if (openCamera() == false) {
-		error(KIO::ERR_DOES_NOT_EXIST, url.path());
+		error(KIO::ERR_DOES_NOT_EXIST, xurl.path());
 		return;
 	}
 
-	// fprintf(stderr,"statRegular(%s)\n",url.path().toLatin1());
+	if (directory == "/") {
+		KIO::UDSEntry entry;
+
+		QString xname = current_camera + "@" + current_port;
+		entry.insert( KIO::UDSEntry::UDS_NAME, xname);
+		entry.insert(KIO::UDSEntry::UDS_FILE_TYPE,S_IFDIR);
+		entry.insert(KIO::UDSEntry::UDS_ACCESS,(S_IRUSR | S_IRGRP | S_IROTH));
+		statEntry(entry);
+		finished();
+		return;
+	}
 
 	// Is "url" a directory?
 	CameraList *dirList;
 	gp_list_new(&dirList);
-	kDebug(7123) << "statRegular() Requesting directories list for " << url.directory();
+	kDebug(7123) << "statRegular() Requesting directories list for " << directory;
 
-	gpr = gp_camera_folder_list_folders(m_camera, tocstr(fix_foldername(url.directory(KUrl::AppendTrailingSlash))), dirList, m_context);
+	gpr = gp_camera_folder_list_folders(m_camera, tocstr(fix_foldername(directory)), dirList, m_context);
 	if (gpr != GP_OK) {
 		if ((gpr == GP_ERROR_FILE_NOT_FOUND) || (gpr == GP_ERROR_DIRECTORY_NOT_FOUND))
-			error(KIO::ERR_DOES_NOT_EXIST, url.path());
+			error(KIO::ERR_DOES_NOT_EXIST, xurl.path());
 		else
 			error(KIO::ERR_UNKNOWN, gp_result_as_string(gpr));
 		gp_list_free(dirList);
@@ -431,11 +464,11 @@ void KameraProtocol::statRegular(const KUrl &url)
 	}
 
 #define GPHOTO_TEXT_FILE(xx)						\
-	if (!url.path().compare("/"#xx".txt")) {			\
+	if (!directory.compare("/") && !file.compare(#xx".txt")) {	\
 		CameraText xx;						\
 		gpr = gp_camera_get_about(m_camera,  &xx, m_context);	\
 		if (gpr != GP_OK) {					\
-			error(KIO::ERR_DOES_NOT_EXIST, url.fileName());	\
+			error(KIO::ERR_DOES_NOT_EXIST, xurl.fileName());	\
 			return;						\
 		}							\
 		translateTextToUDS(entry,#xx".txt",xx.text);		\
@@ -451,10 +484,10 @@ void KameraProtocol::statRegular(const KUrl &url)
 	const char *name;
 	for(int i = 0; i < gp_list_count(dirList); i++) {
 		gp_list_get_name(dirList, i, &name);
-		if (url.fileName().compare(name) == 0) {
+		if (file.compare(name) == 0) {
 			gp_list_free(dirList);
 			KIO::UDSEntry entry;
-			translateDirectoryToUDS(entry, url.fileName());
+			translateDirectoryToUDS(entry, file);
 			statEntry(entry);
 			finished();
 			return;
@@ -464,15 +497,15 @@ void KameraProtocol::statRegular(const KUrl &url)
 
 	// Is "url" a file?
 	CameraFileInfo info;
-	gpr = gp_camera_file_get_info(m_camera, tocstr(fix_foldername(url.directory(KUrl::AppendTrailingSlash))), tocstr(url.fileName()), &info, m_context);
+	gpr = gp_camera_file_get_info(m_camera, tocstr(fix_foldername(directory)), tocstr(file), &info, m_context);
 	if (gpr != GP_OK) {
 		if ((gpr == GP_ERROR_FILE_NOT_FOUND) || (gpr == GP_ERROR_DIRECTORY_NOT_FOUND))
-			error(KIO::ERR_DOES_NOT_EXIST, url.path());
+			error(KIO::ERR_DOES_NOT_EXIST, xurl.path());
 		else
 			error(KIO::ERR_UNKNOWN, gp_result_as_string(gpr));
 		return;
 	}
-	translateFileToUDS(entry, info, url.fileName());
+	translateFileToUDS(entry, info, file);
 	statEntry(entry);
 	finished();
 }
@@ -480,14 +513,16 @@ void KameraProtocol::statRegular(const KUrl &url)
 // The KIO slave "del" function.
 void KameraProtocol::del(const KUrl &url, bool isFile)
 {
+	QString directory, file;
 	kDebug(7123) << "KameraProtocol::del(" << url.path() << ")";
 
+	split_url2camerapath (url.path(), directory, file);
 	if(!openCamera()) {
-		error(KIO::ERR_CANNOT_DELETE, url.fileName());
+		error(KIO::ERR_CANNOT_DELETE, file);
 		return;
 	}
 	if (!cameraSupportsDel()) {
-		error(KIO::ERR_CANNOT_DELETE, url.fileName());
+		error(KIO::ERR_CANNOT_DELETE, file);
 		return;
 	}
 	if(isFile){
@@ -495,10 +530,10 @@ void KameraProtocol::del(const KUrl &url, bool isFile)
 		gp_list_new(&list);
 		int ret;
 
-		ret = gp_camera_file_delete(m_camera, tocstr(fix_foldername(url.directory(KUrl::AppendTrailingSlash))), tocstr(url.fileName()), m_context);
+		ret = gp_camera_file_delete(m_camera, tocstr(fix_foldername(directory)), tocstr(file), m_context);
 
 		if(ret != GP_OK) {
-			error(KIO::ERR_CANNOT_DELETE, url.fileName());
+			error(KIO::ERR_CANNOT_DELETE, file);
 		} else {
 			finished();
 		}
@@ -506,11 +541,21 @@ void KameraProtocol::del(const KUrl &url, bool isFile)
 }
 
 // The KIO slave "listDir" function.
-void KameraProtocol::listDir(const KUrl &url)
+void KameraProtocol::listDir(const KUrl &yurl)
 {
-	kDebug(7123) << "KameraProtocol::listDir(" << url.path() << ")";
+	QString directory, file;
+	kDebug(7123) << "KameraProtocol::listDir(" << yurl.path() << ")";
 
-	if (url.host().isEmpty()) {
+	split_url2camerapath(yurl.path(), directory, file);
+
+	if (!file.isEmpty()) {
+		if (directory == "/")
+			directory = "/" + file;
+		else
+			directory = directory + "/" + file;
+	}
+
+	if (yurl.path() == "/") {
 		KUrl xurl;
 		// List the available cameras
 		QStringList groupList = m_config->groupList();
@@ -586,26 +631,25 @@ void KameraProtocol::listDir(const KUrl &url)
 			 */
 			if (modelcnt[*it] > 0)
 				continue;
+			
+			QString xname;
 
 			entry.clear();
 			entry.insert(KIO::UDSEntry::UDS_FILE_TYPE,S_IFDIR);
-			entry.insert(KIO::UDSEntry::UDS_NAME,*it);
 			entry.insert(KIO::UDSEntry::UDS_ACCESS,(S_IRUSR | S_IRGRP | S_IROTH |S_IWUSR | S_IWGRP | S_IWOTH));
-
-			
-			xurl.setProtocol("camera");
-			xurl.setUser(*it);
 			/* Avoid setting usb:xxx,yyy. */
 			if (m_cfgPath.contains("usb:")>0) {
+				xname = (*it)+"@"+"usb:";
 				names[*it] = "usb:";
-				xurl.setHost("usb:");
 			} else {
-				xurl.setHost(m_cfgPath);
+				xname = (*it)+"@"+m_cfgPath;
 			}
-			xurl.setPath("/");
-			xurl.setUrl(xurl.url().replace(":", "___"));
-			entry.insert(KIO::UDSEntry::UDS_TARGET_URL,xurl.url());
+			entry.insert(KIO::UDSEntry::UDS_NAME,*it);
 
+			KUrl nurl(yurl);
+			nurl.setPath(xname);
+
+			entry.insert(KIO::UDSEntry::UDS_TARGET_URL,nurl.url());
 			listEntry(entry, false);
 		}
 	
@@ -617,14 +661,9 @@ void KameraProtocol::listDir(const KUrl &url)
 			entry.insert(KIO::UDSEntry::UDS_NAME, portsit.value());
 
 			entry.insert(KIO::UDSEntry::UDS_ACCESS,(S_IRUSR | S_IRGRP | S_IROTH |S_IWUSR | S_IWGRP | S_IWOTH));
-
 			xurl.setProtocol("camera");
-			xurl.setHost(portsit.key());
-			xurl.setUser(portsit.value());
-			xurl.setPath("/");
-			xurl.setHost(xurl.host().replace(":", "___"));
+			xurl.setPath("/"+portsit.value()+"@"+portsit.key());
 			entry.insert(KIO::UDSEntry::UDS_TARGET_URL,xurl.url());
-
 			listEntry(entry, false);
 		}
 		listEntry(entry, true);
@@ -633,20 +672,21 @@ void KameraProtocol::listDir(const KUrl &url)
 		return;
 	}
 
-	if (url.path().isEmpty()) {
-		KUrl rooturl(url);
+	if (directory.isEmpty()) {
+		KUrl rooturl(yurl);
 
 		kDebug(7123) << "redirecting to /";
-		rooturl.setPath("/");
-		rooturl.setHost(url.host());
-		rooturl.setUser(url.user());
+		if (!current_camera.isEmpty() && !current_port.isEmpty())
+			rooturl.setPath("/"+current_camera+"@"+current_port+"/");
+		else
+			rooturl.setPath("/");
 		redirection(rooturl);
 		finished();
 		return;
 	}
 
 	if (!openCamera()) {
-		error(KIO::ERR_COULD_NOT_READ,url.path());
+		error(KIO::ERR_COULD_NOT_READ, yurl.path());
 		return;
 	}
 
@@ -658,7 +698,7 @@ void KameraProtocol::listDir(const KUrl &url)
 	gp_list_new(&specialList);
 	int gpr;
 
-	if (!url.path().compare("/")) {
+	if (!directory.compare("/")) {
 		CameraText text;
 		if (GP_OK == gp_camera_get_manual(m_camera, &text, m_context))
 			gp_list_append(specialList,"manual.txt",NULL);
@@ -668,7 +708,7 @@ void KameraProtocol::listDir(const KUrl &url)
 			gp_list_append(specialList,"summary.txt",NULL);
 	}
 
-	gpr = readCameraFolder(url.path(), dirList, fileList);
+	gpr = readCameraFolder(directory, dirList, fileList);
 	if(gpr != GP_OK) {
 		kDebug(7123) << "read Camera Folder failed:" << gp_result_as_string(gpr);
 		gp_list_free(dirList);
@@ -694,11 +734,11 @@ void KameraProtocol::listDir(const KUrl &url)
 	for(int i = 0; i < gp_list_count(fileList); ++i) {
 		gp_list_get_name(fileList, i, &name);
 		// we want to know more info about files (size, type...)
-		gp_camera_file_get_info(m_camera, tocstr(url.path()), name, &info, m_context);
+		gp_camera_file_get_info(m_camera, tocstr(directory), name, &info, m_context);
 		translateFileToUDS(entry, info, QString::fromLocal8Bit(name));
 		listEntry(entry, false);
 	}
-	if (!url.path().compare("/")) {
+	if (!directory.compare("/")) {
 		CameraText text;
 		if (GP_OK == gp_camera_get_manual(m_camera, &text, m_context)) {
 			translateTextToUDS(entry, "manual.txt", text.text);
@@ -723,15 +763,21 @@ void KameraProtocol::listDir(const KUrl &url)
 	finished();
 }
 
-void KameraProtocol::setHost(const QString& host, quint16 port, const QString& user, const QString& pass )
+void KameraProtocol::setCamera(const QString& camera, const QString& port)
 {
-	QString theHost = host;
-	theHost.replace("___", ":");
-	kDebug(7123) << "KameraProtocol::setHost(" << theHost << ", " << port << ", " << user << ", " << pass << ")";
+	kDebug(7123) << "KameraProtocol::setCamera(" << camera << ", " << port << ")";
 	int gpr, idx;
 
-	if (!theHost.isEmpty()) {
-		kDebug(7123) << "model is " << user << ", port is " << theHost;
+	if (!camera.isEmpty() && !port.isEmpty()) {
+		kDebug(7123) << "model is " << camera << ", port is " << port;
+		
+		if (	m_camera &&
+			(current_camera == camera) &&
+			(current_port == port)
+		) {
+			kDebug(7123) << "Configuration is same, nothing to do.";
+			return;
+		}
 		if (m_camera) {
 			kDebug(7123) << "Configuration change detected";
 			closeCamera();
@@ -746,10 +792,10 @@ void KameraProtocol::setHost(const QString& host, quint16 port, const QString& u
 		CameraAbilitiesList *abilities_list;
 		gp_abilities_list_new(&abilities_list);
 		gp_abilities_list_load(abilities_list, m_context);
-		idx = gp_abilities_list_lookup_model(abilities_list, tocstr(user));
+		idx = gp_abilities_list_lookup_model(abilities_list, tocstr(camera));
 		if (idx < 0) {
 			gp_abilities_list_free(abilities_list);
-			kDebug(7123) << "Unable to get abilities for model: " << user;
+			kDebug(7123) << "Unable to get abilities for model: " << camera;
 			error(KIO::ERR_UNKNOWN, gp_result_as_string(idx));
 			return;
 		}
@@ -761,20 +807,22 @@ void KameraProtocol::setHost(const QString& host, quint16 port, const QString& u
 		GPPortInfo port_info;
 		gp_port_info_list_new(&port_info_list);
 		gp_port_info_list_load(port_info_list);
-		idx = gp_port_info_list_lookup_path(port_info_list, tocstr(theHost));
+		idx = gp_port_info_list_lookup_path(port_info_list, tocstr(port));
 
 		/* Handle erronously passed usb:XXX,YYY */
-		if ((idx < 0) && theHost.startsWith("usb:"))
+		if ((idx < 0) && port.startsWith("usb:"))
 			idx = gp_port_info_list_lookup_path(port_info_list, "usb:");
 		if (idx < 0) {
 			gp_port_info_list_free(port_info_list);
-			kDebug(7123) << "Unable to get port info for path: " << theHost;
+			kDebug(7123) << "Unable to get port info for path: " << port;
 			error(KIO::ERR_UNKNOWN, gp_result_as_string(idx));
 			return;
 		}
 		gp_port_info_list_get_info(port_info_list, idx, &port_info);
 		gp_port_info_list_free(port_info_list);
 
+		current_camera	= camera;
+		current_port	= port;
 		// create a new camera object
 		gpr = gp_camera_new(&m_camera);
 		if(gpr != GP_OK) {
@@ -791,7 +839,7 @@ void KameraProtocol::setHost(const QString& host, quint16 port, const QString& u
 		gp_camera_set_abilities(m_camera, m_abilities);
 		gp_camera_set_port_info(m_camera, port_info);
 		gp_camera_set_port_speed(m_camera, 0); // TODO: the value needs to be configurable
-		kDebug(7123) << "Opening camera model " << user << " at " << theHost;
+		kDebug(7123) << "Opening camera model " << camera << " at " << port;
 		
 		QString errstr;
 		if (!openCamera(errstr)) {
@@ -835,7 +883,7 @@ void KameraProtocol::translateFileToUDS(KIO::UDSEntry &udsEntry, const CameraFil
 	udsEntry.insert(KIO::UDSEntry::UDS_FILE_TYPE,S_IFREG);
 
 	if (info.file.fields & GP_FILE_INFO_NAME)
-			udsEntry.insert(KIO::UDSEntry::UDS_NAME,QString::fromLocal8Bit(info.file.name));
+		udsEntry.insert(KIO::UDSEntry::UDS_NAME,QString::fromLocal8Bit(info.file.name));
 	else
 		udsEntry.insert(KIO::UDSEntry::UDS_NAME,name);
 
@@ -849,9 +897,8 @@ void KameraProtocol::translateFileToUDS(KIO::UDSEntry &udsEntry, const CameraFil
 		udsEntry.insert(KIO::UDSEntry::UDS_MODIFICATION_TIME,time(NULL));
 	}
 
-	if (info.file.fields & GP_FILE_INFO_TYPE) {
+	if (info.file.fields & GP_FILE_INFO_TYPE)
 		udsEntry.insert(KIO::UDSEntry::UDS_MIME_TYPE,QString::fromLatin1(info.file.type));
-	}
 
 	if (info.file.fields & GP_FILE_INFO_PERMISSIONS) {
 		udsEntry.insert(KIO::UDSEntry::UDS_ACCESS,((info.file.permissions & GP_FILE_PERM_READ) ? (S_IRUSR | S_IRGRP | S_IROTH) : 0));
@@ -870,7 +917,7 @@ void KameraProtocol::translateDirectoryToUDS(KIO::UDSEntry &udsEntry, const QStr
 
 	udsEntry.insert(KIO::UDSEntry::UDS_FILE_TYPE,S_IFDIR);
 	udsEntry.insert(KIO::UDSEntry::UDS_NAME,dirname);
-	udsEntry.insert(KIO::UDSEntry::UDS_ACCESS,S_IRUSR | S_IRGRP | S_IROTH |S_IWUSR | S_IWGRP | S_IWOTH);
+	udsEntry.insert(KIO::UDSEntry::UDS_ACCESS,S_IRUSR | S_IRGRP | S_IROTH |S_IWUSR | S_IWGRP | S_IWOTH | S_IXUSR | S_IXOTH | S_IXGRP);
         udsEntry.insert(KIO::UDSEntry::UDS_MIME_TYPE, QString("inode/directory"));
 }
 
