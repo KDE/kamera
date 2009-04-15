@@ -40,7 +40,7 @@ This module allows you to configure support for your digital camera.
 Click this button to select the camera's model and the port it is connected
 to on your computer (&eg; USB, Serial). If your camera does not
 appear in the list of <guilabel>Supported Cameras</guilabel>, go to the
-<ulink url="http://www.gphoto.org\">GPhoto web site</ulink> for a possible update.
+<ulink url="http://www.gphoto.org">GPhoto web site</ulink> for a possible update.
 </para>
 </listitem>
 </varlistentry>
