@@ -79,7 +79,7 @@ bool KCamera::initInformation()
 		return false;
 
 	if(gp_abilities_list_new(&m_abilitylist) != GP_OK) {
-		emit error(i18n("Could not allocate memory for abilities list."));
+		emit error(i18n("Could not allocate memory for the abilities list."));
 		return false;
 	}
 	if(gp_abilities_list_load(m_abilitylist, glob_context) != GP_OK) {
@@ -319,10 +319,10 @@ KameraDeviceSelectDialog::KameraDeviceSelectDialog(QWidget *parent, KCamera *dev
 	// Create port type selection radiobuttons.
 	m_serialRB = new QRadioButton(i18n("Serial"), m_portSelectGroup);
 	m_portSelectGroup->insert(m_serialRB, INDEX_SERIAL);
-	m_serialRB->setWhatsThis( i18n("If this option is checked, the camera would have to be connected one of the serial ports (known as COM in Microsoft Windows) in your computer."));
+	m_serialRB->setWhatsThis( i18n("If this option is checked, the camera has to be connected to one of the computer's serial ports (known as COM ports in Microsoft Windows.)"));
 	m_USBRB = new QRadioButton(i18n("USB"), m_portSelectGroup);
 	m_portSelectGroup->insert(m_USBRB, INDEX_USB);
-	m_USBRB->setWhatsThis( i18n("If this option is checked, the camera would have to be connected to one of the USB slots in your computer or USB hub."));
+	m_USBRB->setWhatsThis( i18n("If this option is checked, the camera has to be connected to one of the computer's USB ports, or to a USB hub."));
 	// Create port settings widget stack
 	m_settingsStack = new Q3WidgetStack(m_portSettingsGroup);
 	connect(m_portSelectGroup, SIGNAL(clicked(int)),
@@ -338,7 +338,7 @@ KameraDeviceSelectDialog::KameraDeviceSelectDialog(QWidget *parent, KCamera *dev
 	new QLabel(i18n("Port:"), grid);
 	m_serialPortCombo = new QComboBox(grid);
 	m_serialPortCombo->setEditable(true);
-	m_serialPortCombo->setWhatsThis( i18n("Here you should choose the serial port you connect the camera to."));
+	m_serialPortCombo->setWhatsThis( i18n("Specify here the serial port to which you connect the camera."));
 	m_settingsStack->addWidget(grid, INDEX_SERIAL);
 
 	grid = new Q3Grid(2, m_settingsStack);
@@ -346,7 +346,7 @@ KameraDeviceSelectDialog::KameraDeviceSelectDialog(QWidget *parent, KCamera *dev
 	new QLabel(i18n("Port"), grid);
 
 	m_settingsStack->addWidget(new
-		QLabel(i18n("No further configuration is required for USB."),
+		QLabel(i18n("No further configuration is required for USB cameras."),
 		m_settingsStack), INDEX_USB);
 
 	// query gphoto2 for existing serial ports

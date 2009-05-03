@@ -427,11 +427,11 @@ QString KKameraConfig::quickHelp() const
 {
 	return i18n("<h1>Digital Camera</h1>\n"
 	  "This module allows you to configure support for your digital camera.\n"
-	  "You would need to select the camera's model and the port it is connected\n"
-	  "to on your computer (e.g. USB, Serial, Firewire). If your camera doesn't\n"
-	  "appear in the list of <i>Supported Cameras</i>, go to the\n"
+	  "You need to select the camera's model and the port it is connected\n"
+	  "to on your computer (e.g. USB, Serial, Firewire). If your camera does not\n"
+	  "appear on the list of <i>Supported Cameras</i>, go to the\n"
 	  "<a href=\"http://www.gphoto.org\">GPhoto web site</a> for a possible update.<br><br>\n"
-	  "To view and download images from the digital camera, go to address\n"
+	  "To view and download images from the digital camera, go to the address\n"
 	  "<a href=\"camera:/\">camera:/</a> in Konqueror and other KDE applications.");
 }
 
