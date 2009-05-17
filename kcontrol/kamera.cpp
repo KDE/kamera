@@ -292,7 +292,7 @@ void KKameraConfig::afterCameraOperation(void)
 QString KKameraConfig::suggestName(const QString &name)
 {
 	QString new_name = name;
-	new_name.replace("/", ""); // we cannot have a slash in a URI's host
+	new_name.remove('/'); // we cannot have a slash in a URI's host
 
 	if (!m_devices.contains(new_name)) return new_name;
 

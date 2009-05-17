@@ -402,12 +402,12 @@ void KameraProtocol::split_url2camerapath(QString url,
 	QStringList	components, camarr;
 	QString		cam, camera, port;
 
-	components	= url.split("/", QString::SkipEmptyParts);
+	components	= url.split('/', QString::SkipEmptyParts);
 	if (components.size() == 0)
 		return;
 	cam		= components.takeFirst();
 	if (!cam.isEmpty()) {
-		camarr		= cam.split("@");
+		camarr		= cam.split('@');
 		camera		= camarr.takeFirst();
 		port		= camarr.takeLast();
 		setCamera (camera, port);
