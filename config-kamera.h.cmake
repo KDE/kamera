@@ -1,6 +1,5 @@
 /* Define if we have va_copy */
-/* #undef HAVE_VA_COPY */
+#cmakedefine HAVE_VA_COPY 1
 
 /* Define if we have __va_copy */
-#define HAVE___VA_COPY 1
-
+#cmakedefine HAVE___VA_COPY 1

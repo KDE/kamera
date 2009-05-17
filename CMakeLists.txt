@@ -1,6 +1,8 @@
 
 add_definitions (-DQT3_SUPPORT -DQT3_SUPPORT_WARNINGS)
 
+include(ConfigureChecks.cmake)
+
 configure_file(config-kamera.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kamera.h)
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
