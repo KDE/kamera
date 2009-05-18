@@ -3,6 +3,7 @@ include(CheckCSourceCompiles)
 set(VA_COPY_TEST_SOURCE
 "
 #include <stdarg.h>
+#include <stdlib.h>
 void f (int i, ...) {
 va_list args1, args2;
 va_start (args1, i);
@@ -20,6 +21,7 @@ int main() {
 set(__VA_COPY_TEST_SOURCE
 "
 #include <stdarg.h>
+#include <stdlib.h>
 void f (int i, ...) {
 va_list args1, args2;
 va_start (args1, i);
