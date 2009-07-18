@@ -132,7 +132,7 @@ bool KCamera::initCamera()
 			m_camera = NULL;
 			emit error(
 				i18n("Unable to initialize camera. Check your port settings and camera connectivity and try again."),
-				gp_result_as_string(result));
+				QString::fromUtf8(gp_result_as_string(result)));
 			return false;
 		}
 
@@ -168,7 +168,7 @@ bool KCamera::configure()
 
 	result = gp_camera_get_config(m_camera, &window, glob_context);
 	if (result != GP_OK) {
-		emit error(i18n("Camera configuration failed."), gp_result_as_string(result));
+		emit error(i18n("Camera configuration failed."), QString::fromUtf8(gp_result_as_string(result)));
 		return false;
 	}
 
@@ -178,7 +178,7 @@ bool KCamera::configure()
 	if (result == GP_PROMPT_OK) {
 		result = gp_camera_set_config(m_camera, window, glob_context);
 		if (result != GP_OK) {
-			emit error(i18n("Camera configuration failed."), gp_result_as_string(result));
+			emit error(i18n("Camera configuration failed."), QString::fromUtf8(gp_result_as_string(result)));
 			return false;
 		}
 	}
