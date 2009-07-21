@@ -21,12 +21,11 @@
 
 */
 #include <qlayout.h>
-#include <q3widgetstack.h>
+#include <QStackedWidget>
 
 #include <qcombobox.h>
 #include <qlineedit.h>
 #include <qradiobutton.h>
-#include <Q3Button>
 
 #include <qlabel.h>
 #include <q3grid.h>
@@ -324,13 +323,13 @@ KameraDeviceSelectDialog::KameraDeviceSelectDialog(QWidget *parent, KCamera *dev
 	m_portSelectGroup->insert(m_USBRB, INDEX_USB);
 	m_USBRB->setWhatsThis( i18n("If this option is checked, the camera has to be connected to one of the computer's USB ports, or to a USB hub."));
 	// Create port settings widget stack
-	m_settingsStack = new Q3WidgetStack(m_portSettingsGroup);
+	m_settingsStack = new  QStackedWidget(m_portSettingsGroup);
 	connect(m_portSelectGroup, SIGNAL(clicked(int)),
-		m_settingsStack, SLOT(raiseWidget(int)));
+		m_settingsStack, SLOT(setCurrentIndex(int)));
 
 	// none tab
-	m_settingsStack->addWidget(new QLabel(i18n("No port type selected."),
-		m_settingsStack), INDEX_NONE);
+	m_settingsStack->insertWidget(INDEX_NONE, new QLabel(i18n("No port type selected."),
+		m_settingsStack));
 
 	// serial tab
 	Q3Grid *grid = new Q3Grid(2, m_settingsStack);
@@ -339,15 +338,15 @@ KameraDeviceSelectDialog::KameraDeviceSelectDialog(QWidget *parent, KCamera *dev
 	m_serialPortCombo = new QComboBox(grid);
 	m_serialPortCombo->setEditable(true);
 	m_serialPortCombo->setWhatsThis( i18n("Specify here the serial port to which you connect the camera."));
-	m_settingsStack->addWidget(grid, INDEX_SERIAL);
+	m_settingsStack->insertWidget(INDEX_SERIAL, grid);
 
 	grid = new Q3Grid(2, m_settingsStack);
 	grid->setSpacing(KDialog::spacingHint());
 	new QLabel(i18n("Port"), grid);
 
-	m_settingsStack->addWidget(new
+	m_settingsStack->insertWidget(INDEX_USB, new
 		QLabel(i18n("No further configuration is required for USB cameras."),
-		m_settingsStack), INDEX_USB);
+		m_settingsStack));
 
 	// query gphoto2 for existing serial ports
 	GPPortInfoList *list;
@@ -473,7 +472,7 @@ void KameraDeviceSelectDialog::setPortType(int type)
 	m_portSelectGroup->setButton(type);
 
 	// Bring the right tab to the front
-	m_settingsStack->raiseWidget(type);
+	m_settingsStack->setCurrentIndex(type);
 }
 
 void KameraDeviceSelectDialog::slot_error(const QString &message)

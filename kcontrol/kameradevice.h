@@ -29,7 +29,7 @@
 class KConfig;
 class QString;
 class K3ListView;
-class Q3WidgetStack;
+class QStackedWidget;
 class Q3VButtonGroup;
 class QComboBox;
 class QLineEdit;
@@ -104,7 +104,7 @@ protected:
 	// port settings widgets
 	K3ListView *m_modelSel;
 	QLineEdit *m_nameEdit;
-	Q3WidgetStack *m_settingsStack;
+	QStackedWidget *m_settingsStack;
 	Q3VButtonGroup *m_portSelectGroup;
 	Q3GroupBox *m_portSettingsGroup;
 	QComboBox *m_serialPortCombo;
