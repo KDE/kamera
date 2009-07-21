@@ -310,26 +310,28 @@ KameraDeviceSelectDialog::KameraDeviceSelectDialog(QWidget *parent, KCamera *dev
 	rightLayout->setMargin(0);
 	topLayout->addLayout( rightLayout );
 
-	m_portSelectGroup = new Q3VButtonGroup(i18n("Port"), page);
+	m_portSelectGroup = new QGroupBox(i18n("Port"), page);
+        QVBoxLayout *vertLayout = new QVBoxLayout;
+        m_portSelectGroup->setLayout( vertLayout );
 	rightLayout->addWidget(m_portSelectGroup);
 	m_portSettingsGroup = new QGroupBox(i18n("Port Settings"), page);
         QHBoxLayout *lay = new QHBoxLayout;
         m_portSettingsGroup->setLayout( lay );
 	rightLayout->addWidget(m_portSettingsGroup);
-
 	// Create port type selection radiobuttons.
-	m_serialRB = new QRadioButton(i18n("Serial"), m_portSelectGroup);
-	m_portSelectGroup->insert(m_serialRB, INDEX_SERIAL);
+	m_serialRB = new QRadioButton(i18n("Serial"));
+        vertLayout->addWidget(m_serialRB );
 	m_serialRB->setWhatsThis( i18n("If this option is checked, the camera has to be connected to one of the computer's serial ports (known as COM ports in Microsoft Windows.)"));
-	m_USBRB = new QRadioButton(i18n("USB"), m_portSelectGroup);
-	m_portSelectGroup->insert(m_USBRB, INDEX_USB);
+	m_USBRB = new QRadioButton(i18n("USB"));
+        vertLayout->addWidget(m_USBRB );
 	m_USBRB->setWhatsThis( i18n("If this option is checked, the camera has to be connected to one of the computer's USB ports, or to a USB hub."));
 	// Create port settings widget stack
 	m_settingsStack = new  QStackedWidget;
         lay->addWidget( m_settingsStack );
-	connect(m_portSelectGroup, SIGNAL(clicked(int)),
-		m_settingsStack, SLOT(setCurrentIndex(int)));
-
+	connect(m_serialRB, SIGNAL( toggled(bool) ),
+                this, SLOT( changeCurrentIndex() ) );
+	connect(m_USBRB, SIGNAL( toggled(bool) ),
+                this, SLOT( changeCurrentIndex() ) );
 	// none tab
 	m_settingsStack->insertWidget(INDEX_NONE, new QLabel(i18n("No port type selected."),
 		m_settingsStack));
@@ -378,6 +380,25 @@ KameraDeviceSelectDialog::KameraDeviceSelectDialog(QWidget *parent, KCamera *dev
     m_portSettingsGroup->setEnabled( false );
 }
 
+void KameraDeviceSelectDialog::changeCurrentIndex()
+{
+    qDebug()<<" void KameraDeviceSelectDialog::changeCurrentIndex()";
+    QRadioButton *send = dynamic_cast<QRadioButton*>( sender() );
+    if ( send )
+    {
+        if ( send == m_serialRB )
+        {
+            qDebug()<<"DDDDD";
+            m_settingsStack->setCurrentIndex( INDEX_SERIAL );
+        }
+        else if ( send == m_USBRB )
+        {
+            qDebug()<<"GGGGGG";
+            m_settingsStack->setCurrentIndex( INDEX_USB );
+        }
+    }
+}
+
 bool KameraDeviceSelectDialog::populateCameraListView()
 {
 	gp_abilities_list_new (&m_device->m_abilitylist);
@@ -402,17 +423,10 @@ void KameraDeviceSelectDialog::save()
 {
 	m_device->setModel(m_modelSel->currentItem()->text(0));
 
-	if (m_portSelectGroup->selected()) {
-		QString type = m_portSelectGroup->selected()->text();
-
-		if(type == i18n("Serial"))
-			m_device->setPath("serial:" + m_serialPortCombo->currentText());
-		else if(type == i18n("USB"))
- 			m_device->setPath("usb:");
- 	} else {
- 		// This camera has no port type (e.g. "Directory Browse" camera).
- 		// Do nothing.
- 	}
+	if (m_serialRB->isChecked())
+            m_device->setPath("serial:" + m_serialPortCombo->currentText());
+        else if ( m_USBRB->isChecked() )
+            m_device->setPath("usb:");
 }
 
 void KameraDeviceSelectDialog::load()
@@ -452,12 +466,6 @@ void KameraDeviceSelectDialog::slot_setModel(Q3ListViewItem *item)
 		// enable radiobuttons for supported port types
 		m_serialRB->setEnabled(abilities.port & GP_PORT_SERIAL);
 		m_USBRB->setEnabled(abilities.port & GP_PORT_USB);
-
-		// turn off any selected port
-		QAbstractButton *selected = m_portSelectGroup->selected();
-		if(selected != NULL)
-			selected->toggle();
-
 	        // if there's only one available port type, make sure it's selected
 		if (abilities.port == GP_PORT_SERIAL)
 			setPortType(INDEX_SERIAL);
@@ -472,10 +480,13 @@ void KameraDeviceSelectDialog::slot_setModel(Q3ListViewItem *item)
 void KameraDeviceSelectDialog::setPortType(int type)
 {
 	// Enable the correct button
-	m_portSelectGroup->setButton(type);
+    if ( type == INDEX_USB )
+        m_USBRB->setChecked( true );
+    else if ( type == INDEX_SERIAL )
+        m_serialRB->setChecked( true );
 
-	// Bring the right tab to the front
-	m_settingsStack->setCurrentIndex(type);
+    // Bring the right tab to the front
+    m_settingsStack->setCurrentIndex(type);
 }
 
 void KameraDeviceSelectDialog::slot_error(const QString &message)

@@ -95,6 +95,7 @@ protected slots:
 	void slot_setModel(Q3ListViewItem *item);
 	void slot_error(const QString &message);
 	void slot_error(const QString &message, const QString &details);
+        void changeCurrentIndex();
 protected:
 	KCamera *m_device;
 
@@ -105,7 +106,7 @@ protected:
 	K3ListView *m_modelSel;
 	QLineEdit *m_nameEdit;
 	QStackedWidget *m_settingsStack;
-	Q3VButtonGroup *m_portSelectGroup;
+	QGroupBox *m_portSelectGroup;
 	QGroupBox *m_portSettingsGroup;
 	QComboBox *m_serialPortCombo;
 	// port selection radio buttons
