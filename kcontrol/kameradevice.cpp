@@ -382,18 +382,16 @@ KameraDeviceSelectDialog::KameraDeviceSelectDialog(QWidget *parent, KCamera *dev
 
 void KameraDeviceSelectDialog::changeCurrentIndex()
 {
-    qDebug()<<" void KameraDeviceSelectDialog::changeCurrentIndex()";
     QRadioButton *send = dynamic_cast<QRadioButton*>( sender() );
     if ( send )
     {
         if ( send == m_serialRB )
         {
-            qDebug()<<"DDDDD";
             m_settingsStack->setCurrentIndex( INDEX_SERIAL );
         }
         else if ( send == m_USBRB )
         {
-            qDebug()<<"GGGGGG";
+
             m_settingsStack->setCurrentIndex( INDEX_USB );
         }
     }
