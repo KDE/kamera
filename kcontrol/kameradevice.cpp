@@ -312,7 +312,9 @@ KameraDeviceSelectDialog::KameraDeviceSelectDialog(QWidget *parent, KCamera *dev
 
 	m_portSelectGroup = new Q3VButtonGroup(i18n("Port"), page);
 	rightLayout->addWidget(m_portSelectGroup);
-	m_portSettingsGroup = new Q3GroupBox(1, Qt::Horizontal,i18n("Port Settings"), page);
+	m_portSettingsGroup = new QGroupBox(i18n("Port Settings"), page);
+        QHBoxLayout *lay = new QHBoxLayout;
+        m_portSettingsGroup->setLayout( lay );
 	rightLayout->addWidget(m_portSettingsGroup);
 
 	// Create port type selection radiobuttons.
@@ -323,7 +325,8 @@ KameraDeviceSelectDialog::KameraDeviceSelectDialog(QWidget *parent, KCamera *dev
 	m_portSelectGroup->insert(m_USBRB, INDEX_USB);
 	m_USBRB->setWhatsThis( i18n("If this option is checked, the camera has to be connected to one of the computer's USB ports, or to a USB hub."));
 	// Create port settings widget stack
-	m_settingsStack = new  QStackedWidget(m_portSettingsGroup);
+	m_settingsStack = new  QStackedWidget;
+        lay->addWidget( m_settingsStack );
 	connect(m_portSelectGroup, SIGNAL(clicked(int)),
 		m_settingsStack, SLOT(setCurrentIndex(int)));
 

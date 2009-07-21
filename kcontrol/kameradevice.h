@@ -34,7 +34,7 @@ class Q3VButtonGroup;
 class QComboBox;
 class QLineEdit;
 class QRadioButton;
-class Q3GroupBox;
+class QGroupBox;
 
 class KCamera : public QObject {
 	friend class KameraDeviceSelectDialog;
@@ -68,7 +68,7 @@ public:
 signals:
 	void error(const QString &message);
 	void error(const QString &message, const QString &details);
-	
+
 protected:
 	bool initInformation();
 	bool initCamera();
@@ -97,7 +97,7 @@ protected slots:
 	void slot_error(const QString &message, const QString &details);
 protected:
 	KCamera *m_device;
-	
+
 	bool populateCameraListView(void);
 	void setPortType(int type);
 
@@ -106,7 +106,7 @@ protected:
 	QLineEdit *m_nameEdit;
 	QStackedWidget *m_settingsStack;
 	Q3VButtonGroup *m_portSelectGroup;
-	Q3GroupBox *m_portSettingsGroup;
+	QGroupBox *m_portSettingsGroup;
 	QComboBox *m_serialPortCombo;
 	// port selection radio buttons
 	QRadioButton *m_serialRB;
