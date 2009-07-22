@@ -53,7 +53,7 @@ extern "C" {
 
 static const int INDEX_NONE= 0;
 static const int INDEX_SERIAL = 1;
-static const int INDEX_USB= 3;
+static const int INDEX_USB= 2;
 static GPContext *glob_context = 0;
 
 KCamera::KCamera(const QString &name, const QString &path)
