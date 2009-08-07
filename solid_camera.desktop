@@ -1,0 +1,9 @@
+[Desktop Entry]
+X-KDE-Solid-Predicate=[ Camera.supportedDrivers == 'gphoto' ]
+Type=Service
+Actions=open;
+
+[Desktop Action open]
+Exec=kioclient exec camera:/
+Icon=system-file-manager
+Name=Open with File Manager

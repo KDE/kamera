@@ -9,3 +9,7 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR})
 add_subdirectory( kcontrol ) 
 add_subdirectory( kioslave ) 
 
+install(FILES
+  solid_camera.desktop
+  DESTINATION ${DATA_INSTALL_DIR}/solid/actions)
+
