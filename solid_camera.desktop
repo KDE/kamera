@@ -7,5 +7,7 @@ Actions=open;
 Exec=kioclient exec camera:/
 Icon=system-file-manager
 Name=Open with File Manager
+Name[es]=Abrir con el gestor de archivos
+Name[nds]=Mit Dateipleger opmaken
 Name[sv]=Öppna med filhanterare
 Name[uk]=Відкрити за допомогою менеджера файлів
