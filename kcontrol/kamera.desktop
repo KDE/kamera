@@ -2,7 +2,7 @@
 Comment=Configure Kamera
 Comment[af]=Konfigureer Kamera
 Comment[ar]=إعداد Kamera
-Comment[bg]=Настройване на цифров фотоапарат
+Comment[bg]=Настройки на фотоапарат
 Comment[br]=Kefluniañ Kamera
 Comment[ca]=Configura el Kamera
 Comment[cs]=Nastavení fotoaparátu
@@ -116,7 +116,7 @@ Name=Digital Camera
 Name[af]=Digitaal Kamera
 Name[ar]=كاميرا رقمية
 Name[be]=Камера
-Name[bg]=Фотоапарат
+Name[bg]=Цифров фотоапарат
 Name[br]=Kamera niverel
 Name[ca]=Càmera digital
 Name[cs]=Digitální fotoaparát
