@@ -315,7 +315,7 @@ KameraDeviceSelectDialog::KameraDeviceSelectDialog(QWidget *parent, KCamera *dev
         m_portSelectGroup->setLayout( vertLayout );
 	rightLayout->addWidget(m_portSelectGroup);
 	m_portSettingsGroup = new QGroupBox(i18n("Port Settings"), page);
-        QHBoxLayout *lay = new QHBoxLayout;
+        QVBoxLayout *lay = new QVBoxLayout;
         m_portSettingsGroup->setLayout( lay );
 	rightLayout->addWidget(m_portSettingsGroup);
 	// Create port type selection radiobuttons.
@@ -326,7 +326,12 @@ KameraDeviceSelectDialog::KameraDeviceSelectDialog(QWidget *parent, KCamera *dev
         vertLayout->addWidget(m_USBRB );
 	m_USBRB->setWhatsThis( i18n("If this option is checked, the camera has to be connected to one of the computer's USB ports, or to a USB hub."));
 	// Create port settings widget stack
-	m_settingsStack = new  QStackedWidget;
+        m_settingsStack = new  QStackedWidget;
+	Q3Grid *grid2 = new Q3Grid(2, m_settingsStack);
+        grid2->setSpacing(KDialog::spacingHint());
+        new QLabel(i18n("Port"), grid2);
+
+        lay->addWidget(grid2);
         lay->addWidget( m_settingsStack );
 	connect(m_serialRB, SIGNAL( toggled(bool) ),
                 this, SLOT( changeCurrentIndex() ) );
@@ -344,10 +349,6 @@ KameraDeviceSelectDialog::KameraDeviceSelectDialog(QWidget *parent, KCamera *dev
 	m_serialPortCombo->setEditable(true);
 	m_serialPortCombo->setWhatsThis( i18n("Specify here the serial port to which you connect the camera."));
 	m_settingsStack->insertWidget(INDEX_SERIAL, grid);
-
-	grid = new Q3Grid(2, m_settingsStack);
-	grid->setSpacing(KDialog::spacingHint());
-	new QLabel(i18n("Port"), grid);
 
 	m_settingsStack->insertWidget(INDEX_USB, new
 		QLabel(i18n("No further configuration is required for USB cameras."),
