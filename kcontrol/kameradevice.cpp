@@ -62,6 +62,7 @@ KCamera::KCamera(const QString &name, const QString &path)
 	m_model	= name;
 	m_path	= path;
 	m_camera = NULL;
+	m_abilitylist = NULL;
 }
 
 KCamera::~KCamera()
