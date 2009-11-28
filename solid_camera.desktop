@@ -8,6 +8,7 @@ Exec=kioclient exec camera:/
 Icon=system-file-manager
 Name=Open with File Manager
 Name[bg]=Отваряне в файлов браузър
+Name[da]=Åbn med filhåndtering
 Name[de]=Mit Dateimanager öffnen
 Name[en_GB]=Open with File Manager
 Name[es]=Abrir con el gestor de archivos
