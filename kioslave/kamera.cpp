@@ -441,6 +441,7 @@ void KameraProtocol::statRegular(const KUrl &xurl)
 
 		QString xname = current_camera + "@" + current_port;
 		entry.insert( KIO::UDSEntry::UDS_NAME, xname);
+		entry.insert( KIO::UDSEntry::UDS_DISPLAY_NAME, current_camera);
 		entry.insert(KIO::UDSEntry::UDS_FILE_TYPE,S_IFDIR);
 		entry.insert(KIO::UDSEntry::UDS_ACCESS,(S_IRUSR | S_IRGRP | S_IROTH));
 		statEntry(entry);
@@ -644,12 +645,9 @@ void KameraProtocol::listDir(const KUrl &yurl)
 			} else {
 				xname = (*it)+"@"+m_cfgPath;
 			}
-			entry.insert(KIO::UDSEntry::UDS_NAME,*it);
-
-			KUrl nurl(yurl);
-			nurl.setPath(xname);
-
-			entry.insert(KIO::UDSEntry::UDS_TARGET_URL,nurl.url());
+			entry.insert(KIO::UDSEntry::UDS_NAME,xname);
+			// do not confuse regular users with the @usb... 
+			entry.insert(KIO::UDSEntry::UDS_DISPLAY_NAME,*it);
 			listEntry(entry, false);
 		}
 
@@ -658,12 +656,11 @@ void KameraProtocol::listDir(const KUrl &yurl)
 		for (portsit = ports.begin(); portsit != ports.end(); portsit++) {
 			entry.clear();
 			entry.insert(KIO::UDSEntry::UDS_FILE_TYPE,S_IFDIR);
-			entry.insert(KIO::UDSEntry::UDS_NAME, portsit.value());
+			// do not confuse regular users with the @usb... 
+			entry.insert(KIO::UDSEntry::UDS_DISPLAY_NAME,portsit.value());
+			entry.insert(KIO::UDSEntry::UDS_NAME, portsit.value()+"@"+portsit.key());
 
 			entry.insert(KIO::UDSEntry::UDS_ACCESS,(S_IRUSR | S_IRGRP | S_IROTH |S_IWUSR | S_IWGRP | S_IWOTH));
-			xurl.setProtocol("camera");
-			xurl.setPath("/"+portsit.value()+"@"+portsit.key());
-			entry.insert(KIO::UDSEntry::UDS_TARGET_URL,xurl.url());
 			listEntry(entry, false);
 		}
 		listEntry(entry, true);
@@ -881,11 +878,7 @@ void KameraProtocol::translateFileToUDS(KIO::UDSEntry &udsEntry, const CameraFil
 	udsEntry.clear();
 
 	udsEntry.insert(KIO::UDSEntry::UDS_FILE_TYPE,S_IFREG);
-
-	if (info.file.fields & GP_FILE_INFO_NAME)
-		udsEntry.insert(KIO::UDSEntry::UDS_NAME,QString::fromLocal8Bit(info.file.name));
-	else
-		udsEntry.insert(KIO::UDSEntry::UDS_NAME,name);
+	udsEntry.insert(KIO::UDSEntry::UDS_NAME,name);
 
 	if (info.file.fields & GP_FILE_INFO_SIZE) {
 		udsEntry.insert(KIO::UDSEntry::UDS_SIZE,info.file.size);
