@@ -29,12 +29,12 @@
 class KConfig;
 class QString;
 class K3ListView;
-class Q3WidgetStack;
+class QStackedWidget;
 class Q3VButtonGroup;
 class QComboBox;
 class QLineEdit;
 class QRadioButton;
-class Q3GroupBox;
+class QGroupBox;
 
 class KCamera : public QObject {
 	friend class KameraDeviceSelectDialog;
@@ -95,6 +95,7 @@ protected slots:
 	void slot_setModel(Q3ListViewItem *item);
 	void slot_error(const QString &message);
 	void slot_error(const QString &message, const QString &details);
+        void changeCurrentIndex();
 protected:
 	KCamera *m_device;
 	
@@ -104,9 +105,9 @@ protected:
 	// port settings widgets
 	K3ListView *m_modelSel;
 	QLineEdit *m_nameEdit;
-	Q3WidgetStack *m_settingsStack;
-	Q3VButtonGroup *m_portSelectGroup;
-	Q3GroupBox *m_portSettingsGroup;
+	QStackedWidget *m_settingsStack;
+	QGroupBox *m_portSelectGroup;
+	QGroupBox *m_portSettingsGroup;
 	QComboBox *m_serialPortCombo;
 	// port selection radio buttons
 	QRadioButton *m_serialRB;
