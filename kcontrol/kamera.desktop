@@ -2,6 +2,7 @@
 Comment=Configure Kamera
 Comment[af]=Konfigureer Kamera
 Comment[ar]=إعداد Kamera
+Comment[ast]=Configurar Kamera
 Comment[bg]=Настройки на фотоапарат
 Comment[br]=Kefluniañ Kamera
 Comment[ca]=Configura el Kamera
@@ -116,6 +117,7 @@ X-KDE-Keywords[zh_TW]=gphoto,camera,digicam,webcam,kamera,照相機
 Name=Digital Camera
 Name[af]=Digitaal Kamera
 Name[ar]=كاميرا رقمية
+Name[ast]=Cámara dixital
 Name[be]=Камера
 Name[bg]=Цифров фотоапарат
 Name[br]=Kamera niverel

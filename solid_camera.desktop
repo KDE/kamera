@@ -7,6 +7,7 @@ Actions=open;
 Exec=kioclient exec camera:/
 Icon=system-file-manager
 Name=Open with File Manager
+Name[ast]=Abrir con Xestor de Ficheros
 Name[bg]=Отваряне в файлов браузър
 Name[ca]=Obre amb el gestor de fitxers
 Name[da]=Åbn med filhåndtering
