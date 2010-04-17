@@ -195,7 +195,7 @@ X-KDE-ServiceTypes=KCModule
 
 X-KDE-Library=kcm_kamera
 X-KDE-ParentApp=kcontrol
-X-KDE-System-Settings-Parent-Category=advanced-user-settings
+X-KDE-System-Settings-Parent-Category=hardware
 X-KDE-ModuleType=Library
 Icon=camera-photo
 Exec=kcmshell4 kamera
