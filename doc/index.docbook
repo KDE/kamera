@@ -5,7 +5,7 @@
 ]>
 
 <article lang="&language;">
-<title><guilabel>Digital Camera</guilabel></title>
+<title>Digital Camera</title>
 <articleinfo>
 
 <authorgroup>
@@ -19,8 +19,8 @@
 <!-- TRANS:ROLES_OF_TRANSLATORS -->
 </authorgroup>
 
-<date>2008-10-12</date>
-<releaseinfo>&kde; 4.2</releaseinfo>
+<date>2010-06-23</date>
+<releaseinfo>&kde; 4.5</releaseinfo>
 
 <keywordset>
 <keyword>KDE</keyword>
