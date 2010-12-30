@@ -23,25 +23,24 @@
 
 #include "kamera.h"
 
-#include <qlabel.h>
-#include <qlayout.h>
+#include <QtGui/QLabel>
 #include <QtGui/QListView>
-#include <QStandardItemModel>
-//Added by qt3to4:
-#include <QVBoxLayout>
+#include <QtGui/QVBoxLayout>
 #include <QApplication>
-#include <kgenericfactory.h>
-#include <kconfig.h>
-#include <kaction.h>
-#include <kiconloader.h>
-#include <kmessagebox.h>
-#include <kdialog.h>
-#include <klocale.h>
-#include <ktoolbar.h>
-#include <kmenu.h>
-#include <kprotocolinfo.h>
-#include <kdebug.h>
-#include <kactioncollection.h>
+#include <QStandardItemModel>
+
+#include <KGenericFactory>
+#include <KConfig>
+#include <KAction>
+#include <KIcon>
+#include <KMessageBox>
+#include <KDialog>
+#include <KLocale>
+#include <KToolBar>
+#include <KMenu>
+#include <KProtocolInfo>
+#include <KDebug>
+#include <KActionCollection>
 
 #include "kameraconfigdialog.h"
 #include "kameradevice.h"
