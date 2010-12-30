@@ -25,16 +25,17 @@
 
 #include <qmap.h>
 #include <kdialog.h>
-#include <Q3ListViewItem>
+
 class KConfig;
 class QString;
-class K3ListView;
+class QListView;
 class QStackedWidget;
-class Q3VButtonGroup;
 class QComboBox;
 class QLineEdit;
 class QRadioButton;
 class QGroupBox;
+class QStandardItemModel;
+class QModelIndex;
 
 class KCamera : public QObject {
 	friend class KameraDeviceSelectDialog;
@@ -92,7 +93,7 @@ public:
 	void save();
 	void load();
 protected slots:
-	void slot_setModel(Q3ListViewItem *item);
+	void slot_setModel(const QModelIndex &index);
 	void slot_error(const QString &message);
 	void slot_error(const QString &message, const QString &details);
         void changeCurrentIndex();
@@ -103,7 +104,8 @@ protected:
 	void setPortType(int type);
 
 	// port settings widgets
-	K3ListView *m_modelSel;
+	QListView *m_modelSel;
+	QStandardItemModel *m_model;
 	QLineEdit *m_nameEdit;
 	QStackedWidget *m_settingsStack;
 	QGroupBox *m_portSelectGroup;
