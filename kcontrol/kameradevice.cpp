@@ -20,24 +20,20 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 */
-#include <qlayout.h>
-#include <QStackedWidget>
 
-#include <qcombobox.h>
+#include <QtGui/QComboBox>
 #include <QtGui/QGroupBox>
-#include <qlineedit.h>
+#include <QtGui/QHBoxLayout>
+#include <QtGui/QLabel>
 #include <QtGui/QListView>
-#include <qradiobutton.h>
+#include <QtGui/QRadioButton>
+#include <QtGui/QStackedWidget>
+#include <QtGui/QVBoxLayout>
 #include <QStandardItemModel>
 
-#include <qlabel.h>
-//Added by qt3to4:
-#include <QHBoxLayout>
-#include <QVBoxLayout>
-#include <klocale.h>
-#include <kconfig.h>
-#include <kmessagebox.h>
-#include <kdebug.h>
+#include <KLocale>
+#include <KConfig>
+#include <KMessageBox>
 
 extern "C" {
 	#include <gphoto2.h>
