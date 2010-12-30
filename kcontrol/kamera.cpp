@@ -20,8 +20,13 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 */
+
+#include "kamera.h"
+
 #include <qlabel.h>
 #include <qlayout.h>
+#include <QtGui/QListView>
+#include <QStandardItemModel>
 //Added by qt3to4:
 #include <QVBoxLayout>
 #include <QApplication>
@@ -30,7 +35,6 @@
 #include <kaction.h>
 #include <kiconloader.h>
 #include <kmessagebox.h>
-#include <k3iconview.h>
 #include <kdialog.h>
 #include <klocale.h>
 #include <ktoolbar.h>
@@ -41,8 +45,6 @@
 
 #include "kameraconfigdialog.h"
 #include "kameradevice.h"
-#include "kamera.h"
-#include "kamera.moc"
 
 K_PLUGIN_FACTORY(KKameraConfigFactory, registerPlugin<KKameraConfig>();)
 K_EXPORT_PLUGIN(KKameraConfigFactory("kcmkamera"))
@@ -109,17 +111,22 @@ void KKameraConfig::displayGPSuccessDialogue(void)
 	m_toolbar->setMovable(false);
 
 	// create list of devices
-	m_deviceSel = new K3IconView(this);
+	m_deviceSel = new QListView(this);
 	topLayout->addWidget(m_deviceSel);
 
-	connect(m_deviceSel, SIGNAL(rightButtonClicked(Q3IconViewItem *, const QPoint &)),
-		SLOT(slot_deviceMenu(Q3IconViewItem *, const QPoint &)));
-	connect(m_deviceSel, SIGNAL(doubleClicked(Q3IconViewItem *)),
-		SLOT(slot_configureCamera()));
-	connect(m_deviceSel, SIGNAL(selectionChanged(Q3IconViewItem *)),
-		SLOT(slot_deviceSelected(Q3IconViewItem *)));
+	m_deviceModel = new QStandardItemModel(this);
+	m_deviceSel->setModel(m_deviceModel);
 
+	connect(m_deviceSel, SIGNAL(customContextMenuRequested(const QPoint &)),
+		SLOT(slot_deviceMenu(const QPoint &)));
+	connect(m_deviceSel, SIGNAL(doubleClicked(const QModelIndex &)),
+		SLOT(slot_configureCamera()));
+	connect(m_deviceSel, SIGNAL(activated(const QModelIndex &)),
+		SLOT(slot_deviceSelected(const QModelIndex &)));
+
+	m_deviceSel->setViewMode(QListView::IconMode);
 	m_deviceSel->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
+	m_deviceSel->setContextMenuPolicy(Qt::CustomContextMenu);
 
 	// create actions
 	QAction *act;
@@ -169,14 +176,18 @@ void KKameraConfig::displayGPSuccessDialogue(void)
 
 void KKameraConfig::populateDeviceListView(void)
 {
-	m_deviceSel->clear();
-	CameraDevicesMap::Iterator it;
+	m_deviceModel->clear();
+	CameraDevicesMap::ConstIterator it;
 	for (it = m_devices.begin(); it != m_devices.end(); it++) {
 		if (it.value()) {
-			new Q3IconViewItem(m_deviceSel, it.key(), DesktopIcon("camera-photo"));
+			QStandardItem *deviceItem = new QStandardItem;
+			deviceItem->setEditable(false);
+			deviceItem->setText(it.key());
+			deviceItem->setIcon(KIcon("camera-photo"));
+			m_deviceModel->appendRow(deviceItem);
 		}
 	}
-	slot_deviceSelected(m_deviceSel->currentItem());
+	slot_deviceSelected(m_deviceSel->currentIndex());
 }
 
 void KKameraConfig::save(void)
@@ -280,7 +291,7 @@ void KKameraConfig::afterCameraOperation(void)
 
 	// if any item was selected before the operation was run
 	// it makes sense for the relevant toolbar buttons to be enabled
-	slot_deviceSelected(m_deviceSel->currentItem());
+	slot_deviceSelected(m_deviceSel->currentIndex());
 }
 
 QString KKameraConfig::suggestName(const QString &name)
@@ -319,9 +330,9 @@ void KKameraConfig::slot_addCamera()
 
 void KKameraConfig::slot_removeCamera()
 {
-	QString name = m_deviceSel->currentItem()->text();
+	const QString name = m_deviceSel->currentIndex().data(Qt::DisplayRole).toString();
 	if (m_devices.contains(name)) {
-		KCamera *m_device = m_devices[name];
+		KCamera *m_device = m_devices.value(name);
 		m_devices.remove(name);
 		delete m_device;
 		m_config->deleteGroup(name);
@@ -334,9 +345,9 @@ void KKameraConfig::slot_testCamera()
 {
 	beforeCameraOperation();
 
-	QString name = m_deviceSel->currentItem()->text();
+	const QString name = m_deviceSel->currentIndex().data(Qt::DisplayRole).toString();
 	if (m_devices.contains(name)) {
-		KCamera *m_device = m_devices[name];
+		KCamera *m_device = m_devices.value(name);
 		if (m_device->test())
 			KMessageBox::information(this, i18n("Camera test was successful."));
 	}
@@ -346,7 +357,7 @@ void KKameraConfig::slot_testCamera()
 
 void KKameraConfig::slot_configureCamera()
 {
-	QString name = m_deviceSel->currentItem()->text();
+	const QString name = m_deviceSel->currentIndex().data(Qt::DisplayRole).toString();
 	if (m_devices.contains(name)) {
 		KCamera *m_device = m_devices[name];
 		m_device->configure();
@@ -355,11 +366,10 @@ void KKameraConfig::slot_configureCamera()
 
 void KKameraConfig::slot_cameraSummary()
 {
-	QString summary;
-	QString name = m_deviceSel->currentItem()->text();
+	const QString name = m_deviceSel->currentIndex().data(Qt::DisplayRole).toString();
 	if (m_devices.contains(name)) {
 		KCamera *m_device = m_devices[name];
-		summary = m_device->summary();
+		QString summary = m_device->summary();
 		if (!summary.isNull()) {
 			KMessageBox::information(this, summary);
 		}
@@ -375,24 +385,26 @@ void KKameraConfig::slot_cancelOperation()
 	qApp->setOverrideCursor(Qt::WaitCursor);
 }
 
-void KKameraConfig::slot_deviceMenu(Q3IconViewItem *item, const QPoint &point)
+void KKameraConfig::slot_deviceMenu(const QPoint &point)
 {
-	if (item) {
+	QModelIndex index = m_deviceSel->indexAt(point);
+	if (index.isValid()) {
 		m_devicePopup->clear();
 		m_devicePopup->addAction(m_actions->action("camera_test"));
 		m_devicePopup->addAction(m_actions->action("camera_remove"));
 		m_devicePopup->addAction(m_actions->action("camera_configure"));
 		m_devicePopup->addAction(m_actions->action("camera_summary"));
-		m_devicePopup->popup(point);
+		m_devicePopup->exec(m_deviceSel->viewport()->mapToGlobal(point));
 	}
 }
 
-void KKameraConfig::slot_deviceSelected(Q3IconViewItem *item)
+void KKameraConfig::slot_deviceSelected(const QModelIndex &index)
 {
-	m_actions->action("camera_test")->setEnabled(item);
-	m_actions->action("camera_remove")->setEnabled(item);
-	m_actions->action("camera_configure")->setEnabled(item);
-	m_actions->action("camera_summary")->setEnabled(item);
+	bool isValid = index.isValid();
+	m_actions->action("camera_test")->setEnabled(isValid);
+	m_actions->action("camera_remove")->setEnabled(isValid);
+	m_actions->action("camera_configure")->setEnabled(isValid);
+	m_actions->action("camera_summary")->setEnabled(isValid);
 }
 
 void KKameraConfig::cbGPIdle(GPContext * /*context*/, void * /*data*/)
@@ -439,3 +451,4 @@ void KKameraConfig::slot_error(const QString &message, const QString &details)
 	KMessageBox::detailedError(this, message, details);
 }
 
+#include "kamera.moc"

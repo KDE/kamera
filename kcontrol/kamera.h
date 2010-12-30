@@ -29,12 +29,13 @@
 
 class QWidget;
 class QPushButton;
-class Q3IconViewItem;
+class QListView;
+class QStandardItemModel;
+class QModelIndex;
 
 class KCamera;
 class KameraDeviceSelectDialog;
 class KConfig;
-class K3IconView;
 class KActionCollection;
 class KToolBar;
 class KMenu;
@@ -59,8 +60,8 @@ protected:
 	QString suggestName(const QString &name);
 
 protected slots:
-	void slot_deviceMenu(Q3IconViewItem *item, const QPoint &point);
-	void slot_deviceSelected(Q3IconViewItem *item);
+	void slot_deviceMenu(const QPoint &point);
+	void slot_deviceSelected(const QModelIndex &index);
 	void slot_addCamera();
 	void slot_removeCamera();
 	void slot_configureCamera();
@@ -93,7 +94,8 @@ private:
 	GPContext *m_context;
 
 	// widgets for the cameras listview
-	K3IconView *m_deviceSel;
+	QListView *m_deviceSel;
+	QStandardItemModel *m_deviceModel;
 	KActionCollection *m_actions;
 	QPushButton *m_addCamera, *m_removeCamera, *m_testCamera, *m_configureCamera;
 	KToolBar *m_toolbar;
