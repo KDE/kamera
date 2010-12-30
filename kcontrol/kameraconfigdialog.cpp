@@ -21,7 +21,6 @@
 
 */
 #include <qlayout.h>
-#include <q3grid.h>
 #include <qlabel.h>
 #include <Q3GroupBox>
 #include <qcheckbox.h>
@@ -116,11 +115,16 @@ void KameraConfigDialog::appendWidget(QWidget *parent, CameraWidget *widget)
 		{
 			gp_widget_get_value(widget, &widget_value_string);
 
-			Q3Grid *grid = new Q3Grid(2, Qt::Horizontal, parent);
+			QWidget *grid = new QWidget(parent);
+			QGridLayout *gridLayout = new QGridLayout(grid);
+			gridLayout->setSpacing(spacingHint());
+			grid->setLayout(gridLayout);
 			parent->layout()->addWidget(grid);
-			grid->setSpacing(spacingHint());
-			new QLabel(QString::fromLocal8Bit( widget_label )+':', grid);
+			QLabel *label = new QLabel(QString::fromLocal8Bit( widget_label )+':', grid);
 			QLineEdit *lineEdit = new QLineEdit(widget_value_string, grid);
+
+			gridLayout->addWidget(label, 0, 0, Qt::AlignLeft);
+			gridLayout->addWidget(label, 0, 1, Qt::AlignRight);
 			m_wmap.insert(widget, lineEdit);
 
 			if (!whats_this.isEmpty())
