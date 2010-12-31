@@ -177,7 +177,7 @@ void KKameraConfig::populateDeviceListView(void)
 {
 	m_deviceModel->clear();
 	CameraDevicesMap::ConstIterator it;
-	for (it = m_devices.begin(); it != m_devices.end(); it++) {
+	for (it = m_devices.constBegin(); it != m_devices.constEnd(); ++it) {
 		if (it.value()) {
 			QStandardItem *deviceItem = new QStandardItem;
 			deviceItem->setEditable(false);
