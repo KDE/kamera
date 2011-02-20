@@ -1,4 +1,4 @@
-include(CheckCSourceCompiles)
+include(CheckCXXSourceCompiles)
 
 set(VA_COPY_TEST_SOURCE
 "
@@ -36,11 +36,11 @@ int main() {
 }
 ")
 
-check_c_source_compiles("${VA_COPY_TEST_SOURCE}" HAVE_VA_COPY)
+check_cxx_source_compiles("${VA_COPY_TEST_SOURCE}" HAVE_VA_COPY)
 if(HAVE_VA_COPY)
   set(VA_COPY va_copy CACHE STRING "va_copy function")
 else(HAVE_VA_COPY)
-  check_c_source_compiles("${__VA_COPY_TEST_SOURCE}" HAVE___VA_COPY)
+  check_cxx_source_compiles("${__VA_COPY_TEST_SOURCE}" HAVE___VA_COPY)
   if(HAVE___VA_COPY)
     set(VA_COPY __va_copy CACHE STRING "__va_copy function")
   else(HAVE___VA_COPY)
