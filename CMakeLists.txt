@@ -5,8 +5,6 @@ find_package(KDE4 REQUIRED)
 include(KDE4Defaults)
 include(MacroLibrary)
 include(MacroOptionalAddSubdirectory)
-include(MacroLibrary)
-include(MacroOptionalAddSubdirectory)
 
 
 macro_optional_find_package(Gphoto2)
