@@ -23,6 +23,7 @@ include(ConfigureChecks.cmake)
 
 add_subdirectory( kcontrol ) 
 add_subdirectory( kioslave ) 
+add_subdirectory( doc )
 
 install(FILES
   solid_camera.desktop
