@@ -7,7 +7,7 @@ include(MacroLibrary)
 include(MacroOptionalAddSubdirectory)
 
 
-macro_optional_find_package(Gphoto2)
+find_package(Gphoto2)
 macro_log_feature(GPHOTO2_FOUND "gphoto2" "A library and framework that lets you download images from several different digital camera models" "http://heanet.dl.sourceforge.net/sourceforge/gphoto" TRUE "" "Required to build the kamera project.")
 
 
