@@ -8,7 +8,7 @@ include(MacroOptionalAddSubdirectory)
 
 
 macro_optional_find_package(Gphoto2)
-macro_log_feature(GPHOTO2_FOUND "gphoto2" "A library and framework that lets you download images from several different digital camera models" "http://heanet.dl.sourceforge.net/sourceforge/gphoto" FALSE "" "Required to build the kamera project.")
+macro_log_feature(GPHOTO2_FOUND "gphoto2" "A library and framework that lets you download images from several different digital camera models" "http://heanet.dl.sourceforge.net/sourceforge/gphoto" TRUE "" "Required to build the kamera project.")
 
 
 configure_file(config-kamera.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kamera.h)
@@ -27,3 +27,4 @@ install(FILES
   solid_camera.desktop
   DESTINATION ${DATA_INSTALL_DIR}/solid/actions)
 
+macro_display_feature_log()
