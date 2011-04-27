@@ -8,7 +8,7 @@ include(MacroOptionalAddSubdirectory)
 
 
 find_package(Gphoto2)
-macro_log_feature(GPHOTO2_FOUND "gphoto2" "A library and framework that lets you download images from several different digital camera models" "http://heanet.dl.sourceforge.net/sourceforge/gphoto" TRUE "" "Required to build the kamera project.")
+macro_log_feature(GPHOTO2_FOUND "gphoto2" "Required to build kamera" "http://heanet.dl.sourceforge.net/sourceforge/gphoto" TRUE "" "")
 
 
 configure_file(config-kamera.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kamera.h)
