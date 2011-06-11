@@ -128,7 +128,7 @@ bool KCamera::initCamera()
 			m_camera = NULL;
 			emit error(
 				i18n("Unable to initialize camera. Check your port settings and camera connectivity and try again."),
-				QString::fromUtf8(gp_result_as_string(result)));
+				QString::fromLocal8Bit(gp_result_as_string(result)));
 			return false;
 		}
 
@@ -152,7 +152,7 @@ QString KCamera::summary()
 	result = gp_camera_get_summary(m_camera, &summary, glob_context);
 	if (result != GP_OK)
 		return i18n("No camera summary information is available.\n");
-	return QString(summary.text);
+	return QString::fromLocal8Bit(summary.text);
 }
 
 bool KCamera::configure()
@@ -164,7 +164,7 @@ bool KCamera::configure()
 
 	result = gp_camera_get_config(m_camera, &window, glob_context);
 	if (result != GP_OK) {
-		emit error(i18n("Camera configuration failed."), QString::fromUtf8(gp_result_as_string(result)));
+		emit error(i18n("Camera configuration failed."), QString::fromLocal8Bit(gp_result_as_string(result)));
 		return false;
 	}
 
@@ -174,7 +174,7 @@ bool KCamera::configure()
 	if (result == GP_PROMPT_OK) {
 		result = gp_camera_set_config(m_camera, window, glob_context);
 		if (result != GP_OK) {
-			emit error(i18n("Camera configuration failed."), QString::fromUtf8(gp_result_as_string(result)));
+			emit error(i18n("Camera configuration failed."), QString::fromLocal8Bit(gp_result_as_string(result)));
 			return false;
 		}
 	}
@@ -374,7 +374,7 @@ KameraDeviceSelectDialog::KameraDeviceSelectDialog(QWidget *parent, KCamera *dev
 	for (int i = 0; i < gphoto_ports; i++) {
 		if (gp_port_info_list_get_info(list, i, &info) >= 0) {
 			if (strncmp(info.path, "serial:", 7) == 0)
-				m_serialPortCombo->addItem(QString::fromLatin1(info.path).mid(7));
+				m_serialPortCombo->addItem(QString::fromLocal8Bit(info.path).mid(7));
 		}
 	}
 	gp_port_info_list_free(list);

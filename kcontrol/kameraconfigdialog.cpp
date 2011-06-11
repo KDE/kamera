@@ -87,7 +87,7 @@ void KameraConfigDialog::appendWidget(QWidget *parent, CameraWidget *widget)
 	switch(widget_type) {
 	case GP_WIDGET_WINDOW:
 		{
-			setCaption(widget_label);
+			setCaption(QString::fromLocal8Bit(widget_label));
 
 			break;
 		}
@@ -101,7 +101,7 @@ void KameraConfigDialog::appendWidget(QWidget *parent, CameraWidget *widget)
 			// widgets are to be aligned vertically in the tab
 			QVBoxLayout *tabLayout = new QVBoxLayout(tab, marginHint(),
 				spacingHint());
-			m_tabWidget->insertTab(tab, widget_label);
+			m_tabWidget->insertTab(tab, QString::fromLocal8Bit(widget_label));
 			KVBox *tabContainer = new KVBox(tab);
 			tabContainer->setSpacing(spacingHint());
 			tabLayout->addWidget(tabContainer);
@@ -140,7 +140,7 @@ void KameraConfigDialog::appendWidget(QWidget *parent, CameraWidget *widget)
 			gp_widget_get_range(widget, &widget_low, &widget_high, &widget_increment);
 			gp_widget_get_value(widget, &widget_value_float);
 
-			Q3GroupBox *groupBox = new Q3GroupBox(1, Qt::Horizontal,widget_label, parent);
+			Q3GroupBox *groupBox = new Q3GroupBox(1, Qt::Horizontal,QString::fromLocal8Bit(widget_label), parent);
 			parent->layout()->addWidget(groupBox);
 			QSlider *slider = new QSlider(
 				( int )widget_low,
@@ -160,7 +160,7 @@ void KameraConfigDialog::appendWidget(QWidget *parent, CameraWidget *widget)
 		{
 			gp_widget_get_value(widget, &widget_value_int);
 
-			QCheckBox *checkBox = new QCheckBox(widget_label, parent);
+			QCheckBox *checkBox = new QCheckBox(QString::fromLocal8Bit(widget_label), parent);
 			parent->layout()->addWidget(checkBox);
 			checkBox->setChecked(widget_value_int);
 			m_wmap.insert(widget, checkBox);
@@ -179,9 +179,9 @@ void KameraConfigDialog::appendWidget(QWidget *parent, CameraWidget *widget)
 			// for less than 5 options, align them horizontally
 			Q3ButtonGroup *buttonGroup;
 			if (count > 4)
-				buttonGroup = new Q3VButtonGroup(widget_label, parent);
+				buttonGroup = new Q3VButtonGroup(QString::fromLocal8Bit(widget_label), parent);
 			else
-				buttonGroup = new Q3HButtonGroup(widget_label, parent);
+				buttonGroup = new Q3HButtonGroup(QString::fromLocal8Bit(widget_label), parent);
 			parent->layout()->addWidget(buttonGroup);
 
 			for(int i = 0; i < count; ++i) {
