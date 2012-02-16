@@ -74,6 +74,7 @@ Comment[zh_CN]=配置 Kamera
 Comment[zh_HK]=設定 Kamera
 Comment[zh_TW]=設定照相機
 X-KDE-Keywords=gphoto,camera,digicam,webcam,kamera
+X-KDE-Keywords[ar]=كاميرا,ويبكام,gphoto,camera,digicam,webcam,kamera
 X-KDE-Keywords[ca]=gphoto,càmera,digicam,webcam,kamera
 X-KDE-Keywords[ca@valencia]=gphoto,càmera,digicam,webcam,kamera
 X-KDE-Keywords[da]=gphoto,kamera,digicam,webcam,digitalkamera
