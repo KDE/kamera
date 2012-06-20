@@ -610,9 +610,11 @@ void KameraProtocol::listDir(const KUrl &yurl)
 			/* Save them, even though we can autodetect them for
 			 * offline listing.
 			 */
+#if 0
 			KConfigGroup cg(m_config, model);
 			cg.writeEntry("Model", model);
 			cg.writeEntry("Path", value);
+#endif
 			modelcnt[model]++;
 		}
 		gp_list_free (list);
@@ -629,26 +631,18 @@ void KameraProtocol::listDir(const KUrl &yurl)
 			KConfigGroup cg(m_config, *it);
 			m_cfgPath = cg.readEntry("Path");
 
-			/* If autodetect by USB autodetect ... skip it here.
-			 * We leave unattached USB cameras in here, because the user
-			 * might plug them in later and does not want to press reload.
-			 * We add them with port "usb:".
-			 */
-			if (modelcnt[*it] > 0)
+			// we autodetected those ...
+			if (m_cfgPath.contains(QString("usb:"))) {
+				cg.deleteGroup();
 				continue;
+			}
 
 			QString xname;
 
 			entry.clear();
 			entry.insert(KIO::UDSEntry::UDS_FILE_TYPE,S_IFDIR);
 			entry.insert(KIO::UDSEntry::UDS_ACCESS,(S_IRUSR | S_IRGRP | S_IROTH |S_IWUSR | S_IWGRP | S_IWOTH));
-			/* Avoid setting usb:xxx,yyy. */
-			if (m_cfgPath.contains("usb:")>0) {
-				xname = (*it)+"@"+"usb:";
-				names[*it] = "usb:";
-			} else {
-				xname = (*it)+"@"+m_cfgPath;
-			}
+			xname = (*it)+"@"+m_cfgPath;
 			entry.insert(KIO::UDSEntry::UDS_NAME,path_quote(xname));
 			// do not confuse regular users with the @usb... 
 			entry.insert(KIO::UDSEntry::UDS_DISPLAY_NAME,*it);
