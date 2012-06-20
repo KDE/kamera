@@ -3,6 +3,7 @@
     Copyright (C) 2001 The Kompany
 		  2001-2003	Ilya Konstantinov <kde-devel@future.shiny.co.il>
 		  2001-2008	Marcus Meissner <marcus@jet.franken.de>
+		  2012		Marcus Meissner <marcus@jet.franken.de>
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -85,6 +86,9 @@ int kdemain(int argc, char **argv)
 
 	return 0;
 }
+
+static QString path_quote(QString path)   { return path.replace("/","%2F").replace(" ","%20"); }
+static QString path_unquote(QString path) { return path.replace("%2F","/").replace("%20"," "); }
 
 KameraProtocol::KameraProtocol(const QByteArray &pool, const QByteArray &app)
 : SlaveBase("camera", pool, app),
@@ -405,19 +409,19 @@ void KameraProtocol::split_url2camerapath(QString url,
 	components	= url.split('/', QString::SkipEmptyParts);
 	if (components.size() == 0)
 		return;
-	cam		= components.takeFirst();
+	cam		= path_unquote(components.takeFirst());
 	if (!cam.isEmpty()) {
 		camarr		= cam.split('@');
-		camera		= camarr.takeFirst();
-		port		= camarr.takeLast();
+		camera		= path_unquote(camarr.takeFirst());
+		port		= path_unquote(camarr.takeLast());
 		setCamera (camera, port);
 	}
 	if (components.size() == 0)  {
 		directory = "/";
 		return;
 	}
-	file		= components.takeLast();
-	directory 	= "/"+components.join("/");
+	file		= path_unquote(components.takeLast());
+	directory 	= path_unquote("/"+components.join("/"));
 }
 
 // Implements a regular stat() of a file / directory, returning all we know about it
@@ -440,10 +444,10 @@ void KameraProtocol::statRegular(const KUrl &xurl)
 		KIO::UDSEntry entry;
 
 		QString xname = current_camera + "@" + current_port;
-		entry.insert( KIO::UDSEntry::UDS_NAME, xname);
+		entry.insert( KIO::UDSEntry::UDS_NAME, path_quote(xname));
 		entry.insert( KIO::UDSEntry::UDS_DISPLAY_NAME, current_camera);
-		entry.insert(KIO::UDSEntry::UDS_FILE_TYPE,S_IFDIR);
-		entry.insert(KIO::UDSEntry::UDS_ACCESS,(S_IRUSR | S_IRGRP | S_IROTH));
+		entry.insert( KIO::UDSEntry::UDS_FILE_TYPE,S_IFDIR);
+		entry.insert( KIO::UDSEntry::UDS_ACCESS,(S_IRUSR | S_IRGRP | S_IROTH));
 		statEntry(entry);
 		finished();
 		return;
@@ -645,7 +649,7 @@ void KameraProtocol::listDir(const KUrl &yurl)
 			} else {
 				xname = (*it)+"@"+m_cfgPath;
 			}
-			entry.insert(KIO::UDSEntry::UDS_NAME,xname);
+			entry.insert(KIO::UDSEntry::UDS_NAME,path_quote(xname));
 			// do not confuse regular users with the @usb... 
 			entry.insert(KIO::UDSEntry::UDS_DISPLAY_NAME,*it);
 			listEntry(entry, false);
@@ -658,7 +662,7 @@ void KameraProtocol::listDir(const KUrl &yurl)
 			entry.insert(KIO::UDSEntry::UDS_FILE_TYPE,S_IFDIR);
 			// do not confuse regular users with the @usb... 
 			entry.insert(KIO::UDSEntry::UDS_DISPLAY_NAME,portsit.value());
-			entry.insert(KIO::UDSEntry::UDS_NAME, portsit.value()+"@"+portsit.key());
+			entry.insert(KIO::UDSEntry::UDS_NAME, path_quote(portsit.value()+"@"+portsit.key()));
 
 			entry.insert(KIO::UDSEntry::UDS_ACCESS,(S_IRUSR | S_IRGRP | S_IROTH |S_IWUSR | S_IWGRP | S_IWOTH));
 			listEntry(entry, false);
@@ -864,7 +868,9 @@ void KameraProtocol::translateTextToUDS(KIO::UDSEntry &udsEntry, const QString &
 
 	udsEntry.insert(KIO::UDSEntry::UDS_FILE_TYPE,S_IFREG);
 
-	udsEntry.insert(KIO::UDSEntry::UDS_NAME,fn);
+	udsEntry.insert(KIO::UDSEntry::UDS_NAME,path_quote(fn));
+
+	udsEntry.insert(KIO::UDSEntry::UDS_DISPLAY_NAME,fn);
 
 	udsEntry.insert(KIO::UDSEntry::UDS_SIZE,strlen(text));
 
@@ -878,7 +884,8 @@ void KameraProtocol::translateFileToUDS(KIO::UDSEntry &udsEntry, const CameraFil
 	udsEntry.clear();
 
 	udsEntry.insert(KIO::UDSEntry::UDS_FILE_TYPE,S_IFREG);
-	udsEntry.insert(KIO::UDSEntry::UDS_NAME,name);
+	udsEntry.insert(KIO::UDSEntry::UDS_NAME,path_quote(name));
+	udsEntry.insert(KIO::UDSEntry::UDS_DISPLAY_NAME,name);
 
 	if (info.file.fields & GP_FILE_INFO_SIZE) {
 		udsEntry.insert(KIO::UDSEntry::UDS_SIZE,info.file.size);
@@ -909,7 +916,8 @@ void KameraProtocol::translateDirectoryToUDS(KIO::UDSEntry &udsEntry, const QStr
 	udsEntry.clear();
 
 	udsEntry.insert(KIO::UDSEntry::UDS_FILE_TYPE,S_IFDIR);
-	udsEntry.insert(KIO::UDSEntry::UDS_NAME,dirname);
+	udsEntry.insert(KIO::UDSEntry::UDS_NAME,path_quote(dirname));
+	udsEntry.insert(KIO::UDSEntry::UDS_DISPLAY_NAME, dirname);
 	udsEntry.insert(KIO::UDSEntry::UDS_ACCESS,S_IRUSR | S_IRGRP | S_IROTH |S_IWUSR | S_IWGRP | S_IWOTH | S_IXUSR | S_IXOTH | S_IXGRP);
         udsEntry.insert(KIO::UDSEntry::UDS_MIME_TYPE, QString("inode/directory"));
 }
