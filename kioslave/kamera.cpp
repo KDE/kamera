@@ -60,11 +60,19 @@ extern "C"
 {
 	KDE_EXPORT int kdemain(int argc, char **argv);
 
+#ifdef HAVE_GPHOTO2_5
+	static void frontendCameraStatus(GPContext *context, const char *status, void *data);
+	static unsigned int frontendProgressStart(
+		GPContext *context, float totalsize, const char *status,
+		void *data
+	);
+#else
 	static void frontendCameraStatus(GPContext *context, const char *format, va_list args, void *data);
 	static unsigned int frontendProgressStart(
 		GPContext *context, float totalsize, const char *format,
 		va_list args, void *data
 	);
+#endif
 	static void frontendProgressUpdate(
 		GPContext *context, unsigned int id, float current, void *data
 	);
@@ -814,13 +822,13 @@ void KameraProtocol::setCamera(const QString& camera, const QString& port)
 			return;
 		}
 		gp_port_info_list_get_info(port_info_list, idx, &port_info);
-		gp_port_info_list_free(port_info_list);
 
 		current_camera	= camera;
 		current_port	= port;
 		// create a new camera object
 		gpr = gp_camera_new(&m_camera);
 		if(gpr != GP_OK) {
+			gp_port_info_list_free(port_info_list);
 			error(KIO::ERR_UNKNOWN, QString::fromLocal8Bit(gp_result_as_string(gpr)));
 			return;
 		}
@@ -835,6 +843,8 @@ void KameraProtocol::setCamera(const QString& camera, const QString& port)
 		gp_camera_set_port_info(m_camera, port_info);
 		gp_camera_set_port_speed(m_camera, 0); // TODO: the value needs to be configurable
 		kDebug(7123) << "Opening camera model " << camera << " at " << port;
+
+		gp_port_info_list_free(port_info_list);
 
 		QString errstr;
 		if (!openCamera(errstr)) {
@@ -974,10 +984,16 @@ void frontendProgressUpdate(
 }
 
 unsigned int frontendProgressStart(
-	GPContext * /*context*/, float totalsize, const char *format, va_list args,
+	GPContext * /*context*/, float totalsize,
+#ifdef HAVE_GPHOTO2_5
+	const char *status,
+#else
+	const char *format, va_list args,
+#endif
 	void *data
 ) {
 	KameraProtocol *object = (KameraProtocol*)data;
+#ifndef HAVE_GPHOTO2_5
 	char *status;
 
 	/* We must copy the va_list to walk it twice, or all hell
@@ -1011,14 +1027,26 @@ unsigned int frontendProgressStart(
 
 	object->infoMessage(QString::fromLocal8Bit(status));
 	delete [] status;
+#else
+	/* libgphoto2 2.5 has resolved this already, no need for print */
+	object->infoMessage(QString::fromLocal8Bit(status));
+#endif
 	object->totalSize((int)totalsize); // hack: call slot directly
 	return GP_OK;
 }
 
 // this callback function is activated on every status message from gphoto2
-static void frontendCameraStatus(GPContext * /*context*/, const char *format, va_list args, void *data)
-{
+static void frontendCameraStatus(
+	GPContext * /*context*/,
+#ifdef HAVE_GPHOTO2_5
+	const char *status,
+#else
+	const char *format, va_list args,
+#endif
+	void *data
+) {
 	KameraProtocol *object = (KameraProtocol*)data;
+#ifndef HAVE_GPHOTO2_5
 	char *status;
 
 	/* We must copy the va_list to walk it twice, or all hell
@@ -1051,4 +1079,7 @@ static void frontendCameraStatus(GPContext * /*context*/, const char *format, va
 #endif
 	object->infoMessage(QString::fromLocal8Bit(status));
 	delete [] status;
+#else
+	object->infoMessage(QString::fromLocal8Bit(status));
+#endif
 }

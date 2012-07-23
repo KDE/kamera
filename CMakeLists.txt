@@ -11,6 +11,15 @@ include(MacroOptionalAddSubdirectory)
 find_package(Gphoto2)
 macro_log_feature(GPHOTO2_FOUND "gphoto2" "Required to build kamera" "http://heanet.dl.sourceforge.net/sourceforge/gphoto" TRUE "" "")
 
+check_library_exists(gphoto2_port gp_port_info_get_name "" GPHOTO2_5)
+if(GPHOTO2_5)
+    message(STATUS "Found libgphoto 2.5")
+else(GPHOTO2_5)
+    message(STATUS "libgphoto 2.5 not found, assuming libgphoto2 2.4")
+endif(GPHOTO2_5)
+set(HAVE_GPHOTO2_5 ${GPHOTO2_5})
+
+
 
 configure_file(config-kamera.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kamera.h)
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
