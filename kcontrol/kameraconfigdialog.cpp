@@ -100,7 +100,7 @@ void KameraConfigDialog::appendWidget(QWidget *parent, CameraWidget *widget)
 			// widgets are to be aligned vertically in the tab
 			QVBoxLayout *tabLayout = new QVBoxLayout(tab, marginHint(),
 				spacingHint());
-			m_tabWidget->insertTab(tab, QString::fromLocal8Bit(widget_label));
+			m_tabWidget->addTab(tab, QString::fromLocal8Bit(widget_label));
 			KVBox *tabContainer = new KVBox(tab);
 			tabContainer->setSpacing(spacingHint());
 			tabLayout->addWidget(tabContainer);
@@ -141,13 +141,11 @@ void KameraConfigDialog::appendWidget(QWidget *parent, CameraWidget *widget)
 
 			Q3GroupBox *groupBox = new Q3GroupBox(1, Qt::Horizontal,QString::fromLocal8Bit(widget_label), parent);
 			parent->layout()->addWidget(groupBox);
-			QSlider *slider = new QSlider(
-				( int )widget_low,
-				( int )widget_high,
-				( int )widget_increment,
-				( int )widget_value_float,
-				Qt::Horizontal,
-				groupBox );
+			QSlider *slider = new QSlider(Qt::Horizontal, groupBox);
+			slider->setMinimum((int)widget_low);
+			slider->setMaximum((int)widget_high);
+			slider->setPageStep((int)widget_increment);
+			slider->setValue((int)widget_value_float);
 			m_wmap.insert(widget, slider);
 
 			if (!whats_this.isEmpty())
@@ -209,9 +207,9 @@ void KameraConfigDialog::appendWidget(QWidget *parent, CameraWidget *widget)
 				const char *widget_choice;
 				gp_widget_get_choice(widget, i, &widget_choice);
 
-				comboBox->insertItem(widget_choice);
+				comboBox->addItem(widget_choice);
 				if(!strcmp(widget_value_string, widget_choice))
-					comboBox->setCurrentItem(i);
+					comboBox->setCurrentIndex(i);
 			}
 			m_wmap.insert(widget, comboBox);
 
