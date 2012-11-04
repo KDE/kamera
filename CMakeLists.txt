@@ -1,7 +1,5 @@
 project(kamera)
 
-add_definitions (-DQT3_SUPPORT -DQT3_SUPPORT_WARNINGS)
-
 find_package(KDE4 REQUIRED)
 include(KDE4Defaults)
 include(MacroLibrary)
