@@ -55,7 +55,6 @@ KameraConfigDialog::KameraConfigDialog(Camera */*camera*/,
     QFrame *main = new QFrame( this );
     setMainWidget( main );
     QVBoxLayout *topLayout = new QVBoxLayout(main);
-    topLayout->setSpacing(spacingHint());
     topLayout->setMargin(0);
 
     m_tabWidget = 0;
@@ -98,11 +97,9 @@ void KameraConfigDialog::appendWidget(QWidget *parent, CameraWidget *widget)
 			}
 			QWidget *tab = new QWidget(m_tabWidget);
 			// widgets are to be aligned vertically in the tab
-			QVBoxLayout *tabLayout = new QVBoxLayout(tab, marginHint(),
-				spacingHint());
+			QVBoxLayout *tabLayout = new QVBoxLayout(tab);
 			m_tabWidget->addTab(tab, QString::fromLocal8Bit(widget_label));
 			KVBox *tabContainer = new KVBox(tab);
-			tabContainer->setSpacing(spacingHint());
 			tabLayout->addWidget(tabContainer);
 			newParent = tabContainer;
 
@@ -116,7 +113,6 @@ void KameraConfigDialog::appendWidget(QWidget *parent, CameraWidget *widget)
 
 			QWidget *grid = new QWidget(parent);
 			QGridLayout *gridLayout = new QGridLayout(grid);
-			gridLayout->setSpacing(spacingHint());
 			grid->setLayout(gridLayout);
 			parent->layout()->addWidget(grid);
 			QLabel *label = new QLabel(QString::fromLocal8Bit( widget_label )+':', grid);
