@@ -44,8 +44,7 @@
 
 KameraConfigDialog::KameraConfigDialog(Camera */*camera*/,
 					CameraWidget *widget,
-					QWidget *parent,
-					const char *name) :
+					QWidget *parent) :
     KDialog(parent),
     m_widgetRoot(widget)
 {

@@ -36,7 +36,7 @@ class KameraConfigDialog : public KDialog
 	Q_OBJECT
 public:
 	KameraConfigDialog(Camera *camera, CameraWidget *widget,
-			   QWidget *parent = 0, const char *name = 0);
+			   QWidget *parent = 0);
 
 private slots:
 	void slotOk();
