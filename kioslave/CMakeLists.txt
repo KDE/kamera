@@ -1,8 +1,4 @@
 
-
-include_directories(${GPHOTO2_INCLUDE_DIRS})
-
-
 ########### next target ###############
 
 set(kio_kamera_PART_SRCS kamera.cpp )
