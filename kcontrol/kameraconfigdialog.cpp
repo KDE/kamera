@@ -73,7 +73,7 @@ void KameraConfigDialog::appendWidget(QWidget *parent, CameraWidget *widget)
 	const char *widget_label;
 	float widget_value_float;
 	int widget_value_int;
-	const char *widget_value_string;
+	const char *widget_value_string = NULL;
 	gp_widget_get_type(widget, &widget_type);
 	gp_widget_get_label(widget, &widget_label);
 	gp_widget_get_info(widget, &widget_info);
@@ -182,7 +182,7 @@ void KameraConfigDialog::appendWidget(QWidget *parent, CameraWidget *widget)
 				gp_widget_get_choice(widget, i, &widget_choice);
 
 				new QRadioButton(widget_choice, buttonGroup);
-				if(!strcmp(widget_value_string, widget_choice))
+				if(widget_value_string && !strcmp(widget_value_string, widget_choice))
 					buttonGroup->setButton(i);
 			}
 			m_wmap.insert(widget, buttonGroup);
@@ -204,7 +204,7 @@ void KameraConfigDialog::appendWidget(QWidget *parent, CameraWidget *widget)
 				gp_widget_get_choice(widget, i, &widget_choice);
 
 				comboBox->addItem(widget_choice);
-				if(!strcmp(widget_value_string, widget_choice))
+				if(widget_value_string && !strcmp(widget_value_string, widget_choice))
 					comboBox->setCurrentIndex(i);
 			}
 			m_wmap.insert(widget, comboBox);
