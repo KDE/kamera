@@ -104,8 +104,6 @@ private:
 	// true if libgphoto2 was initialised successfully in
 	// the constructor
 	bool m_gpInitialised;
-
-	static KKameraConfig *m_instance;
 };
 
 #endif

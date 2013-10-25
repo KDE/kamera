@@ -50,8 +50,6 @@ K_EXPORT_PLUGIN(KKameraConfigFactory("kcmkamera"))
 
 // --------------- Camera control center module widget ---
 
-KKameraConfig *KKameraConfig::m_instance = NULL;
-
 KKameraConfig::KKameraConfig(QWidget *parent, const QVariantList &)
 	: KCModule(KKameraConfigFactory::componentData(), parent/*, name*/)
 {
@@ -72,9 +70,6 @@ KKameraConfig::KKameraConfig(QWidget *parent, const QVariantList &)
 
 		displayGPFailureDialogue();
 	}
-
-	// store instance for frontend_prompt
-	m_instance = this;
 }
 
 KKameraConfig::~KKameraConfig()
