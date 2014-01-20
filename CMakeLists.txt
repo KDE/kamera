@@ -17,7 +17,7 @@ check_symbol_exists(gp_port_info_get_name "gphoto2.h" HAVE_GPHOTO2_5)
 cmake_pop_check_state()
 
 if(HAVE_GPHOTO2_5)
-    message(STATUS "Detected libgphoto 2.5.0 or newer")
+    message(STATUS "Detected libgphoto2 2.5.0 or newer")
 else()
     message(STATUS "Detected libgphoto2 2.4 or older")
 endif()
