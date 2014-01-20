@@ -1,26 +1,28 @@
 project(kamera)
 
 find_package(KDE4 REQUIRED)
+include(CMakePushCheckState)
+include(CheckSymbolExists)
 include(KDE4Defaults)
 include(MacroLibrary)
 include(MacroOptionalAddSubdirectory)
-include(CheckLibraryExists)
-
 
 find_package(Gphoto2)
 macro_log_feature(GPHOTO2_FOUND "gphoto2" "Required to build kamera" "http://heanet.dl.sourceforge.net/sourceforge/gphoto" TRUE "" "")
 
-check_library_exists(gphoto2_port gp_port_info_get_name "" GPHOTO2_5)
-if(GPHOTO2_5)
-    message(STATUS "Found libgphoto 2.5")
-else(GPHOTO2_5)
-    message(STATUS "libgphoto 2.5 not found, assuming libgphoto2 2.4")
-endif(GPHOTO2_5)
-set(HAVE_GPHOTO2_5 ${GPHOTO2_5})
+cmake_push_check_state()
+set(CMAKE_REQUIRED_INCLUDES "${GPHOTO2_INCLUDE_DIR}")
+set(CMAKE_REQUIRED_LIBRARIES "${GPHOTO2_LIBRARIES}")
+check_symbol_exists(gp_port_info_get_name "gphoto2.h" HAVE_GPHOTO2_5)
+cmake_pop_check_state()
+
+if(HAVE_GPHOTO2_5)
+    message(STATUS "Detected libgphoto 2.5.0 or newer")
+else()
+    message(STATUS "Detected libgphoto2 2.4 or older")
+endif()
 
 include(ConfigureChecks.cmake)
-
-
 
 configure_file(config-kamera.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kamera.h)
 
