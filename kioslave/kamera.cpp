@@ -717,7 +717,7 @@ void KameraProtocol::listDir(const KUrl &yurl)
 		gp_list_free(dirList);
 		gp_list_free(fileList);
 		gp_list_free(specialList);
-		error(KIO::ERR_COULD_NOT_READ, QString::fromLocal8Bit(gp_result_as_string(gpr)));
+		error(KIO::ERR_SLAVE_DEFINED, i18n("Could not read. Reason: %1", QString::fromLocal8Bit(gp_result_as_string(gpr))));
 		return;
 	}
 
