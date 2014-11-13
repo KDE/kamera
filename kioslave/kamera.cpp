@@ -1031,7 +1031,7 @@ unsigned int frontendProgressStart(
 	/* libgphoto2 2.5 has resolved this already, no need for print */
 	object->infoMessage(QString::fromLocal8Bit(status));
 #endif
-	object->totalSize((int)totalsize); // hack: call slot directly
+	object->totalSize((KIO::filesize_t)totalsize); // hack: call slot directly
 	return GP_OK;
 }
 

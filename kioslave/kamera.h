@@ -41,8 +41,8 @@ public:
 	virtual void special(const QByteArray &data);
 
         CameraFile *getFile() { return m_file; }
-        int getFileSize() { return m_fileSize; }
-        void setFileSize(int newfs) { m_fileSize = newfs; }
+        KIO::filesize_t getFileSize() { return m_fileSize; }
+        void setFileSize(KIO::filesize_t newfs) { m_fileSize = newfs; }
 
 private:
 	Camera *m_camera;
@@ -75,7 +75,7 @@ private:
 	QString m_lockfile;
 	int     idletime;
 
-	int m_fileSize;
+	KIO::filesize_t m_fileSize;
 	CameraFile *m_file;
 	bool actiondone, cameraopen;
 };
