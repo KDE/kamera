@@ -3,11 +3,18 @@
 
 set(kcm_kamera_PART_SRCS kamera.cpp kameradevice.cpp kameraconfigdialog.cpp )
 
+add_library(kcm_kamera MODULE ${kcm_kamera_PART_SRCS})
 
-kde4_add_plugin(kcm_kamera ${kcm_kamera_PART_SRCS})
+include_directories(${GPHOTO2_INCLUDE_DIRS} ${CMAKE_BINARY_DIR})
 
-
-target_link_libraries(kcm_kamera ${KDE4_KDEUI_LIBS} ${QT_QT3SUPPORT_LIBRARY} ${GPHOTO2_LIBRARIES})
+target_link_libraries(kcm_kamera
+    KF5::ConfigWidgets
+    KF5::XmlGui
+    KF5::KIOCore
+    KF5::I18n
+    KF5::ConfigCore
+    ${GPHOTO2_LIBRARIES}
+    )
 
 install(TARGETS kcm_kamera  DESTINATION ${PLUGIN_INSTALL_DIR} )
 
@@ -15,4 +22,3 @@ install(TARGETS kcm_kamera  DESTINATION ${PLUGIN_INSTALL_DIR} )
 ########### install files ###############
 
 install( FILES kamera.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} )
-

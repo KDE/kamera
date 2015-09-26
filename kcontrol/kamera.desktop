@@ -209,6 +209,6 @@ X-KDE-ParentApp=kcontrol
 X-KDE-System-Settings-Parent-Category=hardware
 X-KDE-ModuleType=Library
 Icon=camera-photo
-Exec=kcmshell4 kamera
+Exec=kcmshell5 kamera
 X-DocPath=kcontrol/kamera/index.html
 Categories=Qt;KDE;X-KDE-settings-hardware;

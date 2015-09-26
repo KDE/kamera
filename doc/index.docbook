@@ -1,11 +1,11 @@
 <?xml version="1.0" ?>
-<!DOCTYPE article PUBLIC "-//KDE//DTD DocBook XML V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd" [
+<!DOCTYPE article PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
   <!ENTITY % addindex "IGNORE">
   <!ENTITY % English "INCLUDE">
 ]>
 
 <article id="kamera" lang="&language;">
-<title>Digital Camera</title>
+<title>&kamera; : Digital Camera</title>
 <articleinfo>
 
 <authorgroup>
@@ -19,8 +19,8 @@
 <!-- TRANS:ROLES_OF_TRANSLATORS -->
 </authorgroup>
 
-<date>2013-12-05</date>
-<releaseinfo>&kde; 4.12</releaseinfo>
+<date>2015-09-16</date>
+<releaseinfo>Applications 15.12</releaseinfo>
 
 <keywordset>
 <keyword>KDE</keyword>

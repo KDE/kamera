@@ -1,9 +1,9 @@
 /*
 
     Copyright (C) 2001 The Kompany
-		  2002-2003	Ilya Konstantinov <kde-devel@future.shiny.co.il>
-		  2002-2003	Marcus Meissner <marcus@jet.franken.de>
-		  2003		Nadeem Hasan <nhasan@nadmm.com>
+          2002-2003	Ilya Konstantinov <kde-devel@future.shiny.co.il>
+          2002-2003	Marcus Meissner <marcus@jet.franken.de>
+          2003		Nadeem Hasan <nhasan@nadmm.com>
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -23,31 +23,31 @@
 #ifndef __kameraconfigdialog_h__
 #define __kameraconfigdialog_h__
 
-#include <qmap.h>
-#include <kdialog.h>
-#include <qtabwidget.h>
+#include <QMap>
+#include <QDialog>
+#include <QTabWidget>
 
 extern "C" {
-	#include <gphoto2.h>
+    #include <gphoto2.h>
 }
 
-class KameraConfigDialog : public KDialog
+class KameraConfigDialog : public QDialog
 {
-	Q_OBJECT
+    Q_OBJECT
 public:
-	KameraConfigDialog(Camera *camera, CameraWidget *widget,
-			   QWidget *parent = 0);
+    KameraConfigDialog(Camera *camera, CameraWidget *widget,
+               QWidget *parent = 0);
 
-private slots:
-	void slotOk();
+private Q_SLOTS:
+    void slotOk();
 
 private:
-	void appendWidget(QWidget *parent, CameraWidget *widget);
-	void updateWidgetValue(CameraWidget *widget);
-	
-	QMap<CameraWidget *, QWidget *> m_wmap;
-	CameraWidget *m_widgetRoot;
-	QTabWidget *m_tabWidget;
+    void appendWidget(QWidget *parent, CameraWidget *widget);
+    void updateWidgetValue(CameraWidget *widget);
+
+    QMap<CameraWidget *, QWidget *> m_wmap;
+    CameraWidget *m_widgetRoot;
+    QTabWidget *m_tabWidget;
 };
 
 #endif

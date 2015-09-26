@@ -1,9 +1,9 @@
 /*
 
     Copyright (C) 2001 The Kompany
-		  2002-2003	Ilya Konstantinov <kde-devel@future.shiny.co.il>
-		  2002-2003	Marcus Meissner <marcus@jet.franken.de>
-		  2003		Nadeem Hasan <nhasan@nadmm.com>
+          2002-2003	Ilya Konstantinov <kde-devel@future.shiny.co.il>
+          2002-2003	Marcus Meissner <marcus@jet.franken.de>
+          2003		Nadeem Hasan <nhasan@nadmm.com>
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -23,8 +23,8 @@
 #ifndef __kameradevice_h__
 #define __kameradevice_h__
 
-#include <qmap.h>
-#include <kdialog.h>
+#include <QDialog>
+#include <QWidget>
 
 class KConfig;
 class QString;
@@ -38,82 +38,82 @@ class QStandardItemModel;
 class QModelIndex;
 
 class KCamera : public QObject {
-	friend class KameraDeviceSelectDialog;
-	Q_OBJECT
+    friend class KameraDeviceSelectDialog;
+    Q_OBJECT
 public:
-	KCamera(const QString &name, const QString &path);
-	~KCamera();
-	void invalidateCamera();
-	bool configure();
-	void load(KConfig *m_config);
-	void save(KConfig *m_config);
-	bool test();
-	QStringList supportedPorts();
+    KCamera(const QString &name, const QString &path);
+    ~KCamera();
+    void invalidateCamera();
+    bool configure();
+    void load(KConfig *m_config);
+    void save(KConfig *m_config);
+    bool test();
+    QStringList supportedPorts();
 
-	Camera* camera();
-	QString name() const { return m_name ; }
-	QString model() const { return m_model; }
-	QString path() const { return m_path; }
-	QString portName();
+    Camera* camera();
+    QString name() const { return m_name ; }
+    QString model() const { return m_model; }
+    QString path() const { return m_path; }
+    QString portName();
 
-	QString summary();
-	CameraAbilities abilities();
+    QString summary();
+    CameraAbilities abilities();
 
-	void setName(const QString &name);
-	void setModel(const QString &model);
-	void setPath(const QString &path);
+    void setName(const QString &name);
+    void setModel(const QString &model);
+    void setPath(const QString &path);
 
-	bool isTestable() const;
-	bool isConfigurable();
+    bool isTestable() const;
+    bool isConfigurable();
 
-signals:
-	void error(const QString &message);
-	void error(const QString &message, const QString &details);
+Q_SIGNALS:
+    void error(const QString &message);
+    void error(const QString &message, const QString &details);
 
 protected:
-	bool initInformation();
-	bool initCamera();
+    bool initInformation();
+    bool initCamera();
 //	void doConfigureCamera(Camera *camera, CameraWidget *widgets);
 //	int frontend_prompt(Camera *camera, CameraWidget *widgets);
 
-	Camera *m_camera;
-//	KConfig *m_config;
-	QString m_name; // the camera's real name
-	QString m_model;
-	QString m_path;
-	CameraAbilities m_abilities;
-	CameraAbilitiesList *m_abilitylist;
+    Camera *m_camera;
+    QString m_name; // the camera's real name
+    QString m_model;
+    QString m_path;
+    CameraAbilities m_abilities;
+    CameraAbilitiesList *m_abilitylist;
 };
 
-class KameraDeviceSelectDialog : public KDialog
+class KameraDeviceSelectDialog : public QDialog
 {
-	Q_OBJECT
+    Q_OBJECT
 public:
-	KameraDeviceSelectDialog(QWidget *parent, KCamera *device);
-	void save();
-	void load();
-protected slots:
-	void slot_setModel(const QModelIndex &index);
-	void slot_error(const QString &message);
-	void slot_error(const QString &message, const QString &details);
-        void changeCurrentIndex();
+    KameraDeviceSelectDialog(QWidget *parent, KCamera *device);
+    void save();
+    void load();
+protected Q_SLOTS:
+    void slot_setModel(const QModelIndex &index);
+    void slot_error(const QString &message);
+    void slot_error(const QString &message, const QString &details);
+    void changeCurrentIndex();
 protected:
-	KCamera *m_device;
+    KCamera *m_device;
 
-	bool populateCameraListView(void);
-	void setPortType(int type);
+    bool populateCameraListView(void);
+    void setPortType(int type);
 
-	// port settings widgets
-	QListView *m_modelSel;
-	QStandardItemModel *m_model;
-	QLineEdit *m_nameEdit;
-	QStackedWidget *m_settingsStack;
-	QGroupBox *m_portSelectGroup;
-	QGroupBox *m_portSettingsGroup;
-	QComboBox *m_serialPortCombo;
-	// port selection radio buttons
-	QRadioButton *m_serialRB;
-	QRadioButton *m_USBRB;
+    // port settings widgets
+    QListView *m_modelSel;
+    QStandardItemModel *m_model;
+    QLineEdit *m_nameEdit;
+    QStackedWidget *m_settingsStack;
+    QGroupBox *m_portSelectGroup;
+    QGroupBox *m_portSettingsGroup;
+    QComboBox *m_serialPortCombo;
+    QDialogButtonBox *m_OkCancelButtonBox;
+    // port selection radio buttons
+    QRadioButton *m_serialRB;
+    QRadioButton *m_USBRB;
 };
 
 #endif

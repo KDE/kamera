@@ -1,18 +1,38 @@
-cmake_minimum_required(VERSION 2.8.9)
+cmake_minimum_required(VERSION 2.8.12)
 project(kamera)
 
-find_package(KDE4 REQUIRED)
+# KDE Application Version, managed by release script
+set (KDE_APPLICATIONS_VERSION_MAJOR "15")
+set (KDE_APPLICATIONS_VERSION_MINOR "08")
+set (KDE_APPLICATIONS_VERSION_MICRO "1")
+set(KDE_APPLICATIONS_VERSION "${KDE_APPLICATIONS_VERSION_MAJOR}.${KDE_APPLICATIONS_VERSION_MINOR}.${KDE_APPLICATIONS_VERSION_MICRO}")
+set(PROJECT_VERSION ${KDE_APPLICATIONS_VERSION})
+
+find_package(ECM REQUIRED NO_MODULE)
+set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR} ${CMAKE_SOURCE_DIR})
+include(KDEInstallDirs)
+include(KDECMakeSettings)
+include(KDECompilerSettings)
+include(FindPkgConfig)
+include(FeatureSummary)
+
+find_package(Qt5 5.3 REQUIRED COMPONENTS Core)
+find_package(KF5 REQUIRED COMPONENTS
+    ConfigWidgets
+    XmlGui
+    KIO
+    I18n
+    Config
+    DocTools)
+
 include(CMakePushCheckState)
 include(CheckSymbolExists)
-include(KDE4Defaults)
-include(MacroLibrary)
-include(MacroOptionalAddSubdirectory)
 
-find_package(Gphoto2)
-macro_log_feature(GPHOTO2_FOUND "gphoto2" "Required to build kamera" "http://heanet.dl.sourceforge.net/sourceforge/gphoto" TRUE "" "")
-
+# Find gphoto2 library
+find_package(Gphoto2 REQUIRED)
+# Check version >= 2.5.0
 cmake_push_check_state()
-set(CMAKE_REQUIRED_INCLUDES "${GPHOTO2_INCLUDE_DIR}")
+set(CMAKE_REQUIRED_INCLUDES "${GPHOTO2_INCLUDE_DIRS}")
 set(CMAKE_REQUIRED_LIBRARIES "${GPHOTO2_LIBRARIES}")
 check_symbol_exists(gp_port_info_get_name "gphoto2.h" HAVE_GPHOTO2_5)
 cmake_pop_check_state()
@@ -27,16 +47,14 @@ include(ConfigureChecks.cmake)
 
 configure_file(config-kamera.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kamera.h)
 
-add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
-add_definitions (-DQT_USE_FAST_CONCATENATION -DQT_USE_FAST_OPERATOR_PLUS)
-include_directories (${CMAKE_CURRENT_BINARY_DIR} ${KDE4_INCLUDES} ${GPHOTO2_INCLUDE_DIRS})
+set(CMAKE_CXX_FLAGS_DEBUG, "${CMAKE_CXX_FLAGS_DEBUG} -Wall -Wunused -Wextra -DDEBUG_KAMERA_KIO -DDEBUG_KAMERA_KCONTROL")
 
-add_subdirectory( kcontrol ) 
-add_subdirectory( kioslave ) 
+add_subdirectory( kcontrol )
+add_subdirectory( kioslave )
 add_subdirectory( doc )
 
 install(FILES
-  solid_camera.desktop
-  DESTINATION ${DATA_INSTALL_DIR}/solid/actions)
+    solid_camera.desktop
+    DESTINATION ${DATA_INSTALL_DIR}/solid/actions)
 
-macro_display_feature_log()
+feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)

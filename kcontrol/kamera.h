@@ -1,9 +1,9 @@
 /*
 
     Copyright (C) 2001 The Kompany
-		  2002-2003	Ilya Konstantinov <kde-devel@future.shiny.co.il>
-		  2002-2003	Marcus Meissner <marcus@jet.franken.de>
-		  2003		Nadeem Hasan <nhasan@nadmm.com>
+          2002-2003	Ilya Konstantinov <kde-devel@future.shiny.co.il>
+          2002-2003	Marcus Meissner <marcus@jet.franken.de>
+          2003		Nadeem Hasan <nhasan@nadmm.com>
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -26,84 +26,87 @@
 #include <kcmodule.h>
 #include <gphoto2.h>
 #include <KPluginFactory>
+#include <QLoggingCategory>
 
 class QWidget;
 class QPushButton;
 class QListView;
 class QStandardItemModel;
 class QModelIndex;
+class QMenu;
 
 class KCamera;
 class KameraDeviceSelectDialog;
 class KConfig;
 class KActionCollection;
 class KToolBar;
-class KMenu;
+
+Q_DECLARE_LOGGING_CATEGORY(KAMERA_KCONTROL)
 
 class KKameraConfig : public KCModule
 {
-	Q_OBJECT
-	friend class KameraDeviceSelectDialog;
+    Q_OBJECT
+    friend class KameraDeviceSelectDialog;
 
 public:
-	KKameraConfig(QWidget *parent, const QVariantList &);
-	virtual ~KKameraConfig();
+    KKameraConfig(QWidget *parent, const QVariantList &);
+    virtual ~KKameraConfig();
 
-	// KCModule interface methods
-	void load();
-	void save();
-	void defaults();
-	int buttons();
-	QString quickHelp() const;
+    // KCModule interface methods
+    void load();
+    void save();
+    void defaults();
+    int buttons();
+    QString quickHelp() const;
 
 protected:
-	QString suggestName(const QString &name);
+    QString suggestName(const QString &name);
 
-protected slots:
-	void slot_deviceMenu(const QPoint &point);
-	void slot_deviceSelected(const QModelIndex &index);
-	void slot_addCamera();
-	void slot_removeCamera();
-	void slot_configureCamera();
-	void slot_cameraSummary();
-	void slot_testCamera();
-	void slot_cancelOperation();
-	void slot_error(const QString &message);
-	void slot_error(const QString &message, const QString &details);
-
-private:
-	void displayGPFailureDialogue(void);
-	void displayGPSuccessDialogue(void);
-	void displayCameraAbilities(const CameraAbilities &abilities);
-	void populateDeviceListView(void);
-	void beforeCameraOperation(void);
-	void afterCameraOperation(void);
-	
-	// gphoto callbacks
-	static void cbGPIdle(GPContext *context, void *data);
-	static GPContextFeedback cbGPCancel(GPContext *context, void *data);
+protected Q_SLOTS:
+    void slot_deviceMenu(const QPoint &point);
+    void slot_deviceSelected(const QModelIndex &index);
+    void slot_addCamera();
+    void slot_removeCamera();
+    void slot_configureCamera();
+    void slot_cameraSummary();
+    void slot_testCamera();
+    void slot_cancelOperation();
+    void slot_error(const QString &message);
+    void slot_error(const QString &message, const QString &details);
 
 private:
-	typedef QMap<QString, KCamera *> CameraDevicesMap;
-	
-	KConfig *m_config;
-	CameraDevicesMap m_devices;
-	bool m_cancelPending;
+    void displayGPFailureDialogue(void);
+    void displayGPSuccessDialogue(void);
+    void displayCameraAbilities(const CameraAbilities &abilities);
+    void populateDeviceListView(void);
+    void beforeCameraOperation(void);
+    void afterCameraOperation(void);
 
-	// gphoto members
-	GPContext *m_context;
+    // gphoto callbacks
+    static void cbGPIdle(GPContext *context, void *data);
+    static GPContextFeedback cbGPCancel(GPContext *context, void *data);
 
-	// widgets for the cameras listview
-	QListView *m_deviceSel;
-	QStandardItemModel *m_deviceModel;
-	KActionCollection *m_actions;
-	QPushButton *m_addCamera, *m_removeCamera, *m_testCamera, *m_configureCamera;
-	KToolBar *m_toolbar;
-	KMenu *m_devicePopup;
+private:
+    typedef QMap<QString, KCamera *> CameraDevicesMap;
 
-	// true if libgphoto2 was initialised successfully in
-	// the constructor
-	bool m_gpInitialised;
+    KConfig *m_config;
+    CameraDevicesMap m_devices;
+    bool m_cancelPending;
+
+    // gphoto members
+    GPContext *m_context;
+
+    // widgets for the cameras listview
+    QListView *m_deviceSel;
+    QStandardItemModel *m_deviceModel;
+    KActionCollection *m_actions;
+    QPushButton *m_addCamera, *m_removeCamera, *m_testCamera, *m_configureCamera;
+    KToolBar *m_toolbar;
+    QMenu *m_devicePopup;
+
+    // true if libgphoto2 was initialised successfully in
+    // the constructor
+    bool m_gpInitialised;
 };
 
 #endif
