@@ -35,10 +35,14 @@
 #include <QDialog>
 #include <QDialogButtonBox>
 #include <QPushButton>
+#include <QScrollArea>
 
 #include <KLocalizedString>
 
 #include "kameraconfigdialog.h"
+
+#include <QLoggingCategory>
+Q_DECLARE_LOGGING_CATEGORY(KAMERA_KCONTROL)
 
 KameraConfigDialog::KameraConfigDialog(Camera */*camera*/,
                     CameraWidget *widget,
@@ -48,25 +52,33 @@ KameraConfigDialog::KameraConfigDialog(Camera */*camera*/,
 {
     QDialogButtonBox *buttonBox = new QDialogButtonBox(
             QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
+
     QWidget *mainWidget = new QWidget(this);
     QVBoxLayout *mainLayout = new QVBoxLayout;
     setLayout(mainLayout);
     mainLayout->addWidget(mainWidget);
+    mainLayout->setMargin(0);
+
     QPushButton *okButton = buttonBox->button(QDialogButtonBox::Ok);
     okButton->setDefault(true);
     okButton->setShortcut(Qt::CTRL | Qt::Key_Return);
+
     connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
     connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
     okButton->setDefault(true);
     setModal( true );
 
-    QFrame *main = new QFrame( this );
+    QFrame *main = new QFrame(this);
+    mainLayout->addWidget(main);
+
+    // Sets a layout for the frame, which is the parent of the GP_WIDGET_WINDOW
     QVBoxLayout *topLayout = new QVBoxLayout(main);
     topLayout->setMargin(0);
 
     m_tabWidget = 0;
 
     appendWidget(main, widget);
+
     connect(okButton,SIGNAL(clicked()),this,SLOT(slotOk()));
     mainLayout->addWidget(buttonBox);
 }
@@ -94,7 +106,6 @@ void KameraConfigDialog::appendWidget(QWidget *parent, CameraWidget *widget)
     case GP_WIDGET_WINDOW:
         {
             setWindowTitle(QString::fromLocal8Bit(widget_label));
-
             break;
         }
     case GP_WIDGET_SECTION:
@@ -103,79 +114,78 @@ void KameraConfigDialog::appendWidget(QWidget *parent, CameraWidget *widget)
                 m_tabWidget = new QTabWidget(parent);
                 parent->layout()->addWidget(m_tabWidget);
             }
-            QWidget *tab = new QWidget(m_tabWidget);
+            QWidget *tab = new QWidget;
             // widgets are to be aligned vertically in the tab
             QVBoxLayout *tabLayout = new QVBoxLayout(tab);
+            tabLayout->setMargin(0);
             m_tabWidget->addTab(tab, QString::fromLocal8Bit(widget_label));
+
+            // Add scroll area
+            QScrollArea *scrollArea = new QScrollArea(tab);
+            scrollArea->setWidgetResizable(true);
+            scrollArea->setFrameShape(QFrame::NoFrame);
+            tabLayout->addWidget(scrollArea);
+
+            // Add a container widget to hold the page
             QWidget *tabContainer = new QWidget(tab);
-            QVBoxLayout *tabContainerVBoxLayout = new QVBoxLayout(tabContainer);
-            tabContainerVBoxLayout->setMargin(0);
-            tabLayout->addWidget(tabContainer);
+            // Add a layout for later parent->layout()->... calls
+            new QVBoxLayout(tabContainer);
+
+            // Set the container as the widget to be managed by the ScrollArea
+            scrollArea->setWidget(tabContainer);
+            scrollArea->show();
+
             newParent = tabContainer;
-
-            tabLayout->addStretch();
-
             break;
         }
     case GP_WIDGET_TEXT:
+    case GP_WIDGET_RANGE:
+    case GP_WIDGET_TOGGLE:
         {
-            gp_widget_get_value(widget, &widget_value_string);
-
+            // Share the QGridLayout code
             QWidget *grid = new QWidget(parent);
             QGridLayout *gridLayout = new QGridLayout(grid);
             grid->setLayout(gridLayout);
             parent->layout()->addWidget(grid);
-            QLabel *label = new QLabel(
-                        QString::fromLocal8Bit( widget_label )+':', grid);
-            QLineEdit *lineEdit = new QLineEdit(widget_value_string, grid);
 
+            QLabel *label;
+            if (widget_type == GP_WIDGET_TEXT)
+            {
+                gp_widget_get_value(widget, &widget_value_string);
+
+                label = new QLabel(QString::fromLocal8Bit(widget_label)+':', grid);
+                QLineEdit *lineEdit = new QLineEdit(widget_value_string, grid);
+
+                gridLayout->addWidget(lineEdit, 0, 1, Qt::AlignRight);
+                m_wmap.insert(widget, lineEdit);
+            }
+            else if (widget_type == GP_WIDGET_RANGE)
+            {
+                float widget_low;
+                float widget_high;
+                float widget_increment;
+                gp_widget_get_range(widget, &widget_low, &widget_high, &widget_increment);
+                gp_widget_get_value(widget, &widget_value_float);
+
+                label = new QLabel(QString::fromLocal8Bit(widget_label)+':', grid);
+                QSlider *slider = new QSlider(Qt::Horizontal, grid);
+
+                gridLayout->addWidget(slider, 0, 1, Qt::AlignRight);
+                m_wmap.insert(widget, slider);
+            }
+            else if (widget_type == GP_WIDGET_TOGGLE)
+            {
+                gp_widget_get_value(widget, &widget_value_int);
+
+                label = new QLabel(QString::fromLocal8Bit(widget_label), grid);
+                QCheckBox *checkBox = new QCheckBox(grid);
+                checkBox->setChecked(widget_value_int);
+
+                gridLayout->addWidget(checkBox, 0, 1, Qt::AlignRight);
+                m_wmap.insert(widget, checkBox);
+                break;
+            }
             gridLayout->addWidget(label, 0, 0, Qt::AlignLeft);
-            gridLayout->addWidget(label, 0, 1, Qt::AlignRight);
-            m_wmap.insert(widget, lineEdit);
-
-            if (!whats_this.isEmpty()) {
-                grid->setWhatsThis( whats_this);
-            }
-
-            break;
-        }
-    case GP_WIDGET_RANGE:
-        {
-            float widget_low;
-            float widget_high;
-            float widget_increment;
-            gp_widget_get_range(widget, &widget_low, &widget_high, &widget_increment);
-            gp_widget_get_value(widget, &widget_value_float);
-
-            QGroupBox *groupBox = new QGroupBox(QString::fromLocal8Bit(widget_label), parent);
-            parent->layout()->addWidget(groupBox);
-            QSlider *slider = new QSlider(Qt::Horizontal, groupBox);
-            slider->setMinimum((int)widget_low);
-            slider->setMaximum((int)widget_high);
-            slider->setPageStep((int)widget_increment);
-            slider->setValue((int)widget_value_float);
-            m_wmap.insert(widget, slider);
-
-            if (!whats_this.isEmpty()) {
-                groupBox->setWhatsThis( whats_this);
-            }
-
-            break;
-        }
-    case GP_WIDGET_TOGGLE:
-        {
-            gp_widget_get_value(widget, &widget_value_int);
-
-            QCheckBox *checkBox = new QCheckBox(
-                        QString::fromLocal8Bit(widget_label), parent);
-            parent->layout()->addWidget(checkBox);
-            checkBox->setChecked(widget_value_int);
-            m_wmap.insert(widget, checkBox);
-
-            if (!whats_this.isEmpty()) {
-                checkBox->setWhatsThis( whats_this);
-            }
-
             break;
         }
     case GP_WIDGET_RADIO:
@@ -183,9 +193,8 @@ void KameraConfigDialog::appendWidget(QWidget *parent, CameraWidget *widget)
             gp_widget_get_value(widget, &widget_value_string);
 
             int count = gp_widget_count_choices(widget);
-
             // KDE4 code used Q3V/HBoxGroup to specify alignment based on count
-            // for less than 5 options, align them horizontally
+            // For fewer than 5 options, align them horizontally
             QBoxLayout *layout;
             if (count < 5) {
                 layout = new QHBoxLayout;
@@ -269,16 +278,19 @@ void KameraConfigDialog::appendWidget(QWidget *parent, CameraWidget *widget)
         appendWidget(newParent, widget_child);
     }
 
-    // Things that must be done after all children were added
-/*
-    switch (widget_type) {
-    case GP_WIDGET_SECTION:
-        {
-            tabLayout->addItem( new QSpacerItem(0, 0, QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding) );
-            break;
+    if (widget_type == GP_WIDGET_SECTION) {
+        // Get latest tab
+        QWidget *tab = m_tabWidget->widget(m_tabWidget->count()-1);
+        QScrollArea *scrollArea =
+                dynamic_cast<QScrollArea *>(tab->children().at(1));
+        if (scrollArea) {
+            QVBoxLayout *vbox_layout =
+                dynamic_cast<QVBoxLayout *>(scrollArea->widget()->layout());
+            if (vbox_layout) {
+                vbox_layout->addStretch();
+            }
         }
     }
-*/
 }
 
 void KameraConfigDialog::updateWidgetValue(CameraWidget *widget)
