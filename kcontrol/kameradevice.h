@@ -73,8 +73,6 @@ Q_SIGNALS:
 protected:
     bool initInformation();
     bool initCamera();
-//	void doConfigureCamera(Camera *camera, CameraWidget *widgets);
-//	int frontend_prompt(Camera *camera, CameraWidget *widgets);
 
     Camera *m_camera;
     QString m_name; // the camera's real name

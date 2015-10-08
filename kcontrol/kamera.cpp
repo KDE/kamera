@@ -168,8 +168,6 @@ void KKameraConfig::displayGPSuccessDialogue(void)
 	act->setWhatsThis(i18n("Click this button to cancel the current camera operation."));
 	act->setEnabled(false);
 	m_toolbar->addAction(act);
-
-	load();
 }
 
 void KKameraConfig::populateDeviceListView(void)
