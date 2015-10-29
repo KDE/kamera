@@ -340,13 +340,13 @@ KameraDeviceSelectDialog::KameraDeviceSelectDialog(QWidget *parent, KCamera *dev
     // Create port type selection radiobuttons.
     m_serialRB = new QRadioButton(i18n("Serial"));
         vertLayout->addWidget(m_serialRB );
-    m_serialRB->setWhatsThis( i18n("If this option is checked, the camera has \
-        to be connected to one of the computer's serial ports (known as COM \
-        ports in Microsoft Windows.)"));
+    m_serialRB->setWhatsThis( i18n("If this option is checked, the camera has "
+        "to be connected to one of the computer's serial ports (known as COM "
+        "ports in Microsoft Windows.)"));
     m_USBRB = new QRadioButton(i18n("USB"));
         vertLayout->addWidget(m_USBRB );
-    m_USBRB->setWhatsThis( i18n("If this option is checked, the camera has to \
-        be connected to one of the computer's USB ports, or to a USB hub."));
+    m_USBRB->setWhatsThis( i18n("If this option is checked, the camera has to "
+        "be connected to one of the computer's USB ports, or to a USB hub."));
 
     m_portSettingsGroup = new QGroupBox(i18n("Port Settings"), page);
         QVBoxLayout *lay = new QVBoxLayout;
@@ -379,8 +379,8 @@ KameraDeviceSelectDialog::KameraDeviceSelectDialog(QWidget *parent, KCamera *dev
     QLabel *label = new QLabel(i18n("Port:"), grid);
     m_serialPortCombo = new QComboBox(grid);
     m_serialPortCombo->setEditable(true);
-    m_serialPortCombo->setWhatsThis( i18n("Specify here the serial port to \
-        which you connect the camera."));
+    m_serialPortCombo->setWhatsThis( i18n("Specify here the serial port to "
+        "which you connect the camera."));
 
     gridLayout->addWidget(label, 1, 0, Qt::AlignLeft);
     gridLayout->addWidget(m_serialPortCombo, 1, 1, Qt::AlignRight);
