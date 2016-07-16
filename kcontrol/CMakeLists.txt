@@ -1,6 +1,8 @@
 
 ########### next target ###############
 
+add_definitions(-DTRANSLATION_DOMAIN=\"kcmkamera\")
+
 set(kcm_kamera_PART_SRCS kamera.cpp kameradevice.cpp kameraconfigdialog.cpp )
 
 add_library(kcm_kamera MODULE ${kcm_kamera_PART_SRCS})
