@@ -58,6 +58,8 @@ KKameraConfig::KKameraConfig(QWidget *parent, const QVariantList &)
     m_devicePopup = new QMenu(this);
 	m_actions = new KActionCollection(this);
 	m_config = new KConfig(KProtocolInfo::config("camera"), KConfig::SimpleConfig);
+    m_deviceModel = new QStandardItemModel(this);
+
 	m_context = gp_context_new();
 	if (m_context) {
 		// Register the callback functions
@@ -106,7 +108,6 @@ void KKameraConfig::displayGPSuccessDialogue(void)
 	m_deviceSel = new QListView(this);
 	topLayout->addWidget(m_deviceSel);
 
-	m_deviceModel = new QStandardItemModel(this);
 	m_deviceSel->setModel(m_deviceModel);
 
 	connect(m_deviceSel, SIGNAL(customContextMenuRequested(const QPoint &)),
