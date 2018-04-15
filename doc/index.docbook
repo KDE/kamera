@@ -19,8 +19,8 @@
 <!-- TRANS:ROLES_OF_TRANSLATORS -->
 </authorgroup>
 
-<date>2015-09-16</date>
-<releaseinfo>Applications 15.12</releaseinfo>
+<date>2018-03-23</date>
+<releaseinfo>Applications 18.04</releaseinfo>
 
 <keywordset>
 <keyword>KDE</keyword>
@@ -83,7 +83,7 @@ dialog depend on the camera model.</para>
 </variablelist>
 
 <para>To view and download images from the digital camera, enter 
-<userinput>camera:/</userinput> in &konqueror;&apos;s location bar.
+<userinput>camera:/</userinput> in &konqueror;&apos;s or &dolphin;&apos;s location bar.
 </para>
 
 </article>
