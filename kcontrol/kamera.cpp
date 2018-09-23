@@ -110,12 +110,12 @@ void KKameraConfig::displayGPSuccessDialogue(void)
 
 	m_deviceSel->setModel(m_deviceModel);
 
-	connect(m_deviceSel, SIGNAL(customContextMenuRequested(const QPoint &)),
-		SLOT(slot_deviceMenu(const QPoint &)));
-	connect(m_deviceSel, SIGNAL(doubleClicked(const QModelIndex &)),
+	connect(m_deviceSel, SIGNAL(customContextMenuRequested(QPoint)),
+		SLOT(slot_deviceMenu(QPoint)));
+	connect(m_deviceSel, SIGNAL(doubleClicked(QModelIndex)),
 		SLOT(slot_configureCamera()));
-	connect(m_deviceSel, SIGNAL(activated(const QModelIndex &)),
-		SLOT(slot_deviceSelected(const QModelIndex &)));
+	connect(m_deviceSel, SIGNAL(activated(QModelIndex)),
+		SLOT(slot_deviceSelected(QModelIndex)));
     connect(m_deviceSel, SIGNAL(clicked(QModelIndex)),
         SLOT(slot_deviceSelected(QModelIndex)));
 
@@ -221,8 +221,8 @@ void KKameraConfig::load(void)
             qCDebug(KAMERA_KCONTROL) << "Loading configuration for serial port camera: "
                                      << *it;
 			kcamera = new KCamera(*it, cg.readEntry("Path"));
-			connect(kcamera, SIGNAL(error(const QString &)), SLOT(slot_error(const QString &)));
-			connect(kcamera, SIGNAL(error(const QString &, const QString &)), SLOT(slot_error(const QString &, const QString &)));
+			connect(kcamera, SIGNAL(error(QString)), SLOT(slot_error(QString)));
+			connect(kcamera, SIGNAL(error(QString,QString)), SLOT(slot_error(QString,QString)));
 			kcamera->load(m_config);
 			m_devices[*it] = kcamera;
 		}
@@ -263,8 +263,8 @@ void KKameraConfig::load(void)
         qCDebug(KAMERA_KCONTROL) << "Adding USB camera: " << portit.value() << " at " << portit.key();
 
 		kcamera = new KCamera(portit.value(), portit.key());
-		connect(kcamera, SIGNAL(error(const QString &)), SLOT(slot_error(const QString &)));
-		connect(kcamera, SIGNAL(error(const QString &, const QString &)), SLOT(slot_error(const QString &, const QString &)));
+		connect(kcamera, SIGNAL(error(QString)), SLOT(slot_error(QString)));
+		connect(kcamera, SIGNAL(error(QString,QString)), SLOT(slot_error(QString,QString)));
         m_devices[portit.value()] = kcamera;
 	}
 	populateDeviceListView();
@@ -319,8 +319,8 @@ QString KKameraConfig::suggestName(const QString &name)
 void KKameraConfig::slot_addCamera()
 {
 	KCamera *m_device = new KCamera(QString::null, QString());	//krazy:exclusion=nullstrassign for old broken gcc
-	connect(m_device, SIGNAL(error(const QString &)), SLOT(slot_error(const QString &)));
-	connect(m_device, SIGNAL(error(const QString &, const QString &)), SLOT(slot_error(const QString &, const QString &)));
+	connect(m_device, SIGNAL(error(QString)), SLOT(slot_error(QString)));
+	connect(m_device, SIGNAL(error(QString,QString)), SLOT(slot_error(QString,QString)));
 	KameraDeviceSelectDialog dialog(this, m_device);
 	if (dialog.exec() == QDialog::Accepted) {
 		dialog.save();

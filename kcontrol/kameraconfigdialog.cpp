@@ -21,6 +21,8 @@
 
 */
 
+#include "kameraconfigdialog.h"
+
 #include <QLabel>
 #include <QGroupBox>
 #include <QCheckBox>
@@ -38,8 +40,6 @@
 #include <QScrollArea>
 
 #include <KLocalizedString>
-
-#include "kameraconfigdialog.h"
 
 #include <QLoggingCategory>
 Q_DECLARE_LOGGING_CATEGORY(KAMERA_KCONTROL)

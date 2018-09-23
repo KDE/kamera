@@ -23,6 +23,8 @@
 
 // remove comment to enable debugging
 // #undef QT_NO_DEBUG
+#include "kamera.h"
+
 #include <stdlib.h>
 #include <unistd.h>
 #include <stdio.h>
@@ -48,9 +50,7 @@
 #include <kio/global.h>
 #include <kio/slaveconfig.h>
 
-#include "config-kamera.h"
-
-#include "kamera.h"
+#include <config-kamera.h>
 
 #define tocstr(x) ((x).toLocal8Bit())
 
@@ -496,7 +496,7 @@ void KameraProtocol::statRegular(const QUrl &xurl)
     if (directory == "/") {
         KIO::UDSEntry entry;
 
-        QString xname = current_camera + "@" + current_port;
+        QString xname = current_camera + '@' + current_port;
         entry.insert( KIO::UDSEntry::UDS_NAME, path_quote(xname));
         entry.insert( KIO::UDSEntry::UDS_DISPLAY_NAME, current_camera);
         entry.insert( KIO::UDSEntry::UDS_FILE_TYPE,S_IFDIR);
@@ -626,9 +626,9 @@ void KameraProtocol::listDir(const QUrl &yurl)
 
     if (!file.isEmpty()) {
         if (directory == "/") {
-            directory = "/" + file;
+            directory = '/' + file;
         } else {
-            directory = directory + "/" + file;
+            directory = directory + '/' + file;
         }
     }
 
@@ -721,7 +721,7 @@ void KameraProtocol::listDir(const QUrl &yurl)
             entry.insert(KIO::UDSEntry::UDS_FILE_TYPE,S_IFDIR);
             entry.insert(KIO::UDSEntry::UDS_ACCESS,
                     (S_IRUSR | S_IRGRP | S_IROTH |S_IWUSR | S_IWGRP | S_IWOTH));
-            xname = (*it)+"@"+m_cfgPath;
+            xname = (*it)+'@'+m_cfgPath;
             entry.insert(KIO::UDSEntry::UDS_NAME,path_quote(xname));
             // do not confuse regular users with the @usb...
             entry.insert(KIO::UDSEntry::UDS_DISPLAY_NAME,*it);
@@ -736,7 +736,7 @@ void KameraProtocol::listDir(const QUrl &yurl)
             // do not confuse regular users with the @usb...
             entry.insert(KIO::UDSEntry::UDS_DISPLAY_NAME,portsit.value());
             entry.insert(KIO::UDSEntry::UDS_NAME,
-                    path_quote(portsit.value()+"@"+portsit.key()));
+                    path_quote(portsit.value()+'@'+portsit.key()));
 
             entry.insert(KIO::UDSEntry::UDS_ACCESS,
                     (S_IRUSR | S_IRGRP | S_IROTH |S_IWUSR | S_IWGRP | S_IWOTH));
@@ -751,7 +751,7 @@ void KameraProtocol::listDir(const QUrl &yurl)
 
         qCDebug(KAMERA_KIOSLAVE) << "redirecting to /";
         if (!current_camera.isEmpty() && !current_port.isEmpty()) {
-            rooturl.setPath("/"+current_camera+"@"+current_port+"/");
+            rooturl.setPath('/'+current_camera+'@'+current_port+'/');
         } else {
             rooturl.setPath("/");
         }

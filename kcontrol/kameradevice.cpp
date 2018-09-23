@@ -21,6 +21,8 @@
 
 */
 
+#include "kameradevice.h"
+
 #include <QComboBox>
 #include <QGroupBox>
 #include <QVBoxLayout>
@@ -37,15 +39,13 @@
 #include <KConfigGroup>
 #include <KMessageBox>
 
-#include "config-kamera.h"
+#include <config-kamera.h>
 
 extern "C" {
     #include <gphoto2.h>
 }
 
-#include "kamera.h"
 #include "kameraconfigdialog.h"
-#include "kameradevice.h"
 
 // Define some parts of the old API
 #define GP_PROMPT_OK 0
@@ -300,10 +300,10 @@ KameraDeviceSelectDialog::KameraDeviceSelectDialog(QWidget *parent, KCamera *dev
 
     setModal( true );
     m_device = device;
-    connect(m_device, SIGNAL(error(const QString &)),
-        SLOT(slot_error(const QString &)));
-    connect(m_device, SIGNAL(error(const QString &, const QString &)),
-        SLOT(slot_error(const QString &, const QString &)));
+    connect(m_device, SIGNAL(error(QString)),
+        SLOT(slot_error(QString)));
+    connect(m_device, SIGNAL(error(QString,QString)),
+        SLOT(slot_error(QString,QString)));
 
     QWidget *page = new QWidget( this );
 
@@ -320,8 +320,8 @@ KameraDeviceSelectDialog::KameraDeviceSelectDialog(QWidget *parent, KCamera *dev
     m_modelSel->setModel(m_model);
 
     topLayout->addWidget( m_modelSel );
-    connect(m_modelSel, SIGNAL(activated(const QModelIndex &)),
-        SLOT(slot_setModel(const QModelIndex &)));
+    connect(m_modelSel, SIGNAL(activated(QModelIndex)),
+        SLOT(slot_setModel(QModelIndex)));
     connect(m_modelSel, SIGNAL(clicked(QModelIndex)),
         SLOT(slot_setModel(QModelIndex)));
     // make sure listview only as wide as it needs to be
@@ -362,10 +362,10 @@ KameraDeviceSelectDialog::KameraDeviceSelectDialog(QWidget *parent, KCamera *dev
 
     lay->addWidget(grid2);
     lay->addWidget( m_settingsStack );
-    connect(m_serialRB, SIGNAL( toggled(bool) ),
-                this, SLOT( changeCurrentIndex() ) );
-    connect(m_USBRB, SIGNAL( toggled(bool) ),
-                this, SLOT( changeCurrentIndex() ) );
+    connect(m_serialRB, SIGNAL(toggled(bool)),
+                this, SLOT(changeCurrentIndex()) );
+    connect(m_USBRB, SIGNAL(toggled(bool)),
+                this, SLOT(changeCurrentIndex()) );
     // none tab
     m_settingsStack->insertWidget(INDEX_NONE,
             new QLabel(i18n("No port type selected."),

@@ -23,8 +23,11 @@
 #ifndef __kameradevice_h__
 #define __kameradevice_h__
 
+#include "kamera.h"
+
 #include <QDialog>
 #include <QWidget>
+#include <QDialogButtonBox>
 
 class KConfig;
 class QString;
