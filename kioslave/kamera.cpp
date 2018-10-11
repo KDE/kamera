@@ -84,6 +84,8 @@ extern "C"
 
 int kdemain(int argc, char **argv)
 {
+    QCoreApplication app;
+
     QCoreApplication::setApplicationName("kio_kamera");
     KLocalizedString::setApplicationDomain("kio_kamera");
 
