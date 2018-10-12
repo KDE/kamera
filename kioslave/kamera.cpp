@@ -972,6 +972,7 @@ void KameraProtocol::translateTextToUDS(KIO::UDSEntry &udsEntry,
     udsEntry.insert(KIO::UDSEntry::UDS_DISPLAY_NAME,fn);
     udsEntry.insert(KIO::UDSEntry::UDS_SIZE,strlen(text));
     udsEntry.insert(KIO::UDSEntry::UDS_ACCESS,(S_IRUSR | S_IRGRP | S_IROTH));
+    udsEntry.insert(KIO::UDSEntry::UDS_MIME_TYPE, QString("text/plain"));
 }
 
 // translate a CameraFileInfo to a UDSFieldType
