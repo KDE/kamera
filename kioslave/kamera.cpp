@@ -498,6 +498,24 @@ void KameraProtocol::statRegular(const QUrl &xurl)
     if (directory == "/") {
         KIO::UDSEntry entry;
 
+#define GPHOTO_TEXT_FILE(xx) \
+        if (!file.compare(#xx".txt")) { \
+            CameraText xx; \
+            gpr = gp_camera_get_about(m_camera,  &xx, m_context); \
+            if (gpr != GP_OK) { \
+                error(KIO::ERR_DOES_NOT_EXIST, xurl.fileName()); \
+                return; \
+            } \
+            translateTextToUDS(entry,#xx".txt",xx.text); \
+            statEntry(entry); \
+            finished(); \
+            return; \
+        }
+        GPHOTO_TEXT_FILE(about);
+        GPHOTO_TEXT_FILE(manual);
+        GPHOTO_TEXT_FILE(summary);
+#undef GPHOTO_TEXT_FILE
+
         QString xname = current_camera + "@" + current_port;
         entry.insert( KIO::UDSEntry::UDS_NAME, path_quote(xname));
         entry.insert( KIO::UDSEntry::UDS_DISPLAY_NAME, current_camera);
@@ -529,24 +547,6 @@ void KameraProtocol::statRegular(const QUrl &xurl)
         gp_list_free(dirList);
         return;
     }
-
-#define GPHOTO_TEXT_FILE(xx) \
-    if (!directory.compare("/") && !file.compare(#xx".txt")) { \
-        CameraText xx; \
-        gpr = gp_camera_get_about(m_camera,  &xx, m_context); \
-        if (gpr != GP_OK) { \
-            error(KIO::ERR_DOES_NOT_EXIST, xurl.fileName()); \
-            return; \
-        } \
-        translateTextToUDS(entry,#xx".txt",xx.text); \
-        statEntry(entry); \
-        finished(); \
-        return; \
-    }
-    GPHOTO_TEXT_FILE(about);
-    GPHOTO_TEXT_FILE(manual);
-    GPHOTO_TEXT_FILE(summary);
-#undef GPHOTO_TEXT_FILE
 
     const char *name;
     for(int i = 0; i < gp_list_count(dirList); i++) {
