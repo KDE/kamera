@@ -1,6 +1,8 @@
 
 ########### next target ###############
 
+add_definitions(-DTRANSLATION_DOMAIN=\"kio5_kamera\")
+
 set(kio_kamera_PART_SRCS kamera.cpp )
 
 add_library(kio_kamera MODULE ${kio_kamera_PART_SRCS})
