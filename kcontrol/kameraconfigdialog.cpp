@@ -57,7 +57,7 @@ KameraConfigDialog::KameraConfigDialog(Camera */*camera*/,
     QVBoxLayout *mainLayout = new QVBoxLayout;
     setLayout(mainLayout);
     mainLayout->addWidget(mainWidget);
-    mainLayout->setMargin(0);
+    mainLayout->setContentsMargins(0, 0, 0, 0);
 
     QPushButton *okButton = buttonBox->button(QDialogButtonBox::Ok);
     okButton->setDefault(true);
@@ -73,7 +73,7 @@ KameraConfigDialog::KameraConfigDialog(Camera */*camera*/,
 
     // Sets a layout for the frame, which is the parent of the GP_WIDGET_WINDOW
     QVBoxLayout *topLayout = new QVBoxLayout(main);
-    topLayout->setMargin(0);
+    topLayout->setContentsMargins(0, 0, 0, 0);
 
     m_tabWidget = 0;
 
@@ -117,7 +117,7 @@ void KameraConfigDialog::appendWidget(QWidget *parent, CameraWidget *widget)
             QWidget *tab = new QWidget;
             // widgets are to be aligned vertically in the tab
             QVBoxLayout *tabLayout = new QVBoxLayout(tab);
-            tabLayout->setMargin(0);
+            tabLayout->setContentsMargins(0, 0, 0, 0);
             m_tabWidget->addTab(tab, QString::fromLocal8Bit(widget_label));
 
             // Add scroll area

@@ -309,7 +309,7 @@ KameraDeviceSelectDialog::KameraDeviceSelectDialog(QWidget *parent, KCamera *dev
 
     // a layout with horizontal boxes - this gives the two columns
     QHBoxLayout *topLayout = new QHBoxLayout(page);
-    topLayout->setMargin(0);
+    topLayout->setContentsMargins(0, 0, 0, 0);
 
     // the models list
     m_modelSel = new QListView(page);
@@ -329,7 +329,7 @@ KameraDeviceSelectDialog::KameraDeviceSelectDialog(QWidget *parent, KCamera *dev
         QSizePolicy::Preferred));
 
     QVBoxLayout *rightLayout = new QVBoxLayout();
-    rightLayout->setMargin(0);
+    rightLayout->setContentsMargins(0, 0, 0, 0);
     topLayout->addLayout( rightLayout );
 
     m_portSelectGroup = new QGroupBox(i18n("Port"), page);

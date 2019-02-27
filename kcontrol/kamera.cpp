@@ -85,7 +85,7 @@ void KKameraConfig::displayGPFailureDialogue(void)
 {
 	QVBoxLayout *topLayout = new QVBoxLayout(this);
 	topLayout->setSpacing(0);
-	topLayout->setMargin(0);
+	topLayout->setContentsMargins(0, 0, 0, 0);
 	QLabel *label = new QLabel(i18n("Unable to initialize the gPhoto2 libraries."), this);
 	topLayout->addWidget(label);
 }
@@ -98,7 +98,7 @@ void KKameraConfig::displayGPSuccessDialogue(void)
 	// create a layout with two vertical boxes
 	QVBoxLayout *topLayout = new QVBoxLayout(this);
 	topLayout->setSpacing(0);
-	topLayout->setMargin(0);
+	topLayout->setContentsMargins(0, 0, 0, 0);
 
 	m_toolbar = new KToolBar(this, "ToolBar");
 	topLayout->addWidget(m_toolbar);
