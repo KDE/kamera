@@ -8,6 +8,7 @@ Exec=kioclient5 exec camera:/
 Icon=system-file-manager
 Name=View Photos with File Manager
 Name[ca]=Visualitza fotos amb el gestor de fitxers
+Name[ca@valencia]=Visualitza fotos amb el gestor de fitxers
 Name[en_GB]=View Photos with File Manager
 Name[es]=Ver fotos con el gestor de archivos
 Name[fr]=Afficher les photos dans le gestionnaire de fichiers
