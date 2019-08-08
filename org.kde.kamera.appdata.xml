@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component type="addon">
+  <id>org.kde.kamera</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-2.0+</project_license>
+  <extends>org.kde.dolphin.desktop</extends>
+  <extends>org.kde.konqueror.desktop</extends>
+  <extends>org.kde.krusader.desktop</extends>
+  <extends>org.kde.gwenview.desktop</extends>
+  <name>Kamera</name>
+  <summary>A plugin to support Picture Transfer Protocol (PTP) in KDE applications</summary>
+  <description>
+    <p>Picture Transfer Protocol (PTP) is an older method of talking to camera devices.  Kamera provides a configuration tool and kio slave to read and write to camera devices with this protocol.</p>
+  </description>
+  <url type="homepage">https://www.kde.org</url>
+  <url type="bugtracker">https://bugs.kde.org/enter_bug.cgi?format=guided&amp;product=systemsettings</url>
+  <url type="help">https://docs.kde.org/trunk5/en/kdegraphics/kcontrol/kamera/index.html</url>
+  <screenshots>
+    <screenshot type="default">
+      <image type="source">https://cdn.kde.org/screenshots/kamera/kamera.png</image>
+    </screenshot>
+  </screenshots>
+  <project_group>KDE</project_group>
+  <categories>
+    <category>Utility</category>
+  </categories>
+  <icon type="stock">camera-photo</icon>
+</component>

@@ -57,4 +57,8 @@ install(FILES
     solid_camera.desktop
     DESTINATION ${DATA_INSTALL_DIR}/solid/actions)
 
+install(FILES
+    org.kde.kamera.appdata.xml
+    DESTINATION ${KDE_INSTALL_METAINFODIR})
+
 feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)
