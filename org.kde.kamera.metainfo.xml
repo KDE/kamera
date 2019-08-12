@@ -10,6 +10,10 @@
   <name>Kamera</name>
   <name xml:lang="ca">Kamera</name>
   <name xml:lang="de">Kamera</name>
+  <name xml:lang="en-GB">Kamera</name>
+  <name xml:lang="fr">Kamera</name>
+  <name xml:lang="nl">Kamera</name>
+  <name xml:lang="pl">Kamera</name>
   <name xml:lang="pt">Kamera</name>
   <name xml:lang="sv">Kamera</name>
   <name xml:lang="uk">Kamera</name>
@@ -17,6 +21,10 @@
   <summary>A plugin to support Picture Transfer Protocol (PTP) in KDE applications</summary>
   <summary xml:lang="ca">Un connector per admetre el protocol de transferència d'imatges (Picture Transfer Protocol -PTP-) a les aplicacions KDE</summary>
   <summary xml:lang="de">Ein Modul für das Bildaustauschprotokoll  (PTP) in KDE-Anwendungen</summary>
+  <summary xml:lang="en-GB">A plugin to support Picture Transfer Protocol (PTP) in KDE applications</summary>
+  <summary xml:lang="fr">Un module externe de prise en charge du protocole de transfert d'images (PTP) au sein des applications KDE</summary>
+  <summary xml:lang="nl">Een plug-in om Picture Transfer Protocol (PTP) in KDE-toepassingen te ondersteunen</summary>
+  <summary xml:lang="pl">Wtyczka do obsługi Picture Transfer Protocol (PTP) w aplikacjach KDE</summary>
   <summary xml:lang="pt">Um 'plugin' que suporta o protocolo Picture Transfer Protocol (PTP) nas aplicações do KDE</summary>
   <summary xml:lang="sv">Ett insticksprogram för att stödja bildöverföringsprotokollet (Picture Transfer Protocol, PTP) i KDE-program</summary>
   <summary xml:lang="uk">Додаток для підтримки протоколу передавання зображень (PTP) у програмах KDE</summary>
@@ -25,6 +33,10 @@
     <p>Picture Transfer Protocol (PTP) is an older method of talking to camera devices.  Kamera provides a configuration tool and kio slave to read and write to camera devices with this protocol.</p>
     <p xml:lang="ca">El protocol de transferència d'imatges (PTP) és un mètode antic de parlar amb els dispositius de càmera. El Kamera proporciona una eina de configuració i un esclau kio per a llegir i escriure als dispositius de càmera amb aquest protocol.</p>
     <p xml:lang="de">Das Bildaustauschprotokoll (PTP) ist eine ältere Methode, um mit Kamerageräten zu kommunizieren. Kamera stellt ein Einrichtungsmodul und ein Ein-/Ausgabemodul zum Lesen und Schreiben auf Kamerageräten mit diesem Protokoll zur Verfügung.</p>
+    <p xml:lang="en-GB">Picture Transfer Protocol (PTP) is an older method of talking to camera devices. Kamera provides a configuration tool and kio slave to read and write to camera devices with this protocol.</p>
+    <p xml:lang="fr">Le protocole de transfert d'images (PTP) est une ancienne méthode de communication avec les appareils photo. Kamera fournit un outil de configuration et un esclave kio permettant de lire et d'écrire vers les appareils photo utilisant ce protocole.</p>
+    <p xml:lang="nl">Picture Transfer Protocol (PTP) is een oudere methode voor praten met camera-apparaten. Kamera biedt een hulpmiddel voor configuratie en kio-slave om te lezen en te schrijven van/naar camera-apparaten met dit protocol.</p>
+    <p xml:lang="pl">Picture Transfer Protocol (PTP) jest starszym sposobem na nawiązywanie łączności z aparatami. Kamera zapewnia narzędzie do ustawiania oraz kio slave do odczytywania i zapisywania na aparaty przy użyciu tego narzędzia.</p>
     <p xml:lang="pt">O protocolo Picture Transfer Protocol (PTP) é um método mais antigo de comunicação com dispositivos de câmaras. O Kamera oferece uma ferramenta de configuração e um 'kio slave' para ler e escrever nos dispositivos de câmaras com este protocolo.</p>
     <p xml:lang="sv">Bildöverföringsprotokollet (Picture Transfer Protocol, PTP) är en äldre metod för att kommunicera med kameraenheter. Kamera tillhandahåller ett inställningsverktyg och I/O-slav för att läsa och skriva till kameraenheter med protokollet.</p>
     <p xml:lang="uk">Протокол передавання зображень (PTP) є застарілим способом обміну даними із пристроями для знімання зображень. Kamera є інструментом налаштовування та підлеглим засобом введення-виведення даних для читання і запису даних на основі цього протоколу.</p>
