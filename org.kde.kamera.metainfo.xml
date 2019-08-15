@@ -20,6 +20,7 @@
   <name xml:lang="pl">Kamera</name>
   <name xml:lang="pt">Kamera</name>
   <name xml:lang="pt-BR">Kamera</name>
+  <name xml:lang="sk">Kamera</name>
   <name xml:lang="sv">Kamera</name>
   <name xml:lang="uk">Kamera</name>
   <name xml:lang="x-test">xxKameraxx</name>
@@ -36,6 +37,7 @@
   <summary xml:lang="pl">Wtyczka do obsługi Picture Transfer Protocol (PTP) w aplikacjach KDE</summary>
   <summary xml:lang="pt">Um 'plugin' que suporta o protocolo Picture Transfer Protocol (PTP) nas aplicações do KDE</summary>
   <summary xml:lang="pt-BR">Um plugin que tem suporte ao protocolo Picture Transfer Protocol (PTP) nos aplicativos do KDE</summary>
+  <summary xml:lang="sk">Plugin na podporu protokolu PTP v KDE aplikáciách</summary>
   <summary xml:lang="sv">Ett insticksprogram för att stödja bildöverföringsprotokollet (Picture Transfer Protocol, PTP) i KDE-program</summary>
   <summary xml:lang="uk">Додаток для підтримки протоколу передавання зображень (PTP) у програмах KDE</summary>
   <summary xml:lang="x-test">xxA plugin to support Picture Transfer Protocol (PTP) in KDE applicationsxx</summary>
