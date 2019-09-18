@@ -318,7 +318,7 @@ QString KKameraConfig::suggestName(const QString &name)
 
 void KKameraConfig::slot_addCamera()
 {
-	KCamera *m_device = new KCamera(QString::null, QString());	//krazy:exclusion=nullstrassign for old broken gcc
+	KCamera *m_device = new KCamera(QString(), QString());
 	connect(m_device, SIGNAL(error(QString)), SLOT(slot_error(QString)));
 	connect(m_device, SIGNAL(error(QString,QString)), SLOT(slot_error(QString,QString)));
 	KameraDeviceSelectDialog dialog(this, m_device);
