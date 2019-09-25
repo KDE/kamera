@@ -17,6 +17,7 @@
   <name xml:lang="eu">Kamera</name>
   <name xml:lang="fr">Kamera</name>
   <name xml:lang="it">Kamera</name>
+  <name xml:lang="ko">Kamera</name>
   <name xml:lang="nl">Kamera</name>
   <name xml:lang="nn">Kamera</name>
   <name xml:lang="pl">Kamera</name>
@@ -35,6 +36,7 @@
   <summary xml:lang="eu">KDE aplikazioetan Irudien Transferentziarako Protokoloari (PTP) euskarri emateko plugin bat</summary>
   <summary xml:lang="fr">Un module externe de prise en charge du protocole de transfert d'images (PTP) au sein des applications KDE</summary>
   <summary xml:lang="it">Un'estensione per supportare la modalità Picture Transfer Protocol (PTP) nelle applicazioni di KDE</summary>
+  <summary xml:lang="ko">KDE 프로그램에서 사진 전송 프로토콜(PTP)을 지원하는 플러그인</summary>
   <summary xml:lang="nl">Een plug-in om Picture Transfer Protocol (PTP) in KDE-toepassingen te ondersteunen</summary>
   <summary xml:lang="nn">Programtillegg for å støtta PTP (Picture Transfer Protocol) i KDE-program</summary>
   <summary xml:lang="pl">Wtyczka do obsługi Picture Transfer Protocol (PTP) w aplikacjach KDE</summary>
@@ -54,6 +56,7 @@
     <p xml:lang="eu">Irudien Transferentziarako Protokoloa (PTP) kamera gailuei hitz egiteko metodo zaharrago bat da. Kamerak protokolo hau darabilten kamerak konfiguratzeko tresna bat eskaintzen du baita haietan irakurtzeko eta idazteko kio morroi bat ere.</p>
     <p xml:lang="fr">Le protocole de transfert d'images (PTP) est une ancienne méthode de communication avec les appareils photo. Kamera fournit un outil de configuration et un esclave kio permettant de lire et d'écrire vers les appareils photo utilisant ce protocole.</p>
     <p xml:lang="it">Il Picture Transfer Protocol (PTP) è un vecchio metodo usato per dialogare con le fotocamere. Kamera fornisce uno strumento di configurazione e uno slave KIO per eseguire con questo protocollo le operazioni di lettura e di scrittura sulle fotocamere.</p>
+    <p xml:lang="ko">사진 전송 프로토콜(PTP)은 이전 세대 카메라 장치와 통신하는 방식입니다. Kamera는 PTP 설정 도구 및 이 프로토콜을 지원하는 카메라 장치에서 읽기 및 쓰기를 할 수 있는 KIO 슬레이브를 제공합니다.</p>
     <p xml:lang="nl">Picture Transfer Protocol (PTP) is een oudere methode voor praten met camera-apparaten. Kamera biedt een hulpmiddel voor configuratie en kio-slave om te lezen en te schrijven van/naar camera-apparaten met dit protocol.</p>
     <p xml:lang="nn">PTP (Picture Transfer Protocol) er ein eldre metode for kommunikasjon med kameraeiningar. Programmet har eit oppsettverktøy og ein KIO-slave for å lesa frå og skriva til kameraeiningar med denne protokollen.</p>
     <p xml:lang="pl">Picture Transfer Protocol (PTP) jest starszym sposobem na nawiązywanie łączności z aparatami. Kamera zapewnia narzędzie do ustawiania oraz kio slave do odczytywania i zapisywania na aparaty przy użyciu tego narzędzia.</p>
