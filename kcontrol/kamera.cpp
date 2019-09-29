@@ -110,62 +110,62 @@ void KKameraConfig::displayGPSuccessDialogue(void)
 
 	m_deviceSel->setModel(m_deviceModel);
 
-	connect(m_deviceSel, SIGNAL(customContextMenuRequested(QPoint)),
-		SLOT(slot_deviceMenu(QPoint)));
-	connect(m_deviceSel, SIGNAL(doubleClicked(QModelIndex)),
-		SLOT(slot_configureCamera()));
-	connect(m_deviceSel, SIGNAL(activated(QModelIndex)),
-		SLOT(slot_deviceSelected(QModelIndex)));
-    connect(m_deviceSel, SIGNAL(clicked(QModelIndex)),
-        SLOT(slot_deviceSelected(QModelIndex)));
+	connect(m_deviceSel, &QListView::customContextMenuRequested,
+		this, &KKameraConfig::slot_deviceMenu);
+	connect(m_deviceSel, &QListView::doubleClicked,
+		this, &KKameraConfig::slot_configureCamera);
+	connect(m_deviceSel, &QListView::activated,
+		this, &KKameraConfig::slot_deviceSelected);
+	connect(m_deviceSel, &QListView::clicked,
+		this, &KKameraConfig::slot_deviceSelected);
 
 	m_deviceSel->setViewMode(QListView::IconMode);
-    m_deviceSel->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+	m_deviceSel->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 	m_deviceSel->setContextMenuPolicy(Qt::CustomContextMenu);
 
     // create actions, add to the toolbar
 	QAction *act;
 	act = m_actions->addAction("camera_add");
-        act->setIcon(QIcon::fromTheme("camera-photo"));
-        act->setText(i18n("Add"));
-	connect(act, SIGNAL(triggered(bool)), this, SLOT(slot_addCamera()));
+	act->setIcon(QIcon::fromTheme("camera-photo"));
+	act->setText(i18n("Add"));
+	connect(act, &QAction::triggered, this, &KKameraConfig::slot_addCamera);
 	act->setWhatsThis(i18n("Click this button to add a new camera."));
 	m_toolbar->addAction(act);
 	m_toolbar->addSeparator();
 
 	act = m_actions->addAction("camera_test");
-        act->setIcon(QIcon::fromTheme("dialog-ok"));
-        act->setText(i18n("Test"));
-	connect(act, SIGNAL(triggered(bool)), this, SLOT(slot_testCamera()));
+	act->setIcon(QIcon::fromTheme("dialog-ok"));
+	act->setText(i18n("Test"));
+	connect(act, &QAction::triggered, this, &KKameraConfig::slot_testCamera);
 	act->setWhatsThis(i18n("Click this button to test the connection to the selected camera."));
 	m_toolbar->addAction(act);
 
 	act = m_actions->addAction("camera_remove");
-        act->setIcon(QIcon::fromTheme("user-trash"));
-        act->setText(i18n("Remove"));
-	connect(act, SIGNAL(triggered(bool)), this, SLOT(slot_removeCamera()));
+	act->setIcon(QIcon::fromTheme("user-trash"));
+	act->setText(i18n("Remove"));
+	connect(act, &QAction::triggered, this, &KKameraConfig::slot_removeCamera);
 	act->setWhatsThis(i18n("Click this button to remove the selected camera from the list."));
 	m_toolbar->addAction(act);
 
 	act = m_actions->addAction("camera_configure");
-        act->setIcon(QIcon::fromTheme("configure"));
-        act->setText(i18n("Configure..."));
-	connect(act, SIGNAL(triggered(bool)), this, SLOT(slot_configureCamera()));
+	act->setIcon(QIcon::fromTheme("configure"));
+	act->setText(i18n("Configure..."));
+	connect(act, &QAction::triggered, this, &KKameraConfig::slot_configureCamera);
 	act->setWhatsThis(i18n("Click this button to change the configuration of the selected camera.<br><br>The availability of this feature and the contents of the Configuration dialog depend on the camera model."));
 	m_toolbar->addAction(act);
 
 	act = m_actions->addAction("camera_summary");
-        act->setIcon(QIcon::fromTheme("hwinfo"));
-        act->setText(i18n("Information"));
-	connect(act, SIGNAL(triggered(bool)), this, SLOT(slot_cameraSummary()));
+	act->setIcon(QIcon::fromTheme("hwinfo"));
+	act->setText(i18n("Information"));
+	connect(act, &QAction::triggered, this, &KKameraConfig::slot_cameraSummary);
 	act->setWhatsThis(i18n("Click this button to view a summary of the current status of the selected camera.<br><br>The availability of this feature and the contents of the Information dialog depend on the camera model."));
 	m_toolbar->addAction(act);
 	m_toolbar->addSeparator();
 
 	act = m_actions->addAction("camera_cancel");
-        act->setIcon(QIcon::fromTheme("process-stop"));
-        act->setText(i18n("Cancel"));
-	connect(act, SIGNAL(triggered(bool)), this, SLOT(slot_cancelOperation()));
+	act->setIcon(QIcon::fromTheme("process-stop"));
+	act->setText(i18n("Cancel"));
+	connect(act, &QAction::triggered, this, &KKameraConfig::slot_cancelOperation);
 	act->setWhatsThis(i18n("Click this button to cancel the current camera operation."));
 	act->setEnabled(false);
 	m_toolbar->addAction(act);
@@ -202,27 +202,31 @@ void KKameraConfig::load(void)
 {
 	QStringList groupList = m_config->groupList();
 
-    QStringList::Iterator it;
-    int i, count;
-    CameraList *list;
-    CameraAbilitiesList *al;
-    GPPortInfoList *il;
-    const char *model, *value;
+	QStringList::Iterator it;
+	int i, count;
+	CameraList *list;
+	CameraAbilitiesList *al;
+	GPPortInfoList *il;
+	const char *model, *value;
 	KCamera *kcamera;
 
 	for (it = groupList.begin(); it != groupList.end(); it++) {
 		if (*it != "<default>")	{
 			KConfigGroup cg(m_config, *it);
-            if (cg.readEntry("Path").contains("usb:")) {
+			if (cg.readEntry("Path").contains("usb:")) {
 				continue;
-            }
+			}
 
-            // Load configuration for Serial port cameras
-            qCDebug(KAMERA_KCONTROL) << "Loading configuration for serial port camera: "
+			// Load configuration for Serial port cameras
+			qCDebug(KAMERA_KCONTROL) << "Loading configuration for serial port camera: "
                                      << *it;
 			kcamera = new KCamera(*it, cg.readEntry("Path"));
-			connect(kcamera, SIGNAL(error(QString)), SLOT(slot_error(QString)));
-			connect(kcamera, SIGNAL(error(QString,QString)), SLOT(slot_error(QString,QString)));
+			connect(kcamera, qOverload<const QString&>(&KCamera::error), 
+				this, qOverload<const QString&>(&KKameraConfig::slot_error));
+
+			connect(kcamera, qOverload<const QString&, const QString&>(&KCamera::error), 
+				this, qOverload<const QString&, const QString&>(&KKameraConfig::slot_error));
+
 			kcamera->load(m_config);
 			m_devices[*it] = kcamera;
 		}
@@ -231,15 +235,15 @@ void KKameraConfig::load(void)
 
 	gp_list_new (&list);
 
-        gp_abilities_list_new (&al);
-        gp_abilities_list_load (al, m_context);
-        gp_port_info_list_new (&il);
-        gp_port_info_list_load (il);
-        gp_abilities_list_detect (al, il, list, m_context);
-        gp_abilities_list_free (al);
-        gp_port_info_list_free (il);
+	gp_abilities_list_new (&al);
+	gp_abilities_list_load (al, m_context);
+	gp_port_info_list_new (&il);
+	gp_port_info_list_load (il);
+	gp_abilities_list_detect (al, il, list, m_context);
+	gp_abilities_list_free (al);
+	gp_port_info_list_free (il);
 
-        count = gp_list_count (list);
+	count = gp_list_count (list);
 
 	QMap<QString,QString>	ports, names;
 
@@ -248,24 +252,29 @@ void KKameraConfig::load(void)
 		gp_list_get_value (list, i, &value);
 
 		ports[value] = model;
-        if (!strcmp(value,"usb:")) {
+		if (!strcmp(value,"usb:")) {
 			names[model] = value;
-        }
+		}
 	}
 
-    if (ports.contains("usb:") && names[ports["usb:"]]!="usb:") {
+	if (ports.contains("usb:") && names[ports["usb:"]]!="usb:") {
 		ports.remove("usb:");
-    }
+	}
 
 	QMap<QString,QString>::iterator portit;
 
 	for (portit = ports.begin() ; portit != ports.end(); portit++) {
-        qCDebug(KAMERA_KCONTROL) << "Adding USB camera: " << portit.value() << " at " << portit.key();
+		qCDebug(KAMERA_KCONTROL) << "Adding USB camera: " << portit.value() << " at " << portit.key();
 
 		kcamera = new KCamera(portit.value(), portit.key());
-		connect(kcamera, SIGNAL(error(QString)), SLOT(slot_error(QString)));
-		connect(kcamera, SIGNAL(error(QString,QString)), SLOT(slot_error(QString,QString)));
-        m_devices[portit.value()] = kcamera;
+
+		connect(kcamera, qOverload<const QString&>(&KCamera::error), 
+			this, qOverload<const QString&>(&KKameraConfig::slot_error));
+
+		connect(kcamera, qOverload<const QString&, const QString&>(&KCamera::error), 
+			this, qOverload<const QString&, const QString&>(&KKameraConfig::slot_error));
+
+		m_devices[portit.value()] = kcamera;
 	}
 	populateDeviceListView();
 
@@ -318,9 +327,13 @@ QString KKameraConfig::suggestName(const QString &name)
 
 void KKameraConfig::slot_addCamera()
 {
-	KCamera *m_device = new KCamera(QString(), QString());
-	connect(m_device, SIGNAL(error(QString)), SLOT(slot_error(QString)));
-	connect(m_device, SIGNAL(error(QString,QString)), SLOT(slot_error(QString,QString)));
+        KCamera *m_device = new KCamera(QString(), QString());
+        connect(m_device, qOverload<const QString&>(&KCamera::error),
+                this, qOverload<const QString&>(&KKameraConfig::slot_error));
+
+        connect(m_device, qOverload<const QString&, const QString&>(&KCamera::error),
+                this, qOverload<const QString&,  const QString&>(&KKameraConfig::slot_error));
+
 	KameraDeviceSelectDialog dialog(this, m_device);
 	if (dialog.exec() == QDialog::Accepted) {
 		dialog.save();

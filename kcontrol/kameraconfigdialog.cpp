@@ -62,8 +62,8 @@ KameraConfigDialog::KameraConfigDialog(Camera */*camera*/,
     okButton->setDefault(true);
     okButton->setShortcut(Qt::CTRL | Qt::Key_Return);
 
-    connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
-    connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
+    connect(buttonBox, &QDialogButtonBox::accepted, this, &KameraConfigDialog::accept);
+    connect(buttonBox, &QDialogButtonBox::rejected, this, &KameraConfigDialog::reject);
     okButton->setDefault(true);
     setModal( true );
 
@@ -78,7 +78,7 @@ KameraConfigDialog::KameraConfigDialog(Camera */*camera*/,
 
     appendWidget(main, widget);
 
-    connect(okButton,SIGNAL(clicked()),this,SLOT(slotOk()));
+    connect(okButton, &QPushButton::clicked, this,  &KameraConfigDialog::slotOk);
     mainLayout->addWidget(buttonBox);
 }
 

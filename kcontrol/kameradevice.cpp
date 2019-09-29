@@ -300,10 +300,11 @@ KameraDeviceSelectDialog::KameraDeviceSelectDialog(QWidget *parent, KCamera *dev
 
     setModal( true );
     m_device = device;
-    connect(m_device, SIGNAL(error(QString)),
-        SLOT(slot_error(QString)));
-    connect(m_device, SIGNAL(error(QString,QString)),
-        SLOT(slot_error(QString,QString)));
+    connect(m_device, qOverload<const QString&>(&KCamera::error),
+		this, qOverload<const QString&>(&KameraDeviceSelectDialog::slot_error));
+
+    connect(m_device, qOverload<const QString&, const QString&>(&KCamera::error),
+		this, qOverload<const QString&, const QString&>(&KameraDeviceSelectDialog::slot_error));
 
     QWidget *page = new QWidget( this );
 
@@ -320,10 +321,9 @@ KameraDeviceSelectDialog::KameraDeviceSelectDialog(QWidget *parent, KCamera *dev
     m_modelSel->setModel(m_model);
 
     topLayout->addWidget( m_modelSel );
-    connect(m_modelSel, SIGNAL(activated(QModelIndex)),
-        SLOT(slot_setModel(QModelIndex)));
-    connect(m_modelSel, SIGNAL(clicked(QModelIndex)),
-        SLOT(slot_setModel(QModelIndex)));
+    connect(m_modelSel, &QListView::activated, this, &KameraDeviceSelectDialog::slot_setModel);
+    connect(m_modelSel, &QListView::clicked, this, &KameraDeviceSelectDialog::slot_setModel);
+
     // make sure listview only as wide as it needs to be
     m_modelSel->setSizePolicy(QSizePolicy(QSizePolicy::Maximum,
         QSizePolicy::Preferred));
@@ -362,10 +362,9 @@ KameraDeviceSelectDialog::KameraDeviceSelectDialog(QWidget *parent, KCamera *dev
 
     lay->addWidget(grid2);
     lay->addWidget( m_settingsStack );
-    connect(m_serialRB, SIGNAL(toggled(bool)),
-                this, SLOT(changeCurrentIndex()) );
-    connect(m_USBRB, SIGNAL(toggled(bool)),
-                this, SLOT(changeCurrentIndex()) );
+    connect(m_serialRB, &QRadioButton::toggled, this, &KameraDeviceSelectDialog::changeCurrentIndex);
+    connect(m_USBRB, &QRadioButton::toggled, this, &KameraDeviceSelectDialog::changeCurrentIndex);
+
     // none tab
     m_settingsStack->insertWidget(INDEX_NONE,
             new QLabel(i18n("No port type selected."),
@@ -400,8 +399,8 @@ KameraDeviceSelectDialog::KameraDeviceSelectDialog(QWidget *parent, KCamera *dev
     // to enableButtonOk(true) in slot_setModel.
     okButton->setEnabled(false);
     okButton->setShortcut(Qt::CTRL | Qt::Key_Return);
-    connect(okButton, SIGNAL(clicked(bool)), SLOT(accept()));
-    connect(cancelButton, SIGNAL(clicked(bool)), SLOT(close()));
+    connect(okButton, &QPushButton::clicked, this, &KameraDeviceSelectDialog::accept);
+    connect(cancelButton, &QPushButton::clicked, this, &KameraDeviceSelectDialog::close);
     rightLayout->addWidget(m_OkCancelButtonBox);
 
     // query gphoto2 for existing serial ports
