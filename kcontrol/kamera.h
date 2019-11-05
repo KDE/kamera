@@ -49,15 +49,15 @@ class KKameraConfig : public KCModule
     friend class KameraDeviceSelectDialog;
 
 public:
-    KKameraConfig(QWidget *parent, const QVariantList &);
-    virtual ~KKameraConfig();
+    explicit KKameraConfig(QWidget *parent, const QVariantList &);
+    ~KKameraConfig() override;
 
     // KCModule interface methods
-    void load();
-    void save();
-    void defaults();
+    void load() override;
+    void save() override;
+    void defaults() override;
     int buttons();
-    QString quickHelp() const;
+    QString quickHelp() const override;
 
 protected:
     QString suggestName(const QString &name);
