@@ -36,13 +36,13 @@ class KameraProtocol : public KIO::SlaveBase
 {
 public:
     KameraProtocol(const QByteArray &pool, const QByteArray &app);
-    virtual ~KameraProtocol();
+    ~KameraProtocol() override;
 
-    virtual void get(const QUrl &url);
-    virtual void stat(const QUrl &url);
-    virtual void del(const QUrl &url, bool isFile);
-    virtual void listDir(const QUrl &url);
-    virtual void special(const QByteArray &data);
+    void get(const QUrl &url) override;
+    void stat(const QUrl &url) override;
+    void del(const QUrl &url, bool isFile) override;
+    void listDir(const QUrl &url) override;
+    void special(const QByteArray &data) override;
 
     CameraFile *getFile() { return m_file; }
     KIO::filesize_t getFileSize() { return m_fileSize; }
@@ -58,7 +58,7 @@ private:
 
     void split_url2camerapath(QString url, QString &directory, QString &file);
     void setCamera(const QString &cam, const QString &port);
-    void reparseConfiguration(void);
+    void reparseConfiguration(void) override;
     bool openCamera(QString& str);
     bool openCamera(void ) {
         QString errstr;
