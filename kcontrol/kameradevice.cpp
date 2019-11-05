@@ -206,7 +206,7 @@ bool KCamera::test()
 {
     // TODO: Make testing non-blocking (maybe via KIO?)
     // Currently, a failed serial test times out at about 30 sec.
-    return camera() != 0;
+    return camera() != nullptr;
 }
 
 void KCamera::load(KConfig *config)
@@ -230,7 +230,7 @@ void KCamera::save(KConfig *config)
 
 QString KCamera::portName()
 {
-    QString port = m_path.left(m_path.indexOf(":")).toLower();
+    const QString port = m_path.left(m_path.indexOf(QLatin1Char(':'))).toLower();
     if (port == "serial") return i18n("Serial");
     if (port == "usb") return i18n("USB");
     return i18n("Unknown port");
@@ -278,15 +278,15 @@ QStringList KCamera::supportedPorts()
     initInformation();
     QStringList ports;
     if (m_abilities.port & GP_PORT_SERIAL) {
-        ports.append("serial");
+        ports.append(QLatin1String("serial"));
     }
     if (m_abilities.port & GP_PORT_USB) {
-        ports.append("usb");
+        ports.append(QLatin1String("usb"));
     }
     return ports;
 }
 
-CameraAbilities KCamera::abilities()
+CameraAbilities KCamera::abilities() const
 {
     return m_abilities;
 }
@@ -491,10 +491,13 @@ void KameraDeviceSelectDialog::save()
 void KameraDeviceSelectDialog::load()
 {
     QString path = m_device->path();
-    QString port = path.left(path.indexOf(':')).toLower();
+    QString port = path.left(path.indexOf(QLatin1Char(':'))).toLower();
 
-    if (port == "serial") setPortType(INDEX_SERIAL);
-    if (port == "usb") setPortType(INDEX_USB);
+    if (port == QLatin1String("serial")) {
+        setPortType(INDEX_SERIAL);
+    } else if (port == QLatin1String("usb")) {
+        setPortType(INDEX_USB);
+    }
 
     QList<QStandardItem *> items = m_model->findItems(m_device->model());
     foreach (QStandardItem *item, items) {

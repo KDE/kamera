@@ -50,7 +50,7 @@ KameraConfigDialog::KameraConfigDialog(Camera */*camera*/,
     m_widgetRoot(widget)
 {
     QDialogButtonBox *buttonBox = new QDialogButtonBox(
-            QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
+            QDialogButtonBox::Ok|QDialogButtonBox::Cancel, this);
 
     QWidget *mainWidget = new QWidget(this);
     QVBoxLayout *mainLayout = new QVBoxLayout;

@@ -460,23 +460,23 @@ void KameraProtocol::split_url2camerapath(QString url,
     QStringList	components, camarr;
     QString		cam, camera, port;
 
-    components	= url.split('/', QString::SkipEmptyParts);
+    components	= url.split(QLatin1Char('/'), QString::SkipEmptyParts);
     if (components.size() == 0) {
         return;
     }
     cam	= path_unquote(components.takeFirst());
     if (!cam.isEmpty()) {
-        camarr  = cam.split('@');
+        camarr  = cam.split(QLatin1Char('@'));
         camera  = path_unquote(camarr.takeFirst());
         port    = path_unquote(camarr.takeLast());
         setCamera (camera, port);
     }
-    if (components.size() == 0)  {
+    if (components.isEmpty())  {
         directory = "/";
         return;
     }
     file		= path_unquote(components.takeLast());
-    directory 	= path_unquote("/"+components.join("/"));
+    directory 	= path_unquote("/"+components.join(QLatin1Char('/')));
 }
 
 // Implements a regular stat() of a file / directory, returning all we know about it
@@ -516,7 +516,7 @@ void KameraProtocol::statRegular(const QUrl &xurl)
         GPHOTO_TEXT_FILE(summary);
 #undef GPHOTO_TEXT_FILE
 
-        QString xname = current_camera + '@' + current_port;
+        QString xname = current_camera + QLatin1Char('@') + current_port;
         entry.fastInsert( KIO::UDSEntry::UDS_NAME, path_quote(xname));
         entry.fastInsert( KIO::UDSEntry::UDS_DISPLAY_NAME, current_camera);
         entry.fastInsert( KIO::UDSEntry::UDS_FILE_TYPE,S_IFDIR);
@@ -627,18 +627,18 @@ void KameraProtocol::listDir(const QUrl &yurl)
     split_url2camerapath(yurl.path(), directory, file);
 
     if (!file.isEmpty()) {
-        if (directory == "/") {
-            directory = '/' + file;
+        if (directory == QLatin1Char('/')) {
+            directory = QLatin1Char('/') + file;
         } else {
-            directory = directory + '/' + file;
+            directory = directory + QLatin1Char('/') + file;
         }
     }
 
-    if (yurl.path() == "/") {
+    if (yurl.path() == QLatin1Char('/')) {
         QUrl xurl;
         // List the available cameras
         QStringList groupList = m_config->groupList();
-        qCDebug(KAMERA_KIOSLAVE) << "Found cameras: " << groupList.join(", ");
+        qCDebug(KAMERA_KIOSLAVE) << "Found cameras: " << groupList.join(QStringLiteral(", "));
         QStringList::Iterator it;
         KIO::UDSEntry entry;
 
@@ -712,7 +712,7 @@ void KameraProtocol::listDir(const QUrl &yurl)
             m_cfgPath = cg.readEntry("Path");
 
             // we autodetected those ...
-            if (m_cfgPath.contains(QString("usb:"))) {
+            if (m_cfgPath.contains(QLatin1String("usb:"))) {
                 cg.deleteGroup();
                 continue;
             }
@@ -738,7 +738,7 @@ void KameraProtocol::listDir(const QUrl &yurl)
             // do not confuse regular users with the @usb...
             entry.fastInsert(KIO::UDSEntry::UDS_DISPLAY_NAME,portsit.value());
             entry.fastInsert(KIO::UDSEntry::UDS_NAME,
-                    path_quote(portsit.value()+'@'+portsit.key()));
+                    path_quote(portsit.value()+QLatin1Char('@')+portsit.key()));
 
             entry.fastInsert(KIO::UDSEntry::UDS_ACCESS,
                     (S_IRUSR | S_IRGRP | S_IROTH |S_IWUSR | S_IWGRP | S_IWOTH));
@@ -753,7 +753,7 @@ void KameraProtocol::listDir(const QUrl &yurl)
 
         qCDebug(KAMERA_KIOSLAVE) << "redirecting to /";
         if (!current_camera.isEmpty() && !current_port.isEmpty()) {
-            rooturl.setPath('/'+current_camera+'@'+current_port+'/');
+            rooturl.setPath(QLatin1Char('/')+current_camera+QLatin1Char('@')+current_port+QLatin1Char('/'));
         } else {
             rooturl.setPath("/");
         }
@@ -979,7 +979,7 @@ void KameraProtocol::translateTextToUDS(KIO::UDSEntry &udsEntry,
 // which we can return as a directory listing entry
 void KameraProtocol::translateFileToUDS(KIO::UDSEntry &udsEntry,
                                         const CameraFileInfo &info,
-                                        QString name)
+                                        const QString &name)
 {
 
     udsEntry.clear();

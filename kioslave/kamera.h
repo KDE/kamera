@@ -73,7 +73,7 @@ private:
                             const char *txt);
     void translateFileToUDS(KIO::UDSEntry &udsEntry,
                             const CameraFileInfo &info,
-                            QString name);
+                            const QString &name);
     void translateDirectoryToUDS(KIO::UDSEntry &udsEntry, const QString &dirname);
     bool cameraSupportsPreview(void);
     bool cameraSupportsDel(void);
@@ -86,7 +86,7 @@ private:
     int     idletime;
 
     KIO::filesize_t m_fileSize;
-    CameraFile *m_file;
+    CameraFile *m_file = nullptr;
     bool actiondone, cameraopen;
 };
 #endif

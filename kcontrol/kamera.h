@@ -75,12 +75,12 @@ protected Q_SLOTS:
     void slot_error(const QString &message, const QString &details);
 
 private:
-    void displayGPFailureDialogue(void);
-    void displayGPSuccessDialogue(void);
+    void displayGPFailureDialogue();
+    void displayGPSuccessDialogue();
     void displayCameraAbilities(const CameraAbilities &abilities);
-    void populateDeviceListView(void);
-    void beforeCameraOperation(void);
-    void afterCameraOperation(void);
+    void populateDeviceListView();
+    void beforeCameraOperation();
+    void afterCameraOperation();
 
     // gphoto callbacks
     static void cbGPIdle(GPContext *context, void *data);

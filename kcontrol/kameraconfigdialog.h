@@ -35,8 +35,8 @@ class KameraConfigDialog : public QDialog
 {
     Q_OBJECT
 public:
-    KameraConfigDialog(Camera *camera, CameraWidget *widget,
-               QWidget *parent = 0);
+    explicit KameraConfigDialog(Camera *camera, CameraWidget *widget,
+               QWidget *parent = nullptr);
 
 private Q_SLOTS:
     void slotOk();
@@ -46,8 +46,8 @@ private:
     void updateWidgetValue(CameraWidget *widget);
 
     QMap<CameraWidget *, QWidget *> m_wmap;
-    CameraWidget *m_widgetRoot;
-    QTabWidget *m_tabWidget;
+    CameraWidget *m_widgetRoot = nullptr;
+    QTabWidget *m_tabWidget = nullptr;
 };
 
 #endif

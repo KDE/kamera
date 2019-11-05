@@ -44,7 +44,7 @@ class KCamera : public QObject {
     friend class KameraDeviceSelectDialog;
     Q_OBJECT
 public:
-    KCamera(const QString &name, const QString &path);
+    explicit KCamera(const QString &name, const QString &path);
     ~KCamera();
     void invalidateCamera();
     bool configure();
@@ -60,7 +60,7 @@ public:
     QString portName();
 
     QString summary();
-    CameraAbilities abilities();
+    CameraAbilities abilities() const;
 
     void setName(const QString &name);
     void setModel(const QString &model);

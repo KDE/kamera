@@ -81,7 +81,7 @@ void KKameraConfig::defaults()
 {
 }
 
-void KKameraConfig::displayGPFailureDialogue(void)
+void KKameraConfig::displayGPFailureDialogue()
 {
 	QVBoxLayout *topLayout = new QVBoxLayout(this);
 	topLayout->setSpacing(0);
@@ -90,7 +90,7 @@ void KKameraConfig::displayGPFailureDialogue(void)
 	topLayout->addWidget(label);
 }
 
-void KKameraConfig::displayGPSuccessDialogue(void)
+void KKameraConfig::displayGPSuccessDialogue()
 {
 	// set the kcontrol module buttons
 	setButtons(Help | Apply );
@@ -171,11 +171,11 @@ void KKameraConfig::displayGPSuccessDialogue(void)
 	m_toolbar->addAction(act);
 }
 
-void KKameraConfig::populateDeviceListView(void)
+void KKameraConfig::populateDeviceListView()
 {
 	m_deviceModel->clear();
-	CameraDevicesMap::ConstIterator it;
-	for (it = m_devices.constBegin(); it != m_devices.constEnd(); ++it) {
+    CameraDevicesMap::ConstIterator itEnd = m_devices.constEnd();
+    for (CameraDevicesMap::ConstIterator it = m_devices.constBegin(); it != itEnd; ++it) {
 		if (it.value()) {
 			QStandardItem *deviceItem = new QStandardItem;
 			deviceItem->setEditable(false);
@@ -281,7 +281,7 @@ void KKameraConfig::load(void)
 	gp_list_free (list);
 }
 
-void KKameraConfig::beforeCameraOperation(void)
+void KKameraConfig::beforeCameraOperation()
 {
 	m_cancelPending = false;
 
@@ -293,7 +293,7 @@ void KKameraConfig::beforeCameraOperation(void)
 	m_actions->action("camera_cancel")->setEnabled(true);
 }
 
-void KKameraConfig::afterCameraOperation(void)
+void KKameraConfig::afterCameraOperation()
 {
 	m_actions->action("camera_cancel")->setEnabled(false);
 
