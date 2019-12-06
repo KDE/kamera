@@ -43,7 +43,6 @@
 #include "kameradevice.h"
 
 K_PLUGIN_FACTORY(KKameraConfigFactory, registerPlugin<KKameraConfig>();)
-K_EXPORT_PLUGIN(KKameraConfigFactory("kcmkamera"))
 
 Q_LOGGING_CATEGORY(KAMERA_KCONTROL, "kamera.kcontrol")
 

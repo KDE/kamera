@@ -763,7 +763,7 @@ void KameraProtocol::listDir(const QUrl &yurl)
     }
 
     if (!openCamera()) {
-        error(KIO::ERR_COULD_NOT_READ, yurl.path());
+        error(KIO::ERR_CANNOT_READ, yurl.path());
         return;
     }
 
