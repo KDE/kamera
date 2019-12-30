@@ -95,7 +95,7 @@ int kdemain(int argc, char **argv)
 
     if(argc != 4) {
         qCDebug(KAMERA_KIOSLAVE) << "Usage: kio_kamera protocol "
-                 "domain-socket1 domain-socket2" << endl;
+                 "domain-socket1 domain-socket2";
         exit(-1);
     }
 
