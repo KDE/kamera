@@ -87,7 +87,7 @@
   </description>
   <url type="homepage">https://www.kde.org</url>
   <url type="bugtracker">https://bugs.kde.org/enter_bug.cgi?format=guided&amp;product=systemsettings</url>
-  <url type="help">https://docs.kde.org/trunk5/en/kdegraphics/kcontrol/kamera/index.html</url>
+  <url type="help">https://docs.kde.org/?application=kcontrol%2Fkamera</url>
   <screenshots>
     <screenshot type="default">
       <image type="source">https://cdn.kde.org/screenshots/kamera/kamera.png</image>
