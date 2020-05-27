@@ -231,8 +231,8 @@ void KCamera::save(KConfig *config)
 QString KCamera::portName()
 {
     const QString port = m_path.left(m_path.indexOf(QLatin1Char(':'))).toLower();
-    if (port == "serial") return i18n("Serial");
-    if (port == "usb") return i18n("USB");
+    if (port == QStringLiteral("serial")) return i18n("Serial");
+    if (port == QStringLiteral("usb")) return i18n("USB");
     return i18n("Unknown port");
 }
 
@@ -278,10 +278,10 @@ QStringList KCamera::supportedPorts()
     initInformation();
     QStringList ports;
     if (m_abilities.port & GP_PORT_SERIAL) {
-        ports.append(QLatin1String("serial"));
+        ports.append(QStringLiteral("serial"));
     }
     if (m_abilities.port & GP_PORT_USB) {
-        ports.append(QLatin1String("usb"));
+        ports.append(QStringLiteral("usb"));
     }
     return ports;
 }
@@ -482,9 +482,9 @@ void KameraDeviceSelectDialog::save()
     m_device->setModel(m_modelSel->currentIndex().data(Qt::DisplayRole).toString());
 
     if (m_serialRB->isChecked()) {
-        m_device->setPath("serial:" + m_serialPortCombo->currentText());
+        m_device->setPath(QStringLiteral("serial:") + m_serialPortCombo->currentText());
     } else if ( m_USBRB->isChecked() ) {
-        m_device->setPath("usb:");
+        m_device->setPath(QStringLiteral("usb:"));
     }
 }
 

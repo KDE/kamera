@@ -86,7 +86,7 @@ int kdemain(int argc, char **argv)
 {
     QCoreApplication app(argc, argv);
 
-    QCoreApplication::setApplicationName("kio_kamera");
+    QCoreApplication::setApplicationName(QStringLiteral("kio_kamera"));
     KLocalizedString::setApplicationDomain("kio_kamera");
 
 #ifdef DEBUG_KAMERA_KIO
@@ -117,7 +117,7 @@ m_camera(NULL)
     // (will init m_camera, since the m_camera's configuration is empty)
     m_camera = 0;
     m_file = NULL;
-    m_config = new KConfig(KProtocolInfo::config("camera"), KConfig::SimpleConfig);
+    m_config = new KConfig(KProtocolInfo::config(QStringLiteral("camera")), KConfig::SimpleConfig);
     m_context = gp_context_new();
     actiondone = true;
     cameraopen = false;
@@ -228,14 +228,14 @@ void KameraProtocol::closeCamera(void)
     return;
 }
 
-static QString fix_foldername(QString ofolder) {
+static QString fix_foldername(const QString &ofolder) {
     QString folder = ofolder;
     if (folder.length() > 1) {
-        while ((folder.length()>1) && (folder.right(1) == "/"))
+        while ((folder.length()>1) && (folder.right(1) == QStringLiteral("/")))
             folder = folder.left(folder.length()-1);
     }
     if (folder.length() == 0) {
-        folder = "/";
+        folder = QStringLiteral("/");
     }
     return folder;
 }
@@ -425,12 +425,12 @@ void KameraProtocol::stat(const QUrl &url)
         QUrl rooturl(url);
 
         qCDebug(KAMERA_KIOSLAVE) << "redirecting to /";
-        rooturl.setPath("/");
+        rooturl.setPath(QStringLiteral("/"));
         redirection(rooturl);
         finished();
         return;
     }
-    if(url.path() == "/")
+    if(url.path() == QStringLiteral("/"))
         statRoot();
     else
         statRegular(url);
@@ -453,7 +453,7 @@ void KameraProtocol::statRoot(void)
     idletime = MAXIDLETIME;
 }
 
-void KameraProtocol::split_url2camerapath(QString url,
+void KameraProtocol::split_url2camerapath(const QString &url,
     QString &directory,
     QString &file
 ) {
@@ -698,13 +698,13 @@ void KameraProtocol::listDir(const QUrl &yurl)
          * port usb: and usb:001,042 entries. */
         if (ports.contains("usb:") &&
                 names.contains(ports["usb:"]) &&
-                names[ports["usb:"]] != "usb:") {
-            ports.remove("usb:");
+                names[ports[QStringLiteral("usb:")]] != QStringLiteral("usb:")) {
+            ports.remove(QStringLiteral("usb:"));
         }
 
         for (it = groupList.begin(); it != groupList.end(); it++) {
             QString m_cfgPath;
-            if (*it == "<default>") {
+            if (*it == QStringLiteral("<default>")) {
                 continue;
             }
 
@@ -755,7 +755,7 @@ void KameraProtocol::listDir(const QUrl &yurl)
         if (!current_camera.isEmpty() && !current_port.isEmpty()) {
             rooturl.setPath(QLatin1Char('/')+current_camera+QLatin1Char('@')+current_port+QLatin1Char('/'));
         } else {
-            rooturl.setPath("/");
+            rooturl.setPath(QStringLiteral("/"));
         }
         redirection(rooturl);
         finished();
@@ -775,7 +775,7 @@ void KameraProtocol::listDir(const QUrl &yurl)
     gp_list_new(&specialList);
     int gpr;
 
-    if (!directory.compare("/")) {
+    if (!directory.compare(QStringLiteral("/"))) {
         CameraText text;
         if (GP_OK == gp_camera_get_manual(m_camera, &text, m_context)) {
             gp_list_append(specialList,"manual.txt",NULL);
@@ -826,18 +826,18 @@ void KameraProtocol::listDir(const QUrl &yurl)
         translateFileToUDS(entry, info, QString::fromLocal8Bit(name));
         listEntry(entry);
     }
-    if (!directory.compare("/")) {
+    if (!directory.compare(QStringLiteral("/"))) {
         CameraText text;
         if (GP_OK == gp_camera_get_manual(m_camera, &text, m_context)) {
-            translateTextToUDS(entry, "manual.txt", text.text);
+            translateTextToUDS(entry, QStringLiteral("manual.txt"), text.text);
             listEntry(entry);
         }
         if (GP_OK == gp_camera_get_about(m_camera, &text, m_context)) {
-            translateTextToUDS(entry, "about.txt", text.text);
+            translateTextToUDS(entry, QStringLiteral("about.txt"), text.text);
             listEntry(entry);
         }
         if (GP_OK == gp_camera_get_summary(m_camera, &text, m_context)) {
-            translateTextToUDS(entry, "summary.txt", text.text);
+            translateTextToUDS(entry, QStringLiteral("summary.txt"), text.text);
             listEntry(entry);
         }
     }
@@ -900,7 +900,7 @@ void KameraProtocol::setCamera(const QString& camera, const QString& port)
         idx = gp_port_info_list_lookup_path(port_info_list, tocstr(port));
 
         /* Handle erronously passed usb:XXX,YYY */
-        if ((idx < 0) && port.startsWith("usb:")) {
+        if ((idx < 0) && port.startsWith(QStringLiteral("usb:"))) {
             idx = gp_port_info_list_lookup_path(port_info_list, "usb:");
         }
         if (idx < 0) {
@@ -972,7 +972,7 @@ void KameraProtocol::translateTextToUDS(KIO::UDSEntry &udsEntry,
     udsEntry.fastInsert(KIO::UDSEntry::UDS_DISPLAY_NAME,fn);
     udsEntry.fastInsert(KIO::UDSEntry::UDS_SIZE,strlen(text));
     udsEntry.fastInsert(KIO::UDSEntry::UDS_ACCESS,(S_IRUSR | S_IRGRP | S_IROTH));
-    udsEntry.fastInsert(KIO::UDSEntry::UDS_MIME_TYPE, QString("text/plain"));
+    udsEntry.fastInsert(KIO::UDSEntry::UDS_MIME_TYPE, QStringLiteral("text/plain"));
 }
 
 // translate a CameraFileInfo to a UDSFieldType
@@ -1029,7 +1029,7 @@ void KameraProtocol::translateDirectoryToUDS(KIO::UDSEntry &udsEntry,
     udsEntry.fastInsert(KIO::UDSEntry::UDS_ACCESS,
             S_IRUSR | S_IRGRP | S_IROTH |S_IWUSR | S_IWGRP |
             S_IWOTH | S_IXUSR | S_IXOTH | S_IXGRP);
-    udsEntry.fastInsert(KIO::UDSEntry::UDS_MIME_TYPE, QString("inode/directory"));
+    udsEntry.fastInsert(KIO::UDSEntry::UDS_MIME_TYPE, QStringLiteral("inode/directory"));
 }
 
 bool KameraProtocol::cameraSupportsDel(void)

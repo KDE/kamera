@@ -56,7 +56,7 @@ KKameraConfig::KKameraConfig(QWidget *parent, const QVariantList &)
 #endif
     m_devicePopup = new QMenu(this);
 	m_actions = new KActionCollection(this);
-	m_config = new KConfig(KProtocolInfo::config("camera"), KConfig::SimpleConfig);
+    m_config = new KConfig(KProtocolInfo::config(QStringLiteral("camera")), KConfig::SimpleConfig);
     m_deviceModel = new QStandardItemModel(this);
 
 	m_context = gp_context_new();
@@ -124,45 +124,45 @@ void KKameraConfig::displayGPSuccessDialogue()
 
     // create actions, add to the toolbar
 	QAction *act;
-	act = m_actions->addAction("camera_add");
-	act->setIcon(QIcon::fromTheme("camera-photo"));
+    act = m_actions->addAction(QStringLiteral("camera_add"));
+    act->setIcon(QIcon::fromTheme(QStringLiteral("camera-photo")));
 	act->setText(i18n("Add"));
 	connect(act, &QAction::triggered, this, &KKameraConfig::slot_addCamera);
 	act->setWhatsThis(i18n("Click this button to add a new camera."));
 	m_toolbar->addAction(act);
 	m_toolbar->addSeparator();
 
-	act = m_actions->addAction("camera_test");
-	act->setIcon(QIcon::fromTheme("dialog-ok"));
+    act = m_actions->addAction(QStringLiteral("camera_test"));
+    act->setIcon(QIcon::fromTheme(QStringLiteral("dialog-ok")));
 	act->setText(i18n("Test"));
 	connect(act, &QAction::triggered, this, &KKameraConfig::slot_testCamera);
 	act->setWhatsThis(i18n("Click this button to test the connection to the selected camera."));
 	m_toolbar->addAction(act);
 
-	act = m_actions->addAction("camera_remove");
-	act->setIcon(QIcon::fromTheme("user-trash"));
+    act = m_actions->addAction(QStringLiteral("camera_remove"));
+    act->setIcon(QIcon::fromTheme(QStringLiteral("user-trash")));
 	act->setText(i18n("Remove"));
 	connect(act, &QAction::triggered, this, &KKameraConfig::slot_removeCamera);
 	act->setWhatsThis(i18n("Click this button to remove the selected camera from the list."));
 	m_toolbar->addAction(act);
 
-	act = m_actions->addAction("camera_configure");
-	act->setIcon(QIcon::fromTheme("configure"));
+    act = m_actions->addAction(QStringLiteral("camera_configure"));
+    act->setIcon(QIcon::fromTheme(QStringLiteral("configure")));
 	act->setText(i18n("Configure..."));
 	connect(act, &QAction::triggered, this, &KKameraConfig::slot_configureCamera);
 	act->setWhatsThis(i18n("Click this button to change the configuration of the selected camera.<br><br>The availability of this feature and the contents of the Configuration dialog depend on the camera model."));
 	m_toolbar->addAction(act);
 
-	act = m_actions->addAction("camera_summary");
-	act->setIcon(QIcon::fromTheme("hwinfo"));
+    act = m_actions->addAction(QStringLiteral("camera_summary"));
+    act->setIcon(QIcon::fromTheme(QStringLiteral("hwinfo")));
 	act->setText(i18n("Information"));
 	connect(act, &QAction::triggered, this, &KKameraConfig::slot_cameraSummary);
 	act->setWhatsThis(i18n("Click this button to view a summary of the current status of the selected camera.<br><br>The availability of this feature and the contents of the Information dialog depend on the camera model."));
 	m_toolbar->addAction(act);
 	m_toolbar->addSeparator();
 
-	act = m_actions->addAction("camera_cancel");
-	act->setIcon(QIcon::fromTheme("process-stop"));
+    act = m_actions->addAction(QStringLiteral("camera_cancel"));
+    act->setIcon(QIcon::fromTheme(QStringLiteral("process-stop")));
 	act->setText(i18n("Cancel"));
 	connect(act, &QAction::triggered, this, &KKameraConfig::slot_cancelOperation);
 	act->setWhatsThis(i18n("Click this button to cancel the current camera operation."));
@@ -179,7 +179,7 @@ void KKameraConfig::populateDeviceListView()
 			QStandardItem *deviceItem = new QStandardItem;
 			deviceItem->setEditable(false);
 			deviceItem->setText(it.key());
-            deviceItem->setIcon(QIcon::fromTheme("camera-photo"));
+            deviceItem->setIcon(QIcon::fromTheme(QStringLiteral("camera-photo")));
 			m_deviceModel->appendRow(deviceItem);
 		}
 	}
@@ -210,9 +210,9 @@ void KKameraConfig::load(void)
 	KCamera *kcamera;
 
 	for (it = groupList.begin(); it != groupList.end(); it++) {
-		if (*it != "<default>")	{
+        if (*it != QStringLiteral("<default>"))	{
 			KConfigGroup cg(m_config, *it);
-			if (cg.readEntry("Path").contains("usb:")) {
+            if (cg.readEntry("Path").contains(QStringLiteral("usb:"))) {
 				continue;
 			}
 
@@ -256,8 +256,8 @@ void KKameraConfig::load(void)
 		}
 	}
 
-	if (ports.contains("usb:") && names[ports["usb:"]]!="usb:") {
-		ports.remove("usb:");
+    if (ports.contains(QStringLiteral("usb:")) && names[ports[QStringLiteral("usb:")]]!=QStringLiteral("usb:")) {
+        ports.remove(QStringLiteral("usb:"));
 	}
 
 	QMap<QString,QString>::iterator portit;
@@ -284,17 +284,17 @@ void KKameraConfig::beforeCameraOperation()
 {
 	m_cancelPending = false;
 
-	m_actions->action("camera_test")->setEnabled(false);
-	m_actions->action("camera_remove")->setEnabled(false);
-	m_actions->action("camera_configure")->setEnabled(false);
-	m_actions->action("camera_summary")->setEnabled(false);
+    m_actions->action(QStringLiteral("camera_test"))->setEnabled(false);
+    m_actions->action(QStringLiteral("camera_remove"))->setEnabled(false);
+    m_actions->action(QStringLiteral("camera_configure"))->setEnabled(false);
+    m_actions->action(QStringLiteral("camera_summary"))->setEnabled(false);
 
-	m_actions->action("camera_cancel")->setEnabled(true);
+    m_actions->action(QStringLiteral("camera_cancel"))->setEnabled(true);
 }
 
 void KKameraConfig::afterCameraOperation()
 {
-	m_actions->action("camera_cancel")->setEnabled(false);
+    m_actions->action(QStringLiteral("camera_cancel"))->setEnabled(false);
 
 	// if we're regaining control after a Cancel...
 	if (m_cancelPending) {
@@ -398,7 +398,7 @@ void KKameraConfig::slot_cancelOperation()
 {
 	m_cancelPending = true;
 	// Prevent the user from keeping clicking Cancel
-	m_actions->action("camera_cancel")->setEnabled(false);
+    m_actions->action(QStringLiteral("camera_cancel"))->setEnabled(false);
 	// and indicate that the click on Cancel did have some effect
 	qApp->setOverrideCursor(Qt::WaitCursor);
 }
@@ -408,10 +408,10 @@ void KKameraConfig::slot_deviceMenu(const QPoint &point)
 	QModelIndex index = m_deviceSel->indexAt(point);
 	if (index.isValid()) {
 		m_devicePopup->clear();
-		m_devicePopup->addAction(m_actions->action("camera_test"));
-		m_devicePopup->addAction(m_actions->action("camera_remove"));
-		m_devicePopup->addAction(m_actions->action("camera_configure"));
-		m_devicePopup->addAction(m_actions->action("camera_summary"));
+        m_devicePopup->addAction(m_actions->action(QStringLiteral("camera_test")));
+        m_devicePopup->addAction(m_actions->action(QStringLiteral("camera_remove")));
+        m_devicePopup->addAction(m_actions->action(QStringLiteral("camera_configure")));
+        m_devicePopup->addAction(m_actions->action(QStringLiteral("camera_summary")));
 		m_devicePopup->exec(m_deviceSel->viewport()->mapToGlobal(point));
 	}
 }
@@ -419,10 +419,10 @@ void KKameraConfig::slot_deviceMenu(const QPoint &point)
 void KKameraConfig::slot_deviceSelected(const QModelIndex &index)
 {
 	bool isValid = index.isValid();
-	m_actions->action("camera_test")->setEnabled(isValid);
-	m_actions->action("camera_remove")->setEnabled(isValid);
-	m_actions->action("camera_configure")->setEnabled(isValid);
-	m_actions->action("camera_summary")->setEnabled(isValid);
+    m_actions->action(QStringLiteral("camera_test"))->setEnabled(isValid);
+    m_actions->action(QStringLiteral("camera_remove"))->setEnabled(isValid);
+    m_actions->action(QStringLiteral("camera_configure"))->setEnabled(isValid);
+    m_actions->action(QStringLiteral("camera_summary"))->setEnabled(isValid);
 }
 
 void KKameraConfig::cbGPIdle(GPContext * /*context*/, void * /*data*/)

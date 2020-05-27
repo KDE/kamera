@@ -56,7 +56,7 @@ private:
 
     GPContext *m_context;
 
-    void split_url2camerapath(QString url, QString &directory, QString &file);
+    void split_url2camerapath(const QString &url, QString &directory, QString &file);
     void setCamera(const QString &cam, const QString &port);
     void reparseConfiguration(void) override;
     bool openCamera(QString& str);
