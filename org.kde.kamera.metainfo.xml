@@ -33,7 +33,6 @@
   <name xml:lang="sl">Kamera</name>
   <name xml:lang="sv">Kamera</name>
   <name xml:lang="uk">Kamera</name>
-  <name xml:lang="x-test">xxKameraxx</name>
   <name xml:lang="zh-CN">Kamera</name>
   <name xml:lang="zh-TW">Kamera</name>
   <summary>A plugin to support Picture Transfer Protocol (PTP) in KDE applications</summary>
@@ -61,7 +60,6 @@
   <summary xml:lang="sl">Vtičnik za podporo protokola za prenos slike (PTP) v aplikacijah KDE</summary>
   <summary xml:lang="sv">Ett insticksprogram för att stödja bildöverföringsprotokollet (Picture Transfer Protocol, PTP) i KDE-program</summary>
   <summary xml:lang="uk">Додаток для підтримки протоколу передавання зображень (PTP) у програмах KDE</summary>
-  <summary xml:lang="x-test">xxA plugin to support Picture Transfer Protocol (PTP) in KDE applicationsxx</summary>
   <summary xml:lang="zh-CN">在 KDE 应用程序中支持图片传输协议 (PTP) 的插件</summary>
   <summary xml:lang="zh-TW">用來在 KDE 應用程式支援影像傳輸協定 (PTP) 的外掛程式</summary>
   <description>
@@ -90,7 +88,6 @@
     <p xml:lang="sl">Protokol za prenos slike (PTP) je starejši način komunikacije s foto napravami. Kamera ponuja orodje za nastavitve in kio odjemalca za branje in pisanje na foto naprave s tem protokolom.</p>
     <p xml:lang="sv">Bildöverföringsprotokollet (Picture Transfer Protocol, PTP) är en äldre metod för att kommunicera med kameraenheter. Kamera tillhandahåller ett inställningsverktyg och I/O-slav för att läsa och skriva till kameraenheter med protokollet.</p>
     <p xml:lang="uk">Протокол передавання зображень (PTP) є застарілим способом обміну даними із пристроями для знімання зображень. Kamera є інструментом налаштовування та підлеглим засобом введення-виведення даних для читання і запису даних на основі цього протоколу.</p>
-    <p xml:lang="x-test">xxPicture Transfer Protocol (PTP) is an older method of talking to camera devices. Kamera provides a configuration tool and kio slave to read and write to camera devices with this protocol.xx</p>
     <p xml:lang="zh-CN">图片传输协议 (PTP) 是一个用于和照相机设备进行通讯的较老的协议。Kamera 提供了一个配置工具，及一个 kio slave，用于以此协议来读写照相机设备。</p>
     <p xml:lang="zh-TW">影像傳輸協定 (PTP) 是個與相機裝置溝通的舊方法。Kamera 提供了設定工具及 KIO Slave 來使用此協定讀取及寫入相機裝置。</p>
   </description>
