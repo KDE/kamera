@@ -34,9 +34,9 @@
 #include <signal.h>
 #include <errno.h>
 
-#include <qfile.h>
-#include <qtextstream.h>
-#include <qdebug.h>
+#include <QFile>
+#include <QTextStream>
+#include <QDebug>
 
 #include <QCoreApplication>
 #include <QStandardPaths>

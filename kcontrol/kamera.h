@@ -23,7 +23,7 @@
 #ifndef __kamera_h__
 #define __kamera_h__
 
-#include <kcmodule.h>
+#include <KCModule>
 #include <gphoto2.h>
 #include <KPluginFactory>
 #include <QLoggingCategory>
