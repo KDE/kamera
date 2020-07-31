@@ -460,7 +460,11 @@ void KameraProtocol::split_url2camerapath(const QString &url,
     QStringList	components, camarr;
     QString		cam, camera, port;
 
+#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
     components	= url.split(QLatin1Char('/'), QString::SkipEmptyParts);
+#else
+    components	= url.split(QLatin1Char('/'), Qt::SkipEmptyParts);
+#endif
     if (components.size() == 0) {
         return;
     }
