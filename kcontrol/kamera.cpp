@@ -30,7 +30,6 @@
 #include <QStandardItemModel>
 #include <QMenu>
 #include <QIcon>
-#include <QLoggingCategory>
 
 #include <KConfig>
 #include <KMessageBox>

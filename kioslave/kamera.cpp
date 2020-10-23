@@ -40,10 +40,8 @@
 
 #include <QCoreApplication>
 #include <QStandardPaths>
-#include <QLoggingCategory>
 
 #include <KLocalizedString>
-#include <KConfig>
 #include <KConfigGroup>
 #include <KProtocolInfo>
 

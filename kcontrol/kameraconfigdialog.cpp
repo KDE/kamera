@@ -30,10 +30,8 @@
 #include <QLineEdit>
 #include <QComboBox>
 #include <QSlider>
-#include <QTabWidget>
 #include <QFrame>
 #include <QVBoxLayout>
-#include <QDialog>
 #include <QDialogButtonBox>
 #include <QPushButton>
 #include <QScrollArea>
