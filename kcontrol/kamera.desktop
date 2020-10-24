@@ -212,6 +212,6 @@ X-KDE-ParentApp=kcontrol
 X-KDE-System-Settings-Parent-Category=removable-storage
 X-KDE-ModuleType=Library
 Icon=camera-photo
-Exec=kcmshell5 kamera
+Exec=systemsettings5 kamera
 X-DocPath=kcontrol/kamera/index.html
 Categories=Qt;KDE;X-KDE-settings-hardware;
