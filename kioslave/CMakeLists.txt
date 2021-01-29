@@ -16,7 +16,7 @@ target_link_libraries(kio_kamera
     ${GPHOTO2_LIBRARIES}
     )
 
-install(TARGETS kio_kamera  DESTINATION ${PLUGIN_INSTALL_DIR} )
+install(TARGETS kio_kamera  DESTINATION ${KDE_INSTALL_PLUGINDIR} )
 
 ########### install files ###############
 

@@ -18,7 +18,7 @@ target_link_libraries(kcm_kamera
     ${GPHOTO2_LIBRARIES}
     )
 
-install(TARGETS kcm_kamera  DESTINATION ${PLUGIN_INSTALL_DIR} )
+install(TARGETS kcm_kamera  DESTINATION ${KDE_INSTALL_PLUGINDIR} )
 
 
 ########### install files ###############
