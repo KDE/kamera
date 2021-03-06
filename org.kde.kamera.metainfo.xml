@@ -8,6 +8,7 @@
   <extends>org.kde.krusader.desktop</extends>
   <extends>org.kde.gwenview.desktop</extends>
   <name>Kamera</name>
+  <name xml:lang="az">Kamera</name>
   <name xml:lang="ca">Kamera</name>
   <name xml:lang="ca-valencia">Kamera</name>
   <name xml:lang="cs">Kamera</name>
@@ -40,6 +41,8 @@
   <name xml:lang="zh-CN">Kamera</name>
   <name xml:lang="zh-TW">Kamera</name>
   <summary>A plugin to support Picture Transfer Protocol (PTP) in KDE applications</summary>
+  <summary xml:lang="az">KDE tətbiqlərində Şəkil Köçürmə Protokolu (Picture Transfer Protocol - PTP)
+dəstəkləyən qoşma</summary>
   <summary xml:lang="ca">Un connector per a admetre el protocol de transferència d'imatges (Picture Transfer Protocol -PTP-) a les aplicacions KDE</summary>
   <summary xml:lang="ca-valencia">Un connector per a admetre el protocol de transferència d'imatges (Picture Transfer Protocol -PTP-) a les aplicacions KDE</summary>
   <summary xml:lang="de">Ein Modul für das Bildaustauschprotokoll  (PTP) in KDE-Anwendungen</summary>
@@ -71,6 +74,7 @@
   <summary xml:lang="zh-TW">用來在 KDE 應用程式支援影像傳輸協定 (PTP) 的外掛程式</summary>
   <description>
     <p>Picture Transfer Protocol (PTP) is an older method of talking to camera devices.  Kamera provides a configuration tool and kio slave to read and write to camera devices with this protocol.</p>
+    <p xml:lang="az">Şəkil Köçürmə Protokolu (ing. - PTP) kamera ilə işləmək üçün köhnə üsuldur. Kamera tətbiqi, bu protokol vasitəsi ilə kamera cihazlarına yazmaq və oxumaq üçün ayarlar aləti təqdim edir.</p>
     <p xml:lang="ca">El protocol de transferència d'imatges (PTP) és un mètode antic de parlar amb els dispositius de càmera. El Kamera proporciona una eina de configuració i un esclau kio per a llegir i escriure als dispositius de càmera amb aquest protocol.</p>
     <p xml:lang="ca-valencia">El protocol de transferència d'imatges (PTP) és un mètode antic de parlar amb els dispositius de càmera. El Kamera proporciona una eina de configuració i un esclau kio per a llegir i escriure als dispositius de càmera amb aquest protocol.</p>
     <p xml:lang="de">Das Bildaustauschprotokoll (PTP) ist eine ältere Methode, um mit Kamerageräten zu kommunizieren. Kamera stellt ein Einrichtungsmodul und ein Ein-/Ausgabemodul zum Lesen und Schreiben auf Kamerageräten mit diesem Protokoll zur Verfügung.</p>
