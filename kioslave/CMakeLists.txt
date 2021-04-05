@@ -13,6 +13,7 @@ target_link_libraries(kio_kamera
     Qt5::Core
     KF5::KIOCore
     KF5::I18n
+    KF5::ConfigCore
     ${GPHOTO2_LIBRARIES}
     )
 
