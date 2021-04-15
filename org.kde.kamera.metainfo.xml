@@ -41,8 +41,7 @@
   <name xml:lang="zh-CN">Kamera</name>
   <name xml:lang="zh-TW">Kamera</name>
   <summary>A plugin to support Picture Transfer Protocol (PTP) in KDE applications</summary>
-  <summary xml:lang="az">KDE tətbiqlərində Şəkil Köçürmə Protokolu (Picture Transfer Protocol - PTP)
-dəstəkləyən qoşma</summary>
+  <summary xml:lang="az">KDE tətbiqlərində Şəkil Köçürmə Protokolu (PTP) dəstəkləyən əlavə</summary>
   <summary xml:lang="ca">Un connector per a admetre el protocol de transferència d'imatges (Picture Transfer Protocol -PTP-) a les aplicacions KDE</summary>
   <summary xml:lang="ca-valencia">Un connector per a admetre el protocol de transferència d'imatges (Picture Transfer Protocol -PTP-) a les aplicacions KDE</summary>
   <summary xml:lang="de">Ein Modul für das Bildaustauschprotokoll  (PTP) in KDE-Anwendungen</summary>
