@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.1.0)
+cmake_minimum_required(VERSION 3.16.0)
 project(kamera)
 
 # KDE Application Version, managed by release script
@@ -20,8 +20,10 @@ include(KDECompilerSettings)
 include(FindPkgConfig)
 include(FeatureSummary)
 
-find_package(Qt5 5.3 REQUIRED COMPONENTS Core)
-find_package(KF5 REQUIRED COMPONENTS
+set(KF5_MIN_VERSION    "5.83.0")
+
+find_package(Qt5 5.15 REQUIRED COMPONENTS Core)
+find_package(KF5 ${KF5_MIN_VERSION} REQUIRED COMPONENTS
     ConfigWidgets
     XmlGui
     KIO
