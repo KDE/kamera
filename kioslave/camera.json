@@ -1,0 +1,24 @@
+{
+    "KDE-KIO-Protocols": {
+        "camera": {
+            "Class": ":local",
+            "Icon": "camera-photo",
+            "deleting": true,
+            "exec": "kf5/kio/kio_kamera",
+            "input": "none",
+            "linking": false,
+            "listing": [
+                "Name",
+                "Type"
+            ],
+            "makedir": false,
+            "maxInstances": 1,
+            "moving": false,
+            "output": "filesystem",
+            "protocol": "camera",
+            "reading": true,
+            "source": true,
+            "writing": false
+        }
+    }
+}
