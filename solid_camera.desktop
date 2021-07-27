@@ -7,6 +7,7 @@ Actions=open;
 Exec=kioclient5 exec camera:/
 Icon=system-file-manager
 Name=View Photos with File Manager
+Name[ar]=اعرض الصور بمدير الملفات
 Name[az]=Şəkillərə fayl menecerində baxmaq
 Name[ca]=Visualitza fotos amb el gestor de fitxers
 Name[ca@valencia]=Visualitza fotos amb el gestor de fitxers
