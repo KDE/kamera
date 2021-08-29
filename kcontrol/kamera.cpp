@@ -219,11 +219,11 @@ void KKameraConfig::load(void)
 			qCDebug(KAMERA_KCONTROL) << "Loading configuration for serial port camera: "
                                      << *it;
 			kcamera = new KCamera(*it, cg.readEntry("Path"));
-			connect(kcamera, qOverload<const QString&>(&KCamera::error), 
-				this, qOverload<const QString&>(&KKameraConfig::slot_error));
+            connect(kcamera, QOverload<const QString&>::of(&KCamera::error),
+                this, QOverload<const QString&>::of(&KKameraConfig::slot_error));
 
-			connect(kcamera, qOverload<const QString&, const QString&>(&KCamera::error), 
-				this, qOverload<const QString&, const QString&>(&KKameraConfig::slot_error));
+            connect(kcamera, QOverload<const QString&, const QString&>::of(&KCamera::error),
+                this, QOverload<const QString&, const QString&>::of(&KKameraConfig::slot_error));
 
 			kcamera->load(m_config);
 			m_devices[*it] = kcamera;
@@ -266,11 +266,11 @@ void KKameraConfig::load(void)
 
 		kcamera = new KCamera(portit.value(), portit.key());
 
-		connect(kcamera, qOverload<const QString&>(&KCamera::error), 
-			this, qOverload<const QString&>(&KKameraConfig::slot_error));
+        connect(kcamera, QOverload<const QString&>::of(&KCamera::error),
+            this, QOverload<const QString&>::of(&KKameraConfig::slot_error));
 
-		connect(kcamera, qOverload<const QString&, const QString&>(&KCamera::error), 
-			this, qOverload<const QString&, const QString&>(&KKameraConfig::slot_error));
+        connect(kcamera, QOverload<const QString&, const QString&>::of(&KCamera::error),
+            this, QOverload<const QString&, const QString&>::of(&KKameraConfig::slot_error));
 
 		m_devices[portit.value()] = kcamera;
 	}
@@ -326,11 +326,11 @@ QString KKameraConfig::suggestName(const QString &name)
 void KKameraConfig::slot_addCamera()
 {
         KCamera *m_device = new KCamera(QString(), QString());
-        connect(m_device, qOverload<const QString&>(&KCamera::error),
-                this, qOverload<const QString&>(&KKameraConfig::slot_error));
+    connect(m_device, QOverload<const QString&>::of(&KCamera::error),
+                this, QOverload<const QString&>::of(&KKameraConfig::slot_error));
 
-        connect(m_device, qOverload<const QString&, const QString&>(&KCamera::error),
-                this, qOverload<const QString&,  const QString&>(&KKameraConfig::slot_error));
+        connect(m_device, QOverload<const QString&, const QString&>::of(&KCamera::error),
+                this, QOverload<const QString&,  const QString&>::of(&KKameraConfig::slot_error));
 
 	KameraDeviceSelectDialog dialog(this, m_device);
 	if (dialog.exec() == QDialog::Accepted) {

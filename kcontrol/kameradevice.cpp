@@ -300,11 +300,11 @@ KameraDeviceSelectDialog::KameraDeviceSelectDialog(QWidget *parent, KCamera *dev
 
     setModal( true );
     m_device = device;
-    connect(m_device, qOverload<const QString&>(&KCamera::error),
-		this, qOverload<const QString&>(&KameraDeviceSelectDialog::slot_error));
+    connect(m_device, QOverload<const QString&>::of(&KCamera::error),
+        this, QOverload<const QString&>::of(&KameraDeviceSelectDialog::slot_error));
 
-    connect(m_device, qOverload<const QString&, const QString&>(&KCamera::error),
-		this, qOverload<const QString&, const QString&>(&KameraDeviceSelectDialog::slot_error));
+    connect(m_device, QOverload<const QString&, const QString&>::of(&KCamera::error),
+        this, QOverload<const QString&, const QString&>::of(&KameraDeviceSelectDialog::slot_error));
 
     QWidget *page = new QWidget( this );
 
