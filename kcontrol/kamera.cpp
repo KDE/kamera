@@ -308,15 +308,15 @@ void KKameraConfig::afterCameraOperation()
 
 QString KKameraConfig::suggestName(const QString &name)
 {
-	QString new_name = name;
-	new_name.remove('/'); // we cannot have a slash in a URI's host
+    QString new_name = name;
+    new_name.remove(QLatin1Char('/')); // we cannot have a slash in a URI's host
 
 	if (!m_devices.contains(new_name)) return new_name;
 
 	// try new names with a number appended until we find a free one
 	int i = 1;
-	while (i++ < 0xffff) {
-		new_name = name + " (" + QString::number(i) + ')';
+    while (i++ < 0xffff) {
+        new_name = name + QStringLiteral(" (") + QString::number(i) + QLatin1Char(')');
 		if (!m_devices.contains(new_name)) return new_name;
 	}
 

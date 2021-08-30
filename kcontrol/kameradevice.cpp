@@ -54,7 +54,7 @@ extern "C" {
 static const int INDEX_NONE= 0;
 static const int INDEX_SERIAL = 1;
 static const int INDEX_USB= 2;
-static GPContext *glob_context = 0;
+static GPContext *glob_context = nullptr;
 
 #ifdef DEBUG
 static void gp_errordumper(GPLogLevel level, const char *domain, const char *str, void *data) {

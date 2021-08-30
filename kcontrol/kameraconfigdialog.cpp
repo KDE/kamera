@@ -72,7 +72,7 @@ KameraConfigDialog::KameraConfigDialog(Camera */*camera*/,
     QVBoxLayout *topLayout = new QVBoxLayout(main);
     topLayout->setContentsMargins(0, 0, 0, 0);
 
-    m_tabWidget = 0;
+    m_tabWidget = nullptr;
 
     appendWidget(main, widget);
 
@@ -150,7 +150,7 @@ void KameraConfigDialog::appendWidget(QWidget *parent, CameraWidget *widget)
             {
                 gp_widget_get_value(widget, &widget_value_string);
 
-                label = new QLabel(QString::fromLocal8Bit(widget_label)+':', grid);
+                label = new QLabel(QString::fromLocal8Bit(widget_label)+QLatin1Char(':'), grid);
                 QLineEdit *lineEdit = new QLineEdit(widget_value_string, grid);
 
                 gridLayout->addWidget(lineEdit, 0, 1, Qt::AlignRight);

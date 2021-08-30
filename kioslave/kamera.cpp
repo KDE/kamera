@@ -111,17 +111,17 @@ int kdemain(int argc, char **argv)
     return 0;
 }
 
-static QString path_quote(QString path)   { return path.replace("/","%2F").replace(" ","%20"); }
-static QString path_unquote(QString path) { return path.replace("%2F","/").replace("%20"," "); }
+static QString path_quote(QString path)   { return path.replace(QStringLiteral("/"),QStringLiteral("%2F")).replace(QStringLiteral(" "),QStringLiteral("%20")); }
+static QString path_unquote(QString path) { return path.replace(QStringLiteral("%2F"),QStringLiteral("/")).replace(QStringLiteral("%20"),QStringLiteral(" ")); }
 
 KameraProtocol::KameraProtocol(const QByteArray &pool, const QByteArray &app)
 : SlaveBase("camera", pool, app),
-m_camera(NULL)
+m_camera(nullptr)
 {
     // attempt to initialize libgphoto2 and chosen camera (requires locking)
     // (will init m_camera, since the m_camera's configuration is empty)
-    m_camera = 0;
-    m_file = NULL;
+    m_camera = nullptr;
+    m_file = nullptr;
     m_config = new KConfig(KProtocolInfo::config(QStringLiteral("camera")), KConfig::SimpleConfig);
     m_context = gp_context_new();
     actiondone = true;
@@ -228,8 +228,8 @@ void KameraProtocol::closeCamera(void)
     //       is no camera_exit function.
     gp_port_close(m_camera->port);
     cameraopen = false;
-    current_camera = "";
-    current_port = "";
+    current_camera = QStringLiteral("");
+    current_port = QStringLiteral("");
     return;
 }
 
@@ -262,7 +262,7 @@ void KameraProtocol::get(const QUrl &url)
 
 
 #define GPHOTO_TEXT_FILE(xx) \
-    if (!directory.compare("/") && !file.compare(#xx ".txt")) { \
+    if (!directory.compare(QStringLiteral("/")) && !file.compare(#xx ".txt")) { \
         CameraText xx; \
         gpr = gp_camera_get_##xx(m_camera,  &xx, m_context); \
         if (gpr != GP_OK) { \
@@ -310,7 +310,7 @@ void KameraProtocol::get(const QUrl &url)
     }
 
     // at last, a proper API to determine whether a thumbnail was requested.
-    if(cameraSupportsPreview() && metaData("thumbnail") == "1") {
+    if(cameraSupportsPreview() && metaData(QStringLiteral("thumbnail")) == QStringLiteral("1")) {
         qCDebug(KAMERA_KIOSLAVE) << "get() retrieving the thumbnail";
         fileType = GP_FILE_TYPE_PREVIEW;
         if (info.preview.fields & GP_FILE_INFO_SIZE) {
@@ -357,12 +357,12 @@ void KameraProtocol::get(const QUrl &url)
         case GP_ERROR_FILE_NOT_FOUND:
         case GP_ERROR_DIRECTORY_NOT_FOUND:
             gp_file_unref(m_file);
-            m_file = NULL;
+            m_file = nullptr;
             error(KIO::ERR_DOES_NOT_EXIST, url.fileName());
             return ;
         default:
             gp_file_unref(m_file);
-            m_file = NULL;
+            m_file = nullptr;
             error(KIO::ERR_UNKNOWN,
                   QString::fromLocal8Bit(gp_result_as_string(gpr)));
             return;
@@ -481,11 +481,11 @@ void KameraProtocol::split_url2camerapath(const QString &url,
         setCamera (camera, port);
     }
     if (components.isEmpty())  {
-        directory = "/";
+        directory = QStringLiteral("/");
         return;
     }
     file		= path_unquote(components.takeLast());
-    directory 	= path_unquote("/"+components.join(QLatin1Char('/')));
+    directory 	= path_unquote(QStringLiteral("/")+components.join(QLatin1Char('/')));
 }
 
 // Implements a regular stat() of a file / directory, returning all we know about it
@@ -504,7 +504,7 @@ void KameraProtocol::statRegular(const QUrl &xurl)
         return;
     }
 
-    if (directory == "/") {
+    if (directory == QLatin1String("/")) {
         KIO::UDSEntry entry;
 
 #define GPHOTO_TEXT_FILE(xx) \
@@ -705,8 +705,8 @@ void KameraProtocol::listDir(const QUrl &yurl)
 
         /* Avoid duplicated entry, that is a camera with both
          * port usb: and usb:001,042 entries. */
-        if (ports.contains("usb:") &&
-                names.contains(ports["usb:"]) &&
+        if (ports.contains(QStringLiteral("usb:")) &&
+            names.contains(ports[QStringLiteral("usb:")]) &&
                 names[ports[QStringLiteral("usb:")]] != QStringLiteral("usb:")) {
             ports.remove(QStringLiteral("usb:"));
         }
@@ -877,7 +877,7 @@ void KameraProtocol::setCamera(const QString& camera, const QString& port)
             qCDebug(KAMERA_KIOSLAVE) << "Configuration change detected";
             closeCamera();
             gp_camera_unref(m_camera);
-            m_camera = NULL;
+            m_camera = nullptr;
                         // WARNING Fix this
             //infoMessage( i18n("Reinitializing camera") );
         } else {
@@ -938,7 +938,7 @@ void KameraProtocol::setCamera(const QString& camera, const QString& port)
         gp_context_set_progress_funcs(m_context,
                                       frontendProgressStart,
                                       frontendProgressUpdate,
-                                      NULL,
+                                      nullptr,
                                       this
                                       );
         // gp_camera_set_message_func(m_camera, ..., this)
@@ -957,7 +957,7 @@ void KameraProtocol::setCamera(const QString& camera, const QString& port)
             if (m_camera) {
                 gp_camera_unref(m_camera);
             }
-            m_camera = NULL;
+            m_camera = nullptr;
             qCDebug(KAMERA_KIOSLAVE) << "Unable to init camera: " << errstr;
             error(KIO::ERR_SERVICE_NOT_AVAILABLE, errstr);
             return;
@@ -1004,7 +1004,7 @@ void KameraProtocol::translateFileToUDS(KIO::UDSEntry &udsEntry,
     if (info.file.fields & GP_FILE_INFO_MTIME) {
         udsEntry.fastInsert(KIO::UDSEntry::UDS_MODIFICATION_TIME,info.file.mtime);
     } else {
-        udsEntry.fastInsert(KIO::UDSEntry::UDS_MODIFICATION_TIME,time(NULL));
+        udsEntry.fastInsert(KIO::UDSEntry::UDS_MODIFICATION_TIME,time(nullptr));
     }
 
     if (info.file.fields & GP_FILE_INFO_TYPE) {
@@ -1082,7 +1082,7 @@ void frontendProgressUpdate(
     // camera and pass it to KIO, to allow progressive display
     // of the downloaded photo.
 
-    const char *fileData = NULL;
+    const char *fileData = nullptr;
     long unsigned int fileSize = 0;
 
     // This merely returns us a pointer to gphoto's internal data
