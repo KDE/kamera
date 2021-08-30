@@ -282,14 +282,14 @@ void KameraProtocol::get(const QUrl &url)
     GPHOTO_TEXT_FILE(summary);
 
 #undef GPHOTO_TEXT_FILE
-    // emit info message
+    // Q_EMIT info message
         // WARNING Fix this
     //infoMessage( i18n("Retrieving data from camera <b>%1</b>", current_camera) );
 
     // Note: There's no need to re-read directory for each get() anymore
     gp_file_new(&m_file);
 
-    // emit the total size (we must do it before sending data to allow preview)
+    // Q_EMIT the total size (we must do it before sending data to allow preview)
     CameraFileInfo info;
 
     gpr = gp_camera_file_get_info(m_camera,
@@ -367,7 +367,7 @@ void KameraProtocol::get(const QUrl &url)
                   QString::fromLocal8Bit(gp_result_as_string(gpr)));
             return;
     }
-    // emit the mimetype
+    // Q_EMIT the mimetype
     // NOTE: we must first get the file, so that CameraFile->name would be set
     const char *fileMimeType;
     gp_file_get_mime_type(m_file, &fileMimeType);

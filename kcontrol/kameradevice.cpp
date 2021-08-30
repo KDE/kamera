@@ -90,17 +90,17 @@ bool KCamera::initInformation()
     }
 
     if(gp_abilities_list_new(&m_abilitylist) != GP_OK) {
-        emit error(i18n("Could not allocate memory for the abilities list."));
+        Q_EMIT error(i18n("Could not allocate memory for the abilities list."));
         return false;
     }
     if(gp_abilities_list_load(m_abilitylist, glob_context) != GP_OK) {
-        emit error(i18n("Could not load ability list."));
+        Q_EMIT error(i18n("Could not load ability list."));
         return false;
     }
     int index = gp_abilities_list_lookup_model(m_abilitylist,
                                                m_model.toLocal8Bit().data());
     if(index < 0) {
-        emit error(i18n("Description of abilities for camera %1 is not available."
+        Q_EMIT error(i18n("Description of abilities for camera %1 is not available."
                     " Configuration options may be incorrect.", m_model));
         return false;
     }
@@ -124,7 +124,7 @@ bool KCamera::initCamera()
         result = gp_camera_new(&m_camera);
         if (result != GP_OK) {
             // m_camera is not initialized, so we cannot get result as string
-            emit error(i18n("Could not access driver. Check your gPhoto2 installation."));
+            Q_EMIT error(i18n("Could not access driver. Check your gPhoto2 installation."));
             return false;
         }
 
@@ -143,7 +143,7 @@ bool KCamera::initCamera()
         if (result != GP_OK) {
             gp_camera_free(m_camera);
             m_camera = NULL;
-            emit error(
+            Q_EMIT error(
                 i18n("Unable to initialize camera. Check your port settings and camera connectivity and try again."),
                 QString::fromLocal8Bit(gp_result_as_string(result)));
             return false;
@@ -182,7 +182,7 @@ bool KCamera::configure()
 
     result = gp_camera_get_config(m_camera, &window, glob_context);
     if (result != GP_OK) {
-        emit error(i18n("Camera configuration failed."),
+        Q_EMIT error(i18n("Camera configuration failed."),
                 QString::fromLocal8Bit(gp_result_as_string(result)));
         return false;
     }
@@ -193,7 +193,7 @@ bool KCamera::configure()
     if (result == GP_PROMPT_OK) {
         result = gp_camera_set_config(m_camera, window, glob_context);
         if (result != GP_OK) {
-            emit error(i18n("Camera configuration failed."),
+            Q_EMIT error(i18n("Camera configuration failed."),
                     QString::fromLocal8Bit(gp_result_as_string(result)));
             return false;
         }
@@ -300,11 +300,11 @@ KameraDeviceSelectDialog::KameraDeviceSelectDialog(QWidget *parent, KCamera *dev
 
     setModal( true );
     m_device = device;
-    connect(m_device, QOverload<const QString&>::of(&KCamera::error),
-        this, QOverload<const QString&>::of(&KameraDeviceSelectDialog::slot_error));
+    connect(m_device, qOverload<const QString&>(&KCamera::error),
+        this, qOverload<const QString&>(&KameraDeviceSelectDialog::slot_error));
 
-    connect(m_device, QOverload<const QString&, const QString&>::of(&KCamera::error),
-        this, QOverload<const QString&, const QString&>::of(&KameraDeviceSelectDialog::slot_error));
+    connect(m_device, qOverload<const QString&, const QString&>(&KCamera::error),
+        this, qOverload<const QString&, const QString&>(&KameraDeviceSelectDialog::slot_error));
 
     QWidget *page = new QWidget( this );
 
@@ -499,8 +499,8 @@ void KameraDeviceSelectDialog::load()
         setPortType(INDEX_USB);
     }
 
-    QList<QStandardItem *> items = m_model->findItems(m_device->model());
-    foreach (QStandardItem *item, items) {
+    const QList<QStandardItem *> items = m_model->findItems(m_device->model());
+    for (QStandardItem *item : items) {
         const QModelIndex index = m_model->indexFromItem(item);
         m_modelSel->selectionModel()->select(index, QItemSelectionModel::Select);
     }

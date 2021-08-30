@@ -8,7 +8,8 @@ set (RELEASE_SERVICE_VERSION_MICRO "70")
 set(RELEASE_SERVICE_VERSION "${RELEASE_SERVICE_VERSION_MAJOR}.${RELEASE_SERVICE_VERSION_MINOR}.${RELEASE_SERVICE_VERSION_MICRO}")
 set(PROJECT_VERSION ${RELEASE_SERVICE_VERSION})
 
-find_package(ECM REQUIRED NO_MODULE)
+set(KF5_MIN_VERSION    "5.85.0")
+find_package(ECM ${KF5_MIN_VERSION} REQUIRED NO_MODULE)
 set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${CMAKE_SOURCE_DIR})
 include(KDEInstallDirs)
 include(KDECMakeSettings)
@@ -16,7 +17,6 @@ include(KDECompilerSettings)
 include(FindPkgConfig)
 include(FeatureSummary)
 
-set(KF5_MIN_VERSION    "5.85.0")
 
 find_package(Qt5 5.15 REQUIRED COMPONENTS Core)
 find_package(KF5 ${KF5_MIN_VERSION} REQUIRED COMPONENTS
@@ -50,7 +50,8 @@ include(ConfigureChecks.cmake)
 configure_file(config-kamera.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kamera.h)
 
 set(CMAKE_CXX_FLAGS_DEBUG, "${CMAKE_CXX_FLAGS_DEBUG} -Wall -Wunused -Wextra -DDEBUG_KAMERA_KIO -DDEBUG_KAMERA_KCONTROL")
-
+remove_definitions( -DQT_NO_CAST_FROM_ASCII )
+remove_definitions( -DQT_NO_CAST_FROM_BYTEARRAY)
 add_subdirectory( kcontrol )
 add_subdirectory( kioslave )
 add_subdirectory( doc )
