@@ -45,7 +45,7 @@ class KCamera : public QObject {
     Q_OBJECT
 public:
     explicit KCamera(const QString &name, const QString &path);
-    ~KCamera();
+    ~KCamera() override;
     void invalidateCamera();
     bool configure();
     void load(KConfig *m_config);
