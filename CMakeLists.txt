@@ -52,6 +52,13 @@ configure_file(config-kamera.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kamera.h
 set(CMAKE_CXX_FLAGS_DEBUG, "${CMAKE_CXX_FLAGS_DEBUG} -Wall -Wunused -Wextra -DDEBUG_KAMERA_KIO -DDEBUG_KAMERA_KCONTROL")
 remove_definitions( -DQT_NO_CAST_FROM_ASCII )
 remove_definitions( -DQT_NO_CAST_FROM_BYTEARRAY)
+add_definitions(
+    -DQT_DISABLE_DEPRECATED_BEFORE=0x050F00
+    -DQT_DEPRECATED_WARNINGS_SINCE=0x060000
+    -DKF_DISABLE_DEPRECATED_BEFORE_AND_AT=0x055800
+    -DKF_DEPRECATED_WARNINGS_SINCE=0x060000
+)
+
 add_subdirectory( kcontrol )
 add_subdirectory( kioslave )
 add_subdirectory( doc )
