@@ -41,7 +41,7 @@
 #include "kameraconfigdialog.h"
 #include "kameradevice.h"
 
-K_PLUGIN_FACTORY(KKameraConfigFactory, registerPlugin<KKameraConfig>();)
+K_PLUGIN_CLASS_WITH_JSON(KKameraConfig, "kamera.json")
 
 Q_LOGGING_CATEGORY(KAMERA_KCONTROL, "kamera.kcontrol")
 

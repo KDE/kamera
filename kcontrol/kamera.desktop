@@ -206,15 +206,9 @@ Name[x-test]=xxDigital Cameraxx
 Name[zh_CN]=数码相机
 Name[zh_HK]=數碼相機
 Name[zh_TW]=數位相機
-Terminal=false
-Type=Service
-X-KDE-ServiceTypes=KCModule
 
-X-KDE-Library=kcm_kamera
-X-KDE-ParentApp=kcontrol
-X-KDE-System-Settings-Parent-Category=removable-storage
-X-KDE-ModuleType=Library
+Type=Application
+NoDisplay=true
 Icon=camera-photo
 Exec=systemsettings5 kamera
-X-DocPath=kcontrol/kamera/index.html
 Categories=Qt;KDE;X-KDE-settings-hardware;
