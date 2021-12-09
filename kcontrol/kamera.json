@@ -2,6 +2,7 @@
     "Categories": "Qt;KDE;X-KDE-settings-hardware;",
     "KPlugin": {
         "Description": "Configure Kamera",
+        "Description[ar]": "إعداد Kamera",
         "Description[az]": "Kamera'nı tənzimləyin",
         "Description[ca@valencia]": "Configura el Kamera",
         "Description[ca]": "Configura el Kamera",
