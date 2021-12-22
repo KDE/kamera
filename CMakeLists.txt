@@ -49,7 +49,7 @@ include(ConfigureChecks.cmake)
 
 configure_file(config-kamera.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kamera.h)
 
-set(CMAKE_CXX_FLAGS_DEBUG, "${CMAKE_CXX_FLAGS_DEBUG} -Wall -Wunused -Wextra -DDEBUG_KAMERA_KIO -DDEBUG_KAMERA_KCONTROL")
+set(CMAKE_CXX_FLAGS_DEBUG, "${CMAKE_CXX_FLAGS_DEBUG} -Wall -Wunused -Wextra")
 remove_definitions( -DQT_NO_CAST_FROM_ASCII )
 remove_definitions( -DQT_NO_CAST_FROM_BYTEARRAY)
 add_definitions(
