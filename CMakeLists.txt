@@ -25,7 +25,13 @@ find_package(KF5 ${KF5_MIN_VERSION} REQUIRED COMPONENTS
     KIO
     I18n
     Config
-    DocTools)
+    )
+
+find_package(KF5DocTools ${KF5_MIN_VERSION})
+set_package_properties(KF5DocTools PROPERTIES DESCRIPTION
+    "Tools to generate documentation"
+    TYPE OPTIONAL
+)
 
 include(CMakePushCheckState)
 include(CheckSymbolExists)
@@ -61,7 +67,13 @@ add_definitions(
 
 add_subdirectory( kcontrol )
 add_subdirectory( kioslave )
-add_subdirectory( doc )
+
+ki18n_install(po)
+if (KF5DocTools_FOUND)
+    kdoctools_install(po)
+    add_subdirectory(doc)
+endif()
+
 
 install(FILES
     solid_camera.desktop
