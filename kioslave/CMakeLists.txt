@@ -10,7 +10,7 @@ add_library(kio_kamera MODULE ${kio_kamera_PART_SRCS})
 include_directories(${GPHOTO2_INCLUDE_DIRS} ${CMAKE_BINARY_DIR})
 
 target_link_libraries(kio_kamera
-    Qt::Core
+    Qt${QT_MAJOR_VERSION}::Core
     KF5::KIOCore
     KF5::I18n
     KF5::ConfigCore

@@ -18,7 +18,11 @@ include(FindPkgConfig)
 include(FeatureSummary)
 
 
-find_package(Qt5 5.15 REQUIRED COMPONENTS Core)
+find_package(Qt${QT_MAJOR_VERSION} 5.15 REQUIRED COMPONENTS Core)
+if (QT_MAJOR_VERSION STREQUAL "6")
+    find_package(Qt6Core5Compat)
+endif()
+
 find_package(KF5 ${KF5_MIN_VERSION} REQUIRED COMPONENTS
     ConfigWidgets
     XmlGui
@@ -77,7 +81,7 @@ endif()
 
 install(FILES
     solid_camera.desktop
-    DESTINATION ${DATA_INSTALL_DIR}/solid/actions)
+    DESTINATION ${KDE_INSTALL_DATADIR}/solid/actions)
 
 install(FILES
     org.kde.kamera.metainfo.xml
