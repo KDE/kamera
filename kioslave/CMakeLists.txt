@@ -4,7 +4,6 @@
 add_definitions(-DTRANSLATION_DOMAIN=\"kio5_kamera\")
 
 set(kio_kamera_PART_SRCS kamera.cpp )
-configure_file(camera.json.cmake ${CMAKE_CURRENT_BINARY_DIR}/camera.json )
 add_library(kio_kamera MODULE ${kio_kamera_PART_SRCS})
 
 include_directories(${GPHOTO2_INCLUDE_DIRS} ${CMAKE_BINARY_DIR})
