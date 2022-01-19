@@ -4,7 +4,7 @@
 add_definitions(-DTRANSLATION_DOMAIN=\"kio5_kamera\")
 
 set(kio_kamera_PART_SRCS kamera.cpp )
-
+configure_file(camera.json.cmake ${CMAKE_CURRENT_BINARY_DIR}/camera.json )
 add_library(kio_kamera MODULE ${kio_kamera_PART_SRCS})
 
 include_directories(${GPHOTO2_INCLUDE_DIRS} ${CMAKE_BINARY_DIR})
@@ -17,4 +17,4 @@ target_link_libraries(kio_kamera
     ${GPHOTO2_LIBRARIES}
     )
 
-install(TARGETS kio_kamera  DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf5/kio )
+install(TARGETS kio_kamera  DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf${QT_MAJOR_VERSION}/kio )

@@ -4,7 +4,7 @@
             "Class": ":local",
             "Icon": "camera-photo",
             "deleting": true,
-            "exec": "kf5/kio/kio_kamera",
+            "exec": "kf@QT_MAJOR_VERSION@/kio/kio_kamera",
             "input": "none",
             "linking": false,
             "listing": [
