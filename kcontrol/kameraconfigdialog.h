@@ -25,7 +25,7 @@
 
 #include <QMap>
 #include <QDialog>
-#include <QTabWidget>
+class QTabWidget;
 
 extern "C" {
     #include <gphoto2.h>

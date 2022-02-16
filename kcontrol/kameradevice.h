@@ -26,8 +26,8 @@
 #include "kamera.h"
 
 #include <QDialog>
-#include <QWidget>
-#include <QDialogButtonBox>
+class QWidget;
+class QDialogButtonBox;
 
 class KConfig;
 class QString;

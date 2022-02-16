@@ -25,7 +25,7 @@
 
 #include <kio/slavebase.h>
 #include <gphoto2.h>
-#include <KConfig>
+class KConfig;
 #include <QLoggingCategory>
 
 Q_DECLARE_LOGGING_CATEGORY(KAMERA_KIOSLAVE)

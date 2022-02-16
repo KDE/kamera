@@ -44,6 +44,7 @@
 #include <KLocalizedString>
 #include <KConfigGroup>
 #include <KProtocolInfo>
+#include <KConfig>
 
 #include <kio/global.h>
 #include <kio/slaveconfig.h>
