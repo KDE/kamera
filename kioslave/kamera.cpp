@@ -25,14 +25,14 @@
 // #undef QT_NO_DEBUG
 #include "kamera.h"
 
-#include <stdlib.h>
-#include <unistd.h>
-#include <stdio.h>
+#include <cerrno>
+#include <csignal>
+#include <cstdio>
+#include <cstdlib>
 #include <fcntl.h>
 #include <sys/stat.h>
 #include <sys/types.h>
-#include <signal.h>
-#include <errno.h>
+#include <unistd.h>
 
 #include <QFile>
 #include <QTextStream>
@@ -213,7 +213,7 @@ bool KameraProtocol::openCamera(QString &str) {
 }
 
 // should be done after operations over the wire
-void KameraProtocol::closeCamera(void)
+void KameraProtocol::closeCamera()
 {
     int gpr;
 
@@ -443,7 +443,7 @@ void KameraProtocol::stat(const QUrl &url)
 }
 
 // Implements stat("/") -- which always returns the same value.
-void KameraProtocol::statRoot(void)
+void KameraProtocol::statRoot()
 {
     KIO::UDSEntry entry;
 
@@ -962,7 +962,7 @@ void KameraProtocol::setCamera(const QString& camera, const QString& port)
     }
 }
 
-void KameraProtocol::reparseConfiguration(void)
+void KameraProtocol::reparseConfiguration()
 {
     // we have no global config, do we?
 }
@@ -1038,17 +1038,17 @@ void KameraProtocol::translateDirectoryToUDS(KIO::UDSEntry &udsEntry,
     udsEntry.fastInsert(KIO::UDSEntry::UDS_MIME_TYPE, QStringLiteral("inode/directory"));
 }
 
-bool KameraProtocol::cameraSupportsDel(void)
+bool KameraProtocol::cameraSupportsDel()
 {
         return (m_abilities.file_operations & GP_FILE_OPERATION_DELETE);
 }
 
-bool KameraProtocol::cameraSupportsPut(void)
+bool KameraProtocol::cameraSupportsPut()
 {
         return (m_abilities.folder_operations & GP_FOLDER_OPERATION_PUT_FILE);
 }
 
-bool KameraProtocol::cameraSupportsPreview(void)
+bool KameraProtocol::cameraSupportsPreview()
 {
     return (m_abilities.file_operations & GP_FILE_OPERATION_PREVIEW);
 }
@@ -1073,7 +1073,7 @@ int KameraProtocol::readCameraFolder(const QString &folder,
 void frontendProgressUpdate(
     GPContext * /*context*/, unsigned int /*id*/, float /*current*/, void *data
 ) {
-    KameraProtocol *object = (KameraProtocol*)data;
+    auto object = (KameraProtocol*)data;
 
     // This code will get the last chunk of data retrieved from the
     // camera and pass it to KIO, to allow progressive display
@@ -1112,7 +1112,7 @@ unsigned int frontendProgressStart(
 #endif
     void *data
 ) {
-    KameraProtocol *object = (KameraProtocol*)data;
+    auto object = (KameraProtocol*)data;
 #ifndef HAVE_GPHOTO2_5
     char *status;
 
@@ -1165,7 +1165,7 @@ static void frontendCameraStatus(
 #endif
     void *data
 ) {
-    KameraProtocol *object = (KameraProtocol*)data;
+    auto object = (KameraProtocol*)data;
 #ifndef HAVE_GPHOTO2_5
     char *status;
 

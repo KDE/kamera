@@ -58,15 +58,15 @@ private:
 
     void split_url2camerapath(const QString &url, QString &directory, QString &file);
     void setCamera(const QString &cam, const QString &port);
-    void reparseConfiguration(void) override;
+    void reparseConfiguration() override;
     bool openCamera(QString& str);
-    bool openCamera(void ) {
+    bool openCamera( ) {
         QString errstr;
         return openCamera(errstr);
     }
-    void closeCamera(void);
+    void closeCamera();
 
-    void statRoot(void);
+    void statRoot();
     void statRegular(const QUrl &url);
     void translateTextToUDS(KIO::UDSEntry &udsEntry,
                             const QString &info,
@@ -75,9 +75,9 @@ private:
                             const CameraFileInfo &info,
                             const QString &name);
     void translateDirectoryToUDS(KIO::UDSEntry &udsEntry, const QString &dirname);
-    bool cameraSupportsPreview(void);
-    bool cameraSupportsDel(void);
-    bool cameraSupportsPut(void);
+    bool cameraSupportsPreview();
+    bool cameraSupportsDel();
+    bool cameraSupportsPut();
     int readCameraFolder(const QString &folder,
                          CameraList *dirList,
                          CameraList *fileList);

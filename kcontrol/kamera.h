@@ -87,7 +87,7 @@ private:
     static GPContextFeedback cbGPCancel(GPContext *context, void *data);
 
 private:
-    typedef QMap<QString, KCamera *> CameraDevicesMap;
+    using CameraDevicesMap = QMap<QString, KCamera *>;
 
     KConfig *m_config;
     CameraDevicesMap m_devices;

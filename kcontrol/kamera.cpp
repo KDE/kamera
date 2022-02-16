@@ -81,10 +81,10 @@ void KKameraConfig::defaults()
 
 void KKameraConfig::displayGPFailureDialogue()
 {
-	QVBoxLayout *topLayout = new QVBoxLayout(this);
+	auto topLayout = new QVBoxLayout(this);
 	topLayout->setSpacing(0);
 	topLayout->setContentsMargins(0, 0, 0, 0);
-	QLabel *label = new QLabel(i18n("Unable to initialize the gPhoto2 libraries."), this);
+	auto label = new QLabel(i18n("Unable to initialize the gPhoto2 libraries."), this);
 	topLayout->addWidget(label);
 }
 
@@ -94,7 +94,7 @@ void KKameraConfig::displayGPSuccessDialogue()
 	setButtons(Help | Apply );
 
 	// create a layout with two vertical boxes
-	QVBoxLayout *topLayout = new QVBoxLayout(this);
+	auto topLayout = new QVBoxLayout(this);
 	topLayout->setSpacing(0);
 	topLayout->setContentsMargins(0, 0, 0, 0);
 
@@ -175,7 +175,7 @@ void KKameraConfig::populateDeviceListView()
     CameraDevicesMap::ConstIterator itEnd = m_devices.constEnd();
     for (CameraDevicesMap::ConstIterator it = m_devices.constBegin(); it != itEnd; ++it) {
 		if (it.value()) {
-			QStandardItem *deviceItem = new QStandardItem;
+			auto deviceItem = new QStandardItem;
 			deviceItem->setEditable(false);
 			deviceItem->setText(it.key());
             deviceItem->setIcon(QIcon::fromTheme(QStringLiteral("camera-photo")));
@@ -185,7 +185,7 @@ void KKameraConfig::populateDeviceListView()
 	slot_deviceSelected(m_deviceSel->currentIndex());
 }
 
-void KKameraConfig::save(void)
+void KKameraConfig::save()
 {
 	CameraDevicesMap::Iterator it;
 
@@ -196,7 +196,7 @@ void KKameraConfig::save(void)
 	m_config->sync();
 }
 
-void KKameraConfig::load(void)
+void KKameraConfig::load()
 {
 	QStringList groupList = m_config->groupList();
 
@@ -320,12 +320,12 @@ QString KKameraConfig::suggestName(const QString &name)
 		if (!m_devices.contains(new_name)) return new_name;
 	}
 
-	return QString();
+	return {};
 }
 
 void KKameraConfig::slot_addCamera()
 {
-        KCamera *m_device = new KCamera(QString(), QString());
+        auto m_device = new KCamera(QString(), QString());
     connect(m_device, qOverload<const QString&>(&KCamera::error),
                 this, qOverload<const QString&>(&KKameraConfig::slot_error));
 
@@ -432,7 +432,7 @@ void KKameraConfig::cbGPIdle(GPContext * /*context*/, void * /*data*/)
 
 GPContextFeedback KKameraConfig::cbGPCancel(GPContext * /*context*/, void *data)
 {
-	KKameraConfig *self( reinterpret_cast<KKameraConfig*>(data) );
+	auto self( reinterpret_cast<KKameraConfig*>(data) );
 
 	// Since in practice no camera driver supports idle callbacks yet,
 	// we'll use the cancel callback as opportunity to process events

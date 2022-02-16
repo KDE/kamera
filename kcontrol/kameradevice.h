@@ -100,7 +100,7 @@ protected Q_SLOTS:
 protected:
     KCamera *m_device;
 
-    bool populateCameraListView(void);
+    bool populateCameraListView();
     void setPortType(int type);
 
     // port settings widgets
