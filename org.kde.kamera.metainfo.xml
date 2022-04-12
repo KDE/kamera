@@ -131,4 +131,7 @@
     <category>Utility</category>
   </categories>
   <icon type="stock">camera-photo</icon>
+  <releases>
+    <release version="22.04.0" date="2022-04-21"/>
+  </releases>
 </component>
