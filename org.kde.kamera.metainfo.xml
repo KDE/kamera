@@ -129,6 +129,7 @@
   </categories>
   <icon type="stock">camera-photo</icon>
   <releases>
+    <release version="22.04.1" date="2022-05-12"/>
     <release version="22.04.0" date="2022-04-21"/>
   </releases>
 </component>
