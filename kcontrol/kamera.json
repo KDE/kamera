@@ -172,7 +172,6 @@
     "X-KDE-Keywords[x-test]": "xxgphotoxx,xxcameraxx,xxdigicamxx,xxwebcamxx,xxkameraxx",
     "X-KDE-Keywords[zh_CN]": "gphoto,camera,digicam,webcam,kamera,相机,数码相机,摄像头,照片,相片,照相机",
     "X-KDE-Keywords[zh_TW]": "gphoto,camera,digicam,webcam,kamera",
-    "X-KDE-ModuleType": "Library",
     "X-KDE-ParentApp": "kcontrol",
     "X-KDE-System-Settings-Parent-Category": "removable-storage"
 }
