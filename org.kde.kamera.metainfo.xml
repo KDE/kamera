@@ -52,7 +52,7 @@
   <summary xml:lang="az">KDE tətbiqlərində Şəkil Köçürmə Protokolu (PTP) dəstəkləyən əlavə</summary>
   <summary xml:lang="bg">Приставка за поддръжка на Picture Transfer Protocol (PTP) в приложения на KDE</summary>
   <summary xml:lang="ca">Un connector per a admetre el protocol de transferència d'imatges (Picture Transfer Protocol -PTP-) a les aplicacions KDE</summary>
-  <summary xml:lang="ca-valencia">Un connector per a admetre el protocol de transferència d'imatges (Picture Transfer Protocol -PTP-) a les aplicacions KDE</summary>
+  <summary xml:lang="ca-valencia">Un connector per a admetre el protocol de transferència d'imatges (Picture Transfer Protocol -PTP-) en les aplicacions KDE</summary>
   <summary xml:lang="da">Et plugin til at understøtte Picture Transfer Protocol (PTP) i KDE-programmer</summary>
   <summary xml:lang="de">Ein Modul für das Bildaustauschprotokoll  (PTP) in KDE-Anwendungen</summary>
   <summary xml:lang="el">Ένα πρόσθετο για υποστήριξη του πρωτοκόλλου μεταφοράς εικόνων (PTP) στις εφαρμογές του KDE</summary>
