@@ -34,10 +34,6 @@
 #include <sys/types.h>
 #include <unistd.h>
 
-#include <QFile>
-#include <QTextStream>
-#include <QDebug>
-
 #include <QCoreApplication>
 #include <QStandardPaths>
 
