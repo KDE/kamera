@@ -1,0 +1,152 @@
+<?xml version="1.0" ?>
+<!DOCTYPE article PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % Galician  "INCLUDE">
+]>
+
+<article>
+<title
+><guilabel
+>Cámara dixital</guilabel
+></title>
+<articleinfo>
+
+<authorgroup>
+<author
+><firstname
+>Burkhard</firstname
+> <surname
+>Lück</surname
+> <affiliation
+> <address
+><email
+>lueck@hube-lueck.de</email
+></address>
+</affiliation>
+</author>
+<othercredit role="translator"
+><firstname
+>Xosé</firstname
+><surname
+>Calvo</surname
+><affiliation
+><address
+><email
+></email
+></address
+></affiliation
+><contrib
+>Tradutor do proxecto Trasno</contrib
+></othercredit
+> 
+</authorgroup>
+
+<date
+>2008-10-12</date>
+<releaseinfo
+>&kde; 4.2</releaseinfo>
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>cámara</keyword>
+<keyword
+>foto</keyword>
+</keywordset>
+</articleinfo>
+
+<para
+>Este módulo permite configurar o sistema para as cámaras dixitais. </para>
+
+<variablelist>
+<varlistentry
+><term
+><guibutton
+>Engadir</guibutton
+></term>
+<listitem>
+<para
+>Prema este botón para seleccionar o modelo de cámara e o porto ao que está ligada no computador (&eg; USB, serie). Se a cámara non aparece na lista de <guilabel
+>Cámaras coñecidas</guilabel
+>, vaia ao <ulink url="http://www.gphoto.org/"
+>sitio web do GPhoto</ulink
+> para ver se hai actualizacións. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry
+><term
+><guibutton
+>Probar</guibutton
+></term>
+<listitem>
+<para
+>Prema este botón para probar a conexión coa cámara seleccionada.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry
+><term
+><guibutton
+>Eliminar</guibutton
+></term>
+<listitem>
+<para
+>Retira da lista a cámara seleccionada. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry
+><term
+><guibutton
+>Configurar</guibutton
+></term>
+<listitem>
+<para
+>Prema este botón para mudar a configuración da cámara seleccionada. Que esta característica estea disponíbel e o contido do diálogo de configuración dependen do modelo de cámara.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry
+><term
+><guibutton
+>Información</guibutton
+></term>
+<listitem>
+<para
+>Prema este botón para ver un resumo do estado actual da cámara seleccionada. Que esta característica estea disponíbel e o contido do diálogo informativo dependen do modelo de cámara.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry
+><term
+><guibutton
+>Cancelar</guibutton
+></term>
+<listitem>
+<para
+>Prema este botón para cancelar a operación actual da cámara.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+<para
+>Para ver e transferir as imaxes desde a cámara dixital, escriba <userinput
+>camera:/</userinput
+> na barra de localización do &konqueror;. </para>
+
+</article>
+
+<!--
+Local Variables:
+mode: sgml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+// vim:ts=2:sw=2:tw=78:noet
+-->

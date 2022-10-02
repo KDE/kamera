@@ -1,0 +1,150 @@
+<?xml version="1.0" ?>
+<!DOCTYPE article PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % Estonian  "INCLUDE">
+]>
+
+<article id="kamera" lang="&language;">
+<title
+>Digitaalkaamera</title>
+<articleinfo>
+
+<authorgroup>
+<author
+><firstname
+>Burkhard</firstname
+> <surname
+>Lück</surname
+> <affiliation
+> <address
+><email
+>lueck@hube-lueck.de</email
+></address>
+</affiliation>
+</author>
+<othercredit role="translator"
+><firstname
+>Marek</firstname
+><surname
+>Laane</surname
+><affiliation
+><address
+><email
+>bald@smail.ee</email
+></address
+></affiliation
+><contrib
+>Tõlge eesti keelde</contrib
+></othercredit
+> 
+</authorgroup>
+
+<date
+>2013-12-05</date>
+<releaseinfo
+>&kde; 4.12</releaseinfo>
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>kaamera</keyword>
+<keyword
+>foto</keyword>
+</keywordset>
+</articleinfo>
+
+<para
+>See moodul võimaldab seadistada digitaalkaamera toetust. </para>
+
+<variablelist>
+<varlistentry
+><term
+><guibutton
+>Lisa</guibutton
+></term>
+<listitem>
+<para
+>Klõpsuga sellele nupule saab valida kaamera mudeli ja pordi, kuhu kaamera on arvutis ühendatud (&eg; USB, jadaport). Kui kaamerat ei leidu nimekirjas <guilabel
+>Toetatud kaamerad</guilabel
+>, tasuks uuendamiseks külastada <ulink url="http://www.gphoto.org"
+>GPhoto veebilehekülge</ulink
+>. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry
+><term
+><guibutton
+>Test</guibutton
+></term>
+<listitem>
+<para
+>Valitud kaamera ühenduse testimiseks klõpsa seda nuppu.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry
+><term
+><guibutton
+>Eemalda</guibutton
+></term>
+<listitem>
+<para
+>Eemaldab valitud kaamera nimekirjast. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry
+><term
+><guibutton
+>Seadista</guibutton
+></term>
+<listitem>
+<para
+>Klõpsuga sellele nupule saab muuta valitud kaamera seadistusi. Selle võimaluse saadavus ning seadistustedialoogi sisu sõltub kaamera mudelist.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry
+><term
+><guibutton
+>Info</guibutton
+></term>
+<listitem>
+<para
+>Klõpsuga sellele nupule näeb valitud kaamera hetkeoleku kokkuvõtet. Selle võimaluse saadavus ja teabedialoogi sisu sõltub kaamera mudelist.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry
+><term
+><guibutton
+>Loobu</guibutton
+></term>
+<listitem>
+<para
+>Aktiivse kaameratoimingu katkestamiseks klõpsa seda nuppu.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+<para
+>Digitaalkaamera piltide vaatamiseks ja nende allalaadimiseks kirjuta &konqueror;i asukoharibale <userinput
+>camera:/</userinput
+>. </para>
+
+</article>
+
+<!--
+Local Variables:
+mode: sgml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+// vim:ts=2:sw=2:tw=78:noet
+-->

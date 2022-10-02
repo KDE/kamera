@@ -1,0 +1,136 @@
+<?xml version="1.0" ?>
+<!DOCTYPE article PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % Dutch "INCLUDE">
+]>
+
+<article id="kamera" lang="&language;">
+<title
+>&kamera; : digitale camera</title>
+<articleinfo>
+
+<authorgroup>
+<author
+><firstname
+>Burkhard</firstname
+> <surname
+>Lück</surname
+> <affiliation
+> <address
+><email
+>lueck@hube-lueck.de</email
+></address>
+</affiliation>
+</author>
+&Freek.de.Kruijf; 
+</authorgroup>
+
+<date
+>2018-03-23</date>
+<releaseinfo
+>Applications 18.04</releaseinfo>
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>camera</keyword>
+<keyword
+>foto</keyword>
+</keywordset>
+</articleinfo>
+
+<para
+>Deze module stelt u in staat om de ondersteuning van uw digitale camera in te stellen. </para>
+
+<variablelist>
+<varlistentry
+><term
+><guibutton
+>Toevoegen</guibutton
+></term>
+<listitem>
+<para
+>klik op deze knop om het cameramodel te kiezen en de poort waarmee deze met uw computer in verbonden (&eg; USB, Serieel). Als uw camera niet in de lijst van <guilabel
+>Ondersteunde camera's</guilabel
+> verschijnt, ga dan naar de <ulink url="http://www.gphoto.org"
+>GPhoto website</ulink
+> voor een mogelijk bijwerken. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry
+><term
+><guibutton
+>Testen</guibutton
+></term>
+<listitem>
+<para
+>Druk op deze knop om de verbinding met de geselecteerde camera te testen.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry
+><term
+><guibutton
+>Verwijderen</guibutton
+></term>
+<listitem>
+<para
+>Verwijdert de geselecteerde camera uit de lijst. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry
+><term
+><guibutton
+>Instellen</guibutton
+></term>
+<listitem>
+<para
+>Druk op deze knop om de configuratie van de geselecteerde camera te wijzigen.De beschikbaarheid van deze functie en de inhoud van de configuratiedialoog is afhankelijk van het model camera.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry
+><term
+><guibutton
+>Informatie</guibutton
+></term>
+<listitem>
+<para
+>Klik op deze knop om overzicht te krijgen van de huidige status van de geselecteerde camera. De beschikbaarheid van deze functie en de inhoud van de informatiedialoog hangt af van het cameramodel.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry
+><term
+><guibutton
+>Annuleren</guibutton
+></term>
+<listitem>
+<para
+>Druk op deze knop om de huidige camera-operatie te annuleren.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+<para
+>Om afbeeldingen te bekijken en te downloaden van de digitale camera, voer <userinput
+>camera:/</userinput
+> in in de locatiebalk van &konqueror; of &dolphin;. </para>
+
+</article>
+
+<!--
+Local Variables:
+mode: sgml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+// vim:ts=2:sw=2:tw=78:noet
+-->

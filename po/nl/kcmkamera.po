@@ -1,0 +1,261 @@
+# translation of kcmkamera.po to Dutch
+# Nederlandse vertaling van kcmkamera.po
+# Copyright (C) 2000, 2001, 2002 KDE e.v.
+# KDE-vertaalgroep Nederlands <www.kde.nl>
+# Proefgelezen 24-06-2002 Andy Houben <Andlinux@yahoo.com>
+# Rinse de Vries <Rinse@kde.nl>, 2000, 2001, 2002.
+# Rinse de Vries <rinse@kde.nl>, 2003, 2004.
+# Rinse de Vries <rinsedevries@kde.nl>, 2007.
+# Freek de Kruijf <f.de.kruijf@hetnet.nl>, 2008, 2009.
+# Freek de Kruijf <freekdekruijf@kde.nl>, 2009, 2011, 2015.
+msgid ""
+msgstr ""
+"Project-Id-Version: kcmkamera\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2020-10-24 02:16+0200\n"
+"PO-Revision-Date: 2015-10-31 23:36+0100\n"
+"Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
+"Language-Team: Dutch <kde-i18n-nl@kde.org>\n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 1.5\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+#: kamera.cpp:87
+#, kde-format
+msgid "Unable to initialize the gPhoto2 libraries."
+msgstr "De gPhoto2-bibliotheken konden niet worden geïnitialiseerd."
+
+#: kamera.cpp:128
+#, kde-format
+msgid "Add"
+msgstr "Toevoegen"
+
+#: kamera.cpp:130
+#, kde-format
+msgid "Click this button to add a new camera."
+msgstr "Druk op deze knop om een nieuwe camera toe te voegen."
+
+#: kamera.cpp:136
+#, kde-format
+msgid "Test"
+msgstr "Testen"
+
+#: kamera.cpp:138
+#, kde-format
+msgid "Click this button to test the connection to the selected camera."
+msgstr ""
+"Druk op deze knop om de verbinding met de geselecteerde camera te testen."
+
+#: kamera.cpp:143
+#, kde-format
+msgid "Remove"
+msgstr "Verwijderen"
+
+#: kamera.cpp:145
+#, kde-format
+msgid "Click this button to remove the selected camera from the list."
+msgstr ""
+"Druk op deze knop om de geselecteerde camera uit de lijst te verwijderen."
+
+#: kamera.cpp:150
+#, kde-format
+msgid "Configure..."
+msgstr "Instellen..."
+
+#: kamera.cpp:152
+#, kde-format
+msgid ""
+"Click this button to change the configuration of the selected camera."
+"<br><br>The availability of this feature and the contents of the "
+"Configuration dialog depend on the camera model."
+msgstr ""
+"Druk op deze knop om de configuratie van de geselecteerde camera te wijzigen."
+"<br><br>De beschikbaarheid van deze functie en de inhoud van het "
+"configuratiedialoog is afhankelijk van het model camera."
+
+#: kamera.cpp:157
+#, kde-format
+msgid "Information"
+msgstr "Informatie"
+
+#: kamera.cpp:159
+#, kde-format
+msgid ""
+"Click this button to view a summary of the current status of the selected "
+"camera.<br><br>The availability of this feature and the contents of the "
+"Information dialog depend on the camera model."
+msgstr ""
+"Druk op deze knop om een samenvatting van de huidige status van de "
+"geselecteerde camera te bekijken.<br><br>De beschikbaarheid van deze functie "
+"en de inhoud van het instelscherm is afhankelijk van het model camera."
+
+#: kamera.cpp:165
+#, kde-format
+msgid "Cancel"
+msgstr "Annuleren"
+
+#: kamera.cpp:167
+#, kde-format
+msgid "Click this button to cancel the current camera operation."
+msgstr "Druk op deze knop om de huidige camera-operatie te annuleren."
+
+#: kamera.cpp:368
+#, kde-format
+msgid "Camera test was successful."
+msgstr "Cameratest was succesvol."
+
+#: kamera.cpp:451
+#, kde-format
+msgid ""
+"<h1>Digital Camera</h1>\n"
+"This module allows you to configure support for your digital camera.\n"
+"You need to select the camera's model and the port it is connected\n"
+"to on your computer (e.g. USB, Serial, Firewire). If your camera does not\n"
+"appear on the list of <i>Supported Cameras</i>, go to the\n"
+"<a href=\"http://www.gphoto.org\">GPhoto web site</a> for a possible update."
+"<br><br>\n"
+"To view and download images from the digital camera, go to the address\n"
+"<a href=\"camera:/\">camera:/</a> in Konqueror and other KDE applications."
+msgstr ""
+"<h1>Digitale Camera</h1>\n"
+"Met deze module kunt u de ondersteuning voor uw digitale camera\n"
+"instellen. U moet het cameramodel en de poort selecteren waarmee\n"
+"de camera verbonden is met de computer (bijv. USB, serieel, FireWire)\n"
+"Als uw camera niet verschijnt in de lijst met <i>Ondersteunde camera's</i>,\n"
+"ga dan naar de <a href=\"http://www.gphoto.org\">GPhoto's website</a> voor\n"
+"een mogelijke update.<br><br>\n"
+"Om afbeeldingen op uw camera te bekijken en op te halen, typ het adres\n"
+"<a href=\"camera:/\">camera:/</a> in de locatiebalk van Konqueror en\n"
+"andere KDE-toepassingen."
+
+#: kameraconfigdialog.cpp:254
+#, kde-format
+msgid "Button (not supported by KControl)"
+msgstr "Knop (niet ondersteund door KControl)"
+
+#: kameraconfigdialog.cpp:262
+#, kde-format
+msgid "Date (not supported by KControl)"
+msgstr "Datum (niet ondersteund door KControl)"
+
+#: kameradevice.cpp:93
+#, kde-format
+msgid "Could not allocate memory for the abilities list."
+msgstr "Kon geen geheugen reserveren voor de lijst met wat kan."
+
+#: kameradevice.cpp:97
+#, kde-format
+msgid "Could not load ability list."
+msgstr "Kon de beschikbaarheidlijst niet laden."
+
+#: kameradevice.cpp:103 kameradevice.cpp:520 kameradevice.cpp:536
+#, kde-format
+msgid ""
+"Description of abilities for camera %1 is not available. Configuration "
+"options may be incorrect."
+msgstr ""
+"De beschrijving van de mogelijkheden voor camera %1 zijn niet beschikbaar. "
+"Mogelijk zijn de configuratieopties incorrect."
+
+#: kameradevice.cpp:127
+#, kde-format
+msgid "Could not access driver. Check your gPhoto2 installation."
+msgstr ""
+"Kon geen toegang krijgen tot het stuurprogramma. Controleer uw gPhoto2-"
+"installatie."
+
+#: kameradevice.cpp:147
+#, kde-format
+msgid ""
+"Unable to initialize camera. Check your port settings and camera "
+"connectivity and try again."
+msgstr ""
+"De camera kon niet worden geïnitialiseerd. Controleer uw poortinstellingen "
+"en of de camera juist verbonden is met uw computer en probeer het nogmaals."
+
+#: kameradevice.cpp:171
+#, kde-format
+msgid "No camera summary information is available.\n"
+msgstr "Er is geen camera-samenvatting beschikbaar.\n"
+
+#: kameradevice.cpp:185 kameradevice.cpp:196
+#, kde-format
+msgid "Camera configuration failed."
+msgstr "Camera-configuratie mislukt."
+
+#: kameradevice.cpp:234 kameradevice.cpp:341
+#, kde-format
+msgid "Serial"
+msgstr "Serieel"
+
+#: kameradevice.cpp:235 kameradevice.cpp:346
+#, kde-format
+msgid "USB"
+msgstr "USB"
+
+#: kameradevice.cpp:236
+#, kde-format
+msgid "Unknown port"
+msgstr "Onbekende poort"
+
+#: kameradevice.cpp:299
+#, kde-format
+msgid "Select Camera Device"
+msgstr "Camera selecteren"
+
+#: kameradevice.cpp:320
+#, kde-format
+msgctxt "@title:column"
+msgid "Supported Cameras"
+msgstr "Ondersteunde camera's"
+
+#: kameradevice.cpp:335 kameradevice.cpp:360
+#, kde-format
+msgid "Port"
+msgstr "Poort"
+
+#: kameradevice.cpp:343
+#, kde-format
+msgid ""
+"If this option is checked, the camera has to be connected to one of the "
+"computer's serial ports (known as COM ports in Microsoft Windows.)"
+msgstr ""
+"Als deze optie is geactiveerd, dan moet de camera verbonden zijn met een van "
+"de seriële poorten (COM-poorten onder MS Windows) van uw computer."
+
+#: kameradevice.cpp:348
+#, kde-format
+msgid ""
+"If this option is checked, the camera has to be connected to one of the "
+"computer's USB ports, or to a USB hub."
+msgstr ""
+"Als deze optie is geactiveerd, dan moet de camera verbonden zijn met een van "
+"de USB-poorten van uw computer of een USB-hub."
+
+#: kameradevice.cpp:351
+#, kde-format
+msgid "Port Settings"
+msgstr "Poortinstellingen"
+
+#: kameradevice.cpp:370
+#, kde-format
+msgid "No port type selected."
+msgstr "Geen poorttype geselecteerd."
+
+#: kameradevice.cpp:378
+#, kde-format
+msgid "Port:"
+msgstr "Poort:"
+
+#: kameradevice.cpp:381
+#, kde-format
+msgid "Specify here the serial port to which you connect the camera."
+msgstr "Hier kunt u de seriële poort kiezen waarmee de camera verbonden is."
+
+#: kameradevice.cpp:389
+#, kde-format
+msgid "No further configuration is required for USB cameras."
+msgstr "Voor USB-camera's is geen verdere configuratie noodzakelijk."

@@ -1,0 +1,150 @@
+<?xml version="1.0" ?>
+<!DOCTYPE article PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % Italian "INCLUDE">
+]>
+
+<article id="kamera" lang="&language;">
+<title
+>&kamera;: fotocamera digitale</title>
+<articleinfo>
+
+<authorgroup>
+<author
+><firstname
+>Burkhard</firstname
+> <surname
+>Lück</surname
+> <affiliation
+> <address
+><email
+>lueck@hube-lueck.de</email
+></address>
+</affiliation>
+</author>
+<othercredit role="translator"
+><firstname
+>Pino</firstname
+><surname
+>Toscano</surname
+><affiliation
+><address
+><email
+>toscano.pino@tiscali.it</email
+></address
+></affiliation
+><contrib
+>Traduzione italiana</contrib
+></othercredit
+> 
+</authorgroup>
+
+<date
+>2018-03-23</date>
+<releaseinfo
+>Applications 18.04</releaseinfo>
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>fotocamera</keyword>
+<keyword
+>foto</keyword>
+</keywordset>
+</articleinfo>
+
+<para
+>Questo modulo ti permette di configurare il supporto per la tua fotocamera digitale. </para>
+
+<variablelist>
+<varlistentry
+><term
+><guibutton
+>Aggiungi</guibutton
+></term>
+<listitem>
+<para
+>Premi questo pulsante per scegliere il modello della fotocamera e la porta a cui è connessa al computer (&eg; USB, seriale). Se la tua fotocamera non appare nella lista delle <guilabel
+>Fotocamere supportate</guilabel
+>, visita il <ulink url="http://www.gphoto.org"
+>sito web di GPhoto</ulink
+> per un possibile aggiornamento. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry
+><term
+><guibutton
+>Prova</guibutton
+></term>
+<listitem>
+<para
+>Fai clic su questo pulsante per provare la connessione alla fotocamera selezionata.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry
+><term
+><guibutton
+>Rimuovi</guibutton
+></term>
+<listitem>
+<para
+>Rimuove dalla lista la fotocamera selezionata. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry
+><term
+><guibutton
+>Configura</guibutton
+></term>
+<listitem>
+<para
+>Fai clic su questo pulsante per modificare la configurazione della fotocamera selezionata. La disponibilità di questa funzione e il contenuto della finestra di configurazione dipendono dal modello di fotocamera.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry
+><term
+><guibutton
+>Informazioni</guibutton
+></term>
+<listitem>
+<para
+>Fai clic su questo pulsante per vedere un riassunto dello stato della fotocamera selezionata. La disponibilità di questa funzione e i contenuti della finestra di informazioni dipendono dal modello di fotocamera.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry
+><term
+><guibutton
+>Annulla</guibutton
+></term>
+<listitem>
+<para
+>Fai clic su questo pulsante per annullare l'operazione corrente con la fotocamera.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+<para
+>Per visualizzare e scaricare immagini dalla fotocamera digitale, inserisci <userinput
+>camera:/</userinput
+> nella barra dell'indirizzo in &konqueror; o &dolphin;. </para>
+
+</article>
+
+<!--
+Local Variables:
+mode: sgml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+// vim:ts=2:sw=2:tw=78:noet
+-->

@@ -1,0 +1,152 @@
+<?xml version="1.0" ?>
+<!DOCTYPE article PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % Polish "INCLUDE">
+]>
+
+<article lang="&language;">
+<title
+><guilabel
+>Aparat cyfrowy</guilabel
+></title>
+<articleinfo>
+
+<authorgroup>
+<author
+><firstname
+>Burkhard</firstname
+> <surname
+>Lück</surname
+> <affiliation
+> <address
+><email
+>lueck@hube-lueck.de</email
+></address>
+</affiliation>
+</author>
+<othercredit role="translator"
+><firstname
+>Krzysztof</firstname
+><surname
+>Woźniak</surname
+><affiliation
+><address
+><email
+>wozniakk@ceti.pl</email
+></address
+></affiliation
+><contrib
+>Polskie tłumaczenie</contrib
+></othercredit
+> 
+</authorgroup>
+
+<date
+>2008-10-12</date>
+<releaseinfo
+>&kde; 4.2</releaseinfo>
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>aparat</keyword>
+<keyword
+>zdjęcie</keyword>
+</keywordset>
+</articleinfo>
+
+<para
+>Ten moduł pozwala na skonfigurowanie wsparcia dla aparatu cyfrowego. </para>
+
+<variablelist>
+<varlistentry
+><term
+><guibutton
+>Dodaj</guibutton
+></term>
+<listitem>
+<para
+>Naciśnij ten przycisk, do wybrania modelu aparatu i portu do którego jest podłączony (&eg; USB, Serial). Jeżeli aparat nie jest widoczny na liście<guilabel
+>Obsługiwane aparatu</guilabel
+>, przejdź na <ulink url="http://www.gphoto.org"
+>stronę programu GPhoto</ulink
+> i poszukaj aktualizacji. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry
+><term
+><guibutton
+>Testuj</guibutton
+></term>
+<listitem>
+<para
+>Wciśnij ten przycisk, żeby przetestować połączenie z wybranym aparatem.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry
+><term
+><guibutton
+>Usuń</guibutton
+></term>
+<listitem>
+<para
+>Usuwa wybrany aparat z listy. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry
+><term
+><guibutton
+>Konfiguruj</guibutton
+></term>
+<listitem>
+<para
+>Wciśnij ten przycisk, żeby zmienić konfigurację wybranego aparatu.Dostępność i zawartość okna konfiguracji zależy od modelu aparatu.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry
+><term
+><guibutton
+>Informacje</guibutton
+></term>
+<listitem>
+<para
+>Naciśnij ten przycisk, żeby zobaczyć informacje o stanie wybranego aparatu. Dostępność i zawartość okna konfiguracji zależy od modelu aparatu.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry
+><term
+><guibutton
+>Anuluj</guibutton
+></term>
+<listitem>
+<para
+>Wciśnij ten przycisk, żeby przerwać aktualną operację dla wybranego aparatu.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+<para
+>Aby oglądać i pobierać zdjęcia z aparatu cyfrowego, należy wpisać <userinput
+>camera:/</userinput
+> w polu adresu programu &konqueror;. </para>
+
+</article>
+
+<!--
+Local Variables:
+mode: sgml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+// vim:ts=2:sw=2:tw=78:noet
+-->

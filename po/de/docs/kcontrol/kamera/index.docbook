@@ -1,0 +1,150 @@
+<?xml version="1.0" ?>
+<!DOCTYPE article PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % German "INCLUDE">
+]>
+
+<article id="kamera" lang="&language;">
+<title
+>&kamera;: Digitalkamera</title>
+<articleinfo>
+
+<authorgroup>
+<author
+><firstname
+>Burkhard</firstname
+> <surname
+>Lück</surname
+> <affiliation
+> <address
+><email
+>lueck@hube-lueck.de</email
+></address>
+</affiliation>
+</author>
+<othercredit role="translator"
+><firstname
+>Burkhard</firstname
+><surname
+>Lück</surname
+><affiliation
+><address
+><email
+>lueck@hube-lueck.de</email
+></address
+></affiliation
+><contrib
+>Übersetzung</contrib
+></othercredit
+> 
+</authorgroup>
+
+<date
+>2018-03-23</date>
+<releaseinfo
+>Anwendungen 18.04</releaseinfo>
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>Kamera</keyword>
+<keyword
+>Foto</keyword>
+</keywordset>
+</articleinfo>
+
+<para
+>Mit diesem Modul können Sie die Unterstützung für Ihre Digitalkamera einrichten. </para>
+
+<variablelist>
+<varlistentry
+><term
+><guibutton
+>Hinzufügen</guibutton
+></term>
+<listitem>
+<para
+>Klicken Sie hier, um ein Kameramodell und den Anschluss, mit dem die Kamera verbunden ist, auswählen (&eg; USB, seriell). Wenn Ihre Kamera nicht in der Liste <guilabel
+>Unterstützte Kameras</guilabel
+> erscheint, besuchen Sie am besten die <ulink url="http://www.gphoto.org"
+>GPhoto-Internetseite</ulink
+> und sehen sich nach einer aktualisierten Version um. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry
+><term
+><guibutton
+>Testen</guibutton
+></term>
+<listitem>
+<para
+>Klicken Sie hier, um die Verbindung zur ausgewählten Kamera zu überprüfen.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry
+><term
+><guibutton
+>Entfernen</guibutton
+></term>
+<listitem>
+<para
+>Entfernt die ausgewählte Kamera aus der Liste. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry
+><term
+><guibutton
+>Einstellungen</guibutton
+></term>
+<listitem>
+<para
+>Klicken Sie hier, um die Einstellungen für die ausgewählte Kamera zu ändern.Die Verfügbarkeit dieser Funktion und die angezeigten Einstellmöglichkeiten hängen vom jeweiligen Kameramodell ab.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry
+><term
+><guibutton
+>Informationen</guibutton
+></term>
+<listitem>
+<para
+>Klicken Sie hier, um sich eine Zusammenfassung des Kamerastatus anzeigen zu lassen. Die Verfügbarkeit dieser Funktion und die angezeigten Informationen hängen vom jeweiligen Kameramodell ab.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry
+><term
+><guibutton
+>Abbrechen</guibutton
+></term>
+<listitem>
+<para
+>Klicken Sie hier, um die momentan laufende Aktion abzubrechen.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+<para
+>Zum Anzeigen und Herunterladen von Bildern aus der Digitalkamera geben Sie <userinput
+>camera:/</userinput
+> in der Adressleiste von &konqueror; oder &dolphin; ein. </para>
+
+</article>
+
+<!--
+Local Variables:
+mode: sgml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+// vim:ts=2:sw=2:tw=78:noet
+-->

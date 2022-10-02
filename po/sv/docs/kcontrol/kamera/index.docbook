@@ -1,0 +1,150 @@
+<?xml version="1.0" ?>
+<!DOCTYPE article PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % Swedish "INCLUDE">
+]>
+
+<article id="kamera" lang="&language;">
+<title
+>&kamera; digitalkamera</title>
+<articleinfo>
+
+<authorgroup>
+<author
+><firstname
+>Burkhard</firstname
+> <surname
+>Lück</surname
+> <affiliation
+> <address
+><email
+>lueck@hube-lueck.de</email
+></address>
+</affiliation>
+</author>
+<othercredit role="translator"
+><firstname
+>Stefan</firstname
+><surname
+>Asserhäll</surname
+><affiliation
+><address
+><email
+>stefan.asserhall@bredband.net</email
+></address
+></affiliation
+><contrib
+>Översättare</contrib
+></othercredit
+> 
+</authorgroup>
+
+<date
+>2018-03-23</date>
+<releaseinfo
+>Program 18.04</releaseinfo>
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>kamera</keyword>
+<keyword
+>foto</keyword>
+</keywordset>
+</articleinfo>
+
+<para
+>Den här modulen låter dig ställa in stöd för en digitalkamera. </para>
+
+<variablelist>
+<varlistentry
+><term
+><guibutton
+>Lägg till</guibutton
+></term>
+<listitem>
+<para
+>Klicka på knappen för att välja kamerans modell och porten den är ansluten till på datorn (t.ex. USB, seriell). Om din kamera inte finns med i listan på <guilabel
+>Kameror som stöds</guilabel
+>, gå till <ulink url="http://www.gphoto.org"
+>GPhotos webbplats</ulink
+> för en möjlig uppdatering. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry
+><term
+><guibutton
+>Testa</guibutton
+></term>
+<listitem>
+<para
+>Klicka på den här knappen för att prova anslutningen till den valda kameran.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry
+><term
+><guibutton
+>Ta bort</guibutton
+></term>
+<listitem>
+<para
+>Tar bort den valda kameran från listan. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry
+><term
+><guibutton
+>Anpassa</guibutton
+></term>
+<listitem>
+<para
+>Klicka på den här knappen för att ändra inställningarna för den valda kameran. Tillgängligheten av den här funktionen och innehållet i inställningsdialogrutan beror på kameramodellen.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry
+><term
+><guibutton
+>Information</guibutton
+></term>
+<listitem>
+<para
+>Klicka på den här knappen för att visa en översikt av aktuell status för den valda kameran. Tillgängligheten av den här funktionen och innehållet i inställningsdialogrutan beror på kameramodellen.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry
+><term
+><guibutton
+>Avbryt</guibutton
+></term>
+<listitem>
+<para
+>Klicka på den här knappen för att avbryta pågående åtgärd för kameran.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+<para
+>För att visa och ladda ner bilder från digitalkameran, skriv in <userinput
+>camera:/</userinput
+> i &konqueror;s eller &dolphin;s platsrad. </para>
+
+</article>
+
+<!--
+Local Variables:
+mode: sgml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+// vim:ts=2:sw=2:tw=78:noet
+-->

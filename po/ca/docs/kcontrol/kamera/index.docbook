@@ -1,0 +1,136 @@
+<?xml version="1.0" ?>
+<!DOCTYPE article PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % Catalan  "INCLUDE">
+]>
+
+<article id="kamera" lang="&language;">
+<title
+>&kamera;: Càmera digital</title>
+<articleinfo>
+
+<authorgroup>
+<author
+><firstname
+>Burkhard</firstname
+> <surname
+>Lück</surname
+> <affiliation
+> <address
+><email
+>lueck@hube-lueck.de</email
+></address>
+</affiliation>
+</author>
+&traductor.Antoni.Bella; 
+</authorgroup>
+
+<date
+>23 de març de 2018</date>
+<releaseinfo
+>Aplicacions 18.04</releaseinfo>
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>càmera</keyword>
+<keyword
+>fotografia</keyword>
+</keywordset>
+</articleinfo>
+
+<para
+>Aquest mòdul permet configurar l'ús de la vostra càmera digital. </para>
+
+<variablelist>
+<varlistentry
+><term
+><guibutton
+>Afegeix</guibutton
+></term>
+<listitem>
+<para
+>Feu clic en aquest botó per a seleccionar el model de la càmera i el port al qual està connectada al vostre ordinador (&pex;, USB, sèrie). Si la càmera no figura a la llista de <guilabel
+>Càmeres reconegudes</guilabel
+>, aneu al <ulink url="http://www.gphoto.org"
+>lloc web del GPhoto </ulink
+> per a una possible actualització. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry
+><term
+><guibutton
+>Prova</guibutton
+></term>
+<listitem>
+<para
+>Feu clic en aquest botó per a provar la connexió amb la càmera seleccionada.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry
+><term
+><guibutton
+>Elimina</guibutton
+></term>
+<listitem>
+<para
+>Elimina la càmera seleccionada de la llista. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry
+><term
+><guibutton
+>Configura</guibutton
+></term>
+<listitem>
+<para
+>Feu clic en aquest botó per a canviar la configuració de la càmera seleccionada. La disponibilitat d'aquesta característica i el contingut del diàleg de configuració dependran del model de la càmera.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry
+><term
+><guibutton
+>Informació</guibutton
+></term>
+<listitem>
+<para
+>Feu clic en aquest botó per a veure un resum de l'estat actual de la càmera seleccionada. La disponibilitat d'aquesta característica i el contingut del diàleg de configuració dependran del model de la càmera.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry
+><term
+><guibutton
+>Cancel·la</guibutton
+></term>
+<listitem>
+<para
+>Cliqueu aquest botó per a cancel·lar l'operació amb la càmera actual.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+<para
+>Per a veure i baixar imatges de la càmera digital, escriviu <userinput
+>camera:/</userinput
+> a la barra de localització del &konqueror; o del &dolphin;. </para>
+
+</article>
+
+<!--
+Local Variables:
+mode: sgml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+// vim:ts=2:sw=2:tw=78:noet
+-->

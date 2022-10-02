@@ -1,0 +1,136 @@
+<?xml version="1.0" ?>
+<!DOCTYPE article PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % French "INCLUDE">
+]>
+
+<article id="kamera" lang="&language;">
+<title
+>&kamera; : appareil photo numérique</title>
+<articleinfo>
+
+<authorgroup>
+<author
+><firstname
+>Burkhard</firstname
+> <surname
+>Lück</surname
+> <affiliation
+> <address
+><email
+>lueck@hube-lueck.de</email
+></address>
+</affiliation>
+</author>
+&traducteurStanislasZeller; 
+</authorgroup>
+
+<date
+>23-03-2018</date>
+<releaseinfo
+>Applications 18.04</releaseinfo>
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>appareil photo</keyword>
+<keyword
+>photographie</keyword>
+</keywordset>
+</articleinfo>
+
+<para
+>Ce module vous permet de configurer la prise en charge d'appareils photo numériques. </para>
+
+<variablelist>
+<varlistentry
+><term
+><guibutton
+>Ajouter</guibutton
+></term>
+<listitem>
+<para
+>Cliquez sur ce bouton pour sélectionner le modèle d'appareil photo et le port qui est connecté à votre ordinateur (&pex; USB, série). Si votre appareil photo n'apparait pas dans la liste des <guilabel
+>appareils photo gérés</guilabel
+>, aller sur le <ulink url="http://www.gphoto.org"
+>site web de GPhoto</ulink
+> pour une possible mise à jour. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry
+><term
+><guibutton
+>Tester</guibutton
+></term>
+<listitem>
+<para
+>Cliquez sur ce bouton pour tester la connexion à l'appareil photo sélectionné.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry
+><term
+><guibutton
+>Supprimer</guibutton
+></term>
+<listitem>
+<para
+>Supprimer l'appareil photo sélectionné de la liste. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry
+><term
+><guibutton
+>Configurer</guibutton
+></term>
+<listitem>
+<para
+>Cliquez sur ce bouton pour modifier la configuration de l'appareil photo sélectionné. La disponibilité de cette fonctionnalité et du contenu de la boîte de dialogue de configuration dépend de votre modèle d'appareil photo.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry
+><term
+><guibutton
+>Information</guibutton
+></term>
+<listitem>
+<para
+>Cliquez sur ce bouton pour afficher un résumé de l'état courant de l'appareil photo sélectionné. La disponibilité de cette fonctionnalité et du contenu de la boîte de dialogue d'informations dépend de votre modèle d'appareil photo.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry
+><term
+><guibutton
+>Annuler</guibutton
+></term>
+<listitem>
+<para
+>Cliquez sur ce bouton pour annuler l'opération courante de l'appareil photo.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+<para
+>Pour afficher et télécharger des images depuis l'appareil photo, veuillez saisir <userinput
+>camera:/</userinput
+> dans la barre d'emplacement de &konqueror;&apos;s ou &dolphin;&apos;. </para>
+
+</article>
+
+<!--
+Local Variables:
+mode: sgml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+// vim:ts=2:sw=2:tw=78:noet
+-->

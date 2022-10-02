@@ -1,0 +1,255 @@
+# translation of kcmkamera.po to hebrew
+# KDE Hebrew Localization Project
+# Translation of kcmkamera.po into Hebrew
+#
+# In addition to the copyright owners of the program
+# which this translation accompanies, this translation is
+# Copyright (C) 2001-2002 Meni Livne <livne@kde.org>
+#
+# This translation is subject to the same Open Source
+# license as the program which it accompanies.
+# Diego Iastrubni <elcuco@kde.org>, 2005.
+# Elkana Bardugo <ttv200@gmail.com>, 2017. #zanata
+msgid ""
+msgstr ""
+"Project-Id-Version: kcmkamera\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2020-10-24 02:16+0200\n"
+"PO-Revision-Date: 2017-05-16 07:01-0400\n"
+"Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
+"Language-Team: hebrew <kde-l10n-he@kde.org>\n"
+"Language: he\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Zanata 3.9.6\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+#: kamera.cpp:87
+#, kde-format
+msgid "Unable to initialize the gPhoto2 libraries."
+msgstr "אין אפשרות לאתחל את הספריות של gPhoto2."
+
+#: kamera.cpp:128
+#, kde-format
+msgid "Add"
+msgstr ""
+
+#: kamera.cpp:130
+#, kde-format
+msgid "Click this button to add a new camera."
+msgstr "לחץ על כפתור זה כדי להוסיף מצלמה חדשה."
+
+#: kamera.cpp:136
+#, kde-format
+msgid "Test"
+msgstr "בדיקה"
+
+#: kamera.cpp:138
+#, fuzzy, kde-format
+msgid "Click this button to test the connection to the selected camera."
+msgstr "לחץ על כפתור זה כדי להסיר את המצלמה הנבחרת מהרשימה."
+
+#: kamera.cpp:143
+#, kde-format
+msgid "Remove"
+msgstr ""
+
+#: kamera.cpp:145
+#, kde-format
+msgid "Click this button to remove the selected camera from the list."
+msgstr "לחץ על כפתור זה כדי להסיר את המצלמה הנבחרת מהרשימה."
+
+#: kamera.cpp:150
+#, kde-format
+msgid "Configure..."
+msgstr "הגדרות..."
+
+#: kamera.cpp:152
+#, kde-format
+msgid ""
+"Click this button to change the configuration of the selected camera."
+"<br><br>The availability of this feature and the contents of the "
+"Configuration dialog depend on the camera model."
+msgstr ""
+"לחץ על כפתור זה כדי לשנות את ההגדרות של המצלמה הנבחרת.<br><br>זמינותן של "
+"תכונות אלה ותוכנו של דו־שיח ההגדרות תלויים בדגם המצלמה."
+
+#: kamera.cpp:157
+#, kde-format
+msgid "Information"
+msgstr ""
+
+#: kamera.cpp:159
+#, fuzzy, kde-format
+msgid ""
+"Click this button to view a summary of the current status of the selected "
+"camera.<br><br>The availability of this feature and the contents of the "
+"Information dialog depend on the camera model."
+msgstr ""
+"לחץ על כפתור זה כדי לראות תקציר אודות המצב הנוכחי של המצלמה הנבחרת."
+"<br><br>זמינותן של תכונות אלה ותוכנו של דו־שיח ההגדרות תלויים בדגם המצלמה."
+
+#: kamera.cpp:165
+#, kde-format
+msgid "Cancel"
+msgstr ""
+
+#: kamera.cpp:167
+#, kde-format
+msgid "Click this button to cancel the current camera operation."
+msgstr "לחץ על כפתור זה כדי לבטל את הפעולה הנוכחית של המצלמה."
+
+#: kamera.cpp:368
+#, kde-format
+msgid "Camera test was successful."
+msgstr "בדיקת המצלמה הצליחה."
+
+#: kamera.cpp:451
+#, fuzzy, kde-format
+msgid ""
+"<h1>Digital Camera</h1>\n"
+"This module allows you to configure support for your digital camera.\n"
+"You need to select the camera's model and the port it is connected\n"
+"to on your computer (e.g. USB, Serial, Firewire). If your camera does not\n"
+"appear on the list of <i>Supported Cameras</i>, go to the\n"
+"<a href=\"http://www.gphoto.org\">GPhoto web site</a> for a possible update."
+"<br><br>\n"
+"To view and download images from the digital camera, go to the address\n"
+"<a href=\"camera:/\">camera:/</a> in Konqueror and other KDE applications."
+msgstr ""
+"<h1>מצלמה דיגיטלית</h1>\n"
+"מודול זה מאפשר לך לקבוע את תצורת התמיכה במצלמה הדיגיטלית שלך.\n"
+"עליך לבחור בדגם המצלמה ואת היציאה של המחשב שאליה היא מחוברת\n"
+"(לדוגמה USB, טורית, Firewire). אם המצלמה שלך לא מופיעה\n"
+"ברשימת <i>המצלמות הנתמכות</i>, בקר\n"
+"ב<a href=\"http://www.gphoto.org\">אתר של GPhoto</a> לעדכון אפשרי.<br><br>\n"
+"כדי להציג ולהוריד תמונות מהמצלמה הדיגיטלית, השתמש בכתובת\n"
+"<a href=\"camera:/\">/:camera</a> ב־Konqueror וביישומים אחרים של KDE."
+
+#: kameraconfigdialog.cpp:254
+#, kde-format
+msgid "Button (not supported by KControl)"
+msgstr "כפתור (לא נתמך על ידי מרכז הבקרה)"
+
+#: kameraconfigdialog.cpp:262
+#, kde-format
+msgid "Date (not supported by KControl)"
+msgstr "תאריך (לא נתמך על ידי מרכז הבקרה)"
+
+#: kameradevice.cpp:93
+#, fuzzy, kde-format
+msgid "Could not allocate memory for the abilities list."
+msgstr "אין אפשרות להקצות זיכרון לרשימת היכולות."
+
+#: kameradevice.cpp:97
+#, kde-format
+msgid "Could not load ability list."
+msgstr "אין אפשרות לטעון את רשימת היכולות."
+
+#: kameradevice.cpp:103 kameradevice.cpp:520 kameradevice.cpp:536
+#, kde-format
+msgid ""
+"Description of abilities for camera %1 is not available. Configuration "
+"options may be incorrect."
+msgstr ""
+"תיאור היכולות של מצלמה %1 אינו זמין. האפשרויות לקביעת תצורה עשויות להיות "
+"שגויות."
+
+#: kameradevice.cpp:127
+#, kde-format
+msgid "Could not access driver. Check your gPhoto2 installation."
+msgstr "אין אפשרות לגשת אל מנהל ההתקן. בדוק את ההתקנה של gPhoto2 שלך."
+
+#: kameradevice.cpp:147
+#, kde-format
+msgid ""
+"Unable to initialize camera. Check your port settings and camera "
+"connectivity and try again."
+msgstr ""
+"אין אפשרות לאתחל את המצלמה. בדוק את הגדרות היציאה שלך ואת החיבור של המצלמה "
+"ונסה שנית."
+
+#: kameradevice.cpp:171
+#, kde-format
+msgid "No camera summary information is available.\n"
+msgstr "אין מידע תקציר זמין לגבי המצלמה.\n"
+
+#: kameradevice.cpp:185 kameradevice.cpp:196
+#, kde-format
+msgid "Camera configuration failed."
+msgstr "קביעת תצורת המצלמה נכשלה."
+
+#: kameradevice.cpp:234 kameradevice.cpp:341
+#, kde-format
+msgid "Serial"
+msgstr "טורית"
+
+#: kameradevice.cpp:235 kameradevice.cpp:346
+#, kde-format
+msgid "USB"
+msgstr "USB"
+
+#: kameradevice.cpp:236
+#, kde-format
+msgid "Unknown port"
+msgstr "יציאה לא מוכרת"
+
+#: kameradevice.cpp:299
+#, kde-format
+msgid "Select Camera Device"
+msgstr "בחירת התקן מצלמה"
+
+#: kameradevice.cpp:320
+#, fuzzy, kde-format
+msgctxt "@title:column"
+msgid "Supported Cameras"
+msgstr "מצלמות נתמכות"
+
+#: kameradevice.cpp:335 kameradevice.cpp:360
+#, kde-format
+msgid "Port"
+msgstr "יציאה"
+
+#: kameradevice.cpp:343
+#, fuzzy, kde-format
+msgid ""
+"If this option is checked, the camera has to be connected to one of the "
+"computer's serial ports (known as COM ports in Microsoft Windows.)"
+msgstr ""
+"אם אפשרות זו נבחרת, על המצלמה להיות מחוברת אל אחת מהיציאות הטוריות (מוכרות "
+"בתור COM ב־Windows של Microsoft) שבמחשב שלך."
+
+#: kameradevice.cpp:348
+#, fuzzy, kde-format
+msgid ""
+"If this option is checked, the camera has to be connected to one of the "
+"computer's USB ports, or to a USB hub."
+msgstr ""
+"אם אפשרות זו נבחרת, על המצלמה להיות מחוברת אל אחד מחריצי ה־USB שבמחשב שלך או "
+"אל רכזת USB."
+
+#: kameradevice.cpp:351
+#, kde-format
+msgid "Port Settings"
+msgstr "הגדרות יציאה"
+
+#: kameradevice.cpp:370
+#, kde-format
+msgid "No port type selected."
+msgstr "לא נבחר סוג יציאה."
+
+#: kameradevice.cpp:378
+#, kde-format
+msgid "Port:"
+msgstr "יציאה:"
+
+#: kameradevice.cpp:381
+#, fuzzy, kde-format
+msgid "Specify here the serial port to which you connect the camera."
+msgstr "כאן יש לבחור את היציאה הטורית שאליה מחוברת המצלמה."
+
+#: kameradevice.cpp:389
+#, fuzzy, kde-format
+msgid "No further configuration is required for USB cameras."
+msgstr "אין הגדרות נוספות שיש לקבוע ל־USB."

@@ -1,0 +1,325 @@
+# Chinese (Hong Kong) Translation of kcmkamera
+# Feng-Shiang Wen <fswen@mail2000.com.tw>, 2001.
+# Walter Cheuk <wwycheuk@netvigator.com>, 2006.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: kcmkamera\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2020-10-24 02:16+0200\n"
+"PO-Revision-Date: 2006-01-08 17:54+0800\n"
+"Last-Translator: Walter Cheuk <wwycheuk@netvigator.com>\n"
+"Language-Team: Chinese (Hong Kong) <community@linuxhall.org>\n"
+"Language: zh_HK\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: kamera.cpp:87
+#, kde-format
+msgid "Unable to initialize the gPhoto2 libraries."
+msgstr "無法初始化 gPhoto2 程式庫。"
+
+#: kamera.cpp:128
+#, kde-format
+msgid "Add"
+msgstr ""
+
+#: kamera.cpp:130
+#, kde-format
+msgid "Click this button to add a new camera."
+msgstr "請點選這個按鈕新增照相機。"
+
+#: kamera.cpp:136
+#, kde-format
+msgid "Test"
+msgstr "測試"
+
+#: kamera.cpp:138
+#, fuzzy, kde-format
+#| msgid "Click this button to remove the selected camera from the list."
+msgid "Click this button to test the connection to the selected camera."
+msgstr "請點選這個按鈕刪除清單上所選的照相機。"
+
+#: kamera.cpp:143
+#, kde-format
+msgid "Remove"
+msgstr ""
+
+#: kamera.cpp:145
+#, kde-format
+msgid "Click this button to remove the selected camera from the list."
+msgstr "請點選這個按鈕刪除清單上所選的照相機。"
+
+#: kamera.cpp:150
+#, kde-format
+msgid "Configure..."
+msgstr "設定..."
+
+#: kamera.cpp:152
+#, kde-format
+msgid ""
+"Click this button to change the configuration of the selected camera."
+"<br><br>The availability of this feature and the contents of the "
+"Configuration dialog depend on the camera model."
+msgstr ""
+"點選這個按鈕來變更所選照相機的設定。<br><br>有沒有這個功能，以及設定方塊內顯"
+"示的內容，會依不同照相機型號而有所不同。"
+
+#: kamera.cpp:157
+#, kde-format
+msgid "Information"
+msgstr ""
+
+#: kamera.cpp:159
+#, fuzzy, kde-format
+#| msgid ""
+#| "Click this button to view a summary of the current status of the selected "
+#| "camera.<br><br>The availability of this feature and the contents of the "
+#| "Configuration dialog depend on the camera model."
+msgid ""
+"Click this button to view a summary of the current status of the selected "
+"camera.<br><br>The availability of this feature and the contents of the "
+"Information dialog depend on the camera model."
+msgstr ""
+"點選這個按鈕來檢視所選照相機的當前狀態摘要。<br><br>有沒有這個功能，以及設定"
+"方塊內顯示的內容，會依不同照相機型號而有所不同。"
+
+#: kamera.cpp:165
+#, kde-format
+msgid "Cancel"
+msgstr ""
+
+#: kamera.cpp:167
+#, kde-format
+msgid "Click this button to cancel the current camera operation."
+msgstr "請點選這個按鈕取消當前照相機的操作。"
+
+#: kamera.cpp:368
+#, kde-format
+msgid "Camera test was successful."
+msgstr "照相機測試成功。"
+
+#: kamera.cpp:451
+#, fuzzy, kde-format
+#| msgid ""
+#| "<h1>Digital Camera</h1>\n"
+#| "This module allows you to configure support for your digital camera.\n"
+#| "You would need to select the camera's model and the port it is connected\n"
+#| "to on your computer (e.g. USB, Serial, Firewire). If your camera doesn't\n"
+#| "appear in the list of <i>Supported Cameras</i>, go to the\n"
+#| "<a href=\"http://www.gphoto.org\">GPhoto web site</a> for a possible "
+#| "update.<br><br>\n"
+#| "To view and download images from the digital camera, go to address\n"
+#| "<a href=\"camera:/\">camera:/</a> in Konqueror and other KDE applications."
+msgid ""
+"<h1>Digital Camera</h1>\n"
+"This module allows you to configure support for your digital camera.\n"
+"You need to select the camera's model and the port it is connected\n"
+"to on your computer (e.g. USB, Serial, Firewire). If your camera does not\n"
+"appear on the list of <i>Supported Cameras</i>, go to the\n"
+"<a href=\"http://www.gphoto.org\">GPhoto web site</a> for a possible update."
+"<br><br>\n"
+"To view and download images from the digital camera, go to the address\n"
+"<a href=\"camera:/\">camera:/</a> in Konqueror and other KDE applications."
+msgstr ""
+"<h1>數碼相機</h1>\n"
+"這個模組讓您設定數碼相機支援。\n"
+"您要指定連接到你的電腦的相機型號與所連結的連接位置 (比方 USB 、序列埠、"
+"Firewire 等)。若是您的相機型號沒有列在<i>支援的照相機</i>清單中的話，請連線"
+"到\n"
+"<a href=\"http://www.gphoto.org\">GPhoto 網站</a> 來取得相關更新。<br><br>\n"
+"要從數碼相機檢視及下載圖像，請在 Konqueror 或其他 KDE 程式上連結\n"
+"<a href=\"camera:/\">camera:/</a> 。"
+
+#: kameraconfigdialog.cpp:254
+#, kde-format
+msgid "Button (not supported by KControl)"
+msgstr "按鈕（KControl 不支援）"
+
+#: kameraconfigdialog.cpp:262
+#, kde-format
+msgid "Date (not supported by KControl)"
+msgstr "日期（KControl 不支援）"
+
+#: kameradevice.cpp:93
+#, fuzzy, kde-format
+#| msgid "Could not allocate memory for abilities list."
+msgid "Could not allocate memory for the abilities list."
+msgstr "無法分配用於功能清單的記憶體。"
+
+#: kameradevice.cpp:97
+#, kde-format
+msgid "Could not load ability list."
+msgstr "無法載入功能清單。"
+
+#: kameradevice.cpp:103 kameradevice.cpp:520 kameradevice.cpp:536
+#, kde-format
+msgid ""
+"Description of abilities for camera %1 is not available. Configuration "
+"options may be incorrect."
+msgstr "無法取得 %1 照相機的功能說明。設定選項可能不正確。"
+
+#: kameradevice.cpp:127
+#, kde-format
+msgid "Could not access driver. Check your gPhoto2 installation."
+msgstr "無法存取驅動程式。請檢查您的 gPhoto2 軟件安裝是否正確。"
+
+#: kameradevice.cpp:147
+#, kde-format
+msgid ""
+"Unable to initialize camera. Check your port settings and camera "
+"connectivity and try again."
+msgstr ""
+"無法對照相機進行初始化的動作。請檢查您的通訊埠設置，以及照相機是否已連接妥"
+"當，然後再試。"
+
+#: kameradevice.cpp:171
+#, kde-format
+msgid "No camera summary information is available.\n"
+msgstr "無法取得照相機的摘要資訊。\n"
+
+#: kameradevice.cpp:185 kameradevice.cpp:196
+#, kde-format
+msgid "Camera configuration failed."
+msgstr "照相機設定失敗。"
+
+#: kameradevice.cpp:234 kameradevice.cpp:341
+#, kde-format
+msgid "Serial"
+msgstr "序列"
+
+#: kameradevice.cpp:235 kameradevice.cpp:346
+#, kde-format
+msgid "USB"
+msgstr "USB"
+
+#: kameradevice.cpp:236
+#, kde-format
+msgid "Unknown port"
+msgstr "未知的連接埠"
+
+#: kameradevice.cpp:299
+#, kde-format
+msgid "Select Camera Device"
+msgstr "選取照相機裝置"
+
+#: kameradevice.cpp:320
+#, fuzzy, kde-format
+#| msgid "Supported Cameras"
+msgctxt "@title:column"
+msgid "Supported Cameras"
+msgstr "支援的照相機"
+
+#: kameradevice.cpp:335 kameradevice.cpp:360
+#, kde-format
+msgid "Port"
+msgstr "連接埠"
+
+#: kameradevice.cpp:343
+#, fuzzy, kde-format
+#| msgid ""
+#| "If this option is checked, the camera would have to be connected one of "
+#| "the serial ports (known as COM in Microsoft Windows) in your computer."
+msgid ""
+"If this option is checked, the camera has to be connected to one of the "
+"computer's serial ports (known as COM ports in Microsoft Windows.)"
+msgstr ""
+"若是這個項目開啟了，那照相機應該連結到您電機的序列埠上（Windows 說法就是 COM "
+"位置上）。"
+
+#: kameradevice.cpp:348
+#, fuzzy, kde-format
+#| msgid ""
+#| "If this option is checked, the camera would have to be connected to one "
+#| "of the USB slots in your computer or USB hub."
+msgid ""
+"If this option is checked, the camera has to be connected to one of the "
+"computer's USB ports, or to a USB hub."
+msgstr "若是這個項目開啟了，那照相機應該連結到您電腦的 USB 埠或 USB 集線器上。"
+
+#: kameradevice.cpp:351
+#, kde-format
+msgid "Port Settings"
+msgstr "連接埠設置"
+
+#: kameradevice.cpp:370
+#, kde-format
+msgid "No port type selected."
+msgstr "未有選擇連接埠的類型。"
+
+#: kameradevice.cpp:378
+#, kde-format
+msgid "Port:"
+msgstr "連接埠:"
+
+#: kameradevice.cpp:381
+#, fuzzy, kde-format
+#| msgid "Here you should choose the serial port you connect the camera to."
+msgid "Specify here the serial port to which you connect the camera."
+msgstr "您可以在這裡選擇您照相機所連接的序列埠。"
+
+#: kameradevice.cpp:389
+#, fuzzy, kde-format
+#| msgid "No further configuration is required for USB."
+msgid "No further configuration is required for USB cameras."
+msgstr "USB 不需要額外的設定。"
+
+#~ msgid "Parallel"
+#~ msgstr "平行"
+
+#~ msgid "IEEE1394"
+#~ msgstr "IEEE1394"
+
+#~ msgid "Network"
+#~ msgstr "網路"
+
+#~ msgid ""
+#~ "If this option is checked, the camera would have to be connected one the "
+#~ "parallel ports (known as LPT in Microsoft Windows) in your computer."
+#~ msgstr ""
+#~ "若是這個項目開啟了，那照相機應該連結到您主機的列印埠位置上 (Windows 說法就"
+#~ "是 LPT 位置上)。"
+
+#~ msgid ""
+#~ "If this option is checked, the camera would have to be connected to one "
+#~ "of the IEEE1394 (FireWire) ports in your computer."
+#~ msgstr "若是這個項目開啟了，那照相機應該連結到您主機的 IEEE1394 位置上。"
+
+#~ msgid "Here you should choose the parallel port you connect the camera to."
+#~ msgstr "您可以在這裡選擇您照相幾所連結的列印埠位址。"
+
+#~ msgid "No further configuration is required for IEEE1394."
+#~ msgstr "沒有進一步可供 IEEE1394 的設定。"
+
+#~ msgid "Host"
+#~ msgstr "主機"
+
+#~ msgid "Use camera previews for Konqueror thumbnails"
+#~ msgstr "以照相機的預覽圖片做為 Konqueror 中的預覽略圖"
+
+#~ msgid "Speed"
+#~ msgstr "速度"
+
+#, fuzzy
+#~ msgid "No user definable settings for USB"
+#~ msgstr "通用序列匯流排（USB）沒有可供使用者調整的設定"
+
+#~ msgid "port"
+#~ msgstr "通訊埠"
+
+#~ msgid "serial"
+#~ msgstr "序列"
+
+#~ msgid "parallel"
+#~ msgstr "平行"
+
+#~ msgid "network"
+#~ msgstr "網路"
+
+#~ msgid "No camera selected!"
+#~ msgstr "沒有選擇照相機！"
+
+#~ msgid "Choice"
+#~ msgstr "選擇"

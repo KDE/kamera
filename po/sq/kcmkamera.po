@@ -1,0 +1,229 @@
+# Albanian translation for kdegraphics
+# Copyright (c) 2009 Rosetta Contributors and Canonical Ltd 2009
+# This file is distributed under the same license as the kdegraphics package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2009.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: kdegraphics\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2020-10-24 02:16+0200\n"
+"PO-Revision-Date: 2009-05-21 16:34+0000\n"
+"Last-Translator: Vilson Gjeci <vilsongjeci@gmail.com>\n"
+"Language-Team: Albanian <sq@li.org>\n"
+"Language: sq\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2011-04-22 09:28+0000\n"
+"X-Generator: Launchpad (build 12883)\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+#: kamera.cpp:87
+#, kde-format
+msgid "Unable to initialize the gPhoto2 libraries."
+msgstr "Nuk mund të nisim libraritë gPhoto2."
+
+#: kamera.cpp:128
+#, kde-format
+msgid "Add"
+msgstr "Shto"
+
+#: kamera.cpp:130
+#, kde-format
+msgid "Click this button to add a new camera."
+msgstr ""
+
+#: kamera.cpp:136
+#, kde-format
+msgid "Test"
+msgstr "Testo"
+
+#: kamera.cpp:138
+#, kde-format
+msgid "Click this button to test the connection to the selected camera."
+msgstr ""
+
+#: kamera.cpp:143
+#, kde-format
+msgid "Remove"
+msgstr "Hiqe"
+
+#: kamera.cpp:145
+#, kde-format
+msgid "Click this button to remove the selected camera from the list."
+msgstr ""
+
+#: kamera.cpp:150
+#, kde-format
+msgid "Configure..."
+msgstr "Konfiguro..."
+
+#: kamera.cpp:152
+#, kde-format
+msgid ""
+"Click this button to change the configuration of the selected camera."
+"<br><br>The availability of this feature and the contents of the "
+"Configuration dialog depend on the camera model."
+msgstr ""
+
+#: kamera.cpp:157
+#, kde-format
+msgid "Information"
+msgstr "Informacion"
+
+#: kamera.cpp:159
+#, kde-format
+msgid ""
+"Click this button to view a summary of the current status of the selected "
+"camera.<br><br>The availability of this feature and the contents of the "
+"Information dialog depend on the camera model."
+msgstr ""
+
+#: kamera.cpp:165
+#, kde-format
+msgid "Cancel"
+msgstr "Anullo"
+
+#: kamera.cpp:167
+#, kde-format
+msgid "Click this button to cancel the current camera operation."
+msgstr ""
+
+#: kamera.cpp:368
+#, kde-format
+msgid "Camera test was successful."
+msgstr ""
+
+#: kamera.cpp:451
+#, kde-format
+msgid ""
+"<h1>Digital Camera</h1>\n"
+"This module allows you to configure support for your digital camera.\n"
+"You need to select the camera's model and the port it is connected\n"
+"to on your computer (e.g. USB, Serial, Firewire). If your camera does not\n"
+"appear on the list of <i>Supported Cameras</i>, go to the\n"
+"<a href=\"http://www.gphoto.org\">GPhoto web site</a> for a possible update."
+"<br><br>\n"
+"To view and download images from the digital camera, go to the address\n"
+"<a href=\"camera:/\">camera:/</a> in Konqueror and other KDE applications."
+msgstr ""
+
+#: kameraconfigdialog.cpp:254
+#, kde-format
+msgid "Button (not supported by KControl)"
+msgstr ""
+
+#: kameraconfigdialog.cpp:262
+#, kde-format
+msgid "Date (not supported by KControl)"
+msgstr ""
+
+#: kameradevice.cpp:93
+#, kde-format
+msgid "Could not allocate memory for the abilities list."
+msgstr ""
+
+#: kameradevice.cpp:97
+#, kde-format
+msgid "Could not load ability list."
+msgstr ""
+
+#: kameradevice.cpp:103 kameradevice.cpp:520 kameradevice.cpp:536
+#, kde-format
+msgid ""
+"Description of abilities for camera %1 is not available. Configuration "
+"options may be incorrect."
+msgstr ""
+
+#: kameradevice.cpp:127
+#, kde-format
+msgid "Could not access driver. Check your gPhoto2 installation."
+msgstr ""
+
+#: kameradevice.cpp:147
+#, kde-format
+msgid ""
+"Unable to initialize camera. Check your port settings and camera "
+"connectivity and try again."
+msgstr ""
+
+#: kameradevice.cpp:171
+#, kde-format
+msgid "No camera summary information is available.\n"
+msgstr ""
+
+#: kameradevice.cpp:185 kameradevice.cpp:196
+#, kde-format
+msgid "Camera configuration failed."
+msgstr ""
+
+#: kameradevice.cpp:234 kameradevice.cpp:341
+#, kde-format
+msgid "Serial"
+msgstr "Serial"
+
+#: kameradevice.cpp:235 kameradevice.cpp:346
+#, kde-format
+msgid "USB"
+msgstr "USB"
+
+#: kameradevice.cpp:236
+#, kde-format
+msgid "Unknown port"
+msgstr "Port i panjohur"
+
+#: kameradevice.cpp:299
+#, kde-format
+msgid "Select Camera Device"
+msgstr ""
+
+#: kameradevice.cpp:320
+#, kde-format
+msgctxt "@title:column"
+msgid "Supported Cameras"
+msgstr ""
+
+#: kameradevice.cpp:335 kameradevice.cpp:360
+#, kde-format
+msgid "Port"
+msgstr "Porti"
+
+#: kameradevice.cpp:343
+#, kde-format
+msgid ""
+"If this option is checked, the camera has to be connected to one of the "
+"computer's serial ports (known as COM ports in Microsoft Windows.)"
+msgstr ""
+
+#: kameradevice.cpp:348
+#, kde-format
+msgid ""
+"If this option is checked, the camera has to be connected to one of the "
+"computer's USB ports, or to a USB hub."
+msgstr ""
+
+#: kameradevice.cpp:351
+#, kde-format
+msgid "Port Settings"
+msgstr ""
+
+#: kameradevice.cpp:370
+#, kde-format
+msgid "No port type selected."
+msgstr ""
+
+#: kameradevice.cpp:378
+#, kde-format
+msgid "Port:"
+msgstr "Porti:"
+
+#: kameradevice.cpp:381
+#, kde-format
+msgid "Specify here the serial port to which you connect the camera."
+msgstr ""
+
+#: kameradevice.cpp:389
+#, kde-format
+msgid "No further configuration is required for USB cameras."
+msgstr ""

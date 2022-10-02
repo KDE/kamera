@@ -1,0 +1,257 @@
+# Copyright (C) YEAR This_file_is_part_of_KDE
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Adem Alp Yıldız <ademalp@linux-sevenler.org>, 2004.
+# Görkem Çetin, 2000.
+# obsoleteman <tulliana@gmail.com>, 2008-2009,2011.
+# Volkan Gezer <volkangezer@gmail.com>, 2017.
+msgid ""
+msgstr ""
+"Project-Id-Version: kdegraphics-kde4\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2020-10-24 02:16+0200\n"
+"PO-Revision-Date: 2017-04-13 15:11+0100\n"
+"Last-Translator: Volkan Gezer <volkangezer@gmail.com>\n"
+"Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
+"Language: tr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Lokalize 2.0\n"
+
+#: kamera.cpp:87
+#, kde-format
+msgid "Unable to initialize the gPhoto2 libraries."
+msgstr "gPhoto2 kitaplıkları başlatılamadı."
+
+#: kamera.cpp:128
+#, kde-format
+msgid "Add"
+msgstr "Ekle"
+
+#: kamera.cpp:130
+#, kde-format
+msgid "Click this button to add a new camera."
+msgstr "Yeni bir kamera eklemek için bu düğmeye tıklayın."
+
+#: kamera.cpp:136
+#, kde-format
+msgid "Test"
+msgstr "Dene"
+
+#: kamera.cpp:138
+#, kde-format
+msgid "Click this button to test the connection to the selected camera."
+msgstr "Seçilen kameranın bağlantısını denemek için bu düğmeye tıklayın."
+
+#: kamera.cpp:143
+#, kde-format
+msgid "Remove"
+msgstr "Kaldır"
+
+#: kamera.cpp:145
+#, kde-format
+msgid "Click this button to remove the selected camera from the list."
+msgstr "Listedeki seçili kamerayı silmek için bu düğmeye tıklayın."
+
+#: kamera.cpp:150
+#, kde-format
+msgid "Configure..."
+msgstr "Yapılandır..."
+
+#: kamera.cpp:152
+#, kde-format
+msgid ""
+"Click this button to change the configuration of the selected camera."
+"<br><br>The availability of this feature and the contents of the "
+"Configuration dialog depend on the camera model."
+msgstr ""
+"Seçili kameranın yapılandırmasını tamamlamak için bu düğmeyi tıklayın. "
+"<br><br> Bu özellik ve yapılandırma penceresi içindeki ögeler, kameranın "
+"modeline göre değişiklik gösterebilir."
+
+#: kamera.cpp:157
+#, kde-format
+msgid "Information"
+msgstr "Bilgiler"
+
+#: kamera.cpp:159
+#, kde-format
+msgid ""
+"Click this button to view a summary of the current status of the selected "
+"camera.<br><br>The availability of this feature and the contents of the "
+"Information dialog depend on the camera model."
+msgstr ""
+"Seçilen kameranın durumunun özetini görmek için bu düğmeye tıklayın.<br><br> "
+"Bu özellik ve bilgilendirme penceresi içindeki ögeler kameranın modeline "
+"bağlıdır."
+
+#: kamera.cpp:165
+#, kde-format
+msgid "Cancel"
+msgstr "İptal"
+
+#: kamera.cpp:167
+#, kde-format
+msgid "Click this button to cancel the current camera operation."
+msgstr "Güncel kamera işlemini iptal etmek için bu düğmeye tıklayınız."
+
+#: kamera.cpp:368
+#, kde-format
+msgid "Camera test was successful."
+msgstr "Kamera denemesi başarılı oldu."
+
+#: kamera.cpp:451
+#, kde-format
+msgid ""
+"<h1>Digital Camera</h1>\n"
+"This module allows you to configure support for your digital camera.\n"
+"You need to select the camera's model and the port it is connected\n"
+"to on your computer (e.g. USB, Serial, Firewire). If your camera does not\n"
+"appear on the list of <i>Supported Cameras</i>, go to the\n"
+"<a href=\"http://www.gphoto.org\">GPhoto web site</a> for a possible update."
+"<br><br>\n"
+"To view and download images from the digital camera, go to the address\n"
+"<a href=\"camera:/\">camera:/</a> in Konqueror and other KDE applications."
+msgstr ""
+"<h1>Sayısal Kamera</h1>\n"
+"Bu modül sayısal kamera desteğini yapılandırmanızı sağlar.\n"
+"Kamera modelini ve bilgisayara bağlandığı portu seçmeniz gerekmektedir. "
+"(USB, Seri, Firewire).\n"
+"Eğer kameranız <i>Desteklenen Kameralar</i> listesinde görünmüyorsa\n"
+"<a href=\"http://www.gphoto.org\">GPhoto web sitesini</a> ziyaret edip olası "
+"güncellemere gözatabilirsiniz.\n"
+"<br><br>\n"
+"Sayısal kameradaki fotoğrafları görmek veya bilgisayarınıza indirmek için\n"
+"Konqueror veya diğer KDE uygulamalarıyla <a href=\"camera:/\">camera:/</a> "
+"adresine gidin."
+
+#: kameraconfigdialog.cpp:254
+#, kde-format
+msgid "Button (not supported by KControl)"
+msgstr "Düğme (KControl tarafından desteklenmez)"
+
+#: kameraconfigdialog.cpp:262
+#, kde-format
+msgid "Date (not supported by KControl)"
+msgstr "Tarih (KControl tarafından desteklenmez)"
+
+#: kameradevice.cpp:93
+#, kde-format
+msgid "Could not allocate memory for the abilities list."
+msgstr "Yetenekler listesi için yeterli bellek ayrılamadı."
+
+#: kameradevice.cpp:97
+#, kde-format
+msgid "Could not load ability list."
+msgstr "Liste yüklenemedi."
+
+#: kameradevice.cpp:103 kameradevice.cpp:520 kameradevice.cpp:536
+#, kde-format
+msgid ""
+"Description of abilities for camera %1 is not available. Configuration "
+"options may be incorrect."
+msgstr ""
+"%1 kamerasının özellikleri alınamadı. Yapılandırma seçenekleri hatalı "
+"olabilir."
+
+#: kameradevice.cpp:127
+#, kde-format
+msgid "Could not access driver. Check your gPhoto2 installation."
+msgstr "Sürücüye ulaşılamadı. gPhoto2 kurulumunu gözden geçirin."
+
+#: kameradevice.cpp:147
+#, kde-format
+msgid ""
+"Unable to initialize camera. Check your port settings and camera "
+"connectivity and try again."
+msgstr ""
+"Kameraya bağlantı kurulamadı. Kamera bağlantınızı ve port ayarlarını gözden "
+"geçirerek yeniden deneyin."
+
+#: kameradevice.cpp:171
+#, kde-format
+msgid "No camera summary information is available.\n"
+msgstr "Kamera özet bilgisi bulunmuyor.\n"
+
+#: kameradevice.cpp:185 kameradevice.cpp:196
+#, kde-format
+msgid "Camera configuration failed."
+msgstr "Kamera yapılandırmasında hata."
+
+#: kameradevice.cpp:234 kameradevice.cpp:341
+#, kde-format
+msgid "Serial"
+msgstr "Seri"
+
+#: kameradevice.cpp:235 kameradevice.cpp:346
+#, kde-format
+msgid "USB"
+msgstr "USB"
+
+#: kameradevice.cpp:236
+#, kde-format
+msgid "Unknown port"
+msgstr "Bilinmeyen port"
+
+#: kameradevice.cpp:299
+#, kde-format
+msgid "Select Camera Device"
+msgstr "Kamera Aygıtını Seçin"
+
+#: kameradevice.cpp:320
+#, kde-format
+msgctxt "@title:column"
+msgid "Supported Cameras"
+msgstr "Desteklenen Kameralar"
+
+#: kameradevice.cpp:335 kameradevice.cpp:360
+#, kde-format
+msgid "Port"
+msgstr "Port"
+
+#: kameradevice.cpp:343
+#, kde-format
+msgid ""
+"If this option is checked, the camera has to be connected to one of the "
+"computer's serial ports (known as COM ports in Microsoft Windows.)"
+msgstr ""
+"Bu seçenek işaretlenirse, fotoğraf makinesi bilgisayarın seri bağlantı "
+"noktalarından birine bağlı olmalıdır (Microsoft Windows'ta COM bağlantı "
+"noktası olarak bilinir.)"
+
+#: kameradevice.cpp:348
+#, kde-format
+msgid ""
+"If this option is checked, the camera has to be connected to one of the "
+"computer's USB ports, or to a USB hub."
+msgstr ""
+"Bu seçenek işaretlenirse, fotoğraf makinesi bilgisayarın USB bağlantı "
+"noktalarından birine veya bir USB çoklayıcısına bağlanmalıdır."
+
+#: kameradevice.cpp:351
+#, kde-format
+msgid "Port Settings"
+msgstr "Port Ayarları"
+
+#: kameradevice.cpp:370
+#, kde-format
+msgid "No port type selected."
+msgstr "Port türü seçilmedi."
+
+#: kameradevice.cpp:378
+#, kde-format
+msgid "Port:"
+msgstr "Port:"
+
+#: kameradevice.cpp:381
+#, kde-format
+msgid "Specify here the serial port to which you connect the camera."
+msgstr "Burada kamerayı bağladığınız seri portu belirtin."
+
+#: kameradevice.cpp:389
+#, kde-format
+msgid "No further configuration is required for USB cameras."
+msgstr "USB kameralar için ek ayar yapmaya gerek yok."

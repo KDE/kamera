@@ -1,0 +1,158 @@
+<?xml version="1.0" ?>
+<!DOCTYPE article PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % Russian "INCLUDE">
+]>
+
+<article id="kamera" lang="&language;">
+<title
+>&kamera;: Цифровая камера</title>
+<articleinfo>
+
+<authorgroup>
+<author
+><firstname
+>Burkhard</firstname
+> <surname
+>Lück</surname
+> <affiliation
+> <address
+><email
+>lueck@hube-lueck.de</email
+></address>
+</affiliation>
+</author>
+<othercredit role="translator"
+><firstname
+>Ольга</firstname
+><surname
+>Миронова</surname
+><affiliation
+><address
+><email
+>omiro@basealt.ru</email
+></address
+></affiliation
+><contrib
+>Перевод на русский язык</contrib
+></othercredit
+> <othercredit role="reviewer"
+><firstname
+>Александр</firstname
+><surname
+>Яворский</surname
+><contrib
+>Рецензирование</contrib
+></othercredit
+> 
+</authorgroup>
+
+<date
+>2015-09-16</date>
+<releaseinfo
+>Приложения KDE 15.12</releaseinfo>
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>камера</keyword>
+<keyword
+>фото</keyword>
+</keywordset>
+</articleinfo>
+
+<para
+>Этот модуль приложения &systemsettings; позволяет настроить поддержку цифровой камеры. </para>
+
+<variablelist>
+<varlistentry
+><term
+><guibutton
+>Добавить</guibutton
+></term>
+<listitem>
+<para
+>Нажмите на эту кнопку для выбора модели камеры, а также порта, к которому она присоединена (например, USB или последовательный). Если нужной камеры в списке <guilabel
+>поддерживаемых устройств</guilabel
+> нет, обновите этот список, перейдя на <ulink url="http://www.gphoto.org"
+>сайт GPhoto</ulink
+>. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry
+><term
+><guibutton
+>Проверка</guibutton
+></term>
+<listitem>
+<para
+>Нажмите эту кнопку для проверки подключения выбранной камеры.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry
+><term
+><guibutton
+>Удалить</guibutton
+></term>
+<listitem>
+<para
+>Нажмите эту кнопку для удаления выбранной камеры из списка. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry
+><term
+><guibutton
+>Настройка</guibutton
+></term>
+<listitem>
+<para
+>Нажмите эту кнопку для настройки параметров выбранной камеры. Доступность этой функции, а также содержание диалога настройки зависят от модели камеры.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry
+><term
+><guibutton
+>Сведения</guibutton
+></term>
+<listitem>
+<para
+>Нажмите эту кнопку для просмотра текущего состояния выбранной камеры. Доступность этой функции, а также содержание информационного диалога зависят от модели камеры.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry
+><term
+><guibutton
+>Отмена</guibutton
+></term>
+<listitem>
+<para
+>Нажмите эту кнопку для отмены действия, выполняемого камерой в данный момент.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+<para
+>Для просмотра и загрузки изображений с цифровой камеры необходимо в адресной строке веб-браузера &konqueror; ввести <userinput
+>camera:/</userinput
+>. </para>
+
+</article>
+
+<!--
+Local Variables:
+mode: sgml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+// vim:ts=2:sw=2:tw=78:noet
+-->

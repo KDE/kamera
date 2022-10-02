@@ -1,0 +1,150 @@
+<?xml version="1.0" ?>
+<!DOCTYPE article PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % Ukrainian "INCLUDE">
+]>
+
+<article id="kamera" lang="&language;">
+<title
+>&kamera;: Цифровий фотоапарат</title>
+<articleinfo>
+
+<authorgroup>
+<author
+><firstname
+>Burkhard</firstname
+> <surname
+>Lück</surname
+> <affiliation
+> <address
+><email
+>lueck@hube-lueck.de</email
+></address>
+</affiliation>
+</author>
+<othercredit role="translator"
+><firstname
+>Юрій</firstname
+><surname
+>Чорноіван</surname
+><affiliation
+><address
+><email
+>yurchor@ukr.net</email
+></address
+></affiliation
+><contrib
+>Переклад українською</contrib
+></othercredit
+> 
+</authorgroup>
+
+<date
+>23 березня 2018 року</date>
+<releaseinfo
+>Програми 18.04</releaseinfo>
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>фотоапарат</keyword>
+<keyword
+>фотографія</keyword>
+</keywordset>
+</articleinfo>
+
+<para
+>За допомогою цього модуля ви можете налаштувати підтримку вашого цифрового фотоапарата. </para>
+
+<variablelist>
+<varlistentry
+><term
+><guibutton
+>Додати</guibutton
+></term>
+<listitem>
+<para
+>Натисніть цю кнопку, щоб обрати модель фотоапарата і порт, за допомогою якого його з’єднано з комп’ютером (наприклад, USB, Послідовний). Якщо вашого фотоапарата немає у списку <guilabel
+>Підтримуваних фотоапаратів</guilabel
+>, відвідайте <ulink url="http://www.gphoto.org"
+>вебсайт GPhoto</ulink
+>, де, можливо, є оновлена версія. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry
+><term
+><guibutton
+>Тест</guibutton
+></term>
+<listitem>
+<para
+>Натисніть цю кнопку, щоб перевірити з’єднання з вибраним фотоапаратом.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry
+><term
+><guibutton
+>Вилучити</guibutton
+></term>
+<listitem>
+<para
+>Вилучає вибраний фотоапарат зі списку. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry
+><term
+><guibutton
+>Налаштувати</guibutton
+></term>
+<listitem>
+<para
+>Натисніть цю кнопку, щоб змінити налаштування вибраного фотоапарата. Доступність цієї функції, а також вміст діалогового вікна налаштування залежить від моделі фотоапарата.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry
+><term
+><guibutton
+>Інформація</guibutton
+></term>
+<listitem>
+<para
+>Натисніть цю кнопку, щоб переглянути короткий звіт про поточний стан вибраного фотоапарата. Доступність цієї функції, а також вміст діалогового вікна відомостей залежить від моделі фотоапарата.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry
+><term
+><guibutton
+>Скасувати</guibutton
+></term>
+<listitem>
+<para
+>Натисніть цю кнопку, щоб скасувати поточну дію фотоапарата.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+<para
+>Щоб переглянути і отримати зображення з цифрового фотоапарата, введіть <userinput
+>camera:/</userinput
+> у рядок адреси &konqueror; або &dolphin;. </para>
+
+</article>
+
+<!--
+Local Variables:
+mode: sgml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+// vim:ts=2:sw=2:tw=78:noet
+-->

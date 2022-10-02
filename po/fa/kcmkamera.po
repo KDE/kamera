@@ -1,0 +1,280 @@
+# translation of kcmkamera.po to Persian
+# Nasim Daniarzadeh <daniarzadeh@itland.ir>, 2006.
+# Nazanin Kazemi <kazemi@itland.ir>, 2006.
+# Mahdi Foladgar <foladgar@itland.ir>, 2006.
+# MaryamSadat Razavi <razavi@itland.ir>, 2006.
+# Tahereh Dadkhahfar <dadkhahfar@itland.ir>, 2006.
+msgid ""
+msgstr ""
+"Project-Id-Version: kcmkamera\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2020-10-24 02:16+0200\n"
+"PO-Revision-Date: 2006-12-16 15:53+0330\n"
+"Last-Translator: Nasim Daniarzadeh <daniarzadeh@itland.ir>\n"
+"Language-Team: Persian <kde-i18n-fa@kde.org>\n"
+"Language: fa\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: kamera.cpp:87
+#, kde-format
+msgid "Unable to initialize the gPhoto2 libraries."
+msgstr "قادر به مقداردهی اولیه کتابخانه‌های gPhoto2 نیست."
+
+#: kamera.cpp:128
+#, kde-format
+msgid "Add"
+msgstr ""
+
+#: kamera.cpp:130
+#, kde-format
+msgid "Click this button to add a new camera."
+msgstr "برای افزودن یک دوربین جدید، این دکمه را فشار دهید."
+
+#: kamera.cpp:136
+#, kde-format
+msgid "Test"
+msgstr "آزمون"
+
+#: kamera.cpp:138
+#, fuzzy, kde-format
+#| msgid "Click this button to remove the selected camera from the list."
+msgid "Click this button to test the connection to the selected camera."
+msgstr "برای حذف دوربین برگزیده از فهرست، این دکمه را فشار دهید."
+
+#: kamera.cpp:143
+#, kde-format
+msgid "Remove"
+msgstr ""
+
+#: kamera.cpp:145
+#, kde-format
+msgid "Click this button to remove the selected camera from the list."
+msgstr "برای حذف دوربین برگزیده از فهرست، این دکمه را فشار دهید."
+
+#: kamera.cpp:150
+#, kde-format
+msgid "Configure..."
+msgstr "پیکربندی..."
+
+#: kamera.cpp:152
+#, kde-format
+msgid ""
+"Click this button to change the configuration of the selected camera."
+"<br><br>The availability of this feature and the contents of the "
+"Configuration dialog depend on the camera model."
+msgstr ""
+"برای تغییر پیکربندی دوربین برگزیده، این دکمه را فشار دهید. "
+"<br><br>دسترس‌پذیری این ویژگی و محتویات محاوره پیکربندی، به مدل دوربین بستگی "
+"دارد."
+
+#: kamera.cpp:157
+#, kde-format
+msgid "Information"
+msgstr ""
+
+#: kamera.cpp:159
+#, fuzzy, kde-format
+#| msgid ""
+#| "Click this button to view a summary of the current status of the selected "
+#| "camera.<br><br>The availability of this feature and the contents of the "
+#| "Configuration dialog depend on the camera model."
+msgid ""
+"Click this button to view a summary of the current status of the selected "
+"camera.<br><br>The availability of this feature and the contents of the "
+"Information dialog depend on the camera model."
+msgstr ""
+"برای مشاهده خلاصه‌ای از وضعیت جاری دوربین برگزیده، این دکمه را فشار دهید."
+"<br><br>دسترس‌پذیری این ویژگی و محتویات محاوره پیکربندی، به مدل دوربین بستگی "
+"دارد."
+
+#: kamera.cpp:165
+#, kde-format
+msgid "Cancel"
+msgstr ""
+
+#: kamera.cpp:167
+#, kde-format
+msgid "Click this button to cancel the current camera operation."
+msgstr "برای لغو عمل دوربین جاری، این دکمه را فشار دهید."
+
+#: kamera.cpp:368
+#, kde-format
+msgid "Camera test was successful."
+msgstr "آزمون دوربین، موفقیت‌آمیز بود."
+
+#: kamera.cpp:451
+#, fuzzy, kde-format
+#| msgid ""
+#| "<h1>Digital Camera</h1>\n"
+#| "This module allows you to configure support for your digital camera.\n"
+#| "You would need to select the camera's model and the port it is connected\n"
+#| "to on your computer (e.g. USB, Serial, Firewire). If your camera doesn't\n"
+#| "appear in the list of <i>Supported Cameras</i>, go to the\n"
+#| "<a href=\"http://www.gphoto.org\">GPhoto web site</a> for a possible "
+#| "update.<br><br>\n"
+#| "To view and download images from the digital camera, go to address\n"
+#| "<a href=\"camera:/\">camera:/</a> in Konqueror and other KDE applications."
+msgid ""
+"<h1>Digital Camera</h1>\n"
+"This module allows you to configure support for your digital camera.\n"
+"You need to select the camera's model and the port it is connected\n"
+"to on your computer (e.g. USB, Serial, Firewire). If your camera does not\n"
+"appear on the list of <i>Supported Cameras</i>, go to the\n"
+"<a href=\"http://www.gphoto.org\">GPhoto web site</a> for a possible update."
+"<br><br>\n"
+"To view and download images from the digital camera, go to the address\n"
+"<a href=\"camera:/\">camera:/</a> in Konqueror and other KDE applications."
+msgstr ""
+"<h1>دوربین رقمی</h1>\n"
+"این پیمانه به شما اجازه می‌دهد که برای دوربین رقمی خود، پشتیبانی را پیکربندی "
+"کنید.\n"
+"لازم است مدل دوربین و درگاهی که توسط آن به رایانه شما متصل می‌شود را\n"
+"برگزینید )برای مثال: USB، Serial، Firewire(. اگر دوربینتان در\n"
+"فهرست<i>دوربینهای پشتیبانی‌شده</i> ظاهر نمی‌شود،\n"
+"برای یک به‌روزرسانی احتمالی به وب‌گاه GPhoto<a href=\"http://www.gphoto.org\" "
+"</a> مراجعه کنید. <br><br>\n"
+"برای مشاهده و بارگیری تصاویر از دوربین رقمی، به نشانی\n"
+"<a href=\"camera:/\">camera:/</a> در Konqueror و  کاربردهای دیگر KDE مراجعه "
+"کنید."
+
+#: kameraconfigdialog.cpp:254
+#, kde-format
+msgid "Button (not supported by KControl)"
+msgstr "دکمه )توسط KControl پشتیبانی نمی‌شود("
+
+#: kameraconfigdialog.cpp:262
+#, kde-format
+msgid "Date (not supported by KControl)"
+msgstr "تاریخ )توسط KControl پشتیبانی نمی‌شود("
+
+#: kameradevice.cpp:93
+#, fuzzy, kde-format
+#| msgid "Could not allocate memory for abilities list."
+msgid "Could not allocate memory for the abilities list."
+msgstr "نتوانست حافظه را به فهرست تواناییها اختصاص دهد."
+
+#: kameradevice.cpp:97
+#, kde-format
+msgid "Could not load ability list."
+msgstr "فهرست توانایی را نتوانست بار کند."
+
+#: kameradevice.cpp:103 kameradevice.cpp:520 kameradevice.cpp:536
+#, kde-format
+msgid ""
+"Description of abilities for camera %1 is not available. Configuration "
+"options may be incorrect."
+msgstr ""
+"توصیف تواناییها برای دوربین %1 موجود نمی‌باشد. ممکن است گزینه‌های پیکربندی، "
+"نادرست باشند."
+
+#: kameradevice.cpp:127
+#, kde-format
+msgid "Could not access driver. Check your gPhoto2 installation."
+msgstr "نتوانست به گرداننده دست یابد. نصب gPhoto2 خود را بررسی کنید."
+
+#: kameradevice.cpp:147
+#, kde-format
+msgid ""
+"Unable to initialize camera. Check your port settings and camera "
+"connectivity and try again."
+msgstr ""
+"قادر به مقداردهی اولیه دوربین نیست. تنظیمات درگاه خود و اتصال دوربین را "
+"بررسی کرده و دوباره سعی کنید."
+
+#: kameradevice.cpp:171
+#, kde-format
+msgid "No camera summary information is available.\n"
+msgstr "خلاصه اطلاعات دوربین موجود نیست.\n"
+
+#: kameradevice.cpp:185 kameradevice.cpp:196
+#, kde-format
+msgid "Camera configuration failed."
+msgstr "خرابی در پیکربندی دوربین."
+
+#: kameradevice.cpp:234 kameradevice.cpp:341
+#, kde-format
+msgid "Serial"
+msgstr "متوالی"
+
+#: kameradevice.cpp:235 kameradevice.cpp:346
+#, kde-format
+msgid "USB"
+msgstr "گذرگاه سریال جهانی"
+
+#: kameradevice.cpp:236
+#, kde-format
+msgid "Unknown port"
+msgstr "درگاه ناشناخته"
+
+#: kameradevice.cpp:299
+#, kde-format
+msgid "Select Camera Device"
+msgstr "برگزیدن دستگاه دوربین"
+
+#: kameradevice.cpp:320
+#, fuzzy, kde-format
+#| msgid "Supported Cameras"
+msgctxt "@title:column"
+msgid "Supported Cameras"
+msgstr "دوربینهای پشتیبانی‌شده"
+
+#: kameradevice.cpp:335 kameradevice.cpp:360
+#, kde-format
+msgid "Port"
+msgstr "درگاه"
+
+#: kameradevice.cpp:343
+#, fuzzy, kde-format
+#| msgid ""
+#| "If this option is checked, the camera would have to be connected one of "
+#| "the serial ports (known as COM in Microsoft Windows) in your computer."
+msgid ""
+"If this option is checked, the camera has to be connected to one of the "
+"computer's serial ports (known as COM ports in Microsoft Windows.)"
+msgstr ""
+"اگر این گزینه علامت زده شود، دوربین بایستی به یکی از درگاههای متوالی )معروف "
+"به COM در میکروسافت ویندوز( رایانه شما متصل شود."
+
+#: kameradevice.cpp:348
+#, fuzzy, kde-format
+#| msgid ""
+#| "If this option is checked, the camera would have to be connected to one "
+#| "of the USB slots in your computer or USB hub."
+msgid ""
+"If this option is checked, the camera has to be connected to one of the "
+"computer's USB ports, or to a USB hub."
+msgstr ""
+"اگر این گزینه علامت زده شود، دوربین بایستی به یکی از شکافهای گذرگاه سریال "
+"جهانی در رایانه شما، یا ناف گذرگاه سریال جهانی متصل شود."
+
+#: kameradevice.cpp:351
+#, kde-format
+msgid "Port Settings"
+msgstr "تنظیمات درگاه"
+
+#: kameradevice.cpp:370
+#, kde-format
+msgid "No port type selected."
+msgstr "نوع درگاهی برگزیده نشد."
+
+#: kameradevice.cpp:378
+#, kde-format
+msgid "Port:"
+msgstr "درگاه:"
+
+#: kameradevice.cpp:381
+#, fuzzy, kde-format
+#| msgid "Here you should choose the serial port you connect the camera to."
+msgid "Specify here the serial port to which you connect the camera."
+msgstr ""
+"در اینجا باید درگاه متوالی، که دوربین را به آن متصل می‌کنید انتخاب کنید."
+
+#: kameradevice.cpp:389
+#, fuzzy, kde-format
+#| msgid "No further configuration is required for USB."
+msgid "No further configuration is required for USB cameras."
+msgstr "برای گذرگاه سریال جهانی، پیکربندی بیشتری لازم نیست."

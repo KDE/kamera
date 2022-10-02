@@ -1,0 +1,150 @@
+<?xml version="1.0" ?>
+<!DOCTYPE article PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % Czech "INCLUDE">
+]>
+
+<article id="kamera" lang="&language;">
+<title
+>&kamera; : Digitální fotoaparát</title>
+<articleinfo>
+
+<authorgroup>
+<author
+><firstname
+>Burkhard</firstname
+> <surname
+>Lück</surname
+> <affiliation
+> <address
+><email
+>lueck@hube-lueck.de</email
+></address>
+</affiliation>
+</author>
+<othercredit role="translator"
+><firstname
+>Lukáš</firstname
+><surname
+>Vlček</surname
+><affiliation
+><address
+><email
+>lukas.vlcek777@gmail.com</email
+></address
+></affiliation
+><contrib
+>Překlad</contrib
+></othercredit
+> 
+</authorgroup>
+
+<date
+>16.9.2015</date>
+<releaseinfo
+>Aplikace 15.12</releaseinfo>
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>fotoaparát</keyword>
+<keyword
+>fotografie</keyword>
+</keywordset>
+</articleinfo>
+
+<para
+>Tento modul umožňuje nastavit podporu pro Váš digitální fotoaparát. </para>
+
+<variablelist>
+<varlistentry
+><term
+><guibutton
+>Přidat</guibutton
+></term>
+<listitem>
+<para
+>Klikněte na to tlačítko pro výběr modelu fotoaparátu a konektor připojení k Vašemu počítači (např.: USB, Sériový konektor). Jestli Váš fotoaparát není v seznamu <guilabel
+>Podporovaných fotoaparátů</guilabel
+>, pak pro případnou aktualizaci přejděte na <ulink url="http://www.gphoto.org"
+>webovou stránku GPhoto</ulink
+>. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry
+><term
+><guibutton
+>Test</guibutton
+></term>
+<listitem>
+<para
+>Klikněte na toto tlačítko pro otestování spojení vybraného fotoaparátu.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry
+><term
+><guibutton
+>Odstranit</guibutton
+></term>
+<listitem>
+<para
+>Odstraňuje vybraný fotoaparát ze seznamu. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry
+><term
+><guibutton
+>Nastavit</guibutton
+></term>
+<listitem>
+<para
+>Klikněte na toto tlačítko pro změnu konfigurace vybraného fotoaparátu. Dostupnost této funkce a obsah Dialogového okna Konfigurace závisí na modelu fotoaparátu.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry
+><term
+><guibutton
+>Informace</guibutton
+></term>
+<listitem>
+<para
+>Kliknutím na toto tlačítko zobrazíte shrnutí aktuální stavu vybraného fotoaparátu. Dostupnost této funkce a obsah Dialogového okna Informace závisí na modelu fotoaparátu.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry
+><term
+><guibutton
+>Zrušit</guibutton
+></term>
+<listitem>
+<para
+>Klikněte na toto tlačítko pro zrušení provozování vybraného fotoaparátu.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+<para
+>Pro zobrazení a stáhnutí obrázků z digitálního fotoaparátu zadejte <userinput
+>camera:/</userinput
+> do navigační lišty aplikace &konqueror;. </para>
+
+</article>
+
+<!--
+Local Variables:
+mode: sgml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+// vim:ts=2:sw=2:tw=78:noet
+-->

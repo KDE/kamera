@@ -1,0 +1,150 @@
+<?xml version="1.0" ?>
+<!DOCTYPE article PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % Portuguese "INCLUDE">
+]>
+
+<article id="kamera" lang="&language;">
+<title
+>&kamera; : Máquina Digital</title>
+<articleinfo>
+
+<authorgroup>
+<author
+><firstname
+>Burkhard</firstname
+> <surname
+>Lück</surname
+> <affiliation
+> <address
+><email
+>lueck@hube-lueck.de</email
+></address>
+</affiliation>
+</author>
+<othercredit role="translator"
+><firstname
+>José</firstname
+><surname
+>Pires</surname
+><affiliation
+><address
+><email
+>zepires@gmail.com</email
+></address
+></affiliation
+><contrib
+>Tradução</contrib
+></othercredit
+> 
+</authorgroup>
+
+<date
+>2015-09-16</date>
+<releaseinfo
+>Aplicações 15.12</releaseinfo>
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>câmara</keyword>
+<keyword
+>fotografia</keyword>
+</keywordset>
+</articleinfo>
+
+<para
+>Este módulo-lhe permite configurar o suporte para a sua máquina fotográfica digital. </para>
+
+<variablelist>
+<varlistentry
+><term
+><guibutton
+>Adicionar</guibutton
+></term>
+<listitem>
+<para
+>Carregue neste botão para seleccionar o modelo da máquina e a porta onde esta está ligada ao seu computador (&eg; USB, Série). Se a sua máquina não aparecer na lista de <guilabel
+>Máquinas Suportadas</guilabel
+>, vá à <ulink url="http://www.gphoto.org"
+>página Web do GPhoto</ulink
+> para obter uma possível actualização. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry
+><term
+><guibutton
+>Testar</guibutton
+></term>
+<listitem>
+<para
+>Carregue neste botão para testar a ligação à máquina seleccionada.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry
+><term
+><guibutton
+>Remover</guibutton
+></term>
+<listitem>
+<para
+>Remove a máquina seleccionada da lista. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry
+><term
+><guibutton
+>Configurar</guibutton
+></term>
+<listitem>
+<para
+>Carregue neste botão para modificar a configuração da máquina seleccionada. A disponibilidade desta funcionalidade e o conteúdo da janela de Configuração dependem do modelo da máquina.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry
+><term
+><guibutton
+>Informação</guibutton
+></term>
+<listitem>
+<para
+>Carregue neste botão para ver um resumo do estado actual da máquina seleccionada. A disponibilidade desta funcionalidade, bem como o conteúdo da janela de Informação, dependem do modelo da máquina.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry
+><term
+><guibutton
+>Cancelar</guibutton
+></term>
+<listitem>
+<para
+>Carregue neste botão para cancelar a operação actual da câmara.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+<para
+>Para ver e transferir as imagens da máquina digital, escreva <userinput
+>camera:/</userinput
+> na barra de localização do &konqueror;&nbsp;. </para>
+
+</article>
+
+<!--
+Local Variables:
+mode: sgml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+// vim:ts=2:sw=2:tw=78:noet
+-->
