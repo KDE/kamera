@@ -42,9 +42,6 @@
 #include <KProtocolInfo>
 #include <KConfig>
 
-#include <kio/global.h>
-#include <kio/slaveconfig.h>
-
 #include <config-kamera.h>
 
 #define tocstr(x) ((x).toLocal8Bit())
