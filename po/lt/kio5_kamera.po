@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kamera\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-09-26 00:42+0000\n"
+"POT-Creation-Date: 2022-11-09 00:45+0000\n"
 "PO-Revision-Date: 2019-07-09 22:35+0300\n"
 "Last-Translator: Moo\n"
 "Language-Team: lt\n"
@@ -19,7 +19,7 @@ msgstr ""
 "%100>=20) ? 1 : n%10==0 || (n%100>10 && n%100<20) ? 2 : 3);\n"
 "X-Generator: Poedit 2.2.1\n"
 
-#: kamera.cpp:800
+#: kamera.cpp:797
 #, kde-format
 msgid "Could not read. Reason: %1"
 msgstr "Nepavyko perskaityti. Priežastis: %1"
