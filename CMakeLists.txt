@@ -66,7 +66,7 @@ remove_definitions( -DQT_NO_CAST_FROM_ASCII )
 remove_definitions( -DQT_NO_CAST_FROM_BYTEARRAY)
 
 ecm_set_disabled_deprecation_versions(QT 5.15.2
-    KF 5.91.0
+    KF 5.101.0
 )
 
 
