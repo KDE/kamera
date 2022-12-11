@@ -6,20 +6,21 @@
 # Görkem Çetin, 2000.
 # obsoleteman <tulliana@gmail.com>, 2008-2009,2011.
 # Volkan Gezer <volkangezer@gmail.com>, 2017.
+# Emir SARI <emir_sari@icloud.com>, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version: kdegraphics-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2020-10-24 02:16+0200\n"
-"PO-Revision-Date: 2017-04-13 15:11+0100\n"
-"Last-Translator: Volkan Gezer <volkangezer@gmail.com>\n"
+"PO-Revision-Date: 2022-12-10 18:23+0300\n"
+"Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 2.0\n"
+"X-Generator: Lokalize 22.08.3\n"
 
 #: kamera.cpp:87
 #, kde-format
@@ -118,11 +119,11 @@ msgid ""
 msgstr ""
 "<h1>Sayısal Kamera</h1>\n"
 "Bu modül sayısal kamera desteğini yapılandırmanızı sağlar.\n"
-"Kamera modelini ve bilgisayara bağlandığı portu seçmeniz gerekmektedir. "
+"Kamera modelini ve bilgisayara bağlandığı kapıyı seçmeniz gerekmektedir. "
 "(USB, Seri, Firewire).\n"
 "Eğer kameranız <i>Desteklenen Kameralar</i> listesinde görünmüyorsa\n"
 "<a href=\"http://www.gphoto.org\">GPhoto web sitesini</a> ziyaret edip olası "
-"güncellemere gözatabilirsiniz.\n"
+"güncellemelere göz atabilirsiniz.\n"
 "<br><br>\n"
 "Sayısal kameradaki fotoğrafları görmek veya bilgisayarınıza indirmek için\n"
 "Konqueror veya diğer KDE uygulamalarıyla <a href=\"camera:/\">camera:/</a> "
