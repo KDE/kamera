@@ -1,139 +1,90 @@
 <?xml version="1.0" ?>
 <!DOCTYPE article PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
   <!ENTITY % addindex "IGNORE">
-  <!ENTITY % German "INCLUDE">
+  <!ENTITY % English "INCLUDE">
 ]>
 
 <article id="kamera" lang="&language;">
-<title
->&kamera;: Digitalkamera</title>
+<title>&kamera; : Digital Camera</title>
 <articleinfo>
 
 <authorgroup>
-<author
-><firstname
->Burkhard</firstname
-> <surname
->Lück</surname
-> <affiliation
-> <address
-><email
->lueck@hube-lueck.de</email
-></address>
+<author>
+<firstname>Burkhard</firstname>
+<surname>Lück</surname>
+<affiliation>
+<address><email>lueck@hube-lueck.de</email></address>
 </affiliation>
 </author>
-<othercredit role="translator"
-><firstname
->Burkhard</firstname
-><surname
->Lück</surname
-><affiliation
-><address
-><email
->lueck@hube-lueck.de</email
-></address
-></affiliation
-><contrib
->Übersetzung</contrib
-></othercredit
-> 
+<!-- TRANS:ROLES_OF_TRANSLATORS -->
 </authorgroup>
 
-<date
->2018-03-23</date>
-<releaseinfo
->Anwendungen 18.04</releaseinfo>
+<date>2018-03-23</date>
+<releaseinfo>Applications 18.04</releaseinfo>
 
 <keywordset>
-<keyword
->KDE</keyword>
-<keyword
->Kamera</keyword>
-<keyword
->Foto</keyword>
+<keyword>KDE</keyword>
+<keyword>camera</keyword>
+<keyword>photo</keyword>
 </keywordset>
 </articleinfo>
 
-<para
->Mit diesem Modul können Sie die Unterstützung für Ihre Digitalkamera einrichten. </para>
+<para>
+This module allows you to configure support for your digital camera.
+</para>
 
 <variablelist>
-<varlistentry
-><term
-><guibutton
->Hinzufügen</guibutton
-></term>
+<varlistentry><term><guibutton>Add</guibutton></term>
 <listitem>
-<para
->Klicken Sie hier, um ein Kameramodell und den Anschluss, mit dem die Kamera verbunden ist, auswählen (&eg; USB, seriell). Wenn Ihre Kamera nicht in der Liste <guilabel
->Unterstützte Kameras</guilabel
-> erscheint, besuchen Sie am besten die <ulink url="http://www.gphoto.org"
->GPhoto-Internetseite</ulink
-> und sehen sich nach einer aktualisierten Version um. </para>
+<para>
+Click this button to select the camera's model and the port it is connected
+to on your computer (&eg; USB, Serial). If your camera does not
+appear in the list of <guilabel>Supported Cameras</guilabel>, go to the
+<ulink url="http://www.gphoto.org">GPhoto web site</ulink> for a possible update.
+</para>
 </listitem>
 </varlistentry>
 
-<varlistentry
-><term
-><guibutton
->Testen</guibutton
-></term>
+<varlistentry><term><guibutton>Test</guibutton></term>
 <listitem>
-<para
->Klicken Sie hier, um die Verbindung zur ausgewählten Kamera zu überprüfen.</para>
+<para>Click this button to test the connection to the selected camera.</para>
 </listitem>
 </varlistentry>
 
-<varlistentry
-><term
-><guibutton
->Entfernen</guibutton
-></term>
+<varlistentry><term><guibutton>Remove</guibutton></term>
 <listitem>
-<para
->Entfernt die ausgewählte Kamera aus der Liste. </para>
+<para>Removes the selected camera from the list.
+</para>
 </listitem>
 </varlistentry>
 
-<varlistentry
-><term
-><guibutton
->Einstellungen</guibutton
-></term>
+<varlistentry><term><guibutton>Configure</guibutton></term>
 <listitem>
-<para
->Klicken Sie hier, um die Einstellungen für die ausgewählte Kamera zu ändern.Die Verfügbarkeit dieser Funktion und die angezeigten Einstellmöglichkeiten hängen vom jeweiligen Kameramodell ab.</para>
+<para>Click this button to change the configuration of the selected camera. 
+The availability of this feature and the contents of the Configuration dialog 
+depend on the camera model.</para>
 </listitem>
 </varlistentry>
 
-<varlistentry
-><term
-><guibutton
->Informationen</guibutton
-></term>
+<varlistentry><term><guibutton>Information</guibutton></term>
 <listitem>
-<para
->Klicken Sie hier, um sich eine Zusammenfassung des Kamerastatus anzeigen zu lassen. Die Verfügbarkeit dieser Funktion und die angezeigten Informationen hängen vom jeweiligen Kameramodell ab.</para>
+<para>Click this button to view a summary of the current status of the selected 
+camera. The availability of this feature and the contents of the Information 
+dialog depend on the camera model.</para>
 </listitem>
 </varlistentry>
 
-<varlistentry
-><term
-><guibutton
->Abbrechen</guibutton
-></term>
+<varlistentry><term><guibutton>Cancel</guibutton></term>
 <listitem>
-<para
->Klicken Sie hier, um die momentan laufende Aktion abzubrechen.</para>
+<para>Click this button to cancel the current camera operation.</para>
 </listitem>
 </varlistentry>
 
 </variablelist>
 
-<para
->Zum Anzeigen und Herunterladen von Bildern aus der Digitalkamera geben Sie <userinput
->camera:/</userinput
-> in der Adressleiste von &konqueror; oder &dolphin; ein. </para>
+<para>To view and download images from the digital camera, enter 
+<userinput>camera:/</userinput> in &konqueror;&apos;s or &dolphin;&apos;s location bar.
+</para>
 
 </article>
 
