@@ -71,7 +71,7 @@ ecm_set_disabled_deprecation_versions(QT 5.15.2
 
 
 add_subdirectory( kcontrol )
-add_subdirectory( kioslave )
+add_subdirectory( kioworker )
 
 ki18n_install(po)
 if (KF5DocTools_FOUND)
