@@ -1,12 +1,11 @@
-
-########### next target ###############
-
 add_definitions(-DTRANSLATION_DOMAIN=\"kio5_kamera\")
 
-set(kio_kamera_PART_SRCS kamera.cpp )
-add_library(kio_kamera MODULE ${kio_kamera_PART_SRCS})
+add_library(kio_kamera MODULE kamera.cpp )
 
-include_directories(${GPHOTO2_INCLUDE_DIRS} ${CMAKE_BINARY_DIR})
+target_include_directories(kio_kamera PRIVATE
+    ${GPHOTO2_INCLUDE_DIRS}
+    ${CMAKE_BINARY_DIR}
+)
 
 ecm_qt_declare_logging_category(kio_kamera
     HEADER kio_kamera_log.h
