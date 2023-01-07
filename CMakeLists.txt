@@ -9,6 +9,7 @@ set(PROJECT_VERSION ${RELEASE_SERVICE_VERSION})
 
 project(kamera VERSION ${PROJECT_VERSION})
 
+set(QT_MIN_VERSION "5.15.2")
 set(KF5_MIN_VERSION    "5.96.0")
 find_package(ECM ${KF5_MIN_VERSION} REQUIRED NO_MODULE)
 set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${CMAKE_SOURCE_DIR})
@@ -22,9 +23,9 @@ include(FeatureSummary)
 include(ECMDeprecationSettings)
 
 
-find_package(Qt${QT_MAJOR_VERSION} 5.15 REQUIRED COMPONENTS Core)
+find_package(Qt${QT_MAJOR_VERSION} ${QT_MIN_VERSION} REQUIRED COMPONENTS Core)
 if (QT_MAJOR_VERSION STREQUAL "6")
-    find_package(Qt6Core5Compat)
+    find_package(Qt6Core5Compat REQUIRED ${QT_MIN_VERSION})
 endif()
 
 find_package(KF5 ${KF5_MIN_VERSION} REQUIRED COMPONENTS
