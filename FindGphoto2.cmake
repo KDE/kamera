@@ -3,10 +3,9 @@
 #  GPHOTO2_INCLUDE_DIR - the GPHOTO2 include directory
 #  GPHOTO2_LIBRARIES - The libraries needed to use GPHOTO2
 
-# Copyright (c) 2006, 2007 Laurent Montel, <montel@kde.org>
+# SPDX-FileCopyrightText: 2006, 2007 Laurent Montel <montel@kde.org>
 #
-# Redistribution and use is allowed according to the terms of the BSD license.
-# For details see the accompanying COPYING-CMAKE-SCRIPTS file.
+# SPDX-License-Identifier: BSD-3-Clause
 
 if(GPHOTO2_LIBRARIES AND GPHOTO2_INCLUDE_DIR)
 
