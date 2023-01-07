@@ -21,7 +21,7 @@ include(KDECompilerSettings NO_POLICY_SCOPE)
 include(FindPkgConfig)
 include(FeatureSummary)
 include(ECMDeprecationSettings)
-
+include(ECMQtDeclareLoggingCategory)
 
 find_package(Qt${QT_MAJOR_VERSION} ${QT_MIN_VERSION} REQUIRED COMPONENTS Core)
 if (QT_MAJOR_VERSION STREQUAL "6")
@@ -90,5 +90,11 @@ install(FILES
 install(FILES
     org.kde.kamera.metainfo.xml
     DESTINATION ${KDE_INSTALL_METAINFODIR})
+
+ecm_qt_install_logging_categories(
+    EXPORT KAMERA
+    FILE kamera.categories
+    DESTINATION ${KDE_INSTALL_LOGGINGCATEGORIESDIR}
+)
 
 feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)

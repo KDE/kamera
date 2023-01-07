@@ -43,12 +43,11 @@
 #include <KConfig>
 
 #include <config-kamera.h>
+#include <kio_kamera_log.h>
 
 #define tocstr(x) ((x).toLocal8Bit())
 
 #define MAXIDLETIME   30      /* seconds */
-
-Q_LOGGING_CATEGORY(KAMERA_KIOSLAVE, "kamera.kio")
 
 using namespace KIO;
 
@@ -89,11 +88,11 @@ int kdemain(int argc, char **argv)
     KLocalizedString::setApplicationDomain("kio_kamera");
 
 #ifdef DEBUG_KAMERA_KIO
-    QLoggingCategory::setFilterRules(QStringLiteral("kamera.kio.debug = true"));
+    QLoggingCategory::setFilterRules(QStringLiteral("kf.kio.workers.camera.debug = true"));
 #endif
 
     if(argc != 4) {
-        qCDebug(KAMERA_KIOSLAVE) << "Usage: kio_kamera protocol "
+        qCDebug(KIO_KAMERA_LOG) << "Usage: kio_kamera protocol "
                  "domain-socket1 domain-socket2";
         exit(-1);
     }
@@ -135,13 +134,13 @@ m_camera(nullptr)
 // The existence of a lockfile is used to signify "please give up camera".
 //
 void KameraProtocol::special(const QByteArray&) {
-    qCDebug(KAMERA_KIOSLAVE) << "KameraProtocol::special() at " << getpid()
+    qCDebug(KIO_KAMERA_LOG) << "KameraProtocol::special() at " << getpid()
                              << ". idletime: " << idletime;
 
     if (!actiondone && cameraopen) {
         struct stat	stbuf;
         if ((-1!=::stat(m_lockfile.toUtf8(),&stbuf)) || (idletime++ >= MAXIDLETIME)) {
-            qCDebug(KAMERA_KIOSLAVE) << "KameraProtocol::special() closing camera.";
+            qCDebug(KIO_KAMERA_LOG) << "KameraProtocol::special() closing camera.";
             closeCamera();
             setTimeoutSpecialCommand(-1);
         } else {
@@ -157,7 +156,7 @@ void KameraProtocol::special(const QByteArray&) {
 
 KameraProtocol::~KameraProtocol()
 {
-    qCDebug(KAMERA_KIOSLAVE) << "KameraProtocol::~KameraProtocol()";
+    qCDebug(KIO_KAMERA_LOG) << "KameraProtocol::~KameraProtocol()";
     delete m_config;
     if(m_camera) {
         closeCamera();
@@ -176,7 +175,7 @@ bool KameraProtocol::openCamera(QString &str) {
     } else {
         if (!cameraopen) {
             int ret, tries = 15;
-            qCDebug(KAMERA_KIOSLAVE) << "KameraProtocol::openCamera at "
+            qCDebug(KIO_KAMERA_LOG) << "KameraProtocol::openCamera at "
                                      << getpid();
             // Gets this far.
             while (tries--) {
@@ -187,7 +186,7 @@ bool KameraProtocol::openCamera(QString &str) {
                     int fd = ::open(m_lockfile.toUtf8(),O_CREAT|O_WRONLY,0600);
                     if (fd != -1) ::close(fd);
                     ::sleep(1);
-                    qCDebug(KAMERA_KIOSLAVE) << "openCamera at " << getpid()
+                    qCDebug(KIO_KAMERA_LOG) << "openCamera at " << getpid()
                                              << "- busy, ret " << ret
                                              << ", trying again.";
                     continue;
@@ -198,7 +197,7 @@ bool KameraProtocol::openCamera(QString &str) {
             }
             ::remove(m_lockfile.toUtf8());
             setTimeoutSpecialCommand(1);
-            qCDebug(KAMERA_KIOSLAVE) << "openCamera succeeded at " << getpid();
+            qCDebug(KIO_KAMERA_LOG) << "openCamera succeeded at " << getpid();
             cameraopen = true;
         }
     }
@@ -215,7 +214,7 @@ void KameraProtocol::closeCamera()
     }
 
     if ((gpr=gp_camera_exit(m_camera,m_context))!=GP_OK) {
-        qCDebug(KAMERA_KIOSLAVE) << "closeCamera failed with "
+        qCDebug(KIO_KAMERA_LOG) << "closeCamera failed with "
                                  << gp_result_as_string(gpr);
     }
     // HACK: gp_camera_exit() in gp 2.0 does not close the port if there
@@ -243,7 +242,7 @@ static QString fix_foldername(const QString &ofolder) {
 // The actual returning of the data is done in the frontend callback functions.
 void KameraProtocol::get(const QUrl &url)
 {
-    qCDebug(KAMERA_KIOSLAVE) << "KameraProtocol::get(" << url.path() << ")";
+    qCDebug(KIO_KAMERA_LOG) << "KameraProtocol::get(" << url.path() << ")";
     QString directory, file;
     CameraFileType fileType;
     int gpr;
@@ -305,7 +304,7 @@ void KameraProtocol::get(const QUrl &url)
 
     // at last, a proper API to determine whether a thumbnail was requested.
     if(cameraSupportsPreview() && metaData(QStringLiteral("thumbnail")) == QStringLiteral("1")) {
-        qCDebug(KAMERA_KIOSLAVE) << "get() retrieving the thumbnail";
+        qCDebug(KIO_KAMERA_LOG) << "get() retrieving the thumbnail";
         fileType = GP_FILE_TYPE_PREVIEW;
         if (info.preview.fields & GP_FILE_INFO_SIZE) {
             totalSize(info.preview.size);
@@ -314,7 +313,7 @@ void KameraProtocol::get(const QUrl &url)
             mimeType(info.preview.type);
         }
     } else {
-        qCDebug(KAMERA_KIOSLAVE) << "get() retrieving the full-scale photo";
+        qCDebug(KIO_KAMERA_LOG) << "get() retrieving the full-scale photo";
         fileType = GP_FILE_TYPE_NORMAL;
         if (info.file.fields & GP_FILE_INFO_SIZE) {
             totalSize(info.file.size);
@@ -375,7 +374,7 @@ void KameraProtocol::get(const QUrl &url)
     // buffer -- there's no expensive memcpy
     gpr = gp_file_get_data_and_size(m_file, &fileData, &fileSize);
     if (gpr != GP_OK) {
-        qCDebug(KAMERA_KIOSLAVE) << "get():: get_data_and_size failed.";
+        qCDebug(KIO_KAMERA_LOG) << "get():: get_data_and_size failed.";
         gp_file_free(m_file);
         m_file = NULL;
         error(KIO::ERR_UNKNOWN,
@@ -418,12 +417,12 @@ void KameraProtocol::get(const QUrl &url)
 // The KIO slave "stat" function.
 void KameraProtocol::stat(const QUrl &url)
 {
-    qCDebug(KAMERA_KIOSLAVE) << "stat(\"" << url.path() << "\")";
+    qCDebug(KIO_KAMERA_LOG) << "stat(\"" << url.path() << "\")";
 
     if (url.path().isEmpty()) {
         QUrl rooturl(url);
 
-        qCDebug(KAMERA_KIOSLAVE) << "redirecting to /";
+        qCDebug(KIO_KAMERA_LOG) << "redirecting to /";
         rooturl.setPath(QStringLiteral("/"));
         redirection(rooturl);
         finished();
@@ -485,7 +484,7 @@ void KameraProtocol::statRegular(const QUrl &xurl)
     QString	directory, file;
     int gpr;
 
-    qCDebug(KAMERA_KIOSLAVE) << "statRegular(\"" << xurl.path() << "\")";
+    qCDebug(KIO_KAMERA_LOG) << "statRegular(\"" << xurl.path() << "\")";
 
     split_url2camerapath(xurl.path(), directory, file);
 
@@ -528,7 +527,7 @@ void KameraProtocol::statRegular(const QUrl &xurl)
     // Is "url" a directory?
     CameraList *dirList;
     gp_list_new(&dirList);
-    qCDebug(KAMERA_KIOSLAVE) << "statRegular() Requesting directories list for "
+    qCDebug(KIO_KAMERA_LOG) << "statRegular() Requesting directories list for "
                              << directory;
 
     gpr = gp_camera_folder_list_folders(m_camera,
@@ -588,7 +587,7 @@ void KameraProtocol::statRegular(const QUrl &xurl)
 void KameraProtocol::del(const QUrl &url, bool isFile)
 {
     QString directory, file;
-    qCDebug(KAMERA_KIOSLAVE) << "KameraProtocol::del(" << url.path() << ")";
+    qCDebug(KIO_KAMERA_LOG) << "KameraProtocol::del(" << url.path() << ")";
 
     split_url2camerapath (url.path(), directory, file);
     if(!openCamera()) {
@@ -621,7 +620,7 @@ void KameraProtocol::del(const QUrl &url, bool isFile)
 void KameraProtocol::listDir(const QUrl &yurl)
 {
     QString directory, file;
-    qCDebug(KAMERA_KIOSLAVE) << "KameraProtocol::listDir(" << yurl.path() << ")";
+    qCDebug(KIO_KAMERA_LOG) << "KameraProtocol::listDir(" << yurl.path() << ")";
 
     split_url2camerapath(yurl.path(), directory, file);
 
@@ -637,7 +636,7 @@ void KameraProtocol::listDir(const QUrl &yurl)
         QUrl xurl;
         // List the available cameras
         QStringList groupList = m_config->groupList();
-        qCDebug(KAMERA_KIOSLAVE) << "Found cameras: " << groupList.join(QStringLiteral(", "));
+        qCDebug(KIO_KAMERA_LOG) << "Found cameras: " << groupList.join(QStringLiteral(", "));
         QStringList::Iterator it;
         KIO::UDSEntry entry;
 
@@ -750,7 +749,7 @@ void KameraProtocol::listDir(const QUrl &yurl)
     if (directory.isEmpty()) {
         QUrl rooturl(yurl);
 
-        qCDebug(KAMERA_KIOSLAVE) << "redirecting to /";
+        qCDebug(KIO_KAMERA_LOG) << "redirecting to /";
         if (!current_camera.isEmpty() && !current_port.isEmpty()) {
             rooturl.setPath(QLatin1Char('/')+current_camera+QLatin1Char('@')+current_port+QLatin1Char('/'));
         } else {
@@ -789,7 +788,7 @@ void KameraProtocol::listDir(const QUrl &yurl)
 
     gpr = readCameraFolder(directory, dirList, fileList);
     if(gpr != GP_OK) {
-        qCDebug(KAMERA_KIOSLAVE) << "read Camera Folder failed:"
+        qCDebug(KIO_KAMERA_LOG) << "read Camera Folder failed:"
                                  << gp_result_as_string(gpr);
         gp_list_free(dirList);
         gp_list_free(fileList);
@@ -851,7 +850,7 @@ void KameraProtocol::listDir(const QUrl &yurl)
 
 void KameraProtocol::setCamera(const QString& camera, const QString& port)
 {
-    qCDebug(KAMERA_KIOSLAVE) << "KameraProtocol::setCamera(" << camera
+    qCDebug(KIO_KAMERA_LOG) << "KameraProtocol::setCamera(" << camera
                              << ", " << port << ")";
     int gpr, idx;
 
@@ -860,18 +859,18 @@ void KameraProtocol::setCamera(const QString& camera, const QString& port)
             (current_camera == camera) &&
             (current_port == port)
         ) {
-            qCDebug(KAMERA_KIOSLAVE) << "Configuration is same, nothing to do.";
+            qCDebug(KIO_KAMERA_LOG) << "Configuration is same, nothing to do.";
             return;
         }
         if (m_camera) {
-            qCDebug(KAMERA_KIOSLAVE) << "Configuration change detected";
+            qCDebug(KIO_KAMERA_LOG) << "Configuration change detected";
             closeCamera();
             gp_camera_unref(m_camera);
             m_camera = nullptr;
                         // WARNING Fix this
             //infoMessage( i18n("Reinitializing camera") );
         } else {
-            qCDebug(KAMERA_KIOSLAVE) << "Initializing camera";
+            qCDebug(KIO_KAMERA_LOG) << "Initializing camera";
                         // WARNING Fix this
             //infoMessage( i18n("Initializing camera") );
         }
@@ -882,7 +881,7 @@ void KameraProtocol::setCamera(const QString& camera, const QString& port)
         idx = gp_abilities_list_lookup_model(abilities_list, tocstr(camera));
         if (idx < 0) {
             gp_abilities_list_free(abilities_list);
-            qCDebug(KAMERA_KIOSLAVE) << "Unable to get abilities for model: "
+            qCDebug(KIO_KAMERA_LOG) << "Unable to get abilities for model: "
                                      << camera;
             error(KIO::ERR_UNKNOWN,
                   QString::fromLocal8Bit(gp_result_as_string(idx)));
@@ -904,7 +903,7 @@ void KameraProtocol::setCamera(const QString& camera, const QString& port)
         }
         if (idx < 0) {
             gp_port_info_list_free(port_info_list);
-            qCDebug(KAMERA_KIOSLAVE) << "Unable to get port info for path: "
+            qCDebug(KIO_KAMERA_LOG) << "Unable to get port info for path: "
                                      << port;
             error(KIO::ERR_UNKNOWN,
                   QString::fromLocal8Bit(gp_result_as_string(idx)));
@@ -937,7 +936,7 @@ void KameraProtocol::setCamera(const QString& camera, const QString& port)
         gp_camera_set_abilities(m_camera, m_abilities);
         gp_camera_set_port_info(m_camera, port_info);
         gp_camera_set_port_speed(m_camera, 0); // TODO: the value needs to be configurable
-        qCDebug(KAMERA_KIOSLAVE) << "Opening camera model " << camera
+        qCDebug(KIO_KAMERA_LOG) << "Opening camera model " << camera
                                  << " at " << port;
 
         gp_port_info_list_free(port_info_list);
@@ -948,7 +947,7 @@ void KameraProtocol::setCamera(const QString& camera, const QString& port)
                 gp_camera_unref(m_camera);
             }
             m_camera = nullptr;
-            qCDebug(KAMERA_KIOSLAVE) << "Unable to init camera: " << errstr;
+            qCDebug(KIO_KAMERA_LOG) << "Unable to init camera: " << errstr;
             error(KIO::ERR_SERVICE_NOT_AVAILABLE, errstr);
             return;
         }
@@ -1050,7 +1049,7 @@ int KameraProtocol::readCameraFolder(const QString &folder,
                                      CameraList *dirList,
                                      CameraList *fileList)
 {
-    qCDebug(KAMERA_KIOSLAVE) << "KameraProtocol::readCameraFolder("
+    qCDebug(KIO_KAMERA_LOG) << "KameraProtocol::readCameraFolder("
                              << folder << ")";
 
     int gpr;

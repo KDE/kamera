@@ -38,8 +38,7 @@
 
 #include <KLocalizedString>
 
-#include <QLoggingCategory>
-Q_DECLARE_LOGGING_CATEGORY(KAMERA_KCONTROL)
+#include "kcm_kamera_log.h"
 
 KameraConfigDialog::KameraConfigDialog(Camera */*camera*/,
                     CameraWidget *widget,

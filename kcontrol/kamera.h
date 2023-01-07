@@ -26,7 +26,6 @@
 #include <KCModule>
 #include <gphoto2.h>
 #include <KPluginFactory>
-#include <QLoggingCategory>
 
 class QWidget;
 class QPushButton;
@@ -40,8 +39,6 @@ class KameraDeviceSelectDialog;
 class KConfig;
 class KActionCollection;
 class KToolBar;
-
-Q_DECLARE_LOGGING_CATEGORY(KAMERA_KCONTROL)
 
 class KKameraConfig : public KCModule
 {

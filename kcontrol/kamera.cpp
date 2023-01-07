@@ -40,10 +40,9 @@
 #include <KConfigGroup>
 #include "kameraconfigdialog.h"
 #include "kameradevice.h"
+#include "kcm_kamera_log.h"
 
 K_PLUGIN_CLASS_WITH_JSON(KKameraConfig, "kamera.json")
-
-Q_LOGGING_CATEGORY(KAMERA_KCONTROL, "kamera.kcontrol")
 
 // --------------- Camera control center module widget ---
 
@@ -51,7 +50,7 @@ KKameraConfig::KKameraConfig(QWidget *parent, const QVariantList &)
     : KCModule(parent)
 {
 #ifdef DEBUG_KAMERA_KCONTROL
-    QLoggingCategory::setFilterRules(QStringLiteral("kamera.kcontrol.debug = true"));
+    QLoggingCategory::setFilterRules(QStringLiteral("kamera.kcm.debug = true"));
 #endif
     m_devicePopup = new QMenu(this);
 	m_actions = new KActionCollection(this);
