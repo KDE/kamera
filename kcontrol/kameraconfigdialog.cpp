@@ -89,7 +89,7 @@ void KameraConfigDialog::appendWidget(QWidget *parent, CameraWidget *widget)
     const char *widget_label;
     float widget_value_float;
     int widget_value_int;
-    const char *widget_value_string = NULL;
+    const char *widget_value_string = nullptr;
     gp_widget_get_type(widget, &widget_type);
     gp_widget_get_label(widget, &widget_label);
     gp_widget_get_info(widget, &widget_info);

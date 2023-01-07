@@ -161,7 +161,7 @@ KameraProtocol::~KameraProtocol()
     if(m_camera) {
         closeCamera();
         gp_camera_free(m_camera);
-        m_camera = NULL;
+        m_camera = nullptr;
     }
 }
 
@@ -376,7 +376,7 @@ void KameraProtocol::get(const QUrl &url)
     if (gpr != GP_OK) {
         qCDebug(KIO_KAMERA_LOG) << "get():: get_data_and_size failed.";
         gp_file_free(m_file);
-        m_file = NULL;
+        m_file = nullptr;
         error(KIO::ERR_UNKNOWN,
               QString::fromLocal8Bit(gp_result_as_string(gpr)));
         return;
@@ -411,7 +411,7 @@ void KameraProtocol::get(const QUrl &url)
 
     finished();
     gp_file_unref(m_file); /* just unref, might be stored in fs */
-    m_file = NULL;
+    m_file = nullptr;
 }
 
 // The KIO slave "stat" function.
@@ -651,7 +651,7 @@ void KameraProtocol::listDir(const QUrl &yurl)
         QMap<QString,int>	modelcnt;
 
         /* Autodetect USB cameras ... */
-        GPContext *glob_context = NULL;
+        GPContext *glob_context = nullptr;
         int i, count;
         CameraList *list;
         CameraAbilitiesList *al;
@@ -776,13 +776,13 @@ void KameraProtocol::listDir(const QUrl &yurl)
     if (!directory.compare(QStringLiteral("/"))) {
         CameraText text;
         if (GP_OK == gp_camera_get_manual(m_camera, &text, m_context)) {
-            gp_list_append(specialList,"manual.txt",NULL);
+            gp_list_append(specialList,"manual.txt",nullptr);
         }
         if (GP_OK == gp_camera_get_about(m_camera, &text, m_context)) {
-            gp_list_append(specialList,"about.txt",NULL);
+            gp_list_append(specialList,"about.txt",nullptr);
         }
         if (GP_OK == gp_camera_get_summary(m_camera, &text, m_context)) {
-            gp_list_append(specialList,"summary.txt",NULL);
+            gp_list_append(specialList,"summary.txt",nullptr);
         }
     }
 

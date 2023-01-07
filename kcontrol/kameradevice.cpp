@@ -71,8 +71,8 @@ KCamera::KCamera(const QString &name, const QString &path)
     m_name	= name;
     m_model	= name;
     m_path	= path;
-    m_camera = NULL;
-    m_abilitylist = NULL;
+    m_camera = nullptr;
+    m_abilitylist = nullptr;
 }
 
 KCamera::~KCamera()
@@ -142,7 +142,7 @@ bool KCamera::initCamera()
         result = gp_camera_init(m_camera, glob_context);
         if (result != GP_OK) {
             gp_camera_free(m_camera);
-            m_camera = NULL;
+            m_camera = nullptr;
             Q_EMIT error(
                 i18n("Unable to initialize camera. Check your port settings and camera connectivity and try again."),
                 QString::fromLocal8Bit(gp_result_as_string(result)));
@@ -258,7 +258,7 @@ void KCamera::invalidateCamera()
 {
     if (m_camera) {
         gp_camera_free(m_camera);
-        m_camera = NULL;
+        m_camera = nullptr;
     }
 }
 
