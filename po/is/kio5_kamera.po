@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kamera\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-11-09 00:45+0000\n"
+"POT-Creation-Date: 2023-01-08 00:56+0000\n"
 "PO-Revision-Date: 2022-08-02 13:13+0000\n"
 "Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
 "Language-Team: Icelandic\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Plural-Forms: Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Lokalize 19.12.3\n"
 
-#: kamera.cpp:797
+#: kamera.cpp:782
 #, kde-format
 msgid "Could not read. Reason: %1"
 msgstr "Gat ekki lesið.  Ástæða: %1"

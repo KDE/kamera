@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kcmkamera\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2020-10-24 02:16+0200\n"
+"POT-Creation-Date: 2023-01-08 00:56+0000\n"
 "PO-Revision-Date: 2007-11-28 21:01+0100\n"
 "Last-Translator: Pierre-Marie Pédrot <pedrotpmx@wanadoo.fr>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
@@ -18,48 +18,48 @@ msgstr ""
 "X-Generator: KBabel 1.11.4\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
-#: kamera.cpp:87
+#: kamera.cpp:72
 #, kde-format
 msgid "Unable to initialize the gPhoto2 libraries."
 msgstr "Ne eblis prepari la gPhoto2 bibliotekojn."
 
-#: kamera.cpp:128
+#: kamera.cpp:113
 #, kde-format
 msgid "Add"
 msgstr "Aldoni"
 
-#: kamera.cpp:130
+#: kamera.cpp:115
 #, kde-format
 msgid "Click this button to add a new camera."
 msgstr "Klaku la butonon por aldoni novan fotilon."
 
-#: kamera.cpp:136
+#: kamera.cpp:121
 #, kde-format
 msgid "Test"
 msgstr "Testo"
 
-#: kamera.cpp:138
+#: kamera.cpp:123
 #, fuzzy, kde-format
 #| msgid "Click this button to remove the selected camera from the list."
 msgid "Click this button to test the connection to the selected camera."
 msgstr "Klaku tiun butonon por forigi la elektitan fotilon el la listo."
 
-#: kamera.cpp:143
+#: kamera.cpp:128
 #, kde-format
 msgid "Remove"
 msgstr "Forigi"
 
-#: kamera.cpp:145
+#: kamera.cpp:130
 #, kde-format
 msgid "Click this button to remove the selected camera from the list."
 msgstr "Klaku tiun butonon por forigi la elektitan fotilon el la listo."
 
-#: kamera.cpp:150
+#: kamera.cpp:135
 #, kde-format
 msgid "Configure..."
 msgstr "Agordi..."
 
-#: kamera.cpp:152
+#: kamera.cpp:137
 #, kde-format
 msgid ""
 "Click this button to change the configuration of the selected camera."
@@ -70,12 +70,12 @@ msgstr ""
 "uzebleco de tiu funkcio kaj la enhavo de la agordofenestro dependas de la "
 "fotila modelo."
 
-#: kamera.cpp:157
+#: kamera.cpp:142
 #, kde-format
 msgid "Information"
 msgstr "Informo"
 
-#: kamera.cpp:159
+#: kamera.cpp:144
 #, fuzzy, kde-format
 #| msgid ""
 #| "Click this button to view a summary of the current status of the selected "
@@ -90,22 +90,22 @@ msgstr ""
 "<br><br>La uzebleco de tiu funkcio kaj la enhavo de la agordofenestro "
 "dependas de la fotila modelo."
 
-#: kamera.cpp:165
+#: kamera.cpp:150
 #, kde-format
 msgid "Cancel"
 msgstr "Nuligi"
 
-#: kamera.cpp:167
+#: kamera.cpp:152
 #, kde-format
 msgid "Click this button to cancel the current camera operation."
 msgstr "Klaku tiun butonon por nuligi la nunan fotilan operacion."
 
-#: kamera.cpp:368
+#: kamera.cpp:353
 #, kde-format
 msgid "Camera test was successful."
 msgstr "La fotilo sukcese testiĝis."
 
-#: kamera.cpp:451
+#: kamera.cpp:436
 #, fuzzy, kde-format
 #| msgid ""
 #| "<h1>Digital Camera</h1>\n"
@@ -138,28 +138,28 @@ msgstr ""
 "Por vidi kaj legi bildojn el la fotilo, tajpu la URLon\n"
 "<a href=\"camera:/\">camera:/</a> en Konkeranto aŭ alia KDE-aplikaĵo."
 
-#: kameraconfigdialog.cpp:254
+#: kameraconfigdialog.cpp:239
 #, kde-format
 msgid "Button (not supported by KControl)"
 msgstr "Butono (ne subtenita de KControl)"
 
-#: kameraconfigdialog.cpp:262
+#: kameraconfigdialog.cpp:247
 #, kde-format
 msgid "Date (not supported by KControl)"
 msgstr "Dato (ne subtenita de KControl)"
 
-#: kameradevice.cpp:93
+#: kameradevice.cpp:79
 #, fuzzy, kde-format
 #| msgid "Could not allocate memory for abilities list."
 msgid "Could not allocate memory for the abilities list."
 msgstr "Ne eblis atribui memoron por la ebleco-listo."
 
-#: kameradevice.cpp:97
+#: kameradevice.cpp:83
 #, kde-format
 msgid "Could not load ability list."
 msgstr "Ne eblis legi la ebleco-liston."
 
-#: kameradevice.cpp:103 kameradevice.cpp:520 kameradevice.cpp:536
+#: kameradevice.cpp:89 kameradevice.cpp:506 kameradevice.cpp:522
 #, kde-format
 msgid ""
 "Description of abilities for camera %1 is not available. Configuration "
@@ -168,12 +168,12 @@ msgstr ""
 "Priskribo de la eblecoj de la fotilo %1 ne estas uzebla. Agordo eble ne "
 "estas korekta."
 
-#: kameradevice.cpp:127
+#: kameradevice.cpp:113
 #, kde-format
 msgid "Could not access driver. Check your gPhoto2 installation."
 msgstr "Ne eblis aliri la pelilon. Kontrolu vian gPhoto2 instalaĵon."
 
-#: kameradevice.cpp:147
+#: kameradevice.cpp:133
 #, kde-format
 msgid ""
 "Unable to initialize camera. Check your port settings and camera "
@@ -182,48 +182,48 @@ msgstr ""
 "Ne eblis prepari la fotilon. Kontrolu vian pordan agordon kaj fotilan "
 "konekton kaj reprovu."
 
-#: kameradevice.cpp:171
+#: kameradevice.cpp:157
 #, kde-format
 msgid "No camera summary information is available.\n"
 msgstr "Neniu fotila resumo estas uzebla.\n"
 
-#: kameradevice.cpp:185 kameradevice.cpp:196
+#: kameradevice.cpp:171 kameradevice.cpp:182
 #, kde-format
 msgid "Camera configuration failed."
 msgstr "Fotila agordo malsukcesis."
 
-#: kameradevice.cpp:234 kameradevice.cpp:341
+#: kameradevice.cpp:220 kameradevice.cpp:327
 #, kde-format
 msgid "Serial"
 msgstr "Seria"
 
-#: kameradevice.cpp:235 kameradevice.cpp:346
+#: kameradevice.cpp:221 kameradevice.cpp:332
 #, kde-format
 msgid "USB"
 msgstr "USB"
 
-#: kameradevice.cpp:236
+#: kameradevice.cpp:222
 #, kde-format
 msgid "Unknown port"
 msgstr "Nekonata pordo"
 
-#: kameradevice.cpp:299
+#: kameradevice.cpp:285
 #, kde-format
 msgid "Select Camera Device"
 msgstr "Elekti fotilan aparaton"
 
-#: kameradevice.cpp:320
+#: kameradevice.cpp:306
 #, kde-format
 msgctxt "@title:column"
 msgid "Supported Cameras"
 msgstr "Subtenitaj fotiloj"
 
-#: kameradevice.cpp:335 kameradevice.cpp:360
+#: kameradevice.cpp:321 kameradevice.cpp:346
 #, kde-format
 msgid "Port"
 msgstr "Pordo"
 
-#: kameradevice.cpp:343
+#: kameradevice.cpp:329
 #, fuzzy, kde-format
 #| msgid ""
 #| "If this option is checked, the camera would have to be connected one of "
@@ -235,7 +235,7 @@ msgstr ""
 "Se elektita, la fotilo estu konektata al unu el la seriaj konektingoj de via "
 "komputilo (en Vindozo ili nomiĝas COM-konektingoj)."
 
-#: kameradevice.cpp:348
+#: kameradevice.cpp:334
 #, fuzzy, kde-format
 #| msgid ""
 #| "If this option is checked, the camera would have to be connected to one "
@@ -247,29 +247,29 @@ msgstr ""
 "Se elektita, la fotilo estu konektata al unu el la USB-konektingoj de via "
 "komputilo."
 
-#: kameradevice.cpp:351
+#: kameradevice.cpp:337
 #, kde-format
 msgid "Port Settings"
 msgstr "Porda agordo"
 
-#: kameradevice.cpp:370
+#: kameradevice.cpp:356
 #, kde-format
 msgid "No port type selected."
 msgstr "Neniu porda tipo elektita."
 
-#: kameradevice.cpp:378
+#: kameradevice.cpp:364
 #, kde-format
 msgid "Port:"
 msgstr "Pordo:"
 
-#: kameradevice.cpp:381
+#: kameradevice.cpp:367
 #, fuzzy, kde-format
 #| msgid "Here you should choose the serial port you connect the camera to."
 msgid "Specify here the serial port to which you connect the camera."
 msgstr ""
 "Tie ĉi vi povas elekti la serian konektilon, al kiu vi konektas la fotilon."
 
-#: kameradevice.cpp:389
+#: kameradevice.cpp:375
 #, fuzzy, kde-format
 #| msgid "No further configuration is required for USB."
 msgid "No further configuration is required for USB cameras."

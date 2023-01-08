@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kcmkamera\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2020-10-24 02:16+0200\n"
+"POT-Creation-Date: 2023-01-08 00:56+0000\n"
 "PO-Revision-Date: 2020-04-04 00:57+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -18,47 +18,47 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Lokalize 19.04.3\n"
 
-#: kamera.cpp:87
+#: kamera.cpp:72
 #, kde-format
 msgid "Unable to initialize the gPhoto2 libraries."
 msgstr "gPhoto2 라이브러리를 초기화할 수 없습니다."
 
-#: kamera.cpp:128
+#: kamera.cpp:113
 #, kde-format
 msgid "Add"
 msgstr "추가"
 
-#: kamera.cpp:130
+#: kamera.cpp:115
 #, kde-format
 msgid "Click this button to add a new camera."
 msgstr "새 카메라를 추가하려면 클릭하십시오."
 
-#: kamera.cpp:136
+#: kamera.cpp:121
 #, kde-format
 msgid "Test"
 msgstr "시험"
 
-#: kamera.cpp:138
+#: kamera.cpp:123
 #, kde-format
 msgid "Click this button to test the connection to the selected camera."
 msgstr "선택한 카메라와의 연결을 시험하려면 클릭하십시오."
 
-#: kamera.cpp:143
+#: kamera.cpp:128
 #, kde-format
 msgid "Remove"
 msgstr "삭제"
 
-#: kamera.cpp:145
+#: kamera.cpp:130
 #, kde-format
 msgid "Click this button to remove the selected camera from the list."
 msgstr "이 카메라를 목록에서 제거하려면 클릭하십시오."
 
-#: kamera.cpp:150
+#: kamera.cpp:135
 #, kde-format
 msgid "Configure..."
 msgstr "설정..."
 
-#: kamera.cpp:152
+#: kamera.cpp:137
 #, kde-format
 msgid ""
 "Click this button to change the configuration of the selected camera."
@@ -68,12 +68,12 @@ msgstr ""
 "선택한 카메라의 설정을 변경하려면 여기를 클릭하십시오.<br><br>이 기능의 사용 "
 "가능 여부와 설정 창의 내용은 카메라에 따라서 달라집니다."
 
-#: kamera.cpp:157
+#: kamera.cpp:142
 #, kde-format
 msgid "Information"
 msgstr "정보"
 
-#: kamera.cpp:159
+#: kamera.cpp:144
 #, kde-format
 msgid ""
 "Click this button to view a summary of the current status of the selected "
@@ -83,22 +83,22 @@ msgstr ""
 " 선택한 카메라의 요약 정보를 보려면 여기를 클릭하십시오.<br><br>이 기능의 사"
 "용 가능 여부와 설정 창의 내용은 카메라에 따라서 달라집니다."
 
-#: kamera.cpp:165
+#: kamera.cpp:150
 #, kde-format
 msgid "Cancel"
 msgstr "취소"
 
-#: kamera.cpp:167
+#: kamera.cpp:152
 #, kde-format
 msgid "Click this button to cancel the current camera operation."
 msgstr "현재 카메라 작업을 취소하려면 여기를 클릭하십시오."
 
-#: kamera.cpp:368
+#: kamera.cpp:353
 #, kde-format
 msgid "Camera test was successful."
 msgstr "카메라 시험이 성공했습니다."
 
-#: kamera.cpp:451
+#: kamera.cpp:436
 #, kde-format
 msgid ""
 "<h1>Digital Camera</h1>\n"
@@ -122,27 +122,27 @@ msgstr ""
 "디지털 카메라의 그림을 보거나 다운로드하려면 Konqueror 또는 다른 KDE 프로그램"
 "에서 주소 창에 <a href=\"camera:/\">camera:/</a>라고 입력하십시오."
 
-#: kameraconfigdialog.cpp:254
+#: kameraconfigdialog.cpp:239
 #, kde-format
 msgid "Button (not supported by KControl)"
 msgstr "단추 (KControl이 지원하지 않음)"
 
-#: kameraconfigdialog.cpp:262
+#: kameraconfigdialog.cpp:247
 #, kde-format
 msgid "Date (not supported by KControl)"
 msgstr "날짜 (KControl이 지원하지 않음)"
 
-#: kameradevice.cpp:93
+#: kameradevice.cpp:79
 #, kde-format
 msgid "Could not allocate memory for the abilities list."
 msgstr "사용 가능한 기능 목록에 필요한 메모리를 할당할 수 없습니다."
 
-#: kameradevice.cpp:97
+#: kameradevice.cpp:83
 #, kde-format
 msgid "Could not load ability list."
 msgstr "사용 가능한 기능 목록을 표시할 수 없습니다."
 
-#: kameradevice.cpp:103 kameradevice.cpp:520 kameradevice.cpp:536
+#: kameradevice.cpp:89 kameradevice.cpp:506 kameradevice.cpp:522
 #, kde-format
 msgid ""
 "Description of abilities for camera %1 is not available. Configuration "
@@ -151,12 +151,12 @@ msgstr ""
 "카메라 %1의 기능 설명을 사용할 수 없습니다. 설정 옵션이 잘못되었을 수도 있습"
 "니다."
 
-#: kameradevice.cpp:127
+#: kameradevice.cpp:113
 #, kde-format
 msgid "Could not access driver. Check your gPhoto2 installation."
 msgstr "드라이버를 찾지 못했습니다. gPhoto2 설치를 확인해 주세요."
 
-#: kameradevice.cpp:147
+#: kameradevice.cpp:133
 #, kde-format
 msgid ""
 "Unable to initialize camera. Check your port settings and camera "
@@ -165,48 +165,48 @@ msgstr ""
 "카메라를 초기화할 수 없습니다. 포트 설정과 카메라 연결 상태를 점검하고 다시 "
 "시도하십시오."
 
-#: kameradevice.cpp:171
+#: kameradevice.cpp:157
 #, kde-format
 msgid "No camera summary information is available.\n"
 msgstr "카메라 요약 정보를 사용할 수 없습니다.\n"
 
-#: kameradevice.cpp:185 kameradevice.cpp:196
+#: kameradevice.cpp:171 kameradevice.cpp:182
 #, kde-format
 msgid "Camera configuration failed."
 msgstr "카메라 설정이 실패했습니다."
 
-#: kameradevice.cpp:234 kameradevice.cpp:341
+#: kameradevice.cpp:220 kameradevice.cpp:327
 #, kde-format
 msgid "Serial"
 msgstr "직렬"
 
-#: kameradevice.cpp:235 kameradevice.cpp:346
+#: kameradevice.cpp:221 kameradevice.cpp:332
 #, kde-format
 msgid "USB"
 msgstr "USB"
 
-#: kameradevice.cpp:236
+#: kameradevice.cpp:222
 #, kde-format
 msgid "Unknown port"
 msgstr "알 수 없는 포트"
 
-#: kameradevice.cpp:299
+#: kameradevice.cpp:285
 #, kde-format
 msgid "Select Camera Device"
 msgstr "카메라 장치 선택"
 
-#: kameradevice.cpp:320
+#: kameradevice.cpp:306
 #, kde-format
 msgctxt "@title:column"
 msgid "Supported Cameras"
 msgstr "지원하는 카메라"
 
-#: kameradevice.cpp:335 kameradevice.cpp:360
+#: kameradevice.cpp:321 kameradevice.cpp:346
 #, kde-format
 msgid "Port"
 msgstr "포트"
 
-#: kameradevice.cpp:343
+#: kameradevice.cpp:329
 #, kde-format
 msgid ""
 "If this option is checked, the camera has to be connected to one of the "
@@ -215,7 +215,7 @@ msgstr ""
 "만약 이 옵션이 선택되어 있으면 카메라는 컴퓨터의 직렬 포트 중 하나 (Windows에"
 "서는 COM 포트라고 함)에 연결되어 있습니다."
 
-#: kameradevice.cpp:348
+#: kameradevice.cpp:334
 #, kde-format
 msgid ""
 "If this option is checked, the camera has to be connected to one of the "
@@ -224,27 +224,27 @@ msgstr ""
 "만약 이 옵션이 선택되어 있으면 카메라는 컴퓨터의 USB 포트나 허브 중 하나에 연"
 "결되어 있습니다."
 
-#: kameradevice.cpp:351
+#: kameradevice.cpp:337
 #, kde-format
 msgid "Port Settings"
 msgstr "포트 설정"
 
-#: kameradevice.cpp:370
+#: kameradevice.cpp:356
 #, kde-format
 msgid "No port type selected."
 msgstr "포트 종류를 선택하지 않았습니다."
 
-#: kameradevice.cpp:378
+#: kameradevice.cpp:364
 #, kde-format
 msgid "Port:"
 msgstr "포트:"
 
-#: kameradevice.cpp:381
+#: kameradevice.cpp:367
 #, kde-format
 msgid "Specify here the serial port to which you connect the camera."
 msgstr "이 곳에서 카메라를 연결한 직렬 포트를 선택할 수 있습니다."
 
-#: kameradevice.cpp:389
+#: kameradevice.cpp:375
 #, kde-format
 msgid "No further configuration is required for USB cameras."
 msgstr "USB 카메라는 설정하지 않아도 됩니다."
