@@ -234,7 +234,7 @@ msgstr ""
 #: kameradevice.cpp:351
 #, kde-format
 msgid "Port Settings"
-msgstr "Configuració del port"
+msgstr "Configureu el port"
 
 #: kameradevice.cpp:370
 #, kde-format
