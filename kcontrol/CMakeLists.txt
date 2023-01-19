@@ -5,6 +5,8 @@ kcoreaddons_add_plugin(kcm_kamera
         kamera.cpp
         kameradevice.cpp
         kameraconfigdialog.cpp
+        kameradevice.h
+        kameraconfigdialog.h
     INSTALL_NAMESPACE "plasma/kcms/systemsettings_qwidgets"
 )
 
