@@ -12,8 +12,6 @@ kcoreaddons_add_plugin(kcm_kamera
 
 kcmutils_generate_desktop_file(kcm_kamera)
 
-set_target_properties(kcm_kamera PROPERTIES OUTPUT_NAME kamera)
-
 target_include_directories(kcm_kamera PRIVATE
     ${GPHOTO2_INCLUDE_DIRS}
     ${CMAKE_BINARY_DIR}
