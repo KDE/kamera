@@ -34,6 +34,7 @@ find_package(KF5 ${KF5_MIN_VERSION} REQUIRED COMPONENTS
     KIO
     I18n
     Config
+    KCMUtils
     )
 
 find_package(KF5DocTools ${KF5_MIN_VERSION})

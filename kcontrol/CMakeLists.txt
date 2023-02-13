@@ -10,6 +10,8 @@ kcoreaddons_add_plugin(kcm_kamera
     INSTALL_NAMESPACE "plasma/kcms/systemsettings_qwidgets"
 )
 
+kcmutils_generate_desktop_file(kcm_kamera)
+
 set_target_properties(kcm_kamera PROPERTIES OUTPUT_NAME kamera)
 
 target_include_directories(kcm_kamera PRIVATE
@@ -33,5 +35,3 @@ target_link_libraries(kcm_kamera
     KF5::ConfigCore
     ${GPHOTO2_LIBRARIES}
     )
-
-install( FILES kamera.desktop  DESTINATION  ${KDE_INSTALL_APPDIR} )

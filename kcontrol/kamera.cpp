@@ -28,7 +28,7 @@
 #include "kameradevice.h"
 #include "kcm_kamera_log.h"
 
-K_PLUGIN_CLASS_WITH_JSON(KKameraConfig, "kamera.json")
+K_PLUGIN_CLASS_WITH_JSON(KKameraConfig, "kcm_kamera.json")
 
 // --------------- Camera control center module widget ---
 

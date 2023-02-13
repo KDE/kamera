@@ -11,3 +11,4 @@ Dependencies:
     'frameworks/ki18n': '@stable'
     'frameworks/kconfig': '@stable'
     'frameworks/kdoctools': '@stable'
+    'frameworks/kcmutils': '@stable'
