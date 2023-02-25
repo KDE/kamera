@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2020-10-24 02:16+0200\n"
-"PO-Revision-Date: 2023-02-15 11:07\n"
+"PO-Revision-Date: 2023-02-24 12:58\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -20,7 +20,7 @@ msgstr ""
 #: kamera.cpp:87
 #, kde-format
 msgid "Unable to initialize the gPhoto2 libraries."
-msgstr "无法初始化 gPhoto2 库。"
+msgstr "无法初始化 gPhoto2 程序库。"
 
 #: kamera.cpp:128
 #, kde-format
@@ -30,7 +30,7 @@ msgstr "添加"
 #: kamera.cpp:130
 #, kde-format
 msgid "Click this button to add a new camera."
-msgstr "单击此按钮添加新相机。"
+msgstr "点击此按钮添加新相机。"
 
 #: kamera.cpp:136
 #, kde-format
@@ -40,17 +40,17 @@ msgstr "测试"
 #: kamera.cpp:138
 #, kde-format
 msgid "Click this button to test the connection to the selected camera."
-msgstr "单击此按钮测试选中相机的连接。"
+msgstr "点击此按钮测试选中相机的连接。"
 
 #: kamera.cpp:143
 #, kde-format
 msgid "Remove"
-msgstr "删除"
+msgstr "移除"
 
 #: kamera.cpp:145
 #, kde-format
 msgid "Click this button to remove the selected camera from the list."
-msgstr "单击此按钮从列表中删除选中的相机。"
+msgstr "点击此按钮移除列表中选中的相机。"
 
 #: kamera.cpp:150
 #, kde-format
@@ -64,8 +64,8 @@ msgid ""
 "<br><br>The availability of this feature and the contents of the "
 "Configuration dialog depend on the camera model."
 msgstr ""
-"单击此按钮更改选中相机的配置。<br><br>此特性是否可用以及配置对话框的内容根据"
-"相机型号而有所不同。"
+"点击此按钮更改选中相机的配置。<br><br>配置是否可用、配置对话框中的内容均取决"
+"于数码相机的型号。"
 
 #: kamera.cpp:157
 #, kde-format
@@ -79,8 +79,8 @@ msgid ""
 "camera.<br><br>The availability of this feature and the contents of the "
 "Information dialog depend on the camera model."
 msgstr ""
-"单击此按钮查看选中相机的当前状态概览。<br><br>此特性是否可用和信息对话框的内"
-"容根据相机型号而有所不同。"
+"点击此按钮查看选中相机的当前状态概览。<br><br>信息是否可用、显示的信息内容均"
+"取决于数码相机的型号。"
 
 #: kamera.cpp:165
 #, kde-format
@@ -90,12 +90,12 @@ msgstr "取消"
 #: kamera.cpp:167
 #, kde-format
 msgid "Click this button to cancel the current camera operation."
-msgstr "单击此按钮取消当前的相机操作。"
+msgstr "点击此按钮取消当前的数码相机操作。"
 
 #: kamera.cpp:368
 #, kde-format
 msgid "Camera test was successful."
-msgstr "相机测试成功。"
+msgstr "数码相机测试成功。"
 
 #: kamera.cpp:451
 #, kde-format
@@ -122,12 +122,12 @@ msgstr ""
 #: kameraconfigdialog.cpp:254
 #, kde-format
 msgid "Button (not supported by KControl)"
-msgstr "按钮(KControl不支持)"
+msgstr "按钮 (KControl 不支持)"
 
 #: kameraconfigdialog.cpp:262
 #, kde-format
 msgid "Date (not supported by KControl)"
-msgstr "日期(KControl不支持)"
+msgstr "日期 (KControl 不支持)"
 
 #: kameradevice.cpp:93
 #, kde-format
@@ -149,14 +149,14 @@ msgstr "相机 %1 的功能描述不可用。配置选项可能不正确。"
 #: kameradevice.cpp:127
 #, kde-format
 msgid "Could not access driver. Check your gPhoto2 installation."
-msgstr "无法访问驱动程序。请检查您的 gPhoto2 的安装。"
+msgstr "无法访问驱动程序。请检查本机系统是否正确安装了 gPhoto2。"
 
 #: kameradevice.cpp:147
 #, kde-format
 msgid ""
 "Unable to initialize camera. Check your port settings and camera "
 "connectivity and try again."
-msgstr "无法初始化相机。请检查您的端口设置和相机的连线，然后重试。"
+msgstr "无法初始化相机。请检查您的端口设置和相机的连接是否正确，然后重试。"
 
 #: kameradevice.cpp:171
 #, kde-format
@@ -166,7 +166,7 @@ msgstr "没有可用的相机概要信息。\n"
 #: kameradevice.cpp:185 kameradevice.cpp:196
 #, kde-format
 msgid "Camera configuration failed."
-msgstr "配置相机失败。"
+msgstr "相机配置失败。"
 
 #: kameradevice.cpp:234 kameradevice.cpp:341
 #, kde-format
@@ -205,17 +205,14 @@ msgid ""
 "If this option is checked, the camera has to be connected to one of the "
 "computer's serial ports (known as COM ports in Microsoft Windows.)"
 msgstr ""
-"如果选中此选项，相机需要通过串口(Microsoft Windows 中的 COM 端口)之一连接到计"
-"算机上。"
+"如果选中此项，相机必须连接到计算机的一个串口 (在 Windows 中叫做 COM 端口) 。"
 
 #: kameradevice.cpp:348
 #, kde-format
 msgid ""
 "If this option is checked, the camera has to be connected to one of the "
 "computer's USB ports, or to a USB hub."
-msgstr ""
-"如果选中此选项，相机需要通过您计算机或 USB 集线器上的 USB 端口连接到计算机"
-"上。"
+msgstr "如果选中此项，相机必须连接到计算机的一个 USB 端口或者 USB 集线器。"
 
 #: kameradevice.cpp:351
 #, kde-format

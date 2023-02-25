@@ -40,9 +40,9 @@
 </authorgroup>
 
 <date
->16/09/2015</date>
+>23/03/2018</date>
 <releaseinfo
->Applications 15.12</releaseinfo>
+>Applications 18.04</releaseinfo>
 
 <keywordset>
 <keyword
@@ -133,7 +133,7 @@
 <para
 >Para visualizar e transferir imagens da câmera digital, digite <userinput
 >camera:/</userinput
-> na barra de localização do &konqueror;. </para>
+> na barra de localização do &konqueror; ou do &dolphin;. </para>
 
 </article>
 
