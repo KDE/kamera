@@ -1,0 +1,150 @@
+<?xml version="1.0" ?>
+<!DOCTYPE article PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % Turkish "INCLUDE">
+]>
+
+<article id="kamera" lang="&language;">
+<title
+>&kamera; : Sayısal Kamera</title>
+<articleinfo>
+
+<authorgroup>
+<author
+><firstname
+>Burkhard</firstname
+> <surname
+>Lück</surname
+> <affiliation
+> <address
+><email
+>lueck@hube-lueck.de</email
+></address>
+</affiliation>
+</author>
+<othercredit role="translator"
+><firstname
+>Emir</firstname
+><surname
+>SARI</surname
+><affiliation
+><address
+><email
+>emir_sari@îcloud.com</email
+></address
+></affiliation
+><contrib
+>Çeviri</contrib
+></othercredit
+> 
+</authorgroup>
+
+<date
+>2018-03-23</date>
+<releaseinfo
+>Applications 18.04</releaseinfo>
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>kamera</keyword>
+<keyword
+>fotoğraf</keyword>
+</keywordset>
+</articleinfo>
+
+<para
+>Bu modül, sayısal kameranız için desteği yapılandırmanıza olanak tanır. </para>
+
+<variablelist>
+<varlistentry
+><term
+><guibutton
+>Ekle</guibutton
+></term>
+<listitem>
+<para
+>Kameranın modelini ve bilgisayarınızda bağlı olduğu kapıyı (örn. USB, Seri) seçmek için bu düğmeye tıklayın. Kameranız <guilabel
+>Desteklenen Kameralar</guilabel
+> listesinde görünmüyorsa olası bir güncelleme için <ulink url="http://www.gphoto.org"
+>GPhoto web sitesine</ulink
+> gidin. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry
+><term
+><guibutton
+>Sına</guibutton
+></term>
+<listitem>
+<para
+>Seçili kamerayla bağlantıyı sınamak için bu düğmeye tıklayın.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry
+><term
+><guibutton
+>Kaldır</guibutton
+></term>
+<listitem>
+<para
+>Seçili kamerayı listeden kaldırır. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry
+><term
+><guibutton
+>Yapılandır</guibutton
+></term>
+<listitem>
+<para
+>Seçili kameranın yapılandırmasını değiştirmek için bu düğmeye tıklayın. Bu özelliğin kullanılabilirliği ve Yapılandırma iletişim kutusunun içeriği kamera modeline bağlıdır.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry
+><term
+><guibutton
+>Bilgi</guibutton
+></term>
+<listitem>
+<para
+>Seçili kameranın geçerli durumunun bir özetini görüntülemek için bu düğmeye tıklayın. Bu özelliğin kullanılabilirliği ve Bilgi iletişim kutusunun içeriği kamera modeline bağlıdır.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry
+><term
+><guibutton
+>İptal</guibutton
+></term>
+<listitem>
+<para
+>Geçerli kamera işlemini iptal etmek için bu düğmeye tıklayın.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+<para
+>Sayısal kameradaki görsellere bakmak ve onları indirmek için &konqueror;&apos; veya &dolphin;&apos; uygulamalarının konum çubuğuna <userinput
+>camera:/</userinput
+> girin. </para>
+
+</article>
+
+<!--
+Local Variables:
+mode: sgml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+// vim:ts=2:sw=2:tw=78:noet
+-->
