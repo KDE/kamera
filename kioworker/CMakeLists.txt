@@ -17,9 +17,9 @@ ecm_qt_declare_logging_category(kio_kamera
 
 target_link_libraries(kio_kamera
     Qt${QT_MAJOR_VERSION}::Core
-    KF5::KIOCore
-    KF5::I18n
-    KF5::ConfigCore
+    KF${KF_MAJOR_VERSION}::KIOCore
+    KF${KF_MAJOR_VERSION}::I18n
+    KF${KF_MAJOR_VERSION}::ConfigCore
     ${GPHOTO2_LIBRARIES}
     )
 
