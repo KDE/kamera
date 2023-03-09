@@ -61,7 +61,6 @@ protected Q_SLOTS:
 private:
     void displayGPFailureDialogue();
     void displayGPSuccessDialogue();
-    void displayCameraAbilities(const CameraAbilities &abilities);
     void populateDeviceListView();
     void beforeCameraOperation();
     void afterCameraOperation();
