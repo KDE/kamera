@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: kcmkamera\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-08 00:56+0000\n"
-"PO-Revision-Date: 2007-11-28 21:01+0100\n"
-"Last-Translator: Pierre-Marie Pédrot <pedrotpmx@wanadoo.fr>\n"
+"PO-Revision-Date: 2023-03-20 22:31+0100\n"
+"Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
 "MIME-Version: 1.0\n"
@@ -39,10 +39,9 @@ msgid "Test"
 msgstr "Testo"
 
 #: kamera.cpp:123
-#, fuzzy, kde-format
-#| msgid "Click this button to remove the selected camera from the list."
+#, kde-format
 msgid "Click this button to test the connection to the selected camera."
-msgstr "Klaku tiun butonon por forigi la elektitan fotilon el la listo."
+msgstr "Alklaku ĉi butonon por testi la konekton al la elektita kamerao."
 
 #: kamera.cpp:128
 #, kde-format
@@ -76,19 +75,12 @@ msgid "Information"
 msgstr "Informo"
 
 #: kamera.cpp:144
-#, fuzzy, kde-format
-#| msgid ""
-#| "Click this button to view a summary of the current status of the selected "
-#| "camera.<br><br>The availability of this feature and the contents of the "
-#| "Configuration dialog depend on the camera model."
+#, kde-format
 msgid ""
 "Click this button to view a summary of the current status of the selected "
 "camera.<br><br>The availability of this feature and the contents of the "
 "Information dialog depend on the camera model."
 msgstr ""
-"Klaku tiun butonon por vidi resumon de la nuna stato de la elektita fotilo."
-"<br><br>La uzebleco de tiu funkcio kaj la enhavo de la agordofenestro "
-"dependas de la fotila modelo."
 
 #: kamera.cpp:150
 #, kde-format
@@ -106,17 +98,7 @@ msgid "Camera test was successful."
 msgstr "La fotilo sukcese testiĝis."
 
 #: kamera.cpp:436
-#, fuzzy, kde-format
-#| msgid ""
-#| "<h1>Digital Camera</h1>\n"
-#| "This module allows you to configure support for your digital camera.\n"
-#| "You would need to select the camera's model and the port it is connected\n"
-#| "to on your computer (e.g. USB, Serial, Firewire). If your camera doesn't\n"
-#| "appear in the list of <i>Supported Cameras</i>, go to the\n"
-#| "<a href=\"http://www.gphoto.org\">GPhoto web site</a> for a possible "
-#| "update.<br><br>\n"
-#| "To view and download images from the digital camera, go to address\n"
-#| "<a href=\"camera:/\">camera:/</a> in Konqueror and other KDE applications."
+#, kde-format
 msgid ""
 "<h1>Digital Camera</h1>\n"
 "This module allows you to configure support for your digital camera.\n"
@@ -128,15 +110,6 @@ msgid ""
 "To view and download images from the digital camera, go to the address\n"
 "<a href=\"camera:/\">camera:/</a> in Konqueror and other KDE applications."
 msgstr ""
-"<h1>Cifereca fotilo</h1>\n"
-"Tiu modulo permesas agordi la subtenon por via cifereca fotilo.\n"
-"Vi elektu la fotilo-specon kaj la konektingon, per kiu vi konektas\n"
-"ĝin al la komputilo (ekz. USB, Seria, Firewire). Se via fotilo\n"
-"ne aperas en la listo de la <i>subtenataj fotiloj</i>, iru al la \n"
-"<a href=\"http://www.gphoto.org\">retejo de GPhoto</a> por ebla\n"
-"ĝisdatigo.<br><br>\n"
-"Por vidi kaj legi bildojn el la fotilo, tajpu la URLon\n"
-"<a href=\"camera:/\">camera:/</a> en Konkeranto aŭ alia KDE-aplikaĵo."
 
 #: kameraconfigdialog.cpp:239
 #, kde-format
@@ -149,10 +122,9 @@ msgid "Date (not supported by KControl)"
 msgstr "Dato (ne subtenita de KControl)"
 
 #: kameradevice.cpp:79
-#, fuzzy, kde-format
-#| msgid "Could not allocate memory for abilities list."
+#, kde-format
 msgid "Could not allocate memory for the abilities list."
-msgstr "Ne eblis atribui memoron por la ebleco-listo."
+msgstr ""
 
 #: kameradevice.cpp:83
 #, kde-format
@@ -224,28 +196,18 @@ msgid "Port"
 msgstr "Pordo"
 
 #: kameradevice.cpp:329
-#, fuzzy, kde-format
-#| msgid ""
-#| "If this option is checked, the camera would have to be connected one of "
-#| "the serial ports (known as COM in Microsoft Windows) in your computer."
+#, kde-format
 msgid ""
 "If this option is checked, the camera has to be connected to one of the "
 "computer's serial ports (known as COM ports in Microsoft Windows.)"
 msgstr ""
-"Se elektita, la fotilo estu konektata al unu el la seriaj konektingoj de via "
-"komputilo (en Vindozo ili nomiĝas COM-konektingoj)."
 
 #: kameradevice.cpp:334
-#, fuzzy, kde-format
-#| msgid ""
-#| "If this option is checked, the camera would have to be connected to one "
-#| "of the USB slots in your computer or USB hub."
+#, kde-format
 msgid ""
 "If this option is checked, the camera has to be connected to one of the "
 "computer's USB ports, or to a USB hub."
 msgstr ""
-"Se elektita, la fotilo estu konektata al unu el la USB-konektingoj de via "
-"komputilo."
 
 #: kameradevice.cpp:337
 #, kde-format
@@ -263,14 +225,11 @@ msgid "Port:"
 msgstr "Pordo:"
 
 #: kameradevice.cpp:367
-#, fuzzy, kde-format
-#| msgid "Here you should choose the serial port you connect the camera to."
+#, kde-format
 msgid "Specify here the serial port to which you connect the camera."
 msgstr ""
-"Tie ĉi vi povas elekti la serian konektilon, al kiu vi konektas la fotilon."
 
 #: kameradevice.cpp:375
-#, fuzzy, kde-format
-#| msgid "No further configuration is required for USB."
+#, kde-format
 msgid "No further configuration is required for USB cameras."
-msgstr "Neniu plia agordo necesas por USB."
+msgstr ""
