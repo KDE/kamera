@@ -2,13 +2,14 @@
 # Copyright (C) 2007 Free Software Foundation, Inc.
 # Wolfram Diestel <wolfram@steloj.de>, 2002.
 # Pierre-Marie Pédrot <pedrotpmx@wanadoo.fr>, 2007.
+# Oliver Kellogg <okellogg@users.sourceforge.net>, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: kcmkamera\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-08 00:56+0000\n"
-"PO-Revision-Date: 2023-03-20 22:31+0100\n"
+"PO-Revision-Date: 2023-05-30 22:35+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -81,6 +82,9 @@ msgid ""
 "camera.<br><br>The availability of this feature and the contents of the "
 "Information dialog depend on the camera model."
 msgstr ""
+"Klaku ĉi tiun butonon por vidi resumon de la aktuala statuso de la elektita "
+"kamerao.<br><br>La haveblo de ĉi trajto kaj la enhavo de la Informdialogo "
+"dependas de la kameramodelo."
 
 #: kamera.cpp:150
 #, kde-format
@@ -124,7 +128,7 @@ msgstr "Dato (ne subtenita de KControl)"
 #: kameradevice.cpp:79
 #, kde-format
 msgid "Could not allocate memory for the abilities list."
-msgstr ""
+msgstr "Ne povis lokigi memoron por la kapablolisto."
 
 #: kameradevice.cpp:83
 #, kde-format
@@ -227,9 +231,9 @@ msgstr "Pordo:"
 #: kameradevice.cpp:367
 #, kde-format
 msgid "Specify here the serial port to which you connect the camera."
-msgstr ""
+msgstr "Specifu ĉi tie la serian pordon al kiu vi konektas la kameraon."
 
 #: kameradevice.cpp:375
 #, kde-format
 msgid "No further configuration is required for USB cameras."
-msgstr ""
+msgstr "Neniom da plua agordo necesas por USB-kameraoj."
