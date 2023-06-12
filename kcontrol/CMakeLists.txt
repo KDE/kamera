@@ -3,9 +3,10 @@ add_definitions(-DTRANSLATION_DOMAIN=\"kcmkamera\")
 kcoreaddons_add_plugin(kcm_kamera
     SOURCES
         kamera.cpp
+        kamera.h
         kameradevice.cpp
-        kameraconfigdialog.cpp
         kameradevice.h
+        kameraconfigdialog.cpp
         kameraconfigdialog.h
     INSTALL_NAMESPACE "plasma/kcms/systemsettings_qwidgets"
 )
