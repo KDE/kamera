@@ -31,14 +31,18 @@
 K_PLUGIN_CLASS_WITH_JSON(KKameraConfig, "kcm_kamera.json")
 
 // --------------- Camera control center module widget ---
-
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 KKameraConfig::KKameraConfig(QWidget *parent, const QVariantList &)
     : KCModule(parent)
+#else
+KKameraConfig::KKameraConfig(QObject *parent, const KPluginMetaData &md)
+    : KCModule(parent)
+#endif
 {
 #ifdef DEBUG_KAMERA_KCONTROL
     QLoggingCategory::setFilterRules(QStringLiteral("kamera.kcm.debug = true"));
 #endif
-    m_devicePopup = new QMenu(this);
+    m_devicePopup = new QMenu(widget());
 	m_actions = new KActionCollection(this);
     m_config = new KConfig(KProtocolInfo::config(QStringLiteral("camera")), KConfig::SimpleConfig);
     m_deviceModel = new QStandardItemModel(this);
@@ -60,16 +64,23 @@ KKameraConfig::~KKameraConfig()
     delete m_config;
 }
 
+#if KCOREADDONS_VERSION < QT_VERSION_CHECK(5, 105, 0)
+QWidget *KKameraConfig::widget()
+{
+    return this;
+}
+#endif
+
 void KKameraConfig::defaults()
 {
 }
 
 void KKameraConfig::displayGPFailureDialogue()
 {
-	auto topLayout = new QVBoxLayout(this);
+    auto topLayout = new QVBoxLayout(widget());
 	topLayout->setSpacing(0);
 	topLayout->setContentsMargins(0, 0, 0, 0);
-	auto label = new QLabel(i18n("Unable to initialize the gPhoto2 libraries."), this);
+    auto label = new QLabel(i18n("Unable to initialize the gPhoto2 libraries."), widget());
 	topLayout->addWidget(label);
 }
 
@@ -79,16 +90,16 @@ void KKameraConfig::displayGPSuccessDialogue()
 	setButtons(Help | Apply );
 
 	// create a layout with two vertical boxes
-	auto topLayout = new QVBoxLayout(this);
+    auto topLayout = new QVBoxLayout(widget());
 	topLayout->setSpacing(0);
 	topLayout->setContentsMargins(0, 0, 0, 0);
 
-	m_toolbar = new KToolBar(this, "ToolBar");
+    m_toolbar = new KToolBar(widget(), "ToolBar");
 	topLayout->addWidget(m_toolbar);
 	m_toolbar->setMovable(false);
 
     // create list of devices - this is the large white box
-	m_deviceSel = new QListView(this);
+    m_deviceSel = new QListView(widget());
 	topLayout->addWidget(m_deviceSel);
 
 	m_deviceSel->setModel(m_deviceModel);
@@ -317,14 +328,18 @@ void KKameraConfig::slot_addCamera()
         connect(m_device, qOverload<const QString&, const QString&>(&KCamera::error),
                 this, qOverload<const QString&,  const QString&>(&KKameraConfig::slot_error));
 
-	KameraDeviceSelectDialog dialog(this, m_device);
+    KameraDeviceSelectDialog dialog(widget(), m_device);
 	if (dialog.exec() == QDialog::Accepted) {
 		dialog.save();
 		m_device->setName(suggestName(m_device->model()));
 		m_devices.insert(m_device->name(), m_device);
 		populateDeviceListView();
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
         Q_EMIT changed(true);
-	} else {
+#else
+        setNeedsSave(true);
+#endif
+    } else {
 		delete m_device;
 	}
 }
@@ -338,7 +353,11 @@ void KKameraConfig::slot_removeCamera()
 		delete m_device;
 		m_config->deleteGroup(name);
 		populateDeviceListView();
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
         Q_EMIT changed(true);
+#else
+        setNeedsSave(true);
+#endif
 	}
 }
 
@@ -350,7 +369,7 @@ void KKameraConfig::slot_testCamera()
 	if (m_devices.contains(name)) {
 		KCamera *m_device = m_devices.value(name);
         if (m_device->test()) {
-			KMessageBox::information(this, i18n("Camera test was successful."));
+            KMessageBox::information(widget(), i18n("Camera test was successful."));
         }
 	}
 
@@ -373,7 +392,7 @@ void KKameraConfig::slot_cameraSummary()
 		KCamera *m_device = m_devices[name];
 		QString summary = m_device->summary();
 		if (!summary.isNull()) {
-			KMessageBox::information(this, summary);
+            KMessageBox::information(widget(), summary);
 		}
 	}
 }
@@ -431,6 +450,7 @@ GPContextFeedback KKameraConfig::cbGPCancel(GPContext * /*context*/, void *data)
     }
 }
 
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 QString KKameraConfig::quickHelp() const
 {
 	return i18n("<h1>Digital Camera</h1>\n"
@@ -442,15 +462,16 @@ QString KKameraConfig::quickHelp() const
 	  "To view and download images from the digital camera, go to the address\n"
 	  "<a href=\"camera:/\">camera:/</a> in Konqueror and other KDE applications.");
 }
+#endif
 
 void KKameraConfig::slot_error(const QString &message)
 {
-	KMessageBox::error(this, message);
+    KMessageBox::error(widget(), message);
 }
 
 void KKameraConfig::slot_error(const QString &message, const QString &details)
 {
-	KMessageBox::detailedError(this, message, details);
+    KMessageBox::detailedError(widget(), message, details);
 }
 
 #include "kamera.moc"

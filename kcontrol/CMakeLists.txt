@@ -32,5 +32,6 @@ target_link_libraries(kcm_kamera
     KF${KF_MAJOR_VERSION}::KIOCore
     KF${KF_MAJOR_VERSION}::I18n
     KF${KF_MAJOR_VERSION}::ConfigCore
+    KF${KF_MAJOR_VERSION}::KCMUtils
     ${GPHOTO2_LIBRARIES}
     )
