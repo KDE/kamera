@@ -18,6 +18,7 @@
   <name xml:lang="de">Kamera</name>
   <name xml:lang="el">Kamera</name>
   <name xml:lang="en-GB">Kamera</name>
+  <name xml:lang="eo">Kamera</name>
   <name xml:lang="es">Kamera</name>
   <name xml:lang="et">Kamera</name>
   <name xml:lang="eu">Kamera</name>
@@ -26,6 +27,7 @@
   <name xml:lang="gl">Kamera</name>
   <name xml:lang="hu">Kamera</name>
   <name xml:lang="ia">Kamera</name>
+  <name xml:lang="id">Kamera</name>
   <name xml:lang="is">Kamera</name>
   <name xml:lang="it">Kamera</name>
   <name xml:lang="ka">Kamera</name>
@@ -57,6 +59,7 @@
   <summary xml:lang="de">Ein Modul für das Bildaustauschprotokoll  (PTP) in KDE-Anwendungen</summary>
   <summary xml:lang="el">Ένα πρόσθετο για υποστήριξη του πρωτοκόλλου μεταφοράς εικόνων (PTP) στις εφαρμογές του KDE</summary>
   <summary xml:lang="en-GB">A plugin to support Picture Transfer Protocol (PTP) in KDE applications</summary>
+  <summary xml:lang="eo">Kromprogramo por subteni Picture Transfer Protocol (PTP) en KDE-aplikaĵoj</summary>
   <summary xml:lang="es">Un complemento para usar el protocolo de transferencia de imágenes (PTP) en aplicaciones de KDE</summary>
   <summary xml:lang="et">Plugin, mis pakub pildiedastuse protokolli PTP toetust KDE rakendustes</summary>
   <summary xml:lang="eu">KDE aplikazioetan Irudien Transferentziarako Protokoloari (PTP) euskarri emateko plugin bat</summary>
@@ -65,6 +68,7 @@
   <summary xml:lang="gl">Un complemento para permitir o protocolo de transferencia de imaxes (PTP) nas aplicacións de KDE</summary>
   <summary xml:lang="hu">Bővítmény a képátviteli protokoll (PTP) támogatásához KDE alkalmazásokban</summary>
   <summary xml:lang="ia">Un plugin pro supportar Picture Transfer Protocol (PTP) in applicationes de KDE</summary>
+  <summary xml:lang="id">Sebuah plugin untuk mendukung Picture Transfer Protocol (PTP) di aplikasi KDE</summary>
   <summary xml:lang="is">Forritsviðauki sem styður Picture Transfer Protocol (PTP) í KDE-forritum</summary>
   <summary xml:lang="it">Un'estensione per supportare la modalità Picture Transfer Protocol (PTP) nelle applicazioni di KDE</summary>
   <summary xml:lang="ka">KDE-ის აპლიკაციებში ფოტოების გადაცემის პროტოკოლის (PTP) მხარდაჭერის დამატება</summary>
@@ -101,6 +105,7 @@
     <p xml:lang="fr">Le protocole de transfert d'images (PTP) est une ancienne méthode de communication avec les appareils photo. Kamera fournit un outil de configuration et un module d'entrées / sortie « kio » permettant un accès en lecture et en écriture aux appareils photo utilisant ce protocole.</p>
     <p xml:lang="gl">O protocolo de transferencia de imaxes (PTP) é un método antigo de comunicación con dispositivos de cámara. Kamera fornece unha ferramenta de configuración e un traballador de KIO para ler e escribir datos de dispositivos de cámara con este protocolo.</p>
     <p xml:lang="ia">Picture Transfer Protocol (PTP) es un vetere methodo de parlar a dispositivos de camera. Kamera forni un instrumento de configuration e un KIOworker per leger e scriber  a iste dispositivos con iste protocollo.</p>
+    <p xml:lang="id">Picture Transfer Protocol (PTP) adalah sebuah metode lawas untuk berinteraksi ke peranti kamera. Aplikasi Kamera menyediakan alat konfigurasi dan KIO worker untuk membaca dan menulis ke peranti kamera dengan protokol ini.</p>
     <p xml:lang="is">Picture Transfer Protocol (PTP) er eldri samskiptamáti við myndavélar. Kamera kemur með stillingatóli og kio-vinnsluferli til að lesa af og skrifa í myndavélartæki sem styðjast við þennan samskiptamáta.</p>
     <p xml:lang="it">Il Picture Transfer Protocol (PTP) è un vecchio metodo usato per dialogare con le fotocamere. Kamera fornisce uno strumento di configurazione e un KIO worker per eseguire le operazioni di lettura e di scrittura sulle fotocamere con questo protocollo.</p>
     <p xml:lang="ka">სურათების გადაცემის პროტოკოლი (PTP) არის კამერის მოწყობილობებთან საუბრის ძველი მეთოდი. კამერა უზრუნველყოფს კონფიგურაციის ხელსაწყოს და kio worker-ს ამ პროტოკოლით კამერის მოწყობილობებზე წასაკითხად და ჩასაწერად.</p>
