@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-08 00:56+0000\n"
+"POT-Creation-Date: 2023-06-13 00:44+0000\n"
 "PO-Revision-Date: 2023-05-22 14:00\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -17,47 +17,47 @@ msgstr ""
 "X-Crowdin-File: /kf5-trunk/messages/kamera/kcmkamera.pot\n"
 "X-Crowdin-File-ID: 5782\n"
 
-#: kamera.cpp:72
+#: kamera.cpp:83
 #, kde-format
 msgid "Unable to initialize the gPhoto2 libraries."
 msgstr "无法初始化 gPhoto2 程序库。"
 
-#: kamera.cpp:113
+#: kamera.cpp:124
 #, kde-format
 msgid "Add"
 msgstr "添加"
 
-#: kamera.cpp:115
+#: kamera.cpp:126
 #, kde-format
 msgid "Click this button to add a new camera."
 msgstr "点击此按钮添加新相机。"
 
-#: kamera.cpp:121
+#: kamera.cpp:132
 #, kde-format
 msgid "Test"
 msgstr "测试"
 
-#: kamera.cpp:123
+#: kamera.cpp:134
 #, kde-format
 msgid "Click this button to test the connection to the selected camera."
 msgstr "点击此按钮测试选中相机的连接。"
 
-#: kamera.cpp:128
+#: kamera.cpp:139
 #, kde-format
 msgid "Remove"
 msgstr "移除"
 
-#: kamera.cpp:130
+#: kamera.cpp:141
 #, kde-format
 msgid "Click this button to remove the selected camera from the list."
 msgstr "点击此按钮移除列表中选中的相机。"
 
-#: kamera.cpp:135
+#: kamera.cpp:146
 #, kde-format
 msgid "Configure..."
 msgstr "配置..."
 
-#: kamera.cpp:137
+#: kamera.cpp:148
 #, kde-format
 msgid ""
 "Click this button to change the configuration of the selected camera."
@@ -67,12 +67,12 @@ msgstr ""
 "点击此按钮更改选中相机的配置。<br><br>配置是否可用、配置对话框中的内容均取决"
 "于数码相机的型号。"
 
-#: kamera.cpp:142
+#: kamera.cpp:153
 #, kde-format
 msgid "Information"
 msgstr "信息"
 
-#: kamera.cpp:144
+#: kamera.cpp:155
 #, kde-format
 msgid ""
 "Click this button to view a summary of the current status of the selected "
@@ -82,22 +82,22 @@ msgstr ""
 "点击此按钮查看选中相机的当前状态概览。<br><br>信息是否可用、显示的信息内容均"
 "取决于数码相机的型号。"
 
-#: kamera.cpp:150
+#: kamera.cpp:161
 #, kde-format
 msgid "Cancel"
 msgstr "取消"
 
-#: kamera.cpp:152
+#: kamera.cpp:163
 #, kde-format
 msgid "Click this button to cancel the current camera operation."
 msgstr "点击此按钮取消当前的数码相机操作。"
 
-#: kamera.cpp:353
+#: kamera.cpp:372
 #, kde-format
 msgid "Camera test was successful."
 msgstr "数码相机测试成功。"
 
-#: kamera.cpp:436
+#: kamera.cpp:456
 #, kde-format
 msgid ""
 "<h1>Digital Camera</h1>\n"

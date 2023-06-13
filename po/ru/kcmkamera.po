@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kcmkamera\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-08 00:56+0000\n"
+"POT-Creation-Date: 2023-06-13 00:44+0000\n"
 "PO-Revision-Date: 2016-09-24 14:30+0300\n"
 "Last-Translator: Alexander Potashev <aspotashev@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -26,47 +26,47 @@ msgstr ""
 "X-Accelerator-Marker: &\n"
 "X-Text-Markup: kde4\n"
 
-#: kamera.cpp:72
+#: kamera.cpp:83
 #, kde-format
 msgid "Unable to initialize the gPhoto2 libraries."
 msgstr "Не удаётся инициализировать библиотеки gPhoto2."
 
-#: kamera.cpp:113
+#: kamera.cpp:124
 #, kde-format
 msgid "Add"
 msgstr "Добавить"
 
-#: kamera.cpp:115
+#: kamera.cpp:126
 #, kde-format
 msgid "Click this button to add a new camera."
 msgstr "Нажмите на эту кнопку для добавления новой камеры."
 
-#: kamera.cpp:121
+#: kamera.cpp:132
 #, kde-format
 msgid "Test"
 msgstr "Проверка"
 
-#: kamera.cpp:123
+#: kamera.cpp:134
 #, kde-format
 msgid "Click this button to test the connection to the selected camera."
 msgstr "Нажмите на эту кнопку чтобы проверить соединение с выбранной камерой."
 
-#: kamera.cpp:128
+#: kamera.cpp:139
 #, kde-format
 msgid "Remove"
 msgstr "Удалить"
 
-#: kamera.cpp:130
+#: kamera.cpp:141
 #, kde-format
 msgid "Click this button to remove the selected camera from the list."
 msgstr "Нажмите на эту кнопку чтобы удалить выбранную камеру из списка."
 
-#: kamera.cpp:135
+#: kamera.cpp:146
 #, kde-format
 msgid "Configure..."
 msgstr "Настройка..."
 
-#: kamera.cpp:137
+#: kamera.cpp:148
 #, kde-format
 msgid ""
 "Click this button to change the configuration of the selected camera."
@@ -77,12 +77,12 @@ msgstr ""
 "возможности настройки и содержимое диалога настройки зависят от модели "
 "камеры."
 
-#: kamera.cpp:142
+#: kamera.cpp:153
 #, kde-format
 msgid "Information"
 msgstr "Сведения"
 
-#: kamera.cpp:144
+#: kamera.cpp:155
 #, kde-format
 msgid ""
 "Click this button to view a summary of the current status of the selected "
@@ -93,22 +93,22 @@ msgstr ""
 "<br> <br>Доступность самой этой возможности и перечень доступной информации "
 "зависит от модели камеры."
 
-#: kamera.cpp:150
+#: kamera.cpp:161
 #, kde-format
 msgid "Cancel"
 msgstr "Отмена"
 
-#: kamera.cpp:152
+#: kamera.cpp:163
 #, kde-format
 msgid "Click this button to cancel the current camera operation."
 msgstr "Нажмите на эту кнопку чтобы прервать операцию с выбранной камерой."
 
-#: kamera.cpp:353
+#: kamera.cpp:372
 #, kde-format
 msgid "Camera test was successful."
 msgstr "Проверка камеры прошла успешно."
 
-#: kamera.cpp:436
+#: kamera.cpp:456
 #, kde-format
 msgid ""
 "<h1>Digital Camera</h1>\n"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kcmkamera\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-08 00:56+0000\n"
+"POT-Creation-Date: 2023-06-13 00:44+0000\n"
 "PO-Revision-Date: 2020-09-03 16:11+0500\n"
 "Last-Translator: Victor Ibragimov <victor.ibragimov@gmail.com>\n"
 "Language-Team: English <kde-i18n-doc@kde.org>\n"
@@ -19,50 +19,50 @@ msgstr ""
 "X-Generator: Lokalize 20.04.2\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
-#: kamera.cpp:72
+#: kamera.cpp:83
 #, kde-format
 msgid "Unable to initialize the gPhoto2 libraries."
 msgstr "Наметавонам китобхонаҳои gPhoto2-ро инитсиализатсия кунам."
 
-#: kamera.cpp:113
+#: kamera.cpp:124
 #, kde-format
 msgid "Add"
 msgstr ""
 
-#: kamera.cpp:115
+#: kamera.cpp:126
 #, kde-format
 msgid "Click this button to add a new camera."
 msgstr "Барои афзудани камераи нав, ин тугмаро пахш кунед."
 
-#: kamera.cpp:121
+#: kamera.cpp:132
 #, kde-format
 msgid "Test"
 msgstr "Озмоиш"
 
-#: kamera.cpp:123
+#: kamera.cpp:134
 #, fuzzy, kde-format
 #| msgid "Click this button to remove the selected camera from the list."
 msgid "Click this button to test the connection to the selected camera."
 msgstr ""
 "Барои ҳузф намудани камераи интихобшуда аз рӯйхат, ин тугмаро пахш кунед."
 
-#: kamera.cpp:128
+#: kamera.cpp:139
 #, kde-format
 msgid "Remove"
 msgstr ""
 
-#: kamera.cpp:130
+#: kamera.cpp:141
 #, kde-format
 msgid "Click this button to remove the selected camera from the list."
 msgstr ""
 "Барои ҳузф намудани камераи интихобшуда аз рӯйхат, ин тугмаро пахш кунед."
 
-#: kamera.cpp:135
+#: kamera.cpp:146
 #, kde-format
 msgid "Configure..."
 msgstr "Танзимот..."
 
-#: kamera.cpp:137
+#: kamera.cpp:148
 #, kde-format
 msgid ""
 "Click this button to change the configuration of the selected camera."
@@ -73,12 +73,12 @@ msgstr ""
 "<br><br>Дастрасии таъғири танзимот ва худи танзимот аз услуби камера вобаста "
 "аст."
 
-#: kamera.cpp:142
+#: kamera.cpp:153
 #, kde-format
 msgid "Information"
 msgstr ""
 
-#: kamera.cpp:144
+#: kamera.cpp:155
 #, fuzzy, kde-format
 #| msgid ""
 #| "Click this button to view a summary of the current status of the selected "
@@ -93,24 +93,24 @@ msgstr ""
 "<br><br>Дастрасии таъғири танзимот ва худи танзимот аз услуби камера вобаста "
 "аст."
 
-#: kamera.cpp:150
+#: kamera.cpp:161
 #, kde-format
 msgid "Cancel"
 msgstr ""
 
-#: kamera.cpp:152
+#: kamera.cpp:163
 #, kde-format
 msgid "Click this button to cancel the current camera operation."
 msgstr ""
 "Барои барҳам додани амалиёт бо камераи интихобшуда, ба рӯи ин тугма пахш "
 "кунед."
 
-#: kamera.cpp:353
+#: kamera.cpp:372
 #, kde-format
 msgid "Camera test was successful."
 msgstr "Озмоиши камера бомуваффақият гузашт."
 
-#: kamera.cpp:436
+#: kamera.cpp:456
 #, kde-format
 msgid ""
 "<h1>Digital Camera</h1>\n"

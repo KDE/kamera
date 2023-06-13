@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kcmkamera\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-08 00:56+0000\n"
+"POT-Creation-Date: 2023-06-13 00:44+0000\n"
 "PO-Revision-Date: 2010-06-08 16:06+0700\n"
 "Last-Translator: Khoem Sokhem <khoemsokhem@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -18,47 +18,47 @@ msgstr ""
 "X-Generator: KBabel 1.11.4\n"
 "X-Language: km-KH\n"
 
-#: kamera.cpp:72
+#: kamera.cpp:83
 #, kde-format
 msgid "Unable to initialize the gPhoto2 libraries."
 msgstr "មិនអាច​ចាប់ផ្តើម​បណ្ណាល័យ gPhoto2​ទេ​ ។"
 
-#: kamera.cpp:113
+#: kamera.cpp:124
 #, kde-format
 msgid "Add"
 msgstr "បន្ថែម"
 
-#: kamera.cpp:115
+#: kamera.cpp:126
 #, kde-format
 msgid "Click this button to add a new camera."
 msgstr "ចុច​ប៊ូតុង​នេះ​ដើម្បី​បន្ថែម​ម៉ាស៊ីន​ថត​ថ្មី ។"
 
-#: kamera.cpp:121
+#: kamera.cpp:132
 #, kde-format
 msgid "Test"
 msgstr "សាកល្បង"
 
-#: kamera.cpp:123
+#: kamera.cpp:134
 #, kde-format
 msgid "Click this button to test the connection to the selected camera."
 msgstr "ចុច​ប៊ូតុង​នេះ​ដើម្បី​សាកល្បង​ការ​តភ្ជាប់​ទៅ​ម៉ាស៊ីន​ថត​ដែល​បាន​ជ្រើស ។"
 
-#: kamera.cpp:128
+#: kamera.cpp:139
 #, kde-format
 msgid "Remove"
 msgstr "យកចេញ"
 
-#: kamera.cpp:130
+#: kamera.cpp:141
 #, kde-format
 msgid "Click this button to remove the selected camera from the list."
 msgstr "ចុច​ប៊ូតុង​នេះ​ដើម្បី​យក​ម៉ាស៊ីន​ថត​ដែលបាន​ជ្រើស​ចេញ​ពី​បញ្ជី ។"
 
-#: kamera.cpp:135
+#: kamera.cpp:146
 #, kde-format
 msgid "Configure..."
 msgstr "កំណត់​រចនាសម្ព័ន្ធ..."
 
-#: kamera.cpp:137
+#: kamera.cpp:148
 #, kde-format
 msgid ""
 "Click this button to change the configuration of the selected camera."
@@ -68,12 +68,12 @@ msgstr ""
 "ចុច​ប៊ូតុងនេះដើម្បី​ប្តូរ​ការ​កំណត់​រចនាសម្ព័ន្ធ​ម៉ាស៊ីន​ថត​ដែល​បាន​ជ្រើស ។<br><br>ភាពមាន​នៃ​លក្ខណៈពិសេសនេះ​"
 "ហើយនិង​មាតិកានៃ​ប្រអប់​កំណត់​រចនាសម្ព័ន្ធ​គឺ​ពឹងផ្អែក​ទៅលើ​ម៉ូដែល​ម៉ាស៊ីន​ថត ។"
 
-#: kamera.cpp:142
+#: kamera.cpp:153
 #, kde-format
 msgid "Information"
 msgstr "ព័ត៌មាន"
 
-#: kamera.cpp:144
+#: kamera.cpp:155
 #, kde-format
 msgid ""
 "Click this button to view a summary of the current status of the selected "
@@ -83,22 +83,22 @@ msgstr ""
 "ចុច​ប៊ូតុង​នេះ​ដើម្បី​មើល​សង្ខេប​នៃ​ស្ថានភាព​របស់​ម៉ាស៊ីន​ថត​ដែល​ជ្រើស​បច្ចុប្បន្ន ។<br><br>សុពលភាប​របស់​លក្ខណៈ​"
 "ពិសេស​នេះ និង​មាតិកា​របស់​ប្រអប់​ព័ត៌មាន​ពឹង​ផ្អែក​លើ​ម៉ូដែល​របស់​ម៉ាស៊ីន​ថត ។"
 
-#: kamera.cpp:150
+#: kamera.cpp:161
 #, kde-format
 msgid "Cancel"
 msgstr "បោះបង់"
 
-#: kamera.cpp:152
+#: kamera.cpp:163
 #, kde-format
 msgid "Click this button to cancel the current camera operation."
 msgstr "ចុច​ប៊ូតុង​នេះ​ដើម្បី​បោះបង់ប្រតិបត្តិការ​ម៉ាស៊ីន​ថតបច្ចុប្បន្ន ។"
 
-#: kamera.cpp:353
+#: kamera.cpp:372
 #, kde-format
 msgid "Camera test was successful."
 msgstr "ម៉ាស៊ីន ថតសាកល្បង​បាន​ជោគជ័យ ។"
 
-#: kamera.cpp:436
+#: kamera.cpp:456
 #, kde-format
 msgid ""
 "<h1>Digital Camera</h1>\n"

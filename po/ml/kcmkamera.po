@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kamera\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-08 00:56+0000\n"
+"POT-Creation-Date: 2023-06-13 00:44+0000\n"
 "PO-Revision-Date: 2019-05-22 01:57+0530\n"
 "Last-Translator: Subin Siby <subins2000@gmai.com>\n"
 "Language-Team: Swathanthra|സ്വതന്ത്ര Malayalam|മലയാളം Computing|കമ്പ്യൂട്ടിങ്ങ് <smc."
@@ -18,47 +18,47 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: kamera.cpp:72
+#: kamera.cpp:83
 #, kde-format
 msgid "Unable to initialize the gPhoto2 libraries."
 msgstr "ജിഫോട്ടോ 2 ലൈബ്രറികൾ ആരംഭിക്കാൻ കഴിഞ്ഞില്ല"
 
-#: kamera.cpp:113
+#: kamera.cpp:124
 #, kde-format
 msgid "Add"
 msgstr "ചേർക്കുക"
 
-#: kamera.cpp:115
+#: kamera.cpp:126
 #, kde-format
 msgid "Click this button to add a new camera."
 msgstr "പുതിയ ക്യാമറ ചേർക്കാൻ ഈ ബട്ടൺ അമർത്തുക"
 
-#: kamera.cpp:121
+#: kamera.cpp:132
 #, kde-format
 msgid "Test"
 msgstr "പരീക്ഷിക്കുക"
 
-#: kamera.cpp:123
+#: kamera.cpp:134
 #, kde-format
 msgid "Click this button to test the connection to the selected camera."
 msgstr "തെരഞ്ഞെടുത്ത ക്യാമറയുമായുള്ള ബന്ധം പരിശോധിക്കാൻ ഈ ബട്ടൺ അമർത്തുക"
 
-#: kamera.cpp:128
+#: kamera.cpp:139
 #, kde-format
 msgid "Remove"
 msgstr "നീക്കം ചെയ്യുക"
 
-#: kamera.cpp:130
+#: kamera.cpp:141
 #, kde-format
 msgid "Click this button to remove the selected camera from the list."
 msgstr "പട്ടികയിൽ നിന്നും തിരഞ്ഞെടുത്ത ക്യാമറ നീക്കം ചെയ്യാനായി ഈ ബട്ടൻ അമർത്തുക"
 
-#: kamera.cpp:135
+#: kamera.cpp:146
 #, kde-format
 msgid "Configure..."
 msgstr "ക്രമീകരിക്കുക"
 
-#: kamera.cpp:137
+#: kamera.cpp:148
 #, kde-format
 msgid ""
 "Click this button to change the configuration of the selected camera."
@@ -68,12 +68,12 @@ msgstr ""
 "തിരഞ്ഞെടുത്ത ക്യാമറയുടെ ക്രമീകരണം മാറ്റുന്നതിനായി ഈ ബട്ടണിൽ ക്ലിക്ക് ചെയ്യുക.<br><br> ഈ "
 "സവിശേഷതയും ക്രമീകരണങ്ങളും ഡയലോഗിലെ ഉള്ളടക്കങ്ങളും ക്യാമറ മോഡൽ അനുസരിച്ചാകുന്നു."
 
-#: kamera.cpp:142
+#: kamera.cpp:153
 #, kde-format
 msgid "Information"
 msgstr "വിവരം"
 
-#: kamera.cpp:144
+#: kamera.cpp:155
 #, kde-format
 msgid ""
 "Click this button to view a summary of the current status of the selected "
@@ -83,22 +83,22 @@ msgstr ""
 "തിരഞ്ഞെടുത്ത ക്യാമറയുടെ നിലവിലെ വിവരങ്ങൾ കാണുന്നതിന് ഈ ബട്ടൺ ക്ലിക്കുചെയ്യുക. <br> <br> ഈ "
 "സവിശേഷതയും വിവര ഡയലോഗിലെ ഉള്ളടക്കങ്ങളും ക്യാമറ മോഡൽ അനുസരിച്ചാകുന്നു."
 
-#: kamera.cpp:150
+#: kamera.cpp:161
 #, kde-format
 msgid "Cancel"
 msgstr "റദ്ദാക്കുക"
 
-#: kamera.cpp:152
+#: kamera.cpp:163
 #, kde-format
 msgid "Click this button to cancel the current camera operation."
 msgstr "നിലവിലെ ക്യാമറ പ്രവർത്തനം റദ്ദാക്കാൻ ഈ ബട്ടണിൽ ക്ലിക്കുചെയ്യുക"
 
-#: kamera.cpp:353
+#: kamera.cpp:372
 #, kde-format
 msgid "Camera test was successful."
 msgstr "ക്യാമറ വിജയകരമായി പരിശോധിച്ചു"
 
-#: kamera.cpp:436
+#: kamera.cpp:456
 #, kde-format
 msgid ""
 "<h1>Digital Camera</h1>\n"

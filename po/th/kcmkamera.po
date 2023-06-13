@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kcmkamera\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-08 00:56+0000\n"
+"POT-Creation-Date: 2023-06-13 00:44+0000\n"
 "PO-Revision-Date: 2010-03-27 15:27+0700\n"
 "Last-Translator: Thanomsub Noppaburana <donga.nb@gmail.com>\n"
 "Language-Team: Thai <thai-l10n@googlegroups.com>\n"
@@ -18,47 +18,47 @@ msgstr ""
 "X-Generator: Lokalize 1.0\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: kamera.cpp:72
+#: kamera.cpp:83
 #, kde-format
 msgid "Unable to initialize the gPhoto2 libraries."
 msgstr "ไม่สามารถเรียกใช้งานไลบรารี gPhoto2 ได้"
 
-#: kamera.cpp:113
+#: kamera.cpp:124
 #, kde-format
 msgid "Add"
 msgstr "เพิ่ม"
 
-#: kamera.cpp:115
+#: kamera.cpp:126
 #, kde-format
 msgid "Click this button to add a new camera."
 msgstr "คลิกที่ปุ่มนี้ เพื่อเพิ่มกล้องใหม่"
 
-#: kamera.cpp:121
+#: kamera.cpp:132
 #, kde-format
 msgid "Test"
 msgstr "ทดสอบ"
 
-#: kamera.cpp:123
+#: kamera.cpp:134
 #, kde-format
 msgid "Click this button to test the connection to the selected camera."
 msgstr "คลิกที่ปุ่มนี้ เพื่อทดสอบการเชื่อมต่อกับกล้องที่เลือกไว้"
 
-#: kamera.cpp:128
+#: kamera.cpp:139
 #, kde-format
 msgid "Remove"
 msgstr "เอาออก"
 
-#: kamera.cpp:130
+#: kamera.cpp:141
 #, kde-format
 msgid "Click this button to remove the selected camera from the list."
 msgstr "คลิกที่ปุ่มนี้ เพื่อลบกล้องที่เลือกไว้ออกจากรายการ"
 
-#: kamera.cpp:135
+#: kamera.cpp:146
 #, kde-format
 msgid "Configure..."
 msgstr "ตั้งค่า..."
 
-#: kamera.cpp:137
+#: kamera.cpp:148
 #, kde-format
 msgid ""
 "Click this button to change the configuration of the selected camera."
@@ -68,12 +68,12 @@ msgstr ""
 "คลิกที่ปุ่มนี้ เพื่อเปลี่ยนการปรับแต่งของกล้องที่เลือกไว้ <br><br>ความสามารถของคุณสมบัตินี "
 "และเนื้อหาของการปรับแต่ง จะขึ้นอยู่กับรุ่นของกล้อง"
 
-#: kamera.cpp:142
+#: kamera.cpp:153
 #, kde-format
 msgid "Information"
 msgstr "ข้อมูลรายละเอียด"
 
-#: kamera.cpp:144
+#: kamera.cpp:155
 #, kde-format
 msgid ""
 "Click this button to view a summary of the current status of the selected "
@@ -83,22 +83,22 @@ msgstr ""
 "คลิกที่ปุ่มนี้ เพื่อแสดงภาพรวมของสถานะของกล้องที่เลือกไว้<br><br>ความสามารถของคุณสมบัตินี้ "
 "และเนื้อหาของการปรับแต่ง จะขึ้นอยู่กับรุ่นของกล้อง"
 
-#: kamera.cpp:150
+#: kamera.cpp:161
 #, kde-format
 msgid "Cancel"
 msgstr "ยกเลิก"
 
-#: kamera.cpp:152
+#: kamera.cpp:163
 #, kde-format
 msgid "Click this button to cancel the current camera operation."
 msgstr "คลิกที่ปุ่มนี้ เพื่อยกเลิกปฏิบัติการของกล้องตัวปัจจุบัน"
 
-#: kamera.cpp:353
+#: kamera.cpp:372
 #, kde-format
 msgid "Camera test was successful."
 msgstr "ทดสอบกล้องเรียบร้อยแล้ว"
 
-#: kamera.cpp:436
+#: kamera.cpp:456
 #, kde-format
 msgid ""
 "<h1>Digital Camera</h1>\n"
