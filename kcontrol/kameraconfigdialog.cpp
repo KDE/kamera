@@ -130,7 +130,7 @@ void KameraConfigDialog::appendWidget(QWidget *parent, CameraWidget *widget)
             grid->setLayout(gridLayout);
             parent->layout()->addWidget(grid);
 
-            QLabel *label;
+            QLabel *label = nullptr;
             if (widget_type == GP_WIDGET_TEXT)
             {
                 gp_widget_get_value(widget, &widget_value_string);
@@ -167,7 +167,9 @@ void KameraConfigDialog::appendWidget(QWidget *parent, CameraWidget *widget)
                 m_wmap.insert(widget, checkBox);
                 break;
             }
-            gridLayout->addWidget(label, 0, 0, Qt::AlignLeft);
+            if (label) {
+                gridLayout->addWidget(label, 0, 0, Qt::AlignLeft);
+            }
             break;
         }
     case GP_WIDGET_RADIO:
