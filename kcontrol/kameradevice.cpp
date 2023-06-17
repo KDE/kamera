@@ -292,14 +292,11 @@ KameraDeviceSelectDialog::KameraDeviceSelectDialog(QWidget *parent, KCamera *dev
     connect(m_device, qOverload<const QString&, const QString&>(&KCamera::error),
         this, qOverload<const QString&, const QString&>(&KameraDeviceSelectDialog::slot_error));
 
-    auto page = new QWidget( this );
-
     // a layout with horizontal boxes - this gives the two columns
-    auto topLayout = new QHBoxLayout(page);
-    topLayout->setContentsMargins(0, 0, 0, 0);
+    auto topLayout = new QHBoxLayout(this);
 
     // the models list
-    m_modelSel = new QListView(page);
+    m_modelSel = new QListView(this);
     m_model = new QStandardItemModel(this);
     m_model->setColumnCount(1);
     m_model->setHeaderData(0, Qt::Horizontal,
@@ -318,7 +315,7 @@ KameraDeviceSelectDialog::KameraDeviceSelectDialog(QWidget *parent, KCamera *dev
     rightLayout->setContentsMargins(0, 0, 0, 0);
     topLayout->addLayout( rightLayout );
 
-    m_portSelectGroup = new QGroupBox(i18n("Port"), page);
+    m_portSelectGroup = new QGroupBox(i18n("Port"), this);
         auto vertLayout = new QVBoxLayout;
         m_portSelectGroup->setLayout( vertLayout );
     m_portSelectGroup->setMinimumSize(100, 120);
@@ -334,7 +331,7 @@ KameraDeviceSelectDialog::KameraDeviceSelectDialog(QWidget *parent, KCamera *dev
     m_USBRB->setWhatsThis( i18n("If this option is checked, the camera has to "
         "be connected to one of the computer's USB ports, or to a USB hub."));
 
-    m_portSettingsGroup = new QGroupBox(i18n("Port Settings"), page);
+    m_portSettingsGroup = new QGroupBox(i18n("Port Settings"), this);
         auto lay = new QVBoxLayout;
         m_portSettingsGroup->setLayout( lay );
     rightLayout->addWidget(m_portSettingsGroup);
@@ -387,6 +384,9 @@ KameraDeviceSelectDialog::KameraDeviceSelectDialog(QWidget *parent, KCamera *dev
     okButton->setShortcut(Qt::CTRL | Qt::Key_Return);
     connect(okButton, &QPushButton::clicked, this, &KameraDeviceSelectDialog::accept);
     connect(cancelButton, &QPushButton::clicked, this, &KameraDeviceSelectDialog::close);
+    // add a spacer
+    rightLayout->addStretch();
+
     rightLayout->addWidget(m_OkCancelButtonBox);
 
     // query gphoto2 for existing serial ports
@@ -414,12 +414,6 @@ KameraDeviceSelectDialog::KameraDeviceSelectDialog(QWidget *parent, KCamera *dev
     }
     gp_port_info_list_free(list);
 
-    // add a spacer
-    rightLayout->addStretch();
-
-    // This makes it bigger
-    page->resize(page->sizeHint());
-    page->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
 
     populateCameraListView();
     load();
