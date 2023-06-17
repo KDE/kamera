@@ -24,7 +24,6 @@
 #include <KProtocolInfo>
 #include <KActionCollection>
 #include <KConfigGroup>
-#include "kameraconfigdialog.h"
 #include "kameradevice.h"
 #include "kcm_kamera_log.h"
 
