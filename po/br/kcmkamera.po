@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdegraphics/kcmkamera.pot\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-13 00:44+0000\n"
+"POT-Creation-Date: 2023-06-18 00:49+0000\n"
 "PO-Revision-Date: 2004-09-20 15:44+0200\n"
 "Last-Translator: Thierry Vignaud <tvignaud@mandriva.com>\n"
 "Language-Team: br <LL@li.org>\n"
@@ -14,47 +14,47 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: kamera.cpp:83
+#: kamera.cpp:82
 #, kde-format
 msgid "Unable to initialize the gPhoto2 libraries."
 msgstr ""
 
-#: kamera.cpp:124
+#: kamera.cpp:123
 #, kde-format
 msgid "Add"
 msgstr "Ouzhpennañ"
 
-#: kamera.cpp:126
+#: kamera.cpp:125
 #, kde-format
 msgid "Click this button to add a new camera."
 msgstr ""
 
-#: kamera.cpp:132
+#: kamera.cpp:131
 #, kde-format
 msgid "Test"
 msgstr "Arnodiñ"
 
-#: kamera.cpp:134
+#: kamera.cpp:133
 #, kde-format
 msgid "Click this button to test the connection to the selected camera."
 msgstr ""
 
-#: kamera.cpp:139
+#: kamera.cpp:138
 #, kde-format
 msgid "Remove"
 msgstr "Lemel"
 
-#: kamera.cpp:141
+#: kamera.cpp:140
 #, kde-format
 msgid "Click this button to remove the selected camera from the list."
 msgstr ""
 
-#: kamera.cpp:146
+#: kamera.cpp:145
 #, kde-format
 msgid "Configure..."
 msgstr "Kefluniañ ..."
 
-#: kamera.cpp:148
+#: kamera.cpp:147
 #, kde-format
 msgid ""
 "Click this button to change the configuration of the selected camera."
@@ -62,12 +62,12 @@ msgid ""
 "Configuration dialog depend on the camera model."
 msgstr ""
 
-#: kamera.cpp:153
+#: kamera.cpp:152
 #, kde-format
 msgid "Information"
 msgstr "Titouroù"
 
-#: kamera.cpp:155
+#: kamera.cpp:154
 #, kde-format
 msgid ""
 "Click this button to view a summary of the current status of the selected "
@@ -75,22 +75,22 @@ msgid ""
 "Information dialog depend on the camera model."
 msgstr ""
 
-#: kamera.cpp:161
+#: kamera.cpp:160
 #, kde-format
 msgid "Cancel"
 msgstr "Nullañ"
 
-#: kamera.cpp:163
+#: kamera.cpp:162
 #, kde-format
 msgid "Click this button to cancel the current camera operation."
 msgstr ""
 
-#: kamera.cpp:372
+#: kamera.cpp:371
 #, kde-format
 msgid "Camera test was successful."
 msgstr ""
 
-#: kamera.cpp:456
+#: kamera.cpp:455
 #, kde-format
 msgid ""
 "<h1>Digital Camera</h1>\n"
@@ -104,12 +104,12 @@ msgid ""
 "<a href=\"camera:/\">camera:/</a> in Konqueror and other KDE applications."
 msgstr ""
 
-#: kameraconfigdialog.cpp:239
+#: kameraconfigdialog.cpp:241
 #, kde-format
 msgid "Button (not supported by KControl)"
 msgstr ""
 
-#: kameraconfigdialog.cpp:247
+#: kameraconfigdialog.cpp:249
 #, kde-format
 msgid "Date (not supported by KControl)"
 msgstr ""
@@ -124,7 +124,7 @@ msgstr ""
 msgid "Could not load ability list."
 msgstr ""
 
-#: kameradevice.cpp:89 kameradevice.cpp:506 kameradevice.cpp:522
+#: kameradevice.cpp:89 kameradevice.cpp:500 kameradevice.cpp:516
 #, kde-format
 msgid ""
 "Description of abilities for camera %1 is not available. Configuration "
@@ -153,12 +153,12 @@ msgstr ""
 msgid "Camera configuration failed."
 msgstr ""
 
-#: kameradevice.cpp:220 kameradevice.cpp:327
+#: kameradevice.cpp:220 kameradevice.cpp:324
 #, kde-format
 msgid "Serial"
 msgstr "A-steud"
 
-#: kameradevice.cpp:221 kameradevice.cpp:332
+#: kameradevice.cpp:221 kameradevice.cpp:329
 #, kde-format
 msgid "USB"
 msgstr "USB"
@@ -173,52 +173,52 @@ msgstr "Porzh dianav"
 msgid "Select Camera Device"
 msgstr "Dibab drobarzhell ar gamera"
 
-#: kameradevice.cpp:306
+#: kameradevice.cpp:303
 #, kde-format
 msgctxt "@title:column"
 msgid "Supported Cameras"
 msgstr ""
 
-#: kameradevice.cpp:321 kameradevice.cpp:346
+#: kameradevice.cpp:318 kameradevice.cpp:343
 #, kde-format
 msgid "Port"
 msgstr "Porzh"
 
-#: kameradevice.cpp:329
+#: kameradevice.cpp:326
 #, kde-format
 msgid ""
 "If this option is checked, the camera has to be connected to one of the "
 "computer's serial ports (known as COM ports in Microsoft Windows.)"
 msgstr ""
 
-#: kameradevice.cpp:334
+#: kameradevice.cpp:331
 #, kde-format
 msgid ""
 "If this option is checked, the camera has to be connected to one of the "
 "computer's USB ports, or to a USB hub."
 msgstr ""
 
-#: kameradevice.cpp:337
+#: kameradevice.cpp:334
 #, kde-format
 msgid "Port Settings"
 msgstr "Dibarzhoù ar porzh"
 
-#: kameradevice.cpp:356
+#: kameradevice.cpp:353
 #, kde-format
 msgid "No port type selected."
 msgstr "N'eus seurt a borzh dibabet ebet."
 
-#: kameradevice.cpp:364
+#: kameradevice.cpp:361
 #, kde-format
 msgid "Port:"
 msgstr "Porzh :"
 
-#: kameradevice.cpp:367
+#: kameradevice.cpp:364
 #, kde-format
 msgid "Specify here the serial port to which you connect the camera."
 msgstr ""
 
-#: kameradevice.cpp:375
+#: kameradevice.cpp:372
 #, kde-format
 msgid "No further configuration is required for USB cameras."
 msgstr ""

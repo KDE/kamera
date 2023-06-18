@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kcmkamera\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-13 00:44+0000\n"
+"POT-Creation-Date: 2023-06-18 00:49+0000\n"
 "PO-Revision-Date: 2007-08-20 12:32+0545\n"
 "Last-Translator: Nabin Gautam <nabin@mpp.org.np>\n"
 "Language-Team: Nepali <info@mpp.org.np>\n"
@@ -17,48 +17,48 @@ msgstr ""
 "\n"
 "X-Generator: KBabel 1.11.4\n"
 
-#: kamera.cpp:83
+#: kamera.cpp:82
 #, kde-format
 msgid "Unable to initialize the gPhoto2 libraries."
 msgstr "जी फोटो २ लाइब्रेरी सुरुआत गर्न अक्षम ।"
 
-#: kamera.cpp:124
+#: kamera.cpp:123
 #, kde-format
 msgid "Add"
 msgstr ""
 
-#: kamera.cpp:126
+#: kamera.cpp:125
 #, kde-format
 msgid "Click this button to add a new camera."
 msgstr "नयाँ क्यामेरा थप्नका लागि यो बटन क्लिक गर्नुहोस् ।"
 
-#: kamera.cpp:132
+#: kamera.cpp:131
 #, kde-format
 msgid "Test"
 msgstr "परीक्षण"
 
-#: kamera.cpp:134
+#: kamera.cpp:133
 #, fuzzy, kde-format
 #| msgid "Click this button to remove the selected camera from the list."
 msgid "Click this button to test the connection to the selected camera."
 msgstr "सूचीबाट चयन गरिएको क्यामेरा हटाउन यो बटन क्लिक गर्नुहोस् ।"
 
-#: kamera.cpp:139
+#: kamera.cpp:138
 #, kde-format
 msgid "Remove"
 msgstr ""
 
-#: kamera.cpp:141
+#: kamera.cpp:140
 #, kde-format
 msgid "Click this button to remove the selected camera from the list."
 msgstr "सूचीबाट चयन गरिएको क्यामेरा हटाउन यो बटन क्लिक गर्नुहोस् ।"
 
-#: kamera.cpp:146
+#: kamera.cpp:145
 #, kde-format
 msgid "Configure..."
 msgstr "कन्फिगर..."
 
-#: kamera.cpp:148
+#: kamera.cpp:147
 #, kde-format
 msgid ""
 "Click this button to change the configuration of the selected camera."
@@ -68,12 +68,12 @@ msgstr ""
 "चयन गरिएको क्यामेराको कन्फिगरेसन परिवर्तन गर्न यो बटन क्लिक गर्नुहोस् ।<br><br>यो "
 "विशेषताको उपलब्धता र कन्फिगरेसन संवादको सामग्री क्यामेराको नमूनामा निर्भर गर्दछ ।"
 
-#: kamera.cpp:153
+#: kamera.cpp:152
 #, kde-format
 msgid "Information"
 msgstr ""
 
-#: kamera.cpp:155
+#: kamera.cpp:154
 #, fuzzy, kde-format
 #| msgid ""
 #| "Click this button to view a summary of the current status of the selected "
@@ -88,22 +88,22 @@ msgstr ""
 "<br><br>यो विशेषताको उपलब्धता र कन्फिगरेसन संवादको सामग्री क्यामेराको नमूनामा निर्भर "
 "गर्दछ ।"
 
-#: kamera.cpp:161
+#: kamera.cpp:160
 #, kde-format
 msgid "Cancel"
 msgstr ""
 
-#: kamera.cpp:163
+#: kamera.cpp:162
 #, kde-format
 msgid "Click this button to cancel the current camera operation."
 msgstr "हालको क्यामेरा सञ्चालन हटाउन यो बटन क्लिक गर्नुहोस् ।"
 
-#: kamera.cpp:372
+#: kamera.cpp:371
 #, kde-format
 msgid "Camera test was successful."
 msgstr "क्यामेराको परीक्षण सफल भयो ।"
 
-#: kamera.cpp:456
+#: kamera.cpp:455
 #, fuzzy, kde-format
 #| msgid ""
 #| "<h1>Digital Camera</h1>\n"
@@ -136,12 +136,12 @@ msgstr ""
 "डिजिटल क्यामेराबाट छवि हेर्न र डाउलोड गर्न, कन्क्वेरर र अन्य केडीई अनुप्रयोगको \n"
 "<a href=\"camera:/\">क्यामेरा:/</a> ठेगानामा जानुहोस् ।"
 
-#: kameraconfigdialog.cpp:239
+#: kameraconfigdialog.cpp:241
 #, kde-format
 msgid "Button (not supported by KControl)"
 msgstr "बटन (केडीई नियन्त्रणद्वारा असमर्थित)"
 
-#: kameraconfigdialog.cpp:247
+#: kameraconfigdialog.cpp:249
 #, kde-format
 msgid "Date (not supported by KControl)"
 msgstr "मिति (केडीई नियन्त्रणद्वारा असमर्थित)"
@@ -157,7 +157,7 @@ msgstr "क्षमता सूचीका लागि स्मृति �
 msgid "Could not load ability list."
 msgstr "क्षमता सूची लोड गर्न सकेन ।"
 
-#: kameradevice.cpp:89 kameradevice.cpp:506 kameradevice.cpp:522
+#: kameradevice.cpp:89 kameradevice.cpp:500 kameradevice.cpp:516
 #, kde-format
 msgid ""
 "Description of abilities for camera %1 is not available. Configuration "
@@ -188,12 +188,12 @@ msgstr "क्यामेरा सूचनाको सारांश उप
 msgid "Camera configuration failed."
 msgstr "क्यामेरा कन्फिगरेसन असफल ।"
 
-#: kameradevice.cpp:220 kameradevice.cpp:327
+#: kameradevice.cpp:220 kameradevice.cpp:324
 #, kde-format
 msgid "Serial"
 msgstr "श्रृङ्खला"
 
-#: kameradevice.cpp:221 kameradevice.cpp:332
+#: kameradevice.cpp:221 kameradevice.cpp:329
 #, kde-format
 msgid "USB"
 msgstr "USB"
@@ -208,19 +208,19 @@ msgstr "अज्ञात पोर्ट"
 msgid "Select Camera Device"
 msgstr "क्यामेरा यन्त्र चयन गर्नुहोस्"
 
-#: kameradevice.cpp:306
+#: kameradevice.cpp:303
 #, fuzzy, kde-format
 #| msgid "Supported Cameras"
 msgctxt "@title:column"
 msgid "Supported Cameras"
 msgstr "समर्थित क्यामेरा"
 
-#: kameradevice.cpp:321 kameradevice.cpp:346
+#: kameradevice.cpp:318 kameradevice.cpp:343
 #, kde-format
 msgid "Port"
 msgstr "पोर्ट"
 
-#: kameradevice.cpp:329
+#: kameradevice.cpp:326
 #, fuzzy, kde-format
 #| msgid ""
 #| "If this option is checked, the camera would have to be connected one of "
@@ -232,7 +232,7 @@ msgstr ""
 "यदि यो विकल्प चिनो गरिएमा, क्यामेरालाई तपाईँको कम्युटरको कुनै श्रृङ्खला पोर्टमा "
 "(माइक्रोसफ्ट विण्डोजमा COM का रुपमा चिनिने )जडान गरिएको हुनुपर्नेछ ।"
 
-#: kameradevice.cpp:334
+#: kameradevice.cpp:331
 #, fuzzy, kde-format
 #| msgid ""
 #| "If this option is checked, the camera would have to be connected to one "
@@ -244,28 +244,28 @@ msgstr ""
 "यदि यो विकल्प चिनो गरिएमा, क्यामरेलाई तपाईँको कम्युटरको USB स्लोट वा USB हब मध्ये कुनै "
 "एउटामा जडान गरिएको हुनेछ ।"
 
-#: kameradevice.cpp:337
+#: kameradevice.cpp:334
 #, kde-format
 msgid "Port Settings"
 msgstr "पोर्ट सेटिङ"
 
-#: kameradevice.cpp:356
+#: kameradevice.cpp:353
 #, kde-format
 msgid "No port type selected."
 msgstr "पोर्ट प्रकार चयन गरिएको छैन ।"
 
-#: kameradevice.cpp:364
+#: kameradevice.cpp:361
 #, kde-format
 msgid "Port:"
 msgstr "पोर्ट:"
 
-#: kameradevice.cpp:367
+#: kameradevice.cpp:364
 #, fuzzy, kde-format
 #| msgid "Here you should choose the serial port you connect the camera to."
 msgid "Specify here the serial port to which you connect the camera."
 msgstr "तपाईँले क्यामेरामा जडान गर्ने श्रृङ्खला पोर्ट यहाँ छनोट गर्नुपर्दछ ।"
 
-#: kameradevice.cpp:375
+#: kameradevice.cpp:372
 #, fuzzy, kde-format
 #| msgid "No further configuration is required for USB."
 msgid "No further configuration is required for USB cameras."

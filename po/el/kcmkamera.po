@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kcmkamera\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-13 00:44+0000\n"
+"POT-Creation-Date: 2023-06-18 00:49+0000\n"
 "PO-Revision-Date: 2016-05-24 16:24+0200\n"
 "Last-Translator: Petros Vidalis <pvidalis@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -22,51 +22,51 @@ msgstr ""
 "X-Generator: Lokalize 2.0\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
-#: kamera.cpp:83
+#: kamera.cpp:82
 #, kde-format
 msgid "Unable to initialize the gPhoto2 libraries."
 msgstr "Αδυναμία αρχικοποίησης των βιβλιοθηκών gPhoto2."
 
-#: kamera.cpp:124
+#: kamera.cpp:123
 #, kde-format
 msgid "Add"
 msgstr "Προσθήκη"
 
-#: kamera.cpp:126
+#: kamera.cpp:125
 #, kde-format
 msgid "Click this button to add a new camera."
 msgstr "Πατήστε αυτό το κουμπί για να προσθέσετε μια νέα φωτογραφική μηχανή."
 
-#: kamera.cpp:132
+#: kamera.cpp:131
 #, kde-format
 msgid "Test"
 msgstr "Έλεγχος"
 
-#: kamera.cpp:134
+#: kamera.cpp:133
 #, kde-format
 msgid "Click this button to test the connection to the selected camera."
 msgstr ""
 "Κάντε κλικ σε αυτό το κουμπί για τον έλεγχο σύνδεσης της επιλεγμένης "
 "φωτογραφικής μηχανής."
 
-#: kamera.cpp:139
+#: kamera.cpp:138
 #, kde-format
 msgid "Remove"
 msgstr "Αφαίρεση"
 
-#: kamera.cpp:141
+#: kamera.cpp:140
 #, kde-format
 msgid "Click this button to remove the selected camera from the list."
 msgstr ""
 "Πατήστε αυτό το κουμπί για να αφαιρέσετε την επιλεγμένη φωτογραφική μηχανή "
 "από τη λίστα."
 
-#: kamera.cpp:146
+#: kamera.cpp:145
 #, kde-format
 msgid "Configure..."
 msgstr "Διαμόρφωση..."
 
-#: kamera.cpp:148
+#: kamera.cpp:147
 #, kde-format
 msgid ""
 "Click this button to change the configuration of the selected camera."
@@ -78,12 +78,12 @@ msgstr ""
 "το περιεχόμενο του διαλόγου διαμόρφωσης εξαρτάται από το μοντέλο της "
 "φωτογραφικής μηχανής."
 
-#: kamera.cpp:153
+#: kamera.cpp:152
 #, kde-format
 msgid "Information"
 msgstr "Πληροφορίες"
 
-#: kamera.cpp:155
+#: kamera.cpp:154
 #, kde-format
 msgid ""
 "Click this button to view a summary of the current status of the selected "
@@ -95,24 +95,24 @@ msgstr ""
 "αυτού του χαρακτηριστικού και το περιεχόμενο του διαλόγου πληροφοριών "
 "εξαρτάται από το μοντέλο της φωτογραφικής μηχανής."
 
-#: kamera.cpp:161
+#: kamera.cpp:160
 #, kde-format
 msgid "Cancel"
 msgstr "Ακύρωση"
 
-#: kamera.cpp:163
+#: kamera.cpp:162
 #, kde-format
 msgid "Click this button to cancel the current camera operation."
 msgstr ""
 "Πατήστε αυτό το κουμπί για να ακυρώσετε την τρέχουσα λειτουργία της "
 "φωτογραφικής μηχανής."
 
-#: kamera.cpp:372
+#: kamera.cpp:371
 #, kde-format
 msgid "Camera test was successful."
 msgstr "Ο έλεγχος της φωτογραφικής μηχανής ήταν επιτυχής."
 
-#: kamera.cpp:456
+#: kamera.cpp:455
 #, kde-format
 msgid ""
 "<h1>Digital Camera</h1>\n"
@@ -141,12 +141,12 @@ msgstr ""
 "<a href=\"camera:/\">camera:/</a> στον Konqueror και σε άλλες εφαρμογές του "
 "KDE."
 
-#: kameraconfigdialog.cpp:239
+#: kameraconfigdialog.cpp:241
 #, kde-format
 msgid "Button (not supported by KControl)"
 msgstr "Κουμπί (δεν υποστηρίζεται από το KControl)"
 
-#: kameraconfigdialog.cpp:247
+#: kameraconfigdialog.cpp:249
 #, kde-format
 msgid "Date (not supported by KControl)"
 msgstr "Ημερομηνία (δεν υποστηρίζεται από το KControl)"
@@ -161,7 +161,7 @@ msgstr "Αδυναμία παραχώρησης μνήμης για τη λίσ�
 msgid "Could not load ability list."
 msgstr "Αδυναμία φόρτωσης της λίστας δυνατοτήτων."
 
-#: kameradevice.cpp:89 kameradevice.cpp:506 kameradevice.cpp:522
+#: kameradevice.cpp:89 kameradevice.cpp:500 kameradevice.cpp:516
 #, kde-format
 msgid ""
 "Description of abilities for camera %1 is not available. Configuration "
@@ -195,12 +195,12 @@ msgstr ""
 msgid "Camera configuration failed."
 msgstr "Η διαμόρφωση της φωτογραφικής μηχανής απέτυχε."
 
-#: kameradevice.cpp:220 kameradevice.cpp:327
+#: kameradevice.cpp:220 kameradevice.cpp:324
 #, kde-format
 msgid "Serial"
 msgstr "Σειριακή"
 
-#: kameradevice.cpp:221 kameradevice.cpp:332
+#: kameradevice.cpp:221 kameradevice.cpp:329
 #, kde-format
 msgid "USB"
 msgstr "USB"
@@ -215,18 +215,18 @@ msgstr "Άγνωστη θύρα"
 msgid "Select Camera Device"
 msgstr "Επιλέξτε συσκευή φωτογραφικής μηχανής"
 
-#: kameradevice.cpp:306
+#: kameradevice.cpp:303
 #, kde-format
 msgctxt "@title:column"
 msgid "Supported Cameras"
 msgstr "Υποστηριζόμενες φωτογραφικές μηχανές"
 
-#: kameradevice.cpp:321 kameradevice.cpp:346
+#: kameradevice.cpp:318 kameradevice.cpp:343
 #, kde-format
 msgid "Port"
 msgstr "Θύρα"
 
-#: kameradevice.cpp:329
+#: kameradevice.cpp:326
 #, kde-format
 msgid ""
 "If this option is checked, the camera has to be connected to one of the "
@@ -236,7 +236,7 @@ msgstr ""
 "συνδεδεμένη σε μία από τις σειριακές θύρες (γνωστές ως COM στα Microsoft "
 "Windows) του υπολογιστή σας."
 
-#: kameradevice.cpp:334
+#: kameradevice.cpp:331
 #, kde-format
 msgid ""
 "If this option is checked, the camera has to be connected to one of the "
@@ -245,28 +245,28 @@ msgstr ""
 "Αν αυτή η επιλογή είναι ενεργοποιημένη, η φωτογραφική μηχανή πρέπει να είναι "
 "συνδεδεμένη σε μία από τις υποδοχές USB του υπολογιστή σας ή σε ένα USB hub."
 
-#: kameradevice.cpp:337
+#: kameradevice.cpp:334
 #, kde-format
 msgid "Port Settings"
 msgstr "Ρυθμίσεις θύρας"
 
-#: kameradevice.cpp:356
+#: kameradevice.cpp:353
 #, kde-format
 msgid "No port type selected."
 msgstr "Δεν επιλέχθηκε τύπος θύρας."
 
-#: kameradevice.cpp:364
+#: kameradevice.cpp:361
 #, kde-format
 msgid "Port:"
 msgstr "Θύρα:"
 
-#: kameradevice.cpp:367
+#: kameradevice.cpp:364
 #, kde-format
 msgid "Specify here the serial port to which you connect the camera."
 msgstr ""
 "Επιλέξτε εδώ τη σειριακή θύρα στην οποία συνδέετε τη φωτογραφική μηχανή."
 
-#: kameradevice.cpp:375
+#: kameradevice.cpp:372
 #, kde-format
 msgid "No further configuration is required for USB cameras."
 msgstr "Δεν απαιτείται άλλη διαμόρφωση για USB φωτογραφικές μηχανές."
