@@ -28,6 +28,7 @@
 #include <KLocalizedString>
 #include <KProtocolInfo>
 
+#include "kameralist.h"
 #include <kio_kamera_log.h>
 
 #define tocstr(x) ((x).toLocal8Bit())
@@ -476,8 +477,7 @@ void KameraProtocol::statRegular(const QUrl &xurl)
     }
 
     // Is "url" a directory?
-    CameraList *dirList;
-    gp_list_new(&dirList);
+    KameraList dirList;
     qCDebug(KIO_KAMERA_LOG) << "statRegular() Requesting directories list for " << directory;
 
     gpr = gp_camera_folder_list_folders(m_camera, tocstr(fix_foldername(directory)), dirList, m_context);
@@ -487,7 +487,6 @@ void KameraProtocol::statRegular(const QUrl &xurl)
         } else {
             error(KIO::ERR_UNKNOWN, QString::fromLocal8Bit(gp_result_as_string(gpr)));
         }
-        gp_list_free(dirList);
         return;
     }
 
@@ -495,7 +494,6 @@ void KameraProtocol::statRegular(const QUrl &xurl)
     for (int i = 0; i < gp_list_count(dirList); i++) {
         gp_list_get_name(dirList, i, &name);
         if (file.compare(name) == 0) {
-            gp_list_free(dirList);
             KIO::UDSEntry entry;
             translateDirectoryToUDS(entry, file);
             statEntry(entry);
@@ -503,7 +501,6 @@ void KameraProtocol::statRegular(const QUrl &xurl)
             return;
         }
     }
-    gp_list_free(dirList);
 
     // Is "url" a file?
     CameraFileInfo info;
@@ -536,12 +533,9 @@ void KameraProtocol::del(const QUrl &url, bool isFile)
         error(KIO::ERR_CANNOT_DELETE, file);
         return;
     }
-    if (isFile) {
-        CameraList *list;
-        gp_list_new(&list);
-        int ret;
 
-        ret = gp_camera_file_delete(m_camera, tocstr(fix_foldername(directory)), tocstr(file), m_context);
+    if (isFile) {
+        int ret = gp_camera_file_delete(m_camera, tocstr(fix_foldername(directory)), tocstr(file), m_context);
 
         if (ret != GP_OK) {
             error(KIO::ERR_CANNOT_DELETE, file);
@@ -587,11 +581,10 @@ void KameraProtocol::listDir(const QUrl &yurl)
         /* Autodetect USB cameras ... */
         GPContext *glob_context = nullptr;
         int i, count;
-        CameraList *list;
+        KameraList list;
         CameraAbilitiesList *al;
         GPPortInfoList *il;
 
-        gp_list_new(&list);
         gp_abilities_list_new(&al);
         gp_abilities_list_load(al, glob_context);
         gp_port_info_list_new(&il);
@@ -624,7 +617,6 @@ void KameraProtocol::listDir(const QUrl &yurl)
 #endif
             modelcnt[model]++;
         }
-        gp_list_free(list);
 
         /* Avoid duplicated entry, that is a camera with both
          * port usb: and usb:001,042 entries. */
@@ -695,12 +687,9 @@ void KameraProtocol::listDir(const QUrl &yurl)
         return;
     }
 
-    CameraList *dirList;
-    CameraList *fileList;
-    CameraList *specialList;
-    gp_list_new(&dirList);
-    gp_list_new(&fileList);
-    gp_list_new(&specialList);
+    KameraList dirList;
+    KameraList fileList;
+    KameraList specialList;
     int gpr;
 
     if (!directory.compare(QStringLiteral("/"))) {
@@ -719,9 +708,6 @@ void KameraProtocol::listDir(const QUrl &yurl)
     gpr = readCameraFolder(directory, dirList, fileList);
     if (gpr != GP_OK) {
         qCDebug(KIO_KAMERA_LOG) << "read Camera Folder failed:" << gp_result_as_string(gpr);
-        gp_list_free(dirList);
-        gp_list_free(fileList);
-        gp_list_free(specialList);
         error(KIO::ERR_WORKER_DEFINED, i18n("Could not read. Reason: %1", QString::fromLocal8Bit(gp_result_as_string(gpr))));
         return;
     }
@@ -761,10 +747,6 @@ void KameraProtocol::listDir(const QUrl &yurl)
             listEntry(entry);
         }
     }
-
-    gp_list_free(fileList);
-    gp_list_free(dirList);
-    gp_list_free(specialList);
 
     finished();
 }

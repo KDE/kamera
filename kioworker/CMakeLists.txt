@@ -1,6 +1,6 @@
 add_definitions(-DTRANSLATION_DOMAIN=\"kio5_kamera\")
 
-add_library(kio_kamera MODULE kamera.cpp )
+add_library(kio_kamera MODULE kamera.cpp kameralist.cpp)
 
 target_include_directories(kio_kamera PRIVATE
     ${GPHOTO2_INCLUDE_DIRS}
