@@ -86,7 +86,7 @@ static QString path_unquote(QString path)
 }
 
 KameraProtocol::KameraProtocol(const QByteArray &pool, const QByteArray &app)
-    : SlaveBase("camera", pool, app)
+    : WorkerBase("camera", pool, app)
     , m_camera(nullptr)
 {
     // attempt to initialize libgphoto2 and chosen camera (requires locking)
@@ -110,7 +110,7 @@ KameraProtocol::KameraProtocol(const QByteArray &pool, const QByteArray &app)
 //
 // The existence of a lockfile is used to signify "please give up camera".
 //
-void KameraProtocol::special(const QByteArray &)
+KIO::WorkerResult KameraProtocol::special(const QByteArray &)
 {
     qCDebug(KIO_KAMERA_LOG) << "KameraProtocol::special() at " << getpid() << ". idletime: " << idletime;
 
@@ -129,6 +129,7 @@ void KameraProtocol::special(const QByteArray &)
         setTimeoutSpecialCommand(1);
     }
     actiondone = false;
+    return KIO::WorkerResult::pass();
 }
 
 KameraProtocol::~KameraProtocol()
@@ -216,17 +217,21 @@ static QString fix_foldername(const QString &ofolder)
 
 // The KIO slave "get" function (starts a download from the camera)
 // The actual returning of the data is done in the frontend callback functions.
-void KameraProtocol::get(const QUrl &url)
+KIO::WorkerResult KameraProtocol::get(const QUrl &url)
 {
     qCDebug(KIO_KAMERA_LOG) << "KameraProtocol::get(" << url.path() << ")";
     QString directory, file;
     CameraFileType fileType;
     int gpr;
 
-    split_url2camerapath(url.path(), directory, file);
+    auto splitResult = split_url2camerapath(url.path(), directory, file);
+
+    if (!splitResult.success()) {
+        return splitResult;
+    }
+
     if (!openCamera()) {
-        error(KIO::ERR_DOES_NOT_EXIST, url.path());
-        return;
+        return KIO::WorkerResult::fail(KIO::ERR_DOES_NOT_EXIST, url.path());
     }
 
 #define GPHOTO_TEXT_FILE(xx)                                                                                                                                   \
@@ -234,15 +239,13 @@ void KameraProtocol::get(const QUrl &url)
         CameraText xx;                                                                                                                                         \
         gpr = gp_camera_get_##xx(m_camera, &xx, m_context);                                                                                                    \
         if (gpr != GP_OK) {                                                                                                                                    \
-            error(KIO::ERR_DOES_NOT_EXIST, url.path());                                                                                                        \
-            return;                                                                                                                                            \
+            return KIO::WorkerResult::fail(KIO::ERR_DOES_NOT_EXIST, url.path());                                                                               \
         }                                                                                                                                                      \
         QByteArray chunkDataBuffer = QByteArray::fromRawData(xx.text, strlen(xx.text));                                                                        \
         data(chunkDataBuffer);                                                                                                                                 \
         processedSize(strlen(xx.text));                                                                                                                        \
         chunkDataBuffer.clear();                                                                                                                               \
-        finished();                                                                                                                                            \
-        return;                                                                                                                                                \
+        return KIO::WorkerResult::pass();                                                                                                                      \
     }
 
     GPHOTO_TEXT_FILE(about);
@@ -264,11 +267,10 @@ void KameraProtocol::get(const QUrl &url)
     if (gpr != GP_OK) {
         gp_file_unref(m_file);
         if ((gpr == GP_ERROR_FILE_NOT_FOUND) || (gpr == GP_ERROR_DIRECTORY_NOT_FOUND)) {
-            error(KIO::ERR_DOES_NOT_EXIST, url.path());
+            return KIO::WorkerResult::fail(KIO::ERR_DOES_NOT_EXIST, url.path());
         } else {
-            error(KIO::ERR_UNKNOWN, QString::fromLocal8Bit(gp_result_as_string(gpr)));
+            return KIO::WorkerResult::fail(KIO::ERR_UNKNOWN, QString::fromLocal8Bit(gp_result_as_string(gpr)));
         }
-        return;
     }
 
     // at last, a proper API to determine whether a thumbnail was requested.
@@ -308,13 +310,11 @@ void KameraProtocol::get(const QUrl &url)
     case GP_ERROR_DIRECTORY_NOT_FOUND:
         gp_file_unref(m_file);
         m_file = nullptr;
-        error(KIO::ERR_DOES_NOT_EXIST, url.fileName());
-        return;
+        return KIO::WorkerResult::fail(KIO::ERR_DOES_NOT_EXIST, url.fileName());
     default:
         gp_file_unref(m_file);
         m_file = nullptr;
-        error(KIO::ERR_UNKNOWN, QString::fromLocal8Bit(gp_result_as_string(gpr)));
-        return;
+        return KIO::WorkerResult::fail(KIO::ERR_UNKNOWN, QString::fromLocal8Bit(gp_result_as_string(gpr)));
     }
     // Q_EMIT the mimetype
     // NOTE: we must first get the file, so that CameraFile->name would be set
@@ -333,8 +333,7 @@ void KameraProtocol::get(const QUrl &url)
         qCDebug(KIO_KAMERA_LOG) << "get():: get_data_and_size failed.";
         gp_file_free(m_file);
         m_file = nullptr;
-        error(KIO::ERR_UNKNOWN, QString::fromLocal8Bit(gp_result_as_string(gpr)));
-        return;
+        return KIO::WorkerResult::fail(KIO::ERR_UNKNOWN, QString::fromLocal8Bit(gp_result_as_string(gpr)));
     }
     // make sure we're not sending zero-sized chunks (=EOF)
     // also make sure we send only if the progress did not send the data
@@ -363,13 +362,13 @@ void KameraProtocol::get(const QUrl &url)
         setFileSize(fileSize);
     }
 
-    finished();
     gp_file_unref(m_file); /* just unref, might be stored in fs */
     m_file = nullptr;
+    return KIO::WorkerResult::pass();
 }
 
 // The KIO slave "stat" function.
-void KameraProtocol::stat(const QUrl &url)
+KIO::WorkerResult KameraProtocol::stat(const QUrl &url)
 {
     qCDebug(KIO_KAMERA_LOG) << "stat(\"" << url.path() << "\")";
 
@@ -379,17 +378,19 @@ void KameraProtocol::stat(const QUrl &url)
         qCDebug(KIO_KAMERA_LOG) << "redirecting to /";
         rooturl.setPath(QStringLiteral("/"));
         redirection(rooturl);
-        finished();
-        return;
+        return KIO::WorkerResult::pass();
     }
+
     if (url.path() == QStringLiteral("/"))
-        statRoot();
+        return statRoot();
     else
-        statRegular(url);
+        return statRegular(url);
+
+    return KIO::WorkerResult::pass();
 }
 
 // Implements stat("/") -- which always returns the same value.
-void KameraProtocol::statRoot()
+KIO::WorkerResult KameraProtocol::statRoot()
 {
     KIO::UDSEntry entry;
 
@@ -399,42 +400,47 @@ void KameraProtocol::statRoot()
 
     entry.fastInsert(KIO::UDSEntry::UDS_ACCESS, (S_IRUSR | S_IRGRP | S_IROTH));
     statEntry(entry);
-    finished();
     // If we just do this call, timeout right away if no other requests are
     // pending. This is for the kdemm autodetection using media://camera
     idletime = MAXIDLETIME;
+
+    return KIO::WorkerResult::pass();
 }
 
-void KameraProtocol::split_url2camerapath(const QString &url, QString &directory, QString &file)
+KIO::WorkerResult KameraProtocol::split_url2camerapath(const QString &url, QString &directory, QString &file)
 {
     QStringList components, camarr;
     QString cam, camera, port;
+    KIO::WorkerResult result = KIO::WorkerResult::pass();
 
     components = url.split(QLatin1Char('/'), Qt::SkipEmptyParts);
     if (components.size() == 0) {
-        return;
+        return KIO::WorkerResult::pass();
     }
     cam = path_unquote(components.takeFirst());
     if (!cam.isEmpty()) {
         if (!cam.contains(QLatin1Char('@'))) {
-            return;
+            return KIO::WorkerResult::fail(KIO::ERR_MALFORMED_URL, url);
         }
 
         camarr = cam.split(QLatin1Char('@'));
         camera = path_unquote(camarr.takeFirst());
         port = path_unquote(camarr.takeLast());
-        setCamera(camera, port);
+        result = setCamera(camera, port);
     }
     if (components.isEmpty()) {
         directory = QStringLiteral("/");
-        return;
+        return result;
     }
+
     file = path_unquote(components.takeLast());
     directory = path_unquote(QStringLiteral("/") + components.join(QLatin1Char('/')));
+
+    return result;
 }
 
 // Implements a regular stat() of a file / directory, returning all we know about it
-void KameraProtocol::statRegular(const QUrl &xurl)
+KIO::WorkerResult KameraProtocol::statRegular(const QUrl &xurl)
 {
     KIO::UDSEntry entry;
     QString directory, file;
@@ -442,11 +448,14 @@ void KameraProtocol::statRegular(const QUrl &xurl)
 
     qCDebug(KIO_KAMERA_LOG) << "statRegular(\"" << xurl.path() << "\")";
 
-    split_url2camerapath(xurl.path(), directory, file);
+    auto splitResult = split_url2camerapath(xurl.path(), directory, file);
+
+    if (!splitResult.success()) {
+        return splitResult;
+    }
 
     if (openCamera() == false) {
-        error(KIO::ERR_DOES_NOT_EXIST, xurl.path());
-        return;
+        return KIO::WorkerResult::fail(KIO::ERR_DOES_NOT_EXIST, xurl.path());
     }
 
     if (directory == QLatin1String("/")) {
@@ -457,13 +466,11 @@ void KameraProtocol::statRegular(const QUrl &xurl)
         CameraText xx;                                                                                                                                         \
         gpr = gp_camera_get_about(m_camera, &xx, m_context);                                                                                                   \
         if (gpr != GP_OK) {                                                                                                                                    \
-            error(KIO::ERR_DOES_NOT_EXIST, xurl.fileName());                                                                                                   \
-            return;                                                                                                                                            \
+            return KIO::WorkerResult::fail(KIO::ERR_DOES_NOT_EXIST, xurl.fileName());                                                                          \
         }                                                                                                                                                      \
         translateTextToUDS(entry, #xx ".txt", xx.text);                                                                                                        \
         statEntry(entry);                                                                                                                                      \
-        finished();                                                                                                                                            \
-        return;                                                                                                                                                \
+        return KIO::WorkerResult::pass();                                                                                                                      \
     }
         GPHOTO_TEXT_FILE(about);
         GPHOTO_TEXT_FILE(manual);
@@ -476,8 +483,7 @@ void KameraProtocol::statRegular(const QUrl &xurl)
         entry.fastInsert(KIO::UDSEntry::UDS_FILE_TYPE, S_IFDIR);
         entry.fastInsert(KIO::UDSEntry::UDS_ACCESS, (S_IRUSR | S_IRGRP | S_IROTH));
         statEntry(entry);
-        finished();
-        return;
+        return KIO::WorkerResult::pass();
     }
 
     // Is "url" a directory?
@@ -487,11 +493,10 @@ void KameraProtocol::statRegular(const QUrl &xurl)
     gpr = gp_camera_folder_list_folders(m_camera, tocstr(fix_foldername(directory)), dirList, m_context);
     if (gpr != GP_OK) {
         if ((gpr == GP_ERROR_FILE_NOT_FOUND) || (gpr == GP_ERROR_DIRECTORY_NOT_FOUND)) {
-            error(KIO::ERR_DOES_NOT_EXIST, xurl.path());
+            return KIO::WorkerResult::fail(KIO::ERR_DOES_NOT_EXIST, xurl.path());
         } else {
-            error(KIO::ERR_UNKNOWN, QString::fromLocal8Bit(gp_result_as_string(gpr)));
+            return KIO::WorkerResult::fail(KIO::ERR_UNKNOWN, QString::fromLocal8Bit(gp_result_as_string(gpr)));
         }
-        return;
     }
 
     const char *name;
@@ -501,8 +506,7 @@ void KameraProtocol::statRegular(const QUrl &xurl)
             KIO::UDSEntry entry;
             translateDirectoryToUDS(entry, file);
             statEntry(entry);
-            finished();
-            return;
+            return KIO::WorkerResult::pass();
         }
     }
 
@@ -511,51 +515,59 @@ void KameraProtocol::statRegular(const QUrl &xurl)
     gpr = gp_camera_file_get_info(m_camera, tocstr(fix_foldername(directory)), tocstr(file), &info, m_context);
     if (gpr != GP_OK) {
         if ((gpr == GP_ERROR_FILE_NOT_FOUND) || (gpr == GP_ERROR_DIRECTORY_NOT_FOUND)) {
-            error(KIO::ERR_DOES_NOT_EXIST, xurl.path());
+            return KIO::WorkerResult::fail(KIO::ERR_DOES_NOT_EXIST, xurl.path());
         } else {
-            error(KIO::ERR_UNKNOWN, QString::fromLocal8Bit(gp_result_as_string(gpr)));
+            return KIO::WorkerResult::fail(KIO::ERR_UNKNOWN, QString::fromLocal8Bit(gp_result_as_string(gpr)));
         }
-        return;
     }
     translateFileToUDS(entry, info, file);
     statEntry(entry);
-    finished();
+    return KIO::WorkerResult::pass();
 }
 
 // The KIO slave "del" function.
-void KameraProtocol::del(const QUrl &url, bool isFile)
+KIO::WorkerResult KameraProtocol::del(const QUrl &url, bool isFile)
 {
     QString directory, file;
     qCDebug(KIO_KAMERA_LOG) << "KameraProtocol::del(" << url.path() << ")";
 
-    split_url2camerapath(url.path(), directory, file);
+    auto splitResult = split_url2camerapath(url.path(), directory, file);
+
+    if (!splitResult.success()) {
+        return splitResult;
+    }
+
     if (!openCamera()) {
-        error(KIO::ERR_CANNOT_DELETE, file);
-        return;
+        return KIO::WorkerResult::fail(KIO::ERR_CANNOT_DELETE, file);
     }
     if (!cameraSupportsDel()) {
-        error(KIO::ERR_CANNOT_DELETE, file);
-        return;
+        return KIO::WorkerResult::fail(KIO::ERR_CANNOT_DELETE, file);
     }
 
     if (isFile) {
         int ret = gp_camera_file_delete(m_camera, tocstr(fix_foldername(directory)), tocstr(file), m_context);
 
         if (ret != GP_OK) {
-            error(KIO::ERR_CANNOT_DELETE, file);
+            return KIO::WorkerResult::fail(KIO::ERR_CANNOT_DELETE, file);
         } else {
-            finished();
+            return KIO::WorkerResult::pass();
         }
     }
+
+    return KIO::WorkerResult::pass();
 }
 
 // The KIO slave "listDir" function.
-void KameraProtocol::listDir(const QUrl &yurl)
+KIO::WorkerResult KameraProtocol::listDir(const QUrl &yurl)
 {
     QString directory, file;
     qCDebug(KIO_KAMERA_LOG) << "KameraProtocol::listDir(" << yurl.path() << ")";
 
-    split_url2camerapath(yurl.path(), directory, file);
+    auto splitResult = split_url2camerapath(yurl.path(), directory, file);
+
+    if (!splitResult.success()) {
+        return splitResult;
+    }
 
     if (!file.isEmpty()) {
         if (directory == QLatin1Char('/')) {
@@ -668,8 +680,7 @@ void KameraProtocol::listDir(const QUrl &yurl)
             entry.fastInsert(KIO::UDSEntry::UDS_ACCESS, (S_IRUSR | S_IRGRP | S_IROTH | S_IWUSR | S_IWGRP | S_IWOTH));
             listEntry(entry);
         }
-        finished();
-        return;
+        return KIO::WorkerResult::pass();
     }
 
     if (directory.isEmpty()) {
@@ -682,13 +693,11 @@ void KameraProtocol::listDir(const QUrl &yurl)
             rooturl.setPath(QStringLiteral("/"));
         }
         redirection(rooturl);
-        finished();
-        return;
+        return KIO::WorkerResult::pass();
     }
 
     if (!openCamera()) {
-        error(KIO::ERR_CANNOT_READ, yurl.path());
-        return;
+        return KIO::WorkerResult::fail(KIO::ERR_CANNOT_READ, yurl.path());
     }
 
     KameraList dirList;
@@ -712,8 +721,7 @@ void KameraProtocol::listDir(const QUrl &yurl)
     gpr = readCameraFolder(directory, dirList, fileList);
     if (gpr != GP_OK) {
         qCDebug(KIO_KAMERA_LOG) << "read Camera Folder failed:" << gp_result_as_string(gpr);
-        error(KIO::ERR_WORKER_DEFINED, i18n("Could not read. Reason: %1", QString::fromLocal8Bit(gp_result_as_string(gpr))));
-        return;
+        return KIO::WorkerResult::fail(KIO::ERR_WORKER_DEFINED, i18n("Could not read. Reason: %1", QString::fromLocal8Bit(gp_result_as_string(gpr))));
     }
 
     totalSize(gp_list_count(specialList) + gp_list_count(dirList) + gp_list_count(fileList));
@@ -752,10 +760,10 @@ void KameraProtocol::listDir(const QUrl &yurl)
         }
     }
 
-    finished();
+    return KIO::WorkerResult::pass();
 }
 
-void KameraProtocol::setCamera(const QString &camera, const QString &port)
+KIO::WorkerResult KameraProtocol::setCamera(const QString &camera, const QString &port)
 {
     qCDebug(KIO_KAMERA_LOG) << "KameraProtocol::setCamera(" << camera << ", " << port << ")";
     int gpr, idx;
@@ -763,7 +771,7 @@ void KameraProtocol::setCamera(const QString &camera, const QString &port)
     if (!camera.isEmpty() && !port.isEmpty()) {
         if (m_camera && (current_camera == camera) && (current_port == port)) {
             qCDebug(KIO_KAMERA_LOG) << "Configuration is same, nothing to do.";
-            return;
+            return KIO::WorkerResult::pass();
         }
         if (m_camera) {
             qCDebug(KIO_KAMERA_LOG) << "Configuration change detected";
@@ -785,8 +793,7 @@ void KameraProtocol::setCamera(const QString &camera, const QString &port)
         if (idx < 0) {
             gp_abilities_list_free(abilities_list);
             qCDebug(KIO_KAMERA_LOG) << "Unable to get abilities for model: " << camera;
-            error(KIO::ERR_UNKNOWN, QString::fromLocal8Bit(gp_result_as_string(idx)));
-            return;
+            return KIO::WorkerResult::fail(KIO::ERR_UNKNOWN, QString::fromLocal8Bit(gp_result_as_string(idx)));
         }
         gp_abilities_list_get_abilities(abilities_list, idx, &m_abilities);
         gp_abilities_list_free(abilities_list);
@@ -805,8 +812,7 @@ void KameraProtocol::setCamera(const QString &camera, const QString &port)
         if (idx < 0) {
             gp_port_info_list_free(port_info_list);
             qCDebug(KIO_KAMERA_LOG) << "Unable to get port info for path: " << port;
-            error(KIO::ERR_UNKNOWN, QString::fromLocal8Bit(gp_result_as_string(idx)));
-            return;
+            return KIO::WorkerResult::fail(KIO::ERR_UNKNOWN, QString::fromLocal8Bit(gp_result_as_string(idx)));
         }
         gp_port_info_list_get_info(port_info_list, idx, &port_info);
 
@@ -816,8 +822,7 @@ void KameraProtocol::setCamera(const QString &camera, const QString &port)
         gpr = gp_camera_new(&m_camera);
         if (gpr != GP_OK) {
             gp_port_info_list_free(port_info_list);
-            error(KIO::ERR_UNKNOWN, QString::fromLocal8Bit(gp_result_as_string(gpr)));
-            return;
+            return KIO::WorkerResult::fail(KIO::ERR_UNKNOWN, QString::fromLocal8Bit(gp_result_as_string(gpr)));
         }
 
         // register gphoto2 callback functions
@@ -840,10 +845,11 @@ void KameraProtocol::setCamera(const QString &camera, const QString &port)
             }
             m_camera = nullptr;
             qCDebug(KIO_KAMERA_LOG) << "Unable to init camera: " << errstr;
-            error(KIO::ERR_SERVICE_NOT_AVAILABLE, errstr);
-            return;
+            return KIO::WorkerResult::fail(KIO::ERR_SERVICE_NOT_AVAILABLE, errstr);
         }
     }
+
+    return KIO::WorkerResult::pass();
 }
 
 void KameraProtocol::reparseConfiguration()

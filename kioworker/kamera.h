@@ -9,23 +9,23 @@
 #ifndef __kamera_h__
 #define __kamera_h__
 
+#include <KIO/WorkerBase>
 #include <gphoto2.h>
-#include <kio/slavebase.h>
 class KConfig;
 
 class KConfig;
 
-class KameraProtocol : public KIO::SlaveBase
+class KameraProtocol : public KIO::WorkerBase
 {
 public:
     KameraProtocol(const QByteArray &pool, const QByteArray &app);
     ~KameraProtocol() override;
 
-    void get(const QUrl &url) override;
-    void stat(const QUrl &url) override;
-    void del(const QUrl &url, bool isFile) override;
-    void listDir(const QUrl &url) override;
-    void special(const QByteArray &data) override;
+    KIO::WorkerResult get(const QUrl &url) override;
+    KIO::WorkerResult stat(const QUrl &url) override;
+    KIO::WorkerResult del(const QUrl &url, bool isFile) override;
+    KIO::WorkerResult listDir(const QUrl &url) override;
+    KIO::WorkerResult special(const QByteArray &data) override;
 
     CameraFile *getFile()
     {
@@ -48,8 +48,8 @@ private:
 
     GPContext *m_context;
 
-    void split_url2camerapath(const QString &url, QString &directory, QString &file);
-    void setCamera(const QString &cam, const QString &port);
+    [[nodiscard]] KIO::WorkerResult split_url2camerapath(const QString &url, QString &directory, QString &file);
+    [[nodiscard]] KIO::WorkerResult setCamera(const QString &cam, const QString &port);
     void reparseConfiguration() override;
     bool openCamera(QString &str);
     bool openCamera()
@@ -59,8 +59,8 @@ private:
     }
     void closeCamera();
 
-    void statRoot();
-    void statRegular(const QUrl &url);
+    [[nodiscard]] KIO::WorkerResult statRoot();
+    [[nodiscard]] KIO::WorkerResult statRegular(const QUrl &url);
     void translateTextToUDS(KIO::UDSEntry &udsEntry, const QString &info, const char *txt);
     void translateFileToUDS(KIO::UDSEntry &udsEntry, const CameraFileInfo &info, const QString &name);
     void translateDirectoryToUDS(KIO::UDSEntry &udsEntry, const QString &dirname);
