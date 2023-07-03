@@ -416,6 +416,10 @@ void KameraProtocol::split_url2camerapath(const QString &url, QString &directory
     }
     cam = path_unquote(components.takeFirst());
     if (!cam.isEmpty()) {
+        if (!cam.contains(QLatin1Char('@'))) {
+            return;
+        }
+
         camarr = cam.split(QLatin1Char('@'));
         camera = path_unquote(camarr.takeFirst());
         port = path_unquote(camarr.takeLast());
