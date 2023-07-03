@@ -56,23 +56,7 @@ include(CMakePushCheckState)
 include(CheckSymbolExists)
 
 # Find gphoto2 library
-find_package(Gphoto2 REQUIRED)
-# Check version >= 2.5.0
-cmake_push_check_state()
-set(CMAKE_REQUIRED_INCLUDES "${GPHOTO2_INCLUDE_DIRS}")
-set(CMAKE_REQUIRED_LIBRARIES "${GPHOTO2_LIBRARIES}")
-check_symbol_exists(gp_port_info_get_name "gphoto2.h" HAVE_GPHOTO2_5)
-cmake_pop_check_state()
-
-if(HAVE_GPHOTO2_5)
-    message(STATUS "Detected libgphoto2 2.5.0 or newer")
-else()
-    message(STATUS "Detected libgphoto2 2.4 or older")
-endif()
-
-include(ConfigureChecks.cmake)
-
-configure_file(config-kamera.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kamera.h)
+find_package(Gphoto2 2.5.0 REQUIRED)
 
 set(CMAKE_CXX_FLAGS_DEBUG, "${CMAKE_CXX_FLAGS_DEBUG} -Wall -Wunused -Wextra")
 remove_definitions( -DQT_NO_CAST_FROM_ASCII )

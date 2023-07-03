@@ -2,4 +2,4 @@ Dependencies:
 
 libgphoto2 which you can get from gphotos GIT https://github.com/gphoto/libgphoto2
 
-You need libgphoto 2.4, 2.5 (or later).
+You need libgphoto 2.5 (or later).

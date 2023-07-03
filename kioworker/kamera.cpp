@@ -28,7 +28,6 @@
 #include <KLocalizedString>
 #include <KProtocolInfo>
 
-#include <config-kamera.h>
 #include <kio_kamera_log.h>
 
 #define tocstr(x) ((x).toLocal8Bit())
@@ -47,13 +46,8 @@ class KIOPluginForMetaData : public QObject
 extern "C" {
 Q_DECL_EXPORT int kdemain(int argc, char **argv);
 
-#ifdef HAVE_GPHOTO2_5
 static void frontendCameraStatus(GPContext *context, const char *status, void *data);
 static unsigned int frontendProgressStart(GPContext *context, float totalsize, const char *status, void *data);
-#else
-static void frontendCameraStatus(GPContext *context, const char *format, va_list args, void *data);
-static unsigned int frontendProgressStart(GPContext *context, float totalsize, const char *format, va_list args, void *data);
-#endif
 static void frontendProgressUpdate(GPContext *context, unsigned int id, float current, void *data);
 }
 
@@ -988,106 +982,22 @@ void frontendProgressUpdate(GPContext * /*context*/, unsigned int /*id*/, float 
     }
 }
 
-unsigned int frontendProgressStart(GPContext * /*context*/,
-                                   float totalsize,
-#ifdef HAVE_GPHOTO2_5
-                                   const char *status,
-#else
-                                   const char *format,
-                                   va_list args,
-#endif
-                                   void *data)
+unsigned int frontendProgressStart(GPContext * /*context*/, float totalsize, const char *status, void *data)
 {
     auto object = (KameraProtocol *)data;
-#ifndef HAVE_GPHOTO2_5
-    char *status;
-
-    /* We must copy the va_list to walk it twice, or all hell
-     * breaks loose on non-i386 platforms.
-     */
-#if defined(HAVE_VA_COPY) || defined(HAVE___VA_COPY)
-    va_list xvalist;
-#ifdef HAVE_VA_COPY
-    va_copy(xvalist, args);
-#elif HAVE___VA_COPY
-    __va_copy(xvalist, args);
-#endif
-    int size = vsnprintf(NULL, 0, format, xvalist);
-    if (size <= 0)
-        return GP_OK; // vsnprintf is broken, better don't do anything.
-
-    status = new char[size + 1];
-#ifdef HAVE_VA_COPY
-    va_copy(xvalist, args);
-#elif HAVE___VA_COPY
-    __va_copy(xvalist, args);
-#endif
-    vsnprintf(status, size + 1, format, xvalist);
-#else
-    /* We cannot copy the va_list, so make sure we
-     * walk it just _once_.
-     */
-    status = new char[300];
-    vsnprintf(status, 300, format, args);
-#endif
-
     object->infoMessage(QString::fromLocal8Bit(status));
     delete[] status;
-#else
     /* libgphoto2 2.5 has resolved this already, no need for print */
     object->infoMessage(QString::fromLocal8Bit(status));
-#endif
     object->totalSize((KIO::filesize_t)totalsize); // hack: call slot directly
     return GP_OK;
 }
 
 // this callback function is activated on every status message from gphoto2
-static void frontendCameraStatus(GPContext * /*context*/,
-#ifdef HAVE_GPHOTO2_5
-                                 const char *status,
-#else
-                                 const char *format,
-                                 va_list args,
-#endif
-                                 void *data)
+static void frontendCameraStatus(GPContext * /*context*/, const char *status, void *data)
 {
     auto object = (KameraProtocol *)data;
-#ifndef HAVE_GPHOTO2_5
-    char *status;
-
-    /* We must copy the va_list to walk it twice, or all hell
-     * breaks loose on non-i386 platforms.
-     */
-#if defined(HAVE_VA_COPY) || defined(HAVE___VA_COPY)
-    va_list xvalist;
-#ifdef HAVE_VA_COPY
-    va_copy(xvalist, args);
-#elif HAVE___VA_COPY
-    __va_copy(xvalist, args);
-#endif
-    int size = vsnprintf(NULL, 0, format, xvalist);
-    if (size <= 0)
-        return; // vsnprintf is broken, better don't do anything.
-
-    status = new char[size + 1];
-#ifdef HAVE_VA_COPY
-    va_copy(xvalist, args);
-#elif HAVE___VA_COPY
-    __va_copy(xvalist, args);
-#endif
-    vsnprintf(status, size + 1, format, xvalist);
-#else
-    /* We cannot copy the va_list, so make sure we
-     * walk it just _once_.
-     */
-    status = new char[300];
-    vsnprintf(status, 300, format, args);
-#endif
     object->infoMessage(QString::fromLocal8Bit(status));
-    delete[] status;
-#else
-    object->infoMessage(QString::fromLocal8Bit(status));
-#endif
 }
 
 #include "kamera.moc"

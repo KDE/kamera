@@ -25,8 +25,6 @@
 #include <KLocalizedString>
 #include <KMessageBox>
 
-#include <config-kamera.h>
-
 extern "C" {
 #include <gphoto2.h>
 }
@@ -397,17 +395,11 @@ KameraDeviceSelectDialog::KameraDeviceSelectDialog(QWidget *parent, KCamera *dev
     }
     for (int i = 0; i < gphoto_ports; i++) {
         if (gp_port_info_list_get_info(list, i, &info) >= 0) {
-#ifdef HAVE_GPHOTO2_5
             char *xpath;
             gp_port_info_get_path(info, &xpath);
             if (strncmp(xpath, "serial:", 7) == 0) {
                 m_serialPortCombo->addItem(QString::fromLocal8Bit(xpath).mid(7));
             }
-#else
-            if (strncmp(info.path, "serial:", 7) == 0) {
-                m_serialPortCombo->addItem(QString::fromLocal8Bit(info.path).mid(7));
-            }
-#endif
         }
     }
     gp_port_info_list_free(list);
