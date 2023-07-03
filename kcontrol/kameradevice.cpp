@@ -11,24 +11,24 @@
 
 #include <QComboBox>
 #include <QGroupBox>
-#include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QListView>
+#include <QPushButton>
 #include <QRadioButton>
 #include <QStackedWidget>
 #include <QStandardItemModel>
-#include <QPushButton>
+#include <QVBoxLayout>
 
-#include <KLocalizedString>
 #include <KConfig>
 #include <KConfigGroup>
+#include <KLocalizedString>
 #include <KMessageBox>
 
 #include <config-kamera.h>
 
 extern "C" {
-    #include <gphoto2.h>
+#include <gphoto2.h>
 }
 
 #include "kameraconfigdialog.h"
@@ -37,13 +37,14 @@ extern "C" {
 #define GP_PROMPT_OK 0
 #define GP_PROMPT_CANCEL -1
 
-static const int INDEX_NONE= 0;
+static const int INDEX_NONE = 0;
 static const int INDEX_SERIAL = 1;
-static const int INDEX_USB= 2;
+static const int INDEX_USB = 2;
 static GPContext *glob_context = nullptr;
 
 #ifdef DEBUG
-static void gp_errordumper(GPLogLevel level, const char *domain, const char *str, void *data) {
+static void gp_errordumper(GPLogLevel level, const char *domain, const char *str, void *data)
+{
     qCDebug(KAMERA_KCONTROL) << "GP_LOG: " << str;
 }
 
@@ -54,18 +55,18 @@ static void gp_errordumper(GPLogLevel level, const char *domain, const char *str
 
 KCamera::KCamera(const QString &name, const QString &path)
 {
-    m_name	= name;
-    m_model	= name;
-    m_path	= path;
+    m_name = name;
+    m_model = name;
+    m_path = path;
     m_camera = nullptr;
     m_abilitylist = nullptr;
 }
 
 KCamera::~KCamera()
 {
-    if(m_camera)
+    if (m_camera)
         gp_camera_free(m_camera);
-    if(m_abilitylist)
+    if (m_abilitylist)
         gp_abilities_list_free(m_abilitylist);
 }
 
@@ -75,22 +76,23 @@ bool KCamera::initInformation()
         return false;
     }
 
-    if(gp_abilities_list_new(&m_abilitylist) != GP_OK) {
+    if (gp_abilities_list_new(&m_abilitylist) != GP_OK) {
         Q_EMIT error(i18n("Could not allocate memory for the abilities list."));
         return false;
     }
-    if(gp_abilities_list_load(m_abilitylist, glob_context) != GP_OK) {
+    if (gp_abilities_list_load(m_abilitylist, glob_context) != GP_OK) {
         Q_EMIT error(i18n("Could not load ability list."));
         return false;
     }
-    int index = gp_abilities_list_lookup_model(m_abilitylist,
-                                               m_model.toLocal8Bit().data());
-    if(index < 0) {
-        Q_EMIT error(i18n("Description of abilities for camera %1 is not available."
-                    " Configuration options may be incorrect.", m_model));
+    int index = gp_abilities_list_lookup_model(m_abilitylist, m_model.toLocal8Bit().data());
+    if (index < 0) {
+        Q_EMIT error(
+            i18n("Description of abilities for camera %1 is not available."
+                 " Configuration options may be incorrect.",
+                 m_model));
         return false;
     }
-        gp_abilities_list_get_abilities(m_abilitylist, index, &m_abilities);
+    gp_abilities_list_get_abilities(m_abilitylist, index, &m_abilities);
     return true;
 }
 
@@ -129,9 +131,8 @@ bool KCamera::initCamera()
         if (result != GP_OK) {
             gp_camera_free(m_camera);
             m_camera = nullptr;
-            Q_EMIT error(
-                i18n("Unable to initialize camera. Check your port settings and camera connectivity and try again."),
-                QString::fromLocal8Bit(gp_result_as_string(result)));
+            Q_EMIT error(i18n("Unable to initialize camera. Check your port settings and camera connectivity and try again."),
+                         QString::fromLocal8Bit(gp_result_as_string(result)));
             return false;
         }
 
@@ -139,7 +140,7 @@ bool KCamera::initCamera()
     }
 }
 
-Camera* KCamera::camera()
+Camera *KCamera::camera()
 {
     initCamera();
     return m_camera;
@@ -148,7 +149,7 @@ Camera* KCamera::camera()
 QString KCamera::summary()
 {
     int result;
-    CameraText	summary;
+    CameraText summary;
 
     initCamera();
 
@@ -168,8 +169,7 @@ bool KCamera::configure()
 
     result = gp_camera_get_config(m_camera, &window, glob_context);
     if (result != GP_OK) {
-        Q_EMIT error(i18n("Camera configuration failed."),
-                QString::fromLocal8Bit(gp_result_as_string(result)));
+        Q_EMIT error(i18n("Camera configuration failed."), QString::fromLocal8Bit(gp_result_as_string(result)));
         return false;
     }
 
@@ -179,8 +179,7 @@ bool KCamera::configure()
     if (result == GP_PROMPT_OK) {
         result = gp_camera_set_config(m_camera, window, glob_context);
         if (result != GP_OK) {
-            Q_EMIT error(i18n("Camera configuration failed."),
-                    QString::fromLocal8Bit(gp_result_as_string(result)));
+            Q_EMIT error(i18n("Camera configuration failed."), QString::fromLocal8Bit(gp_result_as_string(result)));
             return false;
         }
     }
@@ -217,8 +216,10 @@ void KCamera::save(KConfig *config)
 QString KCamera::portName()
 {
     const QString port = m_path.left(m_path.indexOf(QLatin1Char(':'))).toLower();
-    if (port == QStringLiteral("serial")) return i18n("Serial");
-    if (port == QStringLiteral("usb")) return i18n("USB");
+    if (port == QStringLiteral("serial"))
+        return i18n("Serial");
+    if (port == QStringLiteral("usb"))
+        return i18n("USB");
     return i18n("Unknown port");
 }
 
@@ -282,15 +283,16 @@ CameraAbilities KCamera::abilities() const
 KameraDeviceSelectDialog::KameraDeviceSelectDialog(QWidget *parent, KCamera *device)
     : QDialog(parent)
 {
-    setWindowTitle( i18n("Select Camera Device") );
+    setWindowTitle(i18n("Select Camera Device"));
 
-    setModal( true );
+    setModal(true);
     m_device = device;
-    connect(m_device, qOverload<const QString&>(&KCamera::error),
-        this, qOverload<const QString&>(&KameraDeviceSelectDialog::slot_error));
+    connect(m_device, qOverload<const QString &>(&KCamera::error), this, qOverload<const QString &>(&KameraDeviceSelectDialog::slot_error));
 
-    connect(m_device, qOverload<const QString&, const QString&>(&KCamera::error),
-        this, qOverload<const QString&, const QString&>(&KameraDeviceSelectDialog::slot_error));
+    connect(m_device,
+            qOverload<const QString &, const QString &>(&KCamera::error),
+            this,
+            qOverload<const QString &, const QString &>(&KameraDeviceSelectDialog::slot_error));
 
     // a layout with horizontal boxes - this gives the two columns
     auto topLayout = new QHBoxLayout(this);
@@ -299,44 +301,44 @@ KameraDeviceSelectDialog::KameraDeviceSelectDialog(QWidget *parent, KCamera *dev
     m_modelSel = new QListView(this);
     m_model = new QStandardItemModel(this);
     m_model->setColumnCount(1);
-    m_model->setHeaderData(0, Qt::Horizontal,
-            i18nc("@title:column", "Supported Cameras"));
+    m_model->setHeaderData(0, Qt::Horizontal, i18nc("@title:column", "Supported Cameras"));
     m_modelSel->setModel(m_model);
 
-    topLayout->addWidget( m_modelSel );
+    topLayout->addWidget(m_modelSel);
     connect(m_modelSel, &QListView::activated, this, &KameraDeviceSelectDialog::slot_setModel);
     connect(m_modelSel, &QListView::clicked, this, &KameraDeviceSelectDialog::slot_setModel);
 
     // make sure listview only as wide as it needs to be
-    m_modelSel->setSizePolicy(QSizePolicy(QSizePolicy::Maximum,
-        QSizePolicy::Preferred));
+    m_modelSel->setSizePolicy(QSizePolicy(QSizePolicy::Maximum, QSizePolicy::Preferred));
 
     auto rightLayout = new QVBoxLayout();
     rightLayout->setContentsMargins(0, 0, 0, 0);
-    topLayout->addLayout( rightLayout );
+    topLayout->addLayout(rightLayout);
 
     m_portSelectGroup = new QGroupBox(i18n("Port"), this);
-        auto vertLayout = new QVBoxLayout;
-        m_portSelectGroup->setLayout( vertLayout );
+    auto vertLayout = new QVBoxLayout;
+    m_portSelectGroup->setLayout(vertLayout);
     m_portSelectGroup->setMinimumSize(100, 120);
     rightLayout->addWidget(m_portSelectGroup);
     // Create port type selection radiobuttons.
     m_serialRB = new QRadioButton(i18n("Serial"));
-        vertLayout->addWidget(m_serialRB );
-    m_serialRB->setWhatsThis( i18n("If this option is checked, the camera has "
-        "to be connected to one of the computer's serial ports (known as COM "
-        "ports in Microsoft Windows.)"));
+    vertLayout->addWidget(m_serialRB);
+    m_serialRB->setWhatsThis(
+        i18n("If this option is checked, the camera has "
+             "to be connected to one of the computer's serial ports (known as COM "
+             "ports in Microsoft Windows.)"));
     m_USBRB = new QRadioButton(i18n("USB"));
-        vertLayout->addWidget(m_USBRB );
-    m_USBRB->setWhatsThis( i18n("If this option is checked, the camera has to "
-        "be connected to one of the computer's USB ports, or to a USB hub."));
+    vertLayout->addWidget(m_USBRB);
+    m_USBRB->setWhatsThis(
+        i18n("If this option is checked, the camera has to "
+             "be connected to one of the computer's USB ports, or to a USB hub."));
 
     m_portSettingsGroup = new QGroupBox(i18n("Port Settings"), this);
-        auto lay = new QVBoxLayout;
-        m_portSettingsGroup->setLayout( lay );
+    auto lay = new QVBoxLayout;
+    m_portSettingsGroup->setLayout(lay);
     rightLayout->addWidget(m_portSettingsGroup);
     // Create port settings widget stack
-    m_settingsStack = new  QStackedWidget;
+    m_settingsStack = new QStackedWidget;
     auto grid2 = new QWidget(m_settingsStack);
     auto gridLayout2 = new QGridLayout(grid2);
     grid2->setLayout(gridLayout2);
@@ -344,14 +346,12 @@ KameraDeviceSelectDialog::KameraDeviceSelectDialog(QWidget *parent, KCamera *dev
     gridLayout2->addWidget(label2, 0, 0, Qt::AlignLeft);
 
     lay->addWidget(grid2);
-    lay->addWidget( m_settingsStack );
+    lay->addWidget(m_settingsStack);
     connect(m_serialRB, &QRadioButton::toggled, this, &KameraDeviceSelectDialog::changeCurrentIndex);
     connect(m_USBRB, &QRadioButton::toggled, this, &KameraDeviceSelectDialog::changeCurrentIndex);
 
     // none tab
-    m_settingsStack->insertWidget(INDEX_NONE,
-            new QLabel(i18n("No port type selected."),
-            m_settingsStack));
+    m_settingsStack->insertWidget(INDEX_NONE, new QLabel(i18n("No port type selected."), m_settingsStack));
 
     // serial tab
     auto grid = new QWidget(m_settingsStack);
@@ -361,20 +361,18 @@ KameraDeviceSelectDialog::KameraDeviceSelectDialog(QWidget *parent, KCamera *dev
     auto label = new QLabel(i18n("Port:"), grid);
     m_serialPortCombo = new QComboBox(grid);
     m_serialPortCombo->setEditable(true);
-    m_serialPortCombo->setWhatsThis( i18n("Specify here the serial port to "
-        "which you connect the camera."));
+    m_serialPortCombo->setWhatsThis(
+        i18n("Specify here the serial port to "
+             "which you connect the camera."));
 
     gridLayout->addWidget(label, 1, 0, Qt::AlignLeft);
     gridLayout->addWidget(m_serialPortCombo, 1, 1, Qt::AlignRight);
     m_settingsStack->insertWidget(INDEX_SERIAL, grid);
 
-    m_settingsStack->insertWidget(INDEX_USB, new
-        QLabel(i18n("No further configuration is required for USB cameras."),
-        m_settingsStack));
+    m_settingsStack->insertWidget(INDEX_USB, new QLabel(i18n("No further configuration is required for USB cameras."), m_settingsStack));
 
     // Add the ok/cancel buttons to the bottom of the right side
-    m_OkCancelButtonBox = new QDialogButtonBox(
-            QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
+    m_OkCancelButtonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
     QPushButton *okButton = m_OkCancelButtonBox->button(QDialogButtonBox::Ok);
     QPushButton *cancelButton = m_OkCancelButtonBox->button(QDialogButtonBox::Cancel);
     okButton->setDefault(true);
@@ -392,16 +390,16 @@ KameraDeviceSelectDialog::KameraDeviceSelectDialog(QWidget *parent, KCamera *dev
     // query gphoto2 for existing serial ports
     GPPortInfoList *list;
     GPPortInfo info;
-    int gphoto_ports=0;
+    int gphoto_ports = 0;
     gp_port_info_list_new(&list);
-    if(gp_port_info_list_load(list) >= 0) {
+    if (gp_port_info_list_load(list) >= 0) {
         gphoto_ports = gp_port_info_list_count(list);
     }
     for (int i = 0; i < gphoto_ports; i++) {
         if (gp_port_info_list_get_info(list, i, &info) >= 0) {
 #ifdef HAVE_GPHOTO2_5
             char *xpath;
-            gp_port_info_get_path (info, &xpath);
+            gp_port_info_get_path(info, &xpath);
             if (strncmp(xpath, "serial:", 7) == 0) {
                 m_serialPortCombo->addItem(QString::fromLocal8Bit(xpath).mid(7));
             }
@@ -414,39 +412,38 @@ KameraDeviceSelectDialog::KameraDeviceSelectDialog(QWidget *parent, KCamera *dev
     }
     gp_port_info_list_free(list);
 
-
     populateCameraListView();
     load();
 
-    m_portSelectGroup->setEnabled( false );
-    m_portSettingsGroup->setEnabled( false );
+    m_portSelectGroup->setEnabled(false);
+    m_portSettingsGroup->setEnabled(false);
 }
 
 void KameraDeviceSelectDialog::changeCurrentIndex()
 {
-    auto send = dynamic_cast<QRadioButton*>( sender() );
-    if ( send ) {
-        if ( send == m_serialRB ) {
-            m_settingsStack->setCurrentIndex( INDEX_SERIAL );
-        } else if ( send == m_USBRB ) {
-            m_settingsStack->setCurrentIndex( INDEX_USB );
+    auto send = dynamic_cast<QRadioButton *>(sender());
+    if (send) {
+        if (send == m_serialRB) {
+            m_settingsStack->setCurrentIndex(INDEX_SERIAL);
+        } else if (send == m_USBRB) {
+            m_settingsStack->setCurrentIndex(INDEX_USB);
         }
     }
 }
 
 bool KameraDeviceSelectDialog::populateCameraListView()
 {
-    gp_abilities_list_new (&m_device->m_abilitylist);
+    gp_abilities_list_new(&m_device->m_abilitylist);
     gp_abilities_list_load(m_device->m_abilitylist, glob_context);
     int numCams = gp_abilities_list_count(m_device->m_abilitylist);
     CameraAbilities a;
 
-    if(numCams < 0) {
+    if (numCams < 0) {
         // XXX libgphoto2 failed to get te camera list
         return false;
     } else {
-        for(int x = 0; x < numCams; ++x) {
-            if(gp_abilities_list_get_abilities(m_device->m_abilitylist, x, &a) == GP_OK) {
+        for (int x = 0; x < numCams; ++x) {
+            if (gp_abilities_list_get_abilities(m_device->m_abilitylist, x, &a) == GP_OK) {
                 auto cameraItem = new QStandardItem;
                 cameraItem->setEditable(false);
                 cameraItem->setText(a.model);
@@ -463,7 +460,7 @@ void KameraDeviceSelectDialog::save()
 
     if (m_serialRB->isChecked()) {
         m_device->setPath(QStringLiteral("serial:") + m_serialPortCombo->currentText());
-    } else if ( m_USBRB->isChecked() ) {
+    } else if (m_USBRB->isChecked()) {
         m_device->setPath(QStringLiteral("usb:"));
     }
 }
@@ -494,18 +491,19 @@ void KameraDeviceSelectDialog::slot_setModel(const QModelIndex &modelIndex)
     QString model = modelIndex.data(Qt::DisplayRole).toString();
 
     CameraAbilities abilities;
-    int index = gp_abilities_list_lookup_model(m_device->m_abilitylist,
-                                               model.toLocal8Bit().data());
-    if(index < 0) {
-        slot_error(i18n("Description of abilities for camera %1 is not available."
-                " Configuration options may be incorrect.", model));
+    int index = gp_abilities_list_lookup_model(m_device->m_abilitylist, model.toLocal8Bit().data());
+    if (index < 0) {
+        slot_error(
+            i18n("Description of abilities for camera %1 is not available."
+                 " Configuration options may be incorrect.",
+                 model));
     }
     int result = gp_abilities_list_get_abilities(m_device->m_abilitylist, index, &abilities);
     if (result == GP_OK) {
         // enable radiobuttons for supported port types
         m_serialRB->setEnabled(abilities.port & GP_PORT_SERIAL);
         m_USBRB->setEnabled(abilities.port & GP_PORT_USB);
-            // if there's only one available port type, make sure it's selected
+        // if there's only one available port type, make sure it's selected
         if (abilities.port == GP_PORT_SERIAL) {
             setPortType(INDEX_SERIAL);
         }
@@ -513,8 +511,10 @@ void KameraDeviceSelectDialog::slot_setModel(const QModelIndex &modelIndex)
             setPortType(INDEX_USB);
         }
     } else {
-        slot_error(i18n("Description of abilities for camera %1 is not available."
-                 " Configuration options may be incorrect.", model));
+        slot_error(
+            i18n("Description of abilities for camera %1 is not available."
+                 " Configuration options may be incorrect.",
+                 model));
     }
     QPushButton *okButton = m_OkCancelButtonBox->button(QDialogButtonBox::Ok);
     okButton->setEnabled(true);
@@ -523,10 +523,10 @@ void KameraDeviceSelectDialog::slot_setModel(const QModelIndex &modelIndex)
 void KameraDeviceSelectDialog::setPortType(int type)
 {
     // Enable the correct button
-    if ( type == INDEX_USB ) {
-        m_USBRB->setChecked( true );
-    } else if ( type == INDEX_SERIAL ) {
-        m_serialRB->setChecked( true );
+    if (type == INDEX_USB) {
+        m_USBRB->setChecked(true);
+    } else if (type == INDEX_SERIAL) {
+        m_serialRB->setChecked(true);
     }
 
     // Bring the right tab to the front

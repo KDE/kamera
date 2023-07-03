@@ -27,7 +27,8 @@ class QGroupBox;
 class QStandardItemModel;
 class QModelIndex;
 
-class KCamera : public QObject {
+class KCamera : public QObject
+{
     friend class KameraDeviceSelectDialog;
     Q_OBJECT
 public:
@@ -40,10 +41,19 @@ public:
     bool test();
     QStringList supportedPorts();
 
-    Camera* camera();
-    QString name() const { return m_name ; }
-    QString model() const { return m_model; }
-    QString path() const { return m_path; }
+    Camera *camera();
+    QString name() const
+    {
+        return m_name;
+    }
+    QString model() const
+    {
+        return m_model;
+    }
+    QString path() const
+    {
+        return m_path;
+    }
     QString portName();
 
     QString summary();
@@ -84,6 +94,7 @@ protected Q_SLOTS:
     void slot_error(const QString &message);
     void slot_error(const QString &message, const QString &details);
     void changeCurrentIndex();
+
 protected:
     KCamera *m_device;
 

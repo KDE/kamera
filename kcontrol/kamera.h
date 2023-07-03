@@ -10,10 +10,10 @@
 #ifndef __kamera_h__
 #define __kamera_h__
 
-#include <KCModule>
-#include <gphoto2.h>
-#include <KPluginFactory>
 #include "kcoreaddons_version.h"
+#include <KCModule>
+#include <KPluginFactory>
+#include <gphoto2.h>
 
 class QWidget;
 class QPushButton;

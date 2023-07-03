@@ -10,20 +10,19 @@
 #ifndef __kameraconfigdialog_h__
 #define __kameraconfigdialog_h__
 
-#include <QMap>
 #include <QDialog>
+#include <QMap>
 class QTabWidget;
 
 extern "C" {
-    #include <gphoto2.h>
+#include <gphoto2.h>
 }
 
 class KameraConfigDialog : public QDialog
 {
     Q_OBJECT
 public:
-    explicit KameraConfigDialog(Camera *camera, CameraWidget *widget,
-               QWidget *parent = nullptr);
+    explicit KameraConfigDialog(Camera *camera, CameraWidget *widget, QWidget *parent = nullptr);
 
 private Q_SLOTS:
     void slotOk();

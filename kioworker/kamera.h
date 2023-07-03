@@ -9,8 +9,8 @@
 #ifndef __kamera_h__
 #define __kamera_h__
 
-#include <kio/slavebase.h>
 #include <gphoto2.h>
+#include <kio/slavebase.h>
 class KConfig;
 
 class KConfig;
@@ -27,9 +27,18 @@ public:
     void listDir(const QUrl &url) override;
     void special(const QByteArray &data) override;
 
-    CameraFile *getFile() { return m_file; }
-    KIO::filesize_t getFileSize() { return m_fileSize; }
-    void setFileSize(KIO::filesize_t newfs) { m_fileSize = newfs; }
+    CameraFile *getFile()
+    {
+        return m_file;
+    }
+    KIO::filesize_t getFileSize()
+    {
+        return m_fileSize;
+    }
+    void setFileSize(KIO::filesize_t newfs)
+    {
+        m_fileSize = newfs;
+    }
 
 private:
     Camera *m_camera;
@@ -42,8 +51,9 @@ private:
     void split_url2camerapath(const QString &url, QString &directory, QString &file);
     void setCamera(const QString &cam, const QString &port);
     void reparseConfiguration() override;
-    bool openCamera(QString& str);
-    bool openCamera( ) {
+    bool openCamera(QString &str);
+    bool openCamera()
+    {
         QString errstr;
         return openCamera(errstr);
     }
@@ -51,22 +61,16 @@ private:
 
     void statRoot();
     void statRegular(const QUrl &url);
-    void translateTextToUDS(KIO::UDSEntry &udsEntry,
-                            const QString &info,
-                            const char *txt);
-    void translateFileToUDS(KIO::UDSEntry &udsEntry,
-                            const CameraFileInfo &info,
-                            const QString &name);
+    void translateTextToUDS(KIO::UDSEntry &udsEntry, const QString &info, const char *txt);
+    void translateFileToUDS(KIO::UDSEntry &udsEntry, const CameraFileInfo &info, const QString &name);
     void translateDirectoryToUDS(KIO::UDSEntry &udsEntry, const QString &dirname);
     bool cameraSupportsPreview();
     bool cameraSupportsDel();
     bool cameraSupportsPut();
-    int readCameraFolder(const QString &folder,
-                         CameraList *dirList,
-                         CameraList *fileList);
+    int readCameraFolder(const QString &folder, CameraList *dirList, CameraList *fileList);
 
     QString m_lockfile;
-    int     idletime;
+    int idletime;
 
     KIO::filesize_t m_fileSize;
     CameraFile *m_file = nullptr;
