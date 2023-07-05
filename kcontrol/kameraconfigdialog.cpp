@@ -359,3 +359,5 @@ void KameraConfigDialog::slotOk()
     // 'ok' dialog
     accept();
 }
+
+#include "moc_kameraconfigdialog.cpp"

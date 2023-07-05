@@ -474,3 +474,5 @@ void KKameraConfig::slot_error(const QString &message, const QString &details)
 }
 
 #include "kamera.moc"
+
+#include "moc_kamera.cpp"
