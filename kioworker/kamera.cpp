@@ -971,8 +971,6 @@ void frontendProgressUpdate(GPContext * /*context*/, unsigned int /*id*/, float 
 unsigned int frontendProgressStart(GPContext * /*context*/, float totalsize, const char *status, void *data)
 {
     auto object = (KameraProtocol *)data;
-    object->infoMessage(QString::fromLocal8Bit(status));
-    delete[] status;
     /* libgphoto2 2.5 has resolved this already, no need for print */
     object->infoMessage(QString::fromLocal8Bit(status));
     object->totalSize((KIO::filesize_t)totalsize); // hack: call slot directly
