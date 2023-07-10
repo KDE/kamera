@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-08 00:56+0000\n"
+"POT-Creation-Date: 2023-07-09 00:57+0000\n"
 "PO-Revision-Date: 2018-10-13 11:39+0100\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: Dutch <kde-i18n-nl@kde.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Lokalize 2.0\n"
 
-#: kamera.cpp:782
+#: kamera.cpp:715
 #, kde-format
 msgid "Could not read. Reason: %1"
 msgstr "Kon niet lezen. Reden: %1"

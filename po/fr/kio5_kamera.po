@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kamera\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-08 00:56+0000\n"
+"POT-Creation-Date: 2023-07-09 00:57+0000\n"
 "PO-Revision-Date: 2018-12-05 15:06+0800\n"
 "Last-Translator: Simon Depiets <sdepiets@gmail.com>\n"
 "Language-Team: French <kde-francophone@kde.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "X-Accelerator-Marker: &\n"
 "X-Text-Markup: kde4\n"
 
-#: kamera.cpp:782
+#: kamera.cpp:715
 #, kde-format
 msgid "Could not read. Reason: %1"
 msgstr "Impossible de lire. Raison : %1"

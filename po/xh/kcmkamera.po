@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kcmkamera\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-18 00:49+0000\n"
+"POT-Creation-Date: 2023-07-09 00:57+0000\n"
 "PO-Revision-Date: 2002-09-11 10:14SAST\n"
 "Last-Translator: Lwandle Mgidlana <lwandle@translate.org.za>\n"
 "Language-Team: Xhosa <xhosa@translate.org.za>\n"
@@ -26,43 +26,43 @@ msgstr ""
 msgid "Unable to initialize the gPhoto2 libraries."
 msgstr "Ayikwazi ukuqupha iilayibrari ze gPhoto2."
 
-#: kamera.cpp:123
+#: kamera.cpp:119
 #, kde-format
 msgid "Add"
 msgstr ""
 
-#: kamera.cpp:125
+#: kamera.cpp:121
 #, kde-format
 msgid "Click this button to add a new camera."
 msgstr "Nqakraza eli qhosha ukudibanisa icamera entsha."
 
-#: kamera.cpp:131
+#: kamera.cpp:127
 #, kde-format
 msgid "Test"
 msgstr "Uvavanyo"
 
-#: kamera.cpp:133
+#: kamera.cpp:129
 #, fuzzy, kde-format
 #| msgid "Click this button to remove the selected camera from the list."
 msgid "Click this button to test the connection to the selected camera."
 msgstr "Nqakraza eli qhosha ukususa icamera ekhethiweyo kuluhlu."
 
-#: kamera.cpp:138
+#: kamera.cpp:134
 #, kde-format
 msgid "Remove"
 msgstr ""
 
-#: kamera.cpp:140
+#: kamera.cpp:136
 #, kde-format
 msgid "Click this button to remove the selected camera from the list."
 msgstr "Nqakraza eli qhosha ukususa icamera ekhethiweyo kuluhlu."
 
-#: kamera.cpp:145
+#: kamera.cpp:141
 #, kde-format
 msgid "Configure..."
 msgstr "Qwalasela..."
 
-#: kamera.cpp:147
+#: kamera.cpp:144
 #, kde-format
 msgid ""
 "Click this button to change the configuration of the selected camera."
@@ -73,12 +73,12 @@ msgstr ""
 "<br><br>Ubukho balo msebenzi nemixholo yencoko yababini yoqwalaselo "
 "ixhomekeka kuhlobo lwecamera."
 
-#: kamera.cpp:152
+#: kamera.cpp:150
 #, kde-format
 msgid "Information"
 msgstr ""
 
-#: kamera.cpp:154
+#: kamera.cpp:153
 #, fuzzy, kde-format
 #| msgid ""
 #| "Click this button to view a summary of the current status of the selected "
@@ -103,12 +103,12 @@ msgstr ""
 msgid "Click this button to cancel the current camera operation."
 msgstr "Nqakraza eliqhosha ukutshintsha idilesi yokukodwa."
 
-#: kamera.cpp:371
+#: kamera.cpp:374
 #, kde-format
 msgid "Camera test was successful."
 msgstr "Uvavanyo lwecamera lwaphumelela."
 
-#: kamera.cpp:455
+#: kamera.cpp:459
 #, fuzzy, kde-format
 msgid ""
 "<h1>Digital Camera</h1>\n"
@@ -133,28 +133,28 @@ msgstr ""
 "kwidilesi\n"
 "<a href=\"camera:/\">camera:/</a> kwi Konqueror nezinye KDE izicelo."
 
-#: kameraconfigdialog.cpp:241
+#: kameraconfigdialog.cpp:226
 #, kde-format
 msgid "Button (not supported by KControl)"
 msgstr "Iqhosha (ayixhaswa yi KControl)"
 
-#: kameraconfigdialog.cpp:249
+#: kameraconfigdialog.cpp:233
 #, kde-format
 msgid "Date (not supported by KControl)"
 msgstr "Umhla (awuxhaswa yi KControl)"
 
-#: kameradevice.cpp:79
+#: kameradevice.cpp:78
 #, fuzzy, kde-format
 #| msgid "Could not allocate memory for abilities list."
 msgid "Could not allocate memory for the abilities list."
 msgstr "Ayinakugcina inkumbulo yoluhlu lwemisebenzi."
 
-#: kameradevice.cpp:83
+#: kameradevice.cpp:82
 #, kde-format
 msgid "Could not load ability list."
 msgstr "Ayinakulayisha uluhlu lemisebenzi."
 
-#: kameradevice.cpp:89 kameradevice.cpp:500 kameradevice.cpp:516
+#: kameradevice.cpp:88 kameradevice.cpp:489 kameradevice.cpp:507
 #, kde-format
 msgid ""
 "Description of abilities for camera %1 is not available. Configuration "
@@ -168,7 +168,7 @@ msgstr ""
 msgid "Could not access driver. Check your gPhoto2 installation."
 msgstr "Ayinakunikeza umqhubi. Khangela ufako lwakho lwe gPhoto2."
 
-#: kameradevice.cpp:133
+#: kameradevice.cpp:132
 #, kde-format
 msgid ""
 "Unable to initialize camera. Check your port settings and camera "
@@ -177,49 +177,49 @@ msgstr ""
 "Ayikwazi ukuqupha icamera. Khangela izicwangciso zakho zezibuko necamera "
 "ngokudibeneyo kwaye uzame kwakhona."
 
-#: kameradevice.cpp:157
+#: kameradevice.cpp:156
 #, kde-format
 msgid "No camera summary information is available.\n"
 msgstr "Akukho isishwanathelo solwazi olukhoyo.\n"
 
-#: kameradevice.cpp:171 kameradevice.cpp:182
+#: kameradevice.cpp:170 kameradevice.cpp:180
 #, kde-format
 msgid "Camera configuration failed."
 msgstr "Uqwalaselo lwecamera aluphumelelanga."
 
-#: kameradevice.cpp:220 kameradevice.cpp:324
+#: kameradevice.cpp:218 kameradevice.cpp:322
 #, kde-format
 msgid "Serial"
 msgstr "Uthotho"
 
-#: kameradevice.cpp:221 kameradevice.cpp:329
+#: kameradevice.cpp:220 kameradevice.cpp:328
 #, kde-format
 msgid "USB"
 msgstr "USB"
 
-#: kameradevice.cpp:222
+#: kameradevice.cpp:221
 #, kde-format
 msgid "Unknown port"
 msgstr "Izibuko elingaziwayo"
 
-#: kameradevice.cpp:285
+#: kameradevice.cpp:284
 #, kde-format
 msgid "Select Camera Device"
 msgstr "Khetha Icebo le khamera"
 
-#: kameradevice.cpp:303
+#: kameradevice.cpp:302
 #, fuzzy, kde-format
 #| msgid "Supported Cameras"
 msgctxt "@title:column"
 msgid "Supported Cameras"
 msgstr "Iicamera ezixhaswayo"
 
-#: kameradevice.cpp:318 kameradevice.cpp:343
+#: kameradevice.cpp:316 kameradevice.cpp:343
 #, kde-format
 msgid "Port"
 msgstr "Izibuko"
 
-#: kameradevice.cpp:326
+#: kameradevice.cpp:325
 #, fuzzy, kde-format
 #| msgid ""
 #| "If this option is checked, the camera would have to be connected one of "
@@ -248,23 +248,23 @@ msgstr ""
 msgid "Port Settings"
 msgstr "Izicwangciso zezibuko"
 
-#: kameradevice.cpp:353
+#: kameradevice.cpp:352
 #, kde-format
 msgid "No port type selected."
 msgstr "Akukho didi lwazibuko likhethiweyo."
 
-#: kameradevice.cpp:361
+#: kameradevice.cpp:359
 #, kde-format
 msgid "Port:"
 msgstr "Izibuko:"
 
-#: kameradevice.cpp:364
+#: kameradevice.cpp:363
 #, fuzzy, kde-format
 #| msgid "Here you should choose the serial port you connect the camera to."
 msgid "Specify here the serial port to which you connect the camera."
 msgstr "Apha ungakhetha uthotho lwezibuko olidibanisayo kwicamera."
 
-#: kameradevice.cpp:372
+#: kameradevice.cpp:370
 #, fuzzy, kde-format
 #| msgid "No further configuration is required for USB."
 msgid "No further configuration is required for USB cameras."
