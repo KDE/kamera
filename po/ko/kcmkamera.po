@@ -119,8 +119,8 @@ msgstr ""
 "없으면, <a href=\"http://www.gphoto.org\">GPhoto 웹사이트</a>에서 사용 가능"
 "한\n"
 "업데이트를 찾아 보십시오.<br /><br />\n"
-"디지털 카메라의 그림을 보거나 다운로드하려면 Konqueror 또는 다른 KDE 프로그램"
-"에서 주소 창에 <a href=\"camera:/\">camera:/</a>라고 입력하십시오."
+"디지털 카메라의 그림을 보거나 다운로드하려면 Konqueror 또는 다른 KDE 앱에서 "
+"주소 창에 <a href=\"camera:/\">camera:/</a>라고 입력하십시오."
 
 #: kameraconfigdialog.cpp:226
 #, kde-format
