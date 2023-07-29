@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kio5_kamera\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-09 00:57+0000\n"
+"POT-Creation-Date: 2023-07-29 00:43+0000\n"
 "PO-Revision-Date: 2018-10-20 14:23+0100\n"
 "Last-Translator: Roman Paholik <wizzardsk@gmail.com>\n"
 "Language-Team: Slovak <kde-i18n-doc@kde.org>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "X-Generator: Lokalize 2.0\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
-#: kamera.cpp:715
+#: kamera.cpp:724
 #, kde-format
 msgid "Could not read. Reason: %1"
 msgstr "Nemôžem čítať. Dôvod: %1"
