@@ -22,6 +22,7 @@
 
 #include <QCoreApplication>
 #include <QStandardPaths>
+#include <QUrl>
 
 #include <KConfig>
 #include <KConfigGroup>
