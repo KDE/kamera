@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kamera\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-29 00:43+0000\n"
+"POT-Creation-Date: 2023-08-26 00:43+0000\n"
 "PO-Revision-Date: 2023-06-12 07:13+0700\n"
 "Last-Translator: Wantoyèk <wantoyek@gmail.com>\n"
 "Language-Team: Indonesian <kde-i18n-doc@kde.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Lokalize 23.04.0\n"
 
-#: kamera.cpp:724
+#: kamera.cpp:725
 #, kde-format
 msgid "Could not read. Reason: %1"
 msgstr "Tidak dapat membaca. Alasan: %1"
