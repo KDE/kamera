@@ -21,3 +21,4 @@ CMakeLists.txt.user*
 *.unc-backup*
 .cmake/
 .cache/
+.clang-format
