@@ -34,11 +34,7 @@ class KKameraConfig : public KCModule
     friend class KameraDeviceSelectDialog;
 
 public:
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-    explicit KKameraConfig(QWidget *parent, const QVariantList &);
-#else
     explicit KKameraConfig(QObject *parent, const KPluginMetaData &md);
-#endif
     ~KKameraConfig() override;
 
     // KCModule interface methods
@@ -46,9 +42,6 @@ public:
     void save() override;
     void defaults() override;
     int buttons();
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-    QString quickHelp() const override;
-#endif
 
 protected:
     QString suggestName(const QString &name);
@@ -71,9 +64,6 @@ private:
     void populateDeviceListView();
     void beforeCameraOperation();
     void afterCameraOperation();
-#if KCOREADDONS_VERSION < QT_VERSION_CHECK(5, 105, 0)
-    QWidget *widget();
-#endif
     // gphoto callbacks
     static void cbGPIdle(GPContext *context, void *data);
     static GPContextFeedback cbGPCancel(GPContext *context, void *data);

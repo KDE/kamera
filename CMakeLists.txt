@@ -9,8 +9,8 @@ set(PROJECT_VERSION ${RELEASE_SERVICE_VERSION})
 
 project(kamera VERSION ${PROJECT_VERSION})
 
-set(QT_MIN_VERSION "5.15.2")
-set(KF5_MIN_VERSION    "5.96.0")
+set(QT_MIN_VERSION "6.5.0")
+set(KF5_MIN_VERSION    "5.240.0")
 find_package(ECM ${KF5_MIN_VERSION} REQUIRED NO_MODULE)
 set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${CMAKE_SOURCE_DIR})
 
@@ -23,21 +23,12 @@ include(KDEGitCommitHooks)
 include(FindPkgConfig)
 include(FeatureSummary)
 include(ECMDeprecationSettings)
-if (QT_MAJOR_VERSION STREQUAL "6")
-    set(QT_REQUIRED_VERSION "6.5.0")
-    set(KF_MIN_VERSION "5.240.0")
-    set(KF_MAJOR_VERSION "6")
-else()
-    set(KF_MAJOR_VERSION "5")
-endif()
 include(ECMQtDeclareLoggingCategory)
 
-find_package(Qt${QT_MAJOR_VERSION} ${QT_MIN_VERSION} REQUIRED COMPONENTS Core)
-if (QT_MAJOR_VERSION STREQUAL "6")
-    find_package(Qt6Core5Compat REQUIRED ${QT_MIN_VERSION})
-endif()
+find_package(Qt6 ${QT_MIN_VERSION} REQUIRED COMPONENTS Core)
+find_package(Qt6Core5Compat REQUIRED ${QT_MIN_VERSION})
 
-find_package(KF${KF_MAJOR_VERSION} ${KF5_MIN_VERSION} REQUIRED COMPONENTS
+find_package(KF6 ${KF5_MIN_VERSION} REQUIRED COMPONENTS
     ConfigWidgets
     XmlGui
     KIO
@@ -46,8 +37,8 @@ find_package(KF${KF_MAJOR_VERSION} ${KF5_MIN_VERSION} REQUIRED COMPONENTS
     KCMUtils
     )
 
-find_package(KF${KF_MAJOR_VERSION}DocTools ${KF5_MIN_VERSION})
-set_package_properties(KF${KF_MAJOR_VERSION}DocTools PROPERTIES DESCRIPTION
+find_package(KF6DocTools ${KF5_MIN_VERSION})
+set_package_properties(KF6DocTools PROPERTIES DESCRIPTION
     "Tools to generate documentation"
     TYPE OPTIONAL
 )
@@ -62,8 +53,8 @@ set(CMAKE_CXX_FLAGS_DEBUG, "${CMAKE_CXX_FLAGS_DEBUG} -Wall -Wunused -Wextra")
 remove_definitions( -DQT_NO_CAST_FROM_ASCII )
 remove_definitions( -DQT_NO_CAST_FROM_BYTEARRAY)
 
-ecm_set_disabled_deprecation_versions(QT 5.15.2
-    KF 5.101.0
+ecm_set_disabled_deprecation_versions(QT 6.5.0
+    KF 5.240.0
 )
 
 
@@ -71,7 +62,7 @@ add_subdirectory( kcontrol )
 add_subdirectory( kioworker )
 
 ki18n_install(po)
-if (KF${KF_MAJOR_VERSION}DocTools_FOUND)
+if (KF6DocTools_FOUND)
     kdoctools_install(po)
     add_subdirectory(doc)
 endif()

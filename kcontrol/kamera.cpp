@@ -30,13 +30,8 @@
 K_PLUGIN_CLASS_WITH_JSON(KKameraConfig, "kcm_kamera.json")
 
 // --------------- Camera control center module widget ---
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-KKameraConfig::KKameraConfig(QWidget *parent, const QVariantList &)
-    : KCModule(parent)
-#else
 KKameraConfig::KKameraConfig(QObject *parent, const KPluginMetaData &md)
     : KCModule(parent)
-#endif
 {
 #ifdef DEBUG_KAMERA_KCONTROL
     QLoggingCategory::setFilterRules(QStringLiteral("kamera.kcm.debug = true"));
@@ -62,13 +57,6 @@ KKameraConfig::~KKameraConfig()
 {
     delete m_config;
 }
-
-#if KCOREADDONS_VERSION < QT_VERSION_CHECK(5, 105, 0)
-QWidget *KKameraConfig::widget()
-{
-    return this;
-}
-#endif
 
 void KKameraConfig::defaults()
 {
@@ -336,11 +324,7 @@ void KKameraConfig::slot_addCamera()
         m_device->setName(suggestName(m_device->model()));
         m_devices.insert(m_device->name(), m_device);
         populateDeviceListView();
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-        Q_EMIT changed(true);
-#else
         setNeedsSave(true);
-#endif
     } else {
         delete m_device;
     }
@@ -355,11 +339,7 @@ void KKameraConfig::slot_removeCamera()
         delete m_device;
         m_config->deleteGroup(name);
         populateDeviceListView();
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-        Q_EMIT changed(true);
-#else
         setNeedsSave(true);
-#endif
     }
 }
 
@@ -451,21 +431,6 @@ GPContextFeedback KKameraConfig::cbGPCancel(GPContext * /*context*/, void *data)
         return GP_CONTEXT_FEEDBACK_OK;
     }
 }
-
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-QString KKameraConfig::quickHelp() const
-{
-    return i18n(
-        "<h1>Digital Camera</h1>\n"
-        "This module allows you to configure support for your digital camera.\n"
-        "You need to select the camera's model and the port it is connected\n"
-        "to on your computer (e.g. USB, Serial, Firewire). If your camera does not\n"
-        "appear on the list of <i>Supported Cameras</i>, go to the\n"
-        "<a href=\"http://www.gphoto.org\">GPhoto web site</a> for a possible update.<br><br>\n"
-        "To view and download images from the digital camera, go to the address\n"
-        "<a href=\"camera:/\">camera:/</a> in Konqueror and other KDE applications.");
-}
-#endif
 
 void KKameraConfig::slot_error(const QString &message)
 {

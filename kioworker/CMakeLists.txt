@@ -16,11 +16,11 @@ ecm_qt_declare_logging_category(kio_kamera
 )
 
 target_link_libraries(kio_kamera
-    Qt${QT_MAJOR_VERSION}::Core
-    KF${KF_MAJOR_VERSION}::KIOCore
-    KF${KF_MAJOR_VERSION}::I18n
-    KF${KF_MAJOR_VERSION}::ConfigCore
+    Qt6::Core
+    KF6::KIOCore
+    KF6::I18n
+    KF6::ConfigCore
     ${GPHOTO2_LIBRARIES}
     )
 
-install(TARGETS kio_kamera  DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf${QT_MAJOR_VERSION}/kio )
+install(TARGETS kio_kamera  DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf6/kio )

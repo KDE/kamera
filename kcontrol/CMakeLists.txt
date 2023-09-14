@@ -27,11 +27,11 @@ ecm_qt_declare_logging_category(kcm_kamera
 )
 
 target_link_libraries(kcm_kamera
-    KF${KF_MAJOR_VERSION}::ConfigWidgets
-    KF${KF_MAJOR_VERSION}::XmlGui
-    KF${KF_MAJOR_VERSION}::KIOCore
-    KF${KF_MAJOR_VERSION}::I18n
-    KF${KF_MAJOR_VERSION}::ConfigCore
-    KF${KF_MAJOR_VERSION}::KCMUtils
+    KF6::ConfigWidgets
+    KF6::XmlGui
+    KF6::KIOCore
+    KF6::I18n
+    KF6::ConfigCore
+    KF6::KCMUtils
     ${GPHOTO2_LIBRARIES}
     )

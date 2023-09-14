@@ -12,14 +12,3 @@ Dependencies:
     'frameworks/kconfig': '@latest-kf6'
     'frameworks/kdoctools': '@latest-kf6'
     'frameworks/kcmutils': '@latest-kf6'
-
-- 'on': ['Linux/Qt5', 'FreeBSD/Qt5']
-  'require':
-    'frameworks/extra-cmake-modules': '@stable'
-    'frameworks/kconfigwidgets': '@stable'
-    'frameworks/kxmlgui': '@stable'
-    'frameworks/kio': '@stable'
-    'frameworks/ki18n': '@stable'
-    'frameworks/kconfig': '@stable'
-    'frameworks/kdoctools': '@stable'
-    'frameworks/kcmutils': '@stable'
