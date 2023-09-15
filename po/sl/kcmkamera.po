@@ -2,7 +2,7 @@
 # Translation of kcmkamera.po to Slovenian
 # SLOVENIAN TRANSLATION OF KCMKAMERA.
 # Copyright (C) 2001, 2003, 2005 Free Software Foundation, Inc.
-# $Id: kcmkamera.po 1655510 2023-07-09 01:53:39Z scripty $
+# $Id: kcmkamera.po 1660204 2023-09-15 02:08:55Z scripty $
 # $Source$
 #
 # Roman Maurer <roman.maurer@amis.net>, 2001.
@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kcmkamera\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-09 00:57+0000\n"
+"POT-Creation-Date: 2023-09-15 01:53+0000\n"
 "PO-Revision-Date: 2015-10-31 10:55+0100\n"
 "Last-Translator: Andrej Mernik <andrejm@ubuntu.si>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -25,47 +25,47 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
 "%100==4 ? 3 : 0);\n"
 
-#: kamera.cpp:82
+#: kamera.cpp:70
 #, kde-format
 msgid "Unable to initialize the gPhoto2 libraries."
 msgstr "Knjižnic gPhoto2 ni bilo mogoče začeti."
 
-#: kamera.cpp:119
+#: kamera.cpp:107
 #, kde-format
 msgid "Add"
 msgstr "Dodaj"
 
-#: kamera.cpp:121
+#: kamera.cpp:109
 #, kde-format
 msgid "Click this button to add a new camera."
 msgstr "Kliknite ta gumb, da bi dodali nov fotoaparat."
 
-#: kamera.cpp:127
+#: kamera.cpp:115
 #, kde-format
 msgid "Test"
 msgstr "Preizkus"
 
-#: kamera.cpp:129
+#: kamera.cpp:117
 #, kde-format
 msgid "Click this button to test the connection to the selected camera."
 msgstr "Kliknite ta gumb, da preverite povezavo z izbranim fotoaparatom."
 
-#: kamera.cpp:134
+#: kamera.cpp:122
 #, kde-format
 msgid "Remove"
 msgstr "Odstrani"
 
-#: kamera.cpp:136
+#: kamera.cpp:124
 #, kde-format
 msgid "Click this button to remove the selected camera from the list."
 msgstr "Kliknite ta gumb, da bi odstranili izbrani fotoaparat s seznama."
 
-#: kamera.cpp:141
+#: kamera.cpp:129
 #, kde-format
 msgid "Configure..."
 msgstr "Nastavi ..."
 
-#: kamera.cpp:144
+#: kamera.cpp:132
 #, kde-format
 msgid ""
 "Click this button to change the configuration of the selected camera."
@@ -76,12 +76,12 @@ msgstr ""
 "<br><br>Razpoložljivost te možnosti in vsebina pogovornega okna za "
 "nastavitve sta odvisni od modela fotoaparata."
 
-#: kamera.cpp:150
+#: kamera.cpp:138
 #, kde-format
 msgid "Information"
 msgstr "Podatki"
 
-#: kamera.cpp:153
+#: kamera.cpp:141
 #, kde-format
 msgid ""
 "Click this button to view a summary of the current status of the selected "
@@ -92,45 +92,20 @@ msgstr ""
 "fotoaparata.<br><br>Razpoložljivost te možnosti in vsebina pogovornega okna "
 "s podatki sta odvisni od modela fotoaparata."
 
-#: kamera.cpp:160
+#: kamera.cpp:148
 #, kde-format
 msgid "Cancel"
 msgstr "Prekliči"
 
-#: kamera.cpp:162
+#: kamera.cpp:150
 #, kde-format
 msgid "Click this button to cancel the current camera operation."
 msgstr "Kliknite ta gumb, da bi preklicali trenutno dejanje fotoaparata."
 
-#: kamera.cpp:374
+#: kamera.cpp:354
 #, kde-format
 msgid "Camera test was successful."
 msgstr "Preizkus fotoaparata je uspel."
-
-#: kamera.cpp:459
-#, kde-format
-msgid ""
-"<h1>Digital Camera</h1>\n"
-"This module allows you to configure support for your digital camera.\n"
-"You need to select the camera's model and the port it is connected\n"
-"to on your computer (e.g. USB, Serial, Firewire). If your camera does not\n"
-"appear on the list of <i>Supported Cameras</i>, go to the\n"
-"<a href=\"http://www.gphoto.org\">GPhoto web site</a> for a possible update."
-"<br><br>\n"
-"To view and download images from the digital camera, go to the address\n"
-"<a href=\"camera:/\">camera:/</a> in Konqueror and other KDE applications."
-msgstr ""
-"<h1>Digitalni fotoaparat</h1>\n"
-"Ta modul vam omogoča nastavitev podpore za vaš digitalni fotoaparat.\n"
-"Izbrati morate model fotoaparata in vrata, na katera je priključen "
-"fotoaparat\n"
-"na vašem računalniku (npr. USB, zaporedna, Firewire). Če vaš fotoaparat\n"
-"ni na seznamu <i>Podprtih fotoaparatov</i>, obiščite\n"
-"<a href=\"http://www.gphoto.org/\">spletno stran GPhoto</a> za morebitne "
-"posodobitve.<br><br>\n"
-"Da bi videli in prejeli slike s svojega digitalnega fotoaparata, obiščite\n"
-"na naslov <a href=\"camera:/\">camera:/</a> v Konquerorju in drugih "
-"programih za KDE."
 
 #: kameraconfigdialog.cpp:226
 #, kde-format
@@ -258,3 +233,28 @@ msgstr "Tu navedite zaporedna vrata, na katera je priključen fotoaparat."
 #, kde-format
 msgid "No further configuration is required for USB cameras."
 msgstr "Za fotoaparate USB ni zahtevanih dodatnih nastavitev."
+
+#~ msgid ""
+#~ "<h1>Digital Camera</h1>\n"
+#~ "This module allows you to configure support for your digital camera.\n"
+#~ "You need to select the camera's model and the port it is connected\n"
+#~ "to on your computer (e.g. USB, Serial, Firewire). If your camera does "
+#~ "not\n"
+#~ "appear on the list of <i>Supported Cameras</i>, go to the\n"
+#~ "<a href=\"http://www.gphoto.org\">GPhoto web site</a> for a possible "
+#~ "update.<br><br>\n"
+#~ "To view and download images from the digital camera, go to the address\n"
+#~ "<a href=\"camera:/\">camera:/</a> in Konqueror and other KDE applications."
+#~ msgstr ""
+#~ "<h1>Digitalni fotoaparat</h1>\n"
+#~ "Ta modul vam omogoča nastavitev podpore za vaš digitalni fotoaparat.\n"
+#~ "Izbrati morate model fotoaparata in vrata, na katera je priključen "
+#~ "fotoaparat\n"
+#~ "na vašem računalniku (npr. USB, zaporedna, Firewire). Če vaš fotoaparat\n"
+#~ "ni na seznamu <i>Podprtih fotoaparatov</i>, obiščite\n"
+#~ "<a href=\"http://www.gphoto.org/\">spletno stran GPhoto</a> za morebitne "
+#~ "posodobitve.<br><br>\n"
+#~ "Da bi videli in prejeli slike s svojega digitalnega fotoaparata, "
+#~ "obiščite\n"
+#~ "na naslov <a href=\"camera:/\">camera:/</a> v Konquerorju in drugih "
+#~ "programih za KDE."

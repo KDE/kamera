@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kcmkamera\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-09 00:57+0000\n"
+"POT-Creation-Date: 2023-09-15 01:53+0000\n"
 "PO-Revision-Date: 2007-06-22 20:35+0300\n"
 "Last-Translator: Darafei Praliaskouski <komzpa@licei2.com>\n"
 "Language-Team: Belarusian <i18n@mova.org>\n"
@@ -20,47 +20,47 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || n%10>=5 && n%10<=9 || n"
 "%100>=11 && n%100<=14 ? 2 : 3);\n"
 
-#: kamera.cpp:82
+#: kamera.cpp:70
 #, kde-format
 msgid "Unable to initialize the gPhoto2 libraries."
 msgstr ""
 
-#: kamera.cpp:119
+#: kamera.cpp:107
 #, kde-format
 msgid "Add"
 msgstr "Дадаць"
 
-#: kamera.cpp:121
+#: kamera.cpp:109
 #, kde-format
 msgid "Click this button to add a new camera."
 msgstr ""
 
-#: kamera.cpp:127
+#: kamera.cpp:115
 #, kde-format
 msgid "Test"
 msgstr "Праверыць"
 
-#: kamera.cpp:129
+#: kamera.cpp:117
 #, kde-format
 msgid "Click this button to test the connection to the selected camera."
 msgstr ""
 
-#: kamera.cpp:134
+#: kamera.cpp:122
 #, kde-format
 msgid "Remove"
 msgstr "Выдаліць"
 
-#: kamera.cpp:136
+#: kamera.cpp:124
 #, kde-format
 msgid "Click this button to remove the selected camera from the list."
 msgstr ""
 
-#: kamera.cpp:141
+#: kamera.cpp:129
 #, kde-format
 msgid "Configure..."
 msgstr "Наставіць..."
 
-#: kamera.cpp:144
+#: kamera.cpp:132
 #, kde-format
 msgid ""
 "Click this button to change the configuration of the selected camera."
@@ -68,12 +68,12 @@ msgid ""
 "Configuration dialog depend on the camera model."
 msgstr ""
 
-#: kamera.cpp:150
+#: kamera.cpp:138
 #, kde-format
 msgid "Information"
 msgstr "Звесткі"
 
-#: kamera.cpp:153
+#: kamera.cpp:141
 #, kde-format
 msgid ""
 "Click this button to view a summary of the current status of the selected "
@@ -81,33 +81,19 @@ msgid ""
 "Information dialog depend on the camera model."
 msgstr ""
 
-#: kamera.cpp:160
+#: kamera.cpp:148
 #, kde-format
 msgid "Cancel"
 msgstr "Скасаваць"
 
-#: kamera.cpp:162
+#: kamera.cpp:150
 #, kde-format
 msgid "Click this button to cancel the current camera operation."
 msgstr ""
 
-#: kamera.cpp:374
+#: kamera.cpp:354
 #, kde-format
 msgid "Camera test was successful."
-msgstr ""
-
-#: kamera.cpp:459
-#, kde-format
-msgid ""
-"<h1>Digital Camera</h1>\n"
-"This module allows you to configure support for your digital camera.\n"
-"You need to select the camera's model and the port it is connected\n"
-"to on your computer (e.g. USB, Serial, Firewire). If your camera does not\n"
-"appear on the list of <i>Supported Cameras</i>, go to the\n"
-"<a href=\"http://www.gphoto.org\">GPhoto web site</a> for a possible update."
-"<br><br>\n"
-"To view and download images from the digital camera, go to the address\n"
-"<a href=\"camera:/\">camera:/</a> in Konqueror and other KDE applications."
 msgstr ""
 
 #: kameraconfigdialog.cpp:226

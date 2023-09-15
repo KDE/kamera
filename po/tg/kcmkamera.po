@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kcmkamera\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-09 00:57+0000\n"
+"POT-Creation-Date: 2023-09-15 01:53+0000\n"
 "PO-Revision-Date: 2020-09-03 16:11+0500\n"
 "Last-Translator: Victor Ibragimov <victor.ibragimov@gmail.com>\n"
 "Language-Team: English <kde-i18n-doc@kde.org>\n"
@@ -19,50 +19,50 @@ msgstr ""
 "X-Generator: Lokalize 20.04.2\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
-#: kamera.cpp:82
+#: kamera.cpp:70
 #, kde-format
 msgid "Unable to initialize the gPhoto2 libraries."
 msgstr "Наметавонам китобхонаҳои gPhoto2-ро инитсиализатсия кунам."
 
-#: kamera.cpp:119
+#: kamera.cpp:107
 #, kde-format
 msgid "Add"
 msgstr ""
 
-#: kamera.cpp:121
+#: kamera.cpp:109
 #, kde-format
 msgid "Click this button to add a new camera."
 msgstr "Барои афзудани камераи нав, ин тугмаро пахш кунед."
 
-#: kamera.cpp:127
+#: kamera.cpp:115
 #, kde-format
 msgid "Test"
 msgstr "Озмоиш"
 
-#: kamera.cpp:129
+#: kamera.cpp:117
 #, fuzzy, kde-format
 #| msgid "Click this button to remove the selected camera from the list."
 msgid "Click this button to test the connection to the selected camera."
 msgstr ""
 "Барои ҳузф намудани камераи интихобшуда аз рӯйхат, ин тугмаро пахш кунед."
 
-#: kamera.cpp:134
+#: kamera.cpp:122
 #, kde-format
 msgid "Remove"
 msgstr ""
 
-#: kamera.cpp:136
+#: kamera.cpp:124
 #, kde-format
 msgid "Click this button to remove the selected camera from the list."
 msgstr ""
 "Барои ҳузф намудани камераи интихобшуда аз рӯйхат, ин тугмаро пахш кунед."
 
-#: kamera.cpp:141
+#: kamera.cpp:129
 #, kde-format
 msgid "Configure..."
 msgstr "Танзимот..."
 
-#: kamera.cpp:144
+#: kamera.cpp:132
 #, kde-format
 msgid ""
 "Click this button to change the configuration of the selected camera."
@@ -73,12 +73,12 @@ msgstr ""
 "<br><br>Дастрасии таъғири танзимот ва худи танзимот аз услуби камера вобаста "
 "аст."
 
-#: kamera.cpp:150
+#: kamera.cpp:138
 #, kde-format
 msgid "Information"
 msgstr ""
 
-#: kamera.cpp:153
+#: kamera.cpp:141
 #, fuzzy, kde-format
 #| msgid ""
 #| "Click this button to view a summary of the current status of the selected "
@@ -93,47 +93,22 @@ msgstr ""
 "<br><br>Дастрасии таъғири танзимот ва худи танзимот аз услуби камера вобаста "
 "аст."
 
-#: kamera.cpp:160
+#: kamera.cpp:148
 #, kde-format
 msgid "Cancel"
 msgstr ""
 
-#: kamera.cpp:162
+#: kamera.cpp:150
 #, kde-format
 msgid "Click this button to cancel the current camera operation."
 msgstr ""
 "Барои барҳам додани амалиёт бо камераи интихобшуда, ба рӯи ин тугма пахш "
 "кунед."
 
-#: kamera.cpp:374
+#: kamera.cpp:354
 #, kde-format
 msgid "Camera test was successful."
 msgstr "Озмоиши камера бомуваффақият гузашт."
-
-#: kamera.cpp:459
-#, kde-format
-msgid ""
-"<h1>Digital Camera</h1>\n"
-"This module allows you to configure support for your digital camera.\n"
-"You need to select the camera's model and the port it is connected\n"
-"to on your computer (e.g. USB, Serial, Firewire). If your camera does not\n"
-"appear on the list of <i>Supported Cameras</i>, go to the\n"
-"<a href=\"http://www.gphoto.org\">GPhoto web site</a> for a possible update."
-"<br><br>\n"
-"To view and download images from the digital camera, go to the address\n"
-"<a href=\"camera:/\">camera:/</a> in Konqueror and other KDE applications."
-msgstr ""
-"<h1>Камераи рақамӣ</h1>\n"
-"Ин модул иҷозат медиҳад, ки пуштибонии\n"
-"камераи рақамии худро танзим кунед.\n"
-"Шумо бояд услуби камера ва портро, ки он дар\n"
-"компютер пайваст шудааст (USB, пасрав ё Firewire), ишора кунед. Агар камераи "
-"шумо дар рӯйхати <i>Камераҳои пуштибонишуда</i> пайдо нашавад,\n"
-"таъминоти барномавиро аз сайти <a href=\"http://www.gphoto.org\">GPhoto</a> "
-"нав кунед.<br><br>\n"
-"Барои намоиш ва кашида гирифтани тасвирот аз камера, дар сатри адреси "
-"Konqueror ё дигар барномаҳои KDE <a href=\"camera:/\">camera:/</a> ворид "
-"кунед."
 
 #: kameraconfigdialog.cpp:226
 #, kde-format
@@ -274,3 +249,27 @@ msgstr ""
 #| msgid "No further configuration is required for USB."
 msgid "No further configuration is required for USB cameras."
 msgstr "Барои танзимоти USB параметрҳои иловагӣ лозим нест."
+
+#~ msgid ""
+#~ "<h1>Digital Camera</h1>\n"
+#~ "This module allows you to configure support for your digital camera.\n"
+#~ "You need to select the camera's model and the port it is connected\n"
+#~ "to on your computer (e.g. USB, Serial, Firewire). If your camera does "
+#~ "not\n"
+#~ "appear on the list of <i>Supported Cameras</i>, go to the\n"
+#~ "<a href=\"http://www.gphoto.org\">GPhoto web site</a> for a possible "
+#~ "update.<br><br>\n"
+#~ "To view and download images from the digital camera, go to the address\n"
+#~ "<a href=\"camera:/\">camera:/</a> in Konqueror and other KDE applications."
+#~ msgstr ""
+#~ "<h1>Камераи рақамӣ</h1>\n"
+#~ "Ин модул иҷозат медиҳад, ки пуштибонии\n"
+#~ "камераи рақамии худро танзим кунед.\n"
+#~ "Шумо бояд услуби камера ва портро, ки он дар\n"
+#~ "компютер пайваст шудааст (USB, пасрав ё Firewire), ишора кунед. Агар "
+#~ "камераи шумо дар рӯйхати <i>Камераҳои пуштибонишуда</i> пайдо нашавад,\n"
+#~ "таъминоти барномавиро аз сайти <a href=\"http://www.gphoto.org\">GPhoto</"
+#~ "a> нав кунед.<br><br>\n"
+#~ "Барои намоиш ва кашида гирифтани тасвирот аз камера, дар сатри адреси "
+#~ "Konqueror ё дигар барномаҳои KDE <a href=\"camera:/\">camera:/</a> ворид "
+#~ "кунед."

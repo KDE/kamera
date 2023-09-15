@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kamera\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-09 00:57+0000\n"
+"POT-Creation-Date: 2023-09-15 01:53+0000\n"
 "PO-Revision-Date: 2021-03-04 17:21+0400\n"
 "Last-Translator: Kheyyam Gojayev <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -17,47 +17,47 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Lokalize 20.12.2\n"
 
-#: kamera.cpp:82
+#: kamera.cpp:70
 #, kde-format
 msgid "Unable to initialize the gPhoto2 libraries."
 msgstr "gPhoto2 kitabxanaları başladıla bilmədi."
 
-#: kamera.cpp:119
+#: kamera.cpp:107
 #, kde-format
 msgid "Add"
 msgstr "Əlavə edin"
 
-#: kamera.cpp:121
+#: kamera.cpp:109
 #, kde-format
 msgid "Click this button to add a new camera."
 msgstr "Yeni kamera əlavə etmək üçün bu düyməyə vurun."
 
-#: kamera.cpp:127
+#: kamera.cpp:115
 #, kde-format
 msgid "Test"
 msgstr "Sınaq"
 
-#: kamera.cpp:129
+#: kamera.cpp:117
 #, kde-format
 msgid "Click this button to test the connection to the selected camera."
 msgstr "Seçilmiş kameraya bağlantını sınamaq üçün bu düyməyə vurun."
 
-#: kamera.cpp:134
+#: kamera.cpp:122
 #, kde-format
 msgid "Remove"
 msgstr "Silmək"
 
-#: kamera.cpp:136
+#: kamera.cpp:124
 #, kde-format
 msgid "Click this button to remove the selected camera from the list."
 msgstr "Seçilmiş kameranı siyahıdan silmək üçün bu düyməyə vurun."
 
-#: kamera.cpp:141
+#: kamera.cpp:129
 #, kde-format
 msgid "Configure..."
 msgstr "Tənzimləyin..."
 
-#: kamera.cpp:144
+#: kamera.cpp:132
 #, kde-format
 msgid ""
 "Click this button to change the configuration of the selected camera."
@@ -68,12 +68,12 @@ msgstr ""
 "<br><br>Bu imkanın mövcud olması və ayarlama dialoqunun məzmunu kameranın "
 "modelindən asılıdır."
 
-#: kamera.cpp:150
+#: kamera.cpp:138
 #, kde-format
 msgid "Information"
 msgstr "Məlumat"
 
-#: kamera.cpp:153
+#: kamera.cpp:141
 #, kde-format
 msgid ""
 "Click this button to view a summary of the current status of the selected "
@@ -84,43 +84,20 @@ msgstr ""
 "<br><br>Bu imkanın mövcud olası və məlumat dialoqunun məzmunu kameranın "
 "modelindən asılıdır."
 
-#: kamera.cpp:160
+#: kamera.cpp:148
 #, kde-format
 msgid "Cancel"
 msgstr "İmtina"
 
-#: kamera.cpp:162
+#: kamera.cpp:150
 #, kde-format
 msgid "Click this button to cancel the current camera operation."
 msgstr "Cari kamera ilə əməliyyatı ləğv etmək üçün bu düyməni vurun."
 
-#: kamera.cpp:374
+#: kamera.cpp:354
 #, kde-format
 msgid "Camera test was successful."
 msgstr "Kamera uğurla sınaqdan keçirildi."
-
-#: kamera.cpp:459
-#, kde-format
-msgid ""
-"<h1>Digital Camera</h1>\n"
-"This module allows you to configure support for your digital camera.\n"
-"You need to select the camera's model and the port it is connected\n"
-"to on your computer (e.g. USB, Serial, Firewire). If your camera does not\n"
-"appear on the list of <i>Supported Cameras</i>, go to the\n"
-"<a href=\"http://www.gphoto.org\">GPhoto web site</a> for a possible update."
-"<br><br>\n"
-"To view and download images from the digital camera, go to the address\n"
-"<a href=\"camera:/\">camera:/</a> in Konqueror and other KDE applications."
-msgstr ""
-"<h1>Rəqəmsal kamera</h1>\n"
-"Bu modul sizin rəqəmsal kameranız üçün tənzimləmələr etməyə imkan verir.\n"
-"Siz kameranızın modelini və komputerinizə qoşulma portunu seçməlisiniz.\n"
-"(məs., USB, Serial, Kabelli). Əgər kameranız <i>Dəstəklənən kameralar</i> \n"
-"siyahısında görünmürsə, o zaman mümkün yenilənmələr üçün\n"
-"<a href=\"http://www.gphoto.org\">GPhoto veb saytı</a>na baxın.<br><br>\n"
-"Rəqəmsal kamerada şəkillərə baxmaq və onları kameradan endirmək üçün \n"
-"Konqueror və digər KDE tətbiqlərində <a href=\"camera:/\">camera:/</a>\n"
-"ünvanına baxın."
 
 #: kameraconfigdialog.cpp:226
 #, kde-format
@@ -248,3 +225,26 @@ msgstr "Kameranı qoşmaq istədiyiniz portu burada göstərin."
 #, kde-format
 msgid "No further configuration is required for USB cameras."
 msgstr "USB kameralar üçün başqa bir ayarlama tələb olunmur."
+
+#~ msgid ""
+#~ "<h1>Digital Camera</h1>\n"
+#~ "This module allows you to configure support for your digital camera.\n"
+#~ "You need to select the camera's model and the port it is connected\n"
+#~ "to on your computer (e.g. USB, Serial, Firewire). If your camera does "
+#~ "not\n"
+#~ "appear on the list of <i>Supported Cameras</i>, go to the\n"
+#~ "<a href=\"http://www.gphoto.org\">GPhoto web site</a> for a possible "
+#~ "update.<br><br>\n"
+#~ "To view and download images from the digital camera, go to the address\n"
+#~ "<a href=\"camera:/\">camera:/</a> in Konqueror and other KDE applications."
+#~ msgstr ""
+#~ "<h1>Rəqəmsal kamera</h1>\n"
+#~ "Bu modul sizin rəqəmsal kameranız üçün tənzimləmələr etməyə imkan verir.\n"
+#~ "Siz kameranızın modelini və komputerinizə qoşulma portunu seçməlisiniz.\n"
+#~ "(məs., USB, Serial, Kabelli). Əgər kameranız <i>Dəstəklənən kameralar</"
+#~ "i> \n"
+#~ "siyahısında görünmürsə, o zaman mümkün yenilənmələr üçün\n"
+#~ "<a href=\"http://www.gphoto.org\">GPhoto veb saytı</a>na baxın.<br><br>\n"
+#~ "Rəqəmsal kamerada şəkillərə baxmaq və onları kameradan endirmək üçün \n"
+#~ "Konqueror və digər KDE tətbiqlərində <a href=\"camera:/\">camera:/</a>\n"
+#~ "ünvanına baxın."

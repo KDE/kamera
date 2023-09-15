@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kamera\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-09 00:57+0000\n"
+"POT-Creation-Date: 2023-09-15 01:53+0000\n"
 "PO-Revision-Date: 2023-06-12 07:12+0700\n"
 "Last-Translator: Wantoyèk <wantoyek@gmail.com>\n"
 "Language-Team: Indonesian <kde-i18n-doc@kde.org>\n"
@@ -17,47 +17,47 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Lokalize 23.04.0\n"
 
-#: kamera.cpp:82
+#: kamera.cpp:70
 #, kde-format
 msgid "Unable to initialize the gPhoto2 libraries."
 msgstr "Tidak dapat menginisial pustaka gPhoto2."
 
-#: kamera.cpp:119
+#: kamera.cpp:107
 #, kde-format
 msgid "Add"
 msgstr "Tambahkan"
 
-#: kamera.cpp:121
+#: kamera.cpp:109
 #, kde-format
 msgid "Click this button to add a new camera."
 msgstr "Klik tombol ini untuk menambahkan kamera baru."
 
-#: kamera.cpp:127
+#: kamera.cpp:115
 #, kde-format
 msgid "Test"
 msgstr "Uji"
 
-#: kamera.cpp:129
+#: kamera.cpp:117
 #, kde-format
 msgid "Click this button to test the connection to the selected camera."
 msgstr "Klik tombol ini untuk menguji koneksi ke kamera yang dipilih."
 
-#: kamera.cpp:134
+#: kamera.cpp:122
 #, kde-format
 msgid "Remove"
 msgstr "Hapus"
 
-#: kamera.cpp:136
+#: kamera.cpp:124
 #, kde-format
 msgid "Click this button to remove the selected camera from the list."
 msgstr "Klik tombol ini untuk menghapus kamera yang dipilih dari daftar."
 
-#: kamera.cpp:141
+#: kamera.cpp:129
 #, kde-format
 msgid "Configure..."
 msgstr "Atur..."
 
-#: kamera.cpp:144
+#: kamera.cpp:132
 #, kde-format
 msgid ""
 "Click this button to change the configuration of the selected camera."
@@ -68,12 +68,12 @@ msgstr ""
 "dialog Konfigurasi, ketersediaan konten dan fitur ini tergantung pada model "
 "kamera."
 
-#: kamera.cpp:150
+#: kamera.cpp:138
 #, kde-format
 msgid "Information"
 msgstr "Informasi"
 
-#: kamera.cpp:153
+#: kamera.cpp:141
 #, kde-format
 msgid ""
 "Click this button to view a summary of the current status of the selected "
@@ -84,44 +84,20 @@ msgstr ""
 "ini.<br><br>Ketersediaan fitur dan konten yang ada di dialog Informasi "
 "tergantung pada model kamera."
 
-#: kamera.cpp:160
+#: kamera.cpp:148
 #, kde-format
 msgid "Cancel"
 msgstr "Batal"
 
-#: kamera.cpp:162
+#: kamera.cpp:150
 #, kde-format
 msgid "Click this button to cancel the current camera operation."
 msgstr "Klik tombol ini untuk membatalkan operasi kamera saat ini."
 
-#: kamera.cpp:374
+#: kamera.cpp:354
 #, kde-format
 msgid "Camera test was successful."
 msgstr "Berhasil menguji kamera."
-
-#: kamera.cpp:459
-#, kde-format
-msgid ""
-"<h1>Digital Camera</h1>\n"
-"This module allows you to configure support for your digital camera.\n"
-"You need to select the camera's model and the port it is connected\n"
-"to on your computer (e.g. USB, Serial, Firewire). If your camera does not\n"
-"appear on the list of <i>Supported Cameras</i>, go to the\n"
-"<a href=\"http://www.gphoto.org\">GPhoto web site</a> for a possible update."
-"<br><br>\n"
-"To view and download images from the digital camera, go to the address\n"
-"<a href=\"camera:/\">camera:/</a> in Konqueror and other KDE applications."
-msgstr ""
-"<h1>Kamera Digital</h1>\n"
-"Modul ini memungkinkan Anda mengonfigurasi dukungan untuk kamera digital "
-"Anda.\n"
-"Anda harus memilih model kamera dan colokan yang terhubung\n"
-"ke komputer Anda (mis. USB, Serial, Firewire). Jika kamera Anda tidak\n"
-"muncul di daftar <i>Kamera yang Didukung</i>, buka\n"
-"<a href=\"http://www.gphoto.org\">Situs web GPhoto</a> untuk kemungkinan "
-"pembaruan.<br><br>\n"
-"Untuk melihat dan mengunduh gambar dari kamera digital, buka alamat\n"
-"<a href=\"camera:/\">camera:/</a> di Konqueror dan aplikasi KDE lainnya."
 
 #: kameraconfigdialog.cpp:226
 #, kde-format
@@ -249,3 +225,26 @@ msgstr "Tentukan di sini colokan serial yang ingin Anda sambungkan kameranya."
 #, kde-format
 msgid "No further configuration is required for USB cameras."
 msgstr "Tidak ada lagi konfigurasi yang diperlukan untuk kamera-kamera USB."
+
+#~ msgid ""
+#~ "<h1>Digital Camera</h1>\n"
+#~ "This module allows you to configure support for your digital camera.\n"
+#~ "You need to select the camera's model and the port it is connected\n"
+#~ "to on your computer (e.g. USB, Serial, Firewire). If your camera does "
+#~ "not\n"
+#~ "appear on the list of <i>Supported Cameras</i>, go to the\n"
+#~ "<a href=\"http://www.gphoto.org\">GPhoto web site</a> for a possible "
+#~ "update.<br><br>\n"
+#~ "To view and download images from the digital camera, go to the address\n"
+#~ "<a href=\"camera:/\">camera:/</a> in Konqueror and other KDE applications."
+#~ msgstr ""
+#~ "<h1>Kamera Digital</h1>\n"
+#~ "Modul ini memungkinkan Anda mengonfigurasi dukungan untuk kamera digital "
+#~ "Anda.\n"
+#~ "Anda harus memilih model kamera dan colokan yang terhubung\n"
+#~ "ke komputer Anda (mis. USB, Serial, Firewire). Jika kamera Anda tidak\n"
+#~ "muncul di daftar <i>Kamera yang Didukung</i>, buka\n"
+#~ "<a href=\"http://www.gphoto.org\">Situs web GPhoto</a> untuk kemungkinan "
+#~ "pembaruan.<br><br>\n"
+#~ "Untuk melihat dan mengunduh gambar dari kamera digital, buka alamat\n"
+#~ "<a href=\"camera:/\">camera:/</a> di Konqueror dan aplikasi KDE lainnya."

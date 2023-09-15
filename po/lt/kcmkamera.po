@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kcmkamera\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-09 00:57+0000\n"
+"POT-Creation-Date: 2023-09-15 01:53+0000\n"
 "PO-Revision-Date: 2019-12-06 22:41+0200\n"
 "Last-Translator: Mindaugas Baranauskas <opensuse.lietuviu.kalba@gmail.com>\n"
 "Language-Team: lt <kde-i18n-lt@kde.org>\n"
@@ -20,49 +20,49 @@ msgstr ""
 "%100>=20) ? 1 : n%10==0 || (n%100>10 && n%100<20) ? 2 : 3);\n"
 "X-Generator: Poedit 2.2.4\n"
 
-#: kamera.cpp:82
+#: kamera.cpp:70
 #, kde-format
 msgid "Unable to initialize the gPhoto2 libraries."
 msgstr "Nepavyko inicijuoti gPhoto2 bibliotekų."
 
-#: kamera.cpp:119
+#: kamera.cpp:107
 #, kde-format
 msgid "Add"
 msgstr "Pridėti"
 
-#: kamera.cpp:121
+#: kamera.cpp:109
 #, kde-format
 msgid "Click this button to add a new camera."
 msgstr "Spustelėkite šį mygtuką, norėdami pridėti naują fotoaparatą."
 
-#: kamera.cpp:127
+#: kamera.cpp:115
 #, kde-format
 msgid "Test"
 msgstr "Išbandyti"
 
-#: kamera.cpp:129
+#: kamera.cpp:117
 #, kde-format
 msgid "Click this button to test the connection to the selected camera."
 msgstr ""
 "Spustelėkite šį mygtuką, norėdami išbandyti ryšį su pasirinktu fotoaparatu."
 
-#: kamera.cpp:134
+#: kamera.cpp:122
 #, kde-format
 msgid "Remove"
 msgstr "Šalinti"
 
-#: kamera.cpp:136
+#: kamera.cpp:124
 #, kde-format
 msgid "Click this button to remove the selected camera from the list."
 msgstr ""
 "Spustelėkite šį mygtuką, norėdami pašalinti pasirinktą fotoaparatą iš sąrašo."
 
-#: kamera.cpp:141
+#: kamera.cpp:129
 #, kde-format
 msgid "Configure..."
 msgstr "Konfigūruoti..."
 
-#: kamera.cpp:144
+#: kamera.cpp:132
 #, kde-format
 msgid ""
 "Click this button to change the configuration of the selected camera."
@@ -73,12 +73,12 @@ msgstr ""
 "konfigūraciją.<br><br>Šios ypatybės ir konfigūravimo dialogo turinys "
 "priklauso nuo fotoaparato modelio."
 
-#: kamera.cpp:150
+#: kamera.cpp:138
 #, kde-format
 msgid "Information"
 msgstr "Informacija"
 
-#: kamera.cpp:153
+#: kamera.cpp:141
 #, kde-format
 msgid ""
 "Click this button to view a summary of the current status of the selected "
@@ -89,49 +89,22 @@ msgstr ""
 "<br><br>Šios ypatybės ir informacijos dialogo turinys priklauso nuo "
 "fotoaparato modelio."
 
-#: kamera.cpp:160
+#: kamera.cpp:148
 #, kde-format
 msgid "Cancel"
 msgstr "Atsisakyti"
 
-#: kamera.cpp:162
+#: kamera.cpp:150
 #, kde-format
 msgid "Click this button to cancel the current camera operation."
 msgstr ""
 "Spustelėkite šį mygtuką, norėdami atsisakyti dabartinės fotoaparato "
 "operacijos."
 
-#: kamera.cpp:374
+#: kamera.cpp:354
 #, kde-format
 msgid "Camera test was successful."
 msgstr "Fotoaparatas sėkmingai išbandytas."
-
-#: kamera.cpp:459
-#, kde-format
-msgid ""
-"<h1>Digital Camera</h1>\n"
-"This module allows you to configure support for your digital camera.\n"
-"You need to select the camera's model and the port it is connected\n"
-"to on your computer (e.g. USB, Serial, Firewire). If your camera does not\n"
-"appear on the list of <i>Supported Cameras</i>, go to the\n"
-"<a href=\"http://www.gphoto.org\">GPhoto web site</a> for a possible update."
-"<br><br>\n"
-"To view and download images from the digital camera, go to the address\n"
-"<a href=\"camera:/\">camera:/</a> in Konqueror and other KDE applications."
-msgstr ""
-"<h1>Skaitmeninis fotoaparatas</h1>\n"
-"Šis modulis leidžia jums konfigūruoti savo skaitmeninio fotoaparato "
-"palaikymą.\n"
-"Turite pasirinkti fotoaparato modelį ir kompiuterio prievadą, prie kurio "
-"fotoaparatas\n"
-"yra prijungtas (pvz.: USB, nuoseklusis, Firewire). Jeigu jūsų fotoaparato\n"
-"nėra <i>Palaikomų fotoaparatų</i> sąraše, apsilankykite\n"
-"<a href=\"http://www.gphoto.org\">GPhoto internetinėje svetainėje</a> "
-"galimam atnaujinimui.<br><br>\n"
-"Norėdami peržiūrėti ar atsisiųsti paveikslus iš savo skaitmeninio "
-"fotoaparato,\n"
-"Konqueror ir kitose KDE programose pereikite, adresu <a href=\"camera:/"
-"\">camera:/</a> ."
 
 #: kameraconfigdialog.cpp:226
 #, kde-format
@@ -261,3 +234,30 @@ msgstr ""
 #, kde-format
 msgid "No further configuration is required for USB cameras."
 msgstr "USB fotoaparatams nereikia jokios papildomos konfigūracijos."
+
+#~ msgid ""
+#~ "<h1>Digital Camera</h1>\n"
+#~ "This module allows you to configure support for your digital camera.\n"
+#~ "You need to select the camera's model and the port it is connected\n"
+#~ "to on your computer (e.g. USB, Serial, Firewire). If your camera does "
+#~ "not\n"
+#~ "appear on the list of <i>Supported Cameras</i>, go to the\n"
+#~ "<a href=\"http://www.gphoto.org\">GPhoto web site</a> for a possible "
+#~ "update.<br><br>\n"
+#~ "To view and download images from the digital camera, go to the address\n"
+#~ "<a href=\"camera:/\">camera:/</a> in Konqueror and other KDE applications."
+#~ msgstr ""
+#~ "<h1>Skaitmeninis fotoaparatas</h1>\n"
+#~ "Šis modulis leidžia jums konfigūruoti savo skaitmeninio fotoaparato "
+#~ "palaikymą.\n"
+#~ "Turite pasirinkti fotoaparato modelį ir kompiuterio prievadą, prie kurio "
+#~ "fotoaparatas\n"
+#~ "yra prijungtas (pvz.: USB, nuoseklusis, Firewire). Jeigu jūsų "
+#~ "fotoaparato\n"
+#~ "nėra <i>Palaikomų fotoaparatų</i> sąraše, apsilankykite\n"
+#~ "<a href=\"http://www.gphoto.org\">GPhoto internetinėje svetainėje</a> "
+#~ "galimam atnaujinimui.<br><br>\n"
+#~ "Norėdami peržiūrėti ar atsisiųsti paveikslus iš savo skaitmeninio "
+#~ "fotoaparato,\n"
+#~ "Konqueror ir kitose KDE programose pereikite, adresu <a href=\"camera:/"
+#~ "\">camera:/</a> ."

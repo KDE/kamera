@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kcmkamera\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-09 00:57+0000\n"
+"POT-Creation-Date: 2023-09-15 01:53+0000\n"
 "PO-Revision-Date: 2018-08-04 15:29+0100\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@euskalnet.net>\n"
 "Language-Team: Basque <kde-i18n-doc@kde.org>\n"
@@ -23,47 +23,47 @@ msgstr ""
 "X-Generator: Lokalize 2.0\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: kamera.cpp:82
+#: kamera.cpp:70
 #, kde-format
 msgid "Unable to initialize the gPhoto2 libraries."
 msgstr "Ezin dira gPhoto2 liburutegiak hasieratu."
 
-#: kamera.cpp:119
+#: kamera.cpp:107
 #, kde-format
 msgid "Add"
 msgstr "Gehitu"
 
-#: kamera.cpp:121
+#: kamera.cpp:109
 #, kde-format
 msgid "Click this button to add a new camera."
 msgstr "Klik egin botoi honetan kamera berri bat gehitzeko."
 
-#: kamera.cpp:127
+#: kamera.cpp:115
 #, kde-format
 msgid "Test"
 msgstr "Probatu"
 
-#: kamera.cpp:129
+#: kamera.cpp:117
 #, kde-format
 msgid "Click this button to test the connection to the selected camera."
 msgstr "Klik egin botoi honetan hautatutako kamerarekin konexioa probatzeko."
 
-#: kamera.cpp:134
+#: kamera.cpp:122
 #, kde-format
 msgid "Remove"
 msgstr "Kendu"
 
-#: kamera.cpp:136
+#: kamera.cpp:124
 #, kde-format
 msgid "Click this button to remove the selected camera from the list."
 msgstr "Klik egin botoi honetan hautatutako kamera zerrendatik kentzeko."
 
-#: kamera.cpp:141
+#: kamera.cpp:129
 #, kde-format
 msgid "Configure..."
 msgstr "Konfiguratu..."
 
-#: kamera.cpp:144
+#: kamera.cpp:132
 #, kde-format
 msgid ""
 "Click this button to change the configuration of the selected camera."
@@ -73,12 +73,12 @@ msgstr ""
 "Klik egin botoi honetan hautatutako kameraren konfigurazioa aldatzeko. <br> "
 "<br>Aukera hau eta haren konfigurazioa kamera modeloaren araberakoa da."
 
-#: kamera.cpp:150
+#: kamera.cpp:138
 #, kde-format
 msgid "Information"
 msgstr "Informazioa"
 
-#: kamera.cpp:153
+#: kamera.cpp:141
 #, kde-format
 msgid ""
 "Click this button to view a summary of the current status of the selected "
@@ -89,45 +89,21 @@ msgstr ""
 "ikusteko. <br> <br>Aukera hau eta elkarrizketa-koadroaren edukia kamera "
 "modeloaren araberakoa da."
 
-#: kamera.cpp:160
+#: kamera.cpp:148
 #, kde-format
 msgid "Cancel"
 msgstr "Utzi"
 
-#: kamera.cpp:162
+#: kamera.cpp:150
 #, kde-format
 msgid "Click this button to cancel the current camera operation."
 msgstr ""
 "Klik egin botoi honetan uneko kameraren eragiketa bertan behera uzteko."
 
-#: kamera.cpp:374
+#: kamera.cpp:354
 #, kde-format
 msgid "Camera test was successful."
 msgstr "Karama ongi probatu da."
-
-#: kamera.cpp:459
-#, kde-format
-msgid ""
-"<h1>Digital Camera</h1>\n"
-"This module allows you to configure support for your digital camera.\n"
-"You need to select the camera's model and the port it is connected\n"
-"to on your computer (e.g. USB, Serial, Firewire). If your camera does not\n"
-"appear on the list of <i>Supported Cameras</i>, go to the\n"
-"<a href=\"http://www.gphoto.org\">GPhoto web site</a> for a possible update."
-"<br><br>\n"
-"To view and download images from the digital camera, go to the address\n"
-"<a href=\"camera:/\">camera:/</a> in Konqueror and other KDE applications."
-msgstr ""
-"<h1>Kamara digitala</h1>\n"
-"Modulu honek zure kamera digitalaren euskarria konfiguratzen uzten dizu.\n"
-"Kamararen modeloa eta konektatzeko duzun ataka mota (adib. USB, seriekoa, "
-"Firewire) hautatu behar duzu.\n"
-"Zure kamera <i>Onartutako kamerak</i> zerrendan ez badago, joan\n"
-"<a href=\"http://www.gphoto.org\">GPhoto web lekura</a> ea eguneraketarik "
-"dagoen.<br><br>\n"
-"Kamara digitaleko irudiak ikusi eta jeisteko joan\n"
-"<a href=\"camera:/\">camera:/</a> helbidera Konqueror-en eta beste KDE "
-"aplikazioetan."
 
 #: kameraconfigdialog.cpp:226
 #, kde-format
@@ -256,3 +232,26 @@ msgstr "Zehaztu hemen kamera zein serieko atakara konektatu duzun."
 #, kde-format
 msgid "No further configuration is required for USB cameras."
 msgstr "Ez da konfigurazio gehiagorik behar USB kamararako."
+
+#~ msgid ""
+#~ "<h1>Digital Camera</h1>\n"
+#~ "This module allows you to configure support for your digital camera.\n"
+#~ "You need to select the camera's model and the port it is connected\n"
+#~ "to on your computer (e.g. USB, Serial, Firewire). If your camera does "
+#~ "not\n"
+#~ "appear on the list of <i>Supported Cameras</i>, go to the\n"
+#~ "<a href=\"http://www.gphoto.org\">GPhoto web site</a> for a possible "
+#~ "update.<br><br>\n"
+#~ "To view and download images from the digital camera, go to the address\n"
+#~ "<a href=\"camera:/\">camera:/</a> in Konqueror and other KDE applications."
+#~ msgstr ""
+#~ "<h1>Kamara digitala</h1>\n"
+#~ "Modulu honek zure kamera digitalaren euskarria konfiguratzen uzten dizu.\n"
+#~ "Kamararen modeloa eta konektatzeko duzun ataka mota (adib. USB, seriekoa, "
+#~ "Firewire) hautatu behar duzu.\n"
+#~ "Zure kamera <i>Onartutako kamerak</i> zerrendan ez badago, joan\n"
+#~ "<a href=\"http://www.gphoto.org\">GPhoto web lekura</a> ea eguneraketarik "
+#~ "dagoen.<br><br>\n"
+#~ "Kamara digitaleko irudiak ikusi eta jeisteko joan\n"
+#~ "<a href=\"camera:/\">camera:/</a> helbidera Konqueror-en eta beste KDE "
+#~ "aplikazioetan."

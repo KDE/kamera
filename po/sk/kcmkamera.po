@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kcmkamera\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-09 00:57+0000\n"
+"POT-Creation-Date: 2023-09-15 01:53+0000\n"
 "PO-Revision-Date: 2015-12-20 11:52+0100\n"
 "Last-Translator: Roman Paholik <wizzardsk@gmail.com>\n"
 "Language-Team: Slovak <kde-sk@linux.sk>\n"
@@ -19,48 +19,48 @@ msgstr ""
 "X-Generator: Lokalize 2.0\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
-#: kamera.cpp:82
+#: kamera.cpp:70
 #, kde-format
 msgid "Unable to initialize the gPhoto2 libraries."
 msgstr "Nepodarilo sa inicializovať knižnice gPhoto2."
 
-#: kamera.cpp:119
+#: kamera.cpp:107
 #, kde-format
 msgid "Add"
 msgstr "Pridať"
 
-#: kamera.cpp:121
+#: kamera.cpp:109
 #, kde-format
 msgid "Click this button to add a new camera."
 msgstr "Kliknutím na toto tlačidlo pridáte nový fotoaparát."
 
-#: kamera.cpp:127
+#: kamera.cpp:115
 #, kde-format
 msgid "Test"
 msgstr "Test"
 
-#: kamera.cpp:129
+#: kamera.cpp:117
 #, kde-format
 msgid "Click this button to test the connection to the selected camera."
 msgstr ""
 "Kliknutím na toto tlačidlo otestujete spojenie s vybraným fotoaparátom."
 
-#: kamera.cpp:134
+#: kamera.cpp:122
 #, kde-format
 msgid "Remove"
 msgstr "Odstrániť"
 
-#: kamera.cpp:136
+#: kamera.cpp:124
 #, kde-format
 msgid "Click this button to remove the selected camera from the list."
 msgstr "Kliknutím na toto tlačidlo odstránite vybraný fotoaparát zo zoznamu."
 
-#: kamera.cpp:141
+#: kamera.cpp:129
 #, kde-format
 msgid "Configure..."
 msgstr "Nastaviť..."
 
-#: kamera.cpp:144
+#: kamera.cpp:132
 #, kde-format
 msgid ""
 "Click this button to change the configuration of the selected camera."
@@ -71,12 +71,12 @@ msgstr ""
 "<br><br>Dostupnosť tejto funkcie a obsah konfiguračného dialógu závisí na "
 "modeli fotoaparátu."
 
-#: kamera.cpp:150
+#: kamera.cpp:138
 #, kde-format
 msgid "Information"
 msgstr "Informácie"
 
-#: kamera.cpp:153
+#: kamera.cpp:141
 #, kde-format
 msgid ""
 "Click this button to view a summary of the current status of the selected "
@@ -87,45 +87,20 @@ msgstr ""
 "fotoaparátu.<br><br>Dostupnosť tejto funkcie a obsah konfiguračného dialógu "
 "závisí na modeli fotoaparátu."
 
-#: kamera.cpp:160
+#: kamera.cpp:148
 #, kde-format
 msgid "Cancel"
 msgstr "Zrušiť"
 
-#: kamera.cpp:162
+#: kamera.cpp:150
 #, kde-format
 msgid "Click this button to cancel the current camera operation."
 msgstr "Kliknutím na toto tlačidlo zrušíte aktuálnu operáciu fotoaparátu."
 
-#: kamera.cpp:374
+#: kamera.cpp:354
 #, kde-format
 msgid "Camera test was successful."
 msgstr "Test fotoaparátu bol úspešný."
-
-#: kamera.cpp:459
-#, kde-format
-msgid ""
-"<h1>Digital Camera</h1>\n"
-"This module allows you to configure support for your digital camera.\n"
-"You need to select the camera's model and the port it is connected\n"
-"to on your computer (e.g. USB, Serial, Firewire). If your camera does not\n"
-"appear on the list of <i>Supported Cameras</i>, go to the\n"
-"<a href=\"http://www.gphoto.org\">GPhoto web site</a> for a possible update."
-"<br><br>\n"
-"To view and download images from the digital camera, go to the address\n"
-"<a href=\"camera:/\">camera:/</a> in Konqueror and other KDE applications."
-msgstr ""
-"<h1>Digitálny fotoaparát</h1>\n"
-"Tento modul umožňuje nastaviť podporu pre váš digitálny fotoaparát.\n"
-"Musíte vybrať model fotoaparátu a port, ku ktorému je pripojený\n"
-"(napr. USB, sériový port, FireWire). Ak váš fotoaparát nie je v zozname\n"
-"<i>Podporované fotoaparáty</i>, navštívte\n"
-"<a href=\"http://www.gphoto.org\">webovú stránku GPhoto</a> a pozrite sa, "
-"či\n"
-"neobsahuje aktualizáciu.<br><br>\n"
-"Pre zobrazenie a stiahnutie obrázkov z digitálneho fotoaparátu zadajte\n"
-"v okne Konquerora a v iných aplikáciách KDE adresu\n"
-"<a href=\"camera:/\">camera:/</a>."
 
 #: kameraconfigdialog.cpp:226
 #, kde-format
@@ -254,3 +229,27 @@ msgstr "Tu vyberte sériový port, ku ktorému je pripojený fotoaparát."
 #, kde-format
 msgid "No further configuration is required for USB cameras."
 msgstr "Pre USB fotoaparáty nie je potrebné žiadne ďalšie nastavenie."
+
+#~ msgid ""
+#~ "<h1>Digital Camera</h1>\n"
+#~ "This module allows you to configure support for your digital camera.\n"
+#~ "You need to select the camera's model and the port it is connected\n"
+#~ "to on your computer (e.g. USB, Serial, Firewire). If your camera does "
+#~ "not\n"
+#~ "appear on the list of <i>Supported Cameras</i>, go to the\n"
+#~ "<a href=\"http://www.gphoto.org\">GPhoto web site</a> for a possible "
+#~ "update.<br><br>\n"
+#~ "To view and download images from the digital camera, go to the address\n"
+#~ "<a href=\"camera:/\">camera:/</a> in Konqueror and other KDE applications."
+#~ msgstr ""
+#~ "<h1>Digitálny fotoaparát</h1>\n"
+#~ "Tento modul umožňuje nastaviť podporu pre váš digitálny fotoaparát.\n"
+#~ "Musíte vybrať model fotoaparátu a port, ku ktorému je pripojený\n"
+#~ "(napr. USB, sériový port, FireWire). Ak váš fotoaparát nie je v zozname\n"
+#~ "<i>Podporované fotoaparáty</i>, navštívte\n"
+#~ "<a href=\"http://www.gphoto.org\">webovú stránku GPhoto</a> a pozrite sa, "
+#~ "či\n"
+#~ "neobsahuje aktualizáciu.<br><br>\n"
+#~ "Pre zobrazenie a stiahnutie obrázkov z digitálneho fotoaparátu zadajte\n"
+#~ "v okne Konquerora a v iných aplikáciách KDE adresu\n"
+#~ "<a href=\"camera:/\">camera:/</a>."

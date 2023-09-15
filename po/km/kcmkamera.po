@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kcmkamera\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-09 00:57+0000\n"
+"POT-Creation-Date: 2023-09-15 01:53+0000\n"
 "PO-Revision-Date: 2010-06-08 16:06+0700\n"
 "Last-Translator: Khoem Sokhem <khoemsokhem@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -18,47 +18,47 @@ msgstr ""
 "X-Generator: KBabel 1.11.4\n"
 "X-Language: km-KH\n"
 
-#: kamera.cpp:82
+#: kamera.cpp:70
 #, kde-format
 msgid "Unable to initialize the gPhoto2 libraries."
 msgstr "មិនអាច​ចាប់ផ្តើម​បណ្ណាល័យ gPhoto2​ទេ​ ។"
 
-#: kamera.cpp:119
+#: kamera.cpp:107
 #, kde-format
 msgid "Add"
 msgstr "បន្ថែម"
 
-#: kamera.cpp:121
+#: kamera.cpp:109
 #, kde-format
 msgid "Click this button to add a new camera."
 msgstr "ចុច​ប៊ូតុង​នេះ​ដើម្បី​បន្ថែម​ម៉ាស៊ីន​ថត​ថ្មី ។"
 
-#: kamera.cpp:127
+#: kamera.cpp:115
 #, kde-format
 msgid "Test"
 msgstr "សាកល្បង"
 
-#: kamera.cpp:129
+#: kamera.cpp:117
 #, kde-format
 msgid "Click this button to test the connection to the selected camera."
 msgstr "ចុច​ប៊ូតុង​នេះ​ដើម្បី​សាកល្បង​ការ​តភ្ជាប់​ទៅ​ម៉ាស៊ីន​ថត​ដែល​បាន​ជ្រើស ។"
 
-#: kamera.cpp:134
+#: kamera.cpp:122
 #, kde-format
 msgid "Remove"
 msgstr "យកចេញ"
 
-#: kamera.cpp:136
+#: kamera.cpp:124
 #, kde-format
 msgid "Click this button to remove the selected camera from the list."
 msgstr "ចុច​ប៊ូតុង​នេះ​ដើម្បី​យក​ម៉ាស៊ីន​ថត​ដែលបាន​ជ្រើស​ចេញ​ពី​បញ្ជី ។"
 
-#: kamera.cpp:141
+#: kamera.cpp:129
 #, kde-format
 msgid "Configure..."
 msgstr "កំណត់​រចនាសម្ព័ន្ធ..."
 
-#: kamera.cpp:144
+#: kamera.cpp:132
 #, kde-format
 msgid ""
 "Click this button to change the configuration of the selected camera."
@@ -68,12 +68,12 @@ msgstr ""
 "ចុច​ប៊ូតុងនេះដើម្បី​ប្តូរ​ការ​កំណត់​រចនាសម្ព័ន្ធ​ម៉ាស៊ីន​ថត​ដែល​បាន​ជ្រើស ។<br><br>ភាពមាន​នៃ​លក្ខណៈពិសេសនេះ​"
 "ហើយនិង​មាតិកានៃ​ប្រអប់​កំណត់​រចនាសម្ព័ន្ធ​គឺ​ពឹងផ្អែក​ទៅលើ​ម៉ូដែល​ម៉ាស៊ីន​ថត ។"
 
-#: kamera.cpp:150
+#: kamera.cpp:138
 #, kde-format
 msgid "Information"
 msgstr "ព័ត៌មាន"
 
-#: kamera.cpp:153
+#: kamera.cpp:141
 #, kde-format
 msgid ""
 "Click this button to view a summary of the current status of the selected "
@@ -83,43 +83,20 @@ msgstr ""
 "ចុច​ប៊ូតុង​នេះ​ដើម្បី​មើល​សង្ខេប​នៃ​ស្ថានភាព​របស់​ម៉ាស៊ីន​ថត​ដែល​ជ្រើស​បច្ចុប្បន្ន ។<br><br>សុពលភាប​របស់​លក្ខណៈ​"
 "ពិសេស​នេះ និង​មាតិកា​របស់​ប្រអប់​ព័ត៌មាន​ពឹង​ផ្អែក​លើ​ម៉ូដែល​របស់​ម៉ាស៊ីន​ថត ។"
 
-#: kamera.cpp:160
+#: kamera.cpp:148
 #, kde-format
 msgid "Cancel"
 msgstr "បោះបង់"
 
-#: kamera.cpp:162
+#: kamera.cpp:150
 #, kde-format
 msgid "Click this button to cancel the current camera operation."
 msgstr "ចុច​ប៊ូតុង​នេះ​ដើម្បី​បោះបង់ប្រតិបត្តិការ​ម៉ាស៊ីន​ថតបច្ចុប្បន្ន ។"
 
-#: kamera.cpp:374
+#: kamera.cpp:354
 #, kde-format
 msgid "Camera test was successful."
 msgstr "ម៉ាស៊ីន ថតសាកល្បង​បាន​ជោគជ័យ ។"
-
-#: kamera.cpp:459
-#, kde-format
-msgid ""
-"<h1>Digital Camera</h1>\n"
-"This module allows you to configure support for your digital camera.\n"
-"You need to select the camera's model and the port it is connected\n"
-"to on your computer (e.g. USB, Serial, Firewire). If your camera does not\n"
-"appear on the list of <i>Supported Cameras</i>, go to the\n"
-"<a href=\"http://www.gphoto.org\">GPhoto web site</a> for a possible update."
-"<br><br>\n"
-"To view and download images from the digital camera, go to the address\n"
-"<a href=\"camera:/\">camera:/</a> in Konqueror and other KDE applications."
-msgstr ""
-"<h1>ម៉ាស៊ីន​ថតរូប​ឌីជីថល</h1>\n"
-"ម៉ូឌុល​នេះ​អនុញ្ញាត​ឲ្យ​អ្នកកំណត់​រចនា​សម្ព័ន្ធ​គាំទ្រ​សម្រាប់​កាមេរា​ឌីជីថល​របស់​អ្នក ។​\n"
-"អ្នកនឹង​ចាំបាច់​ត្រូវជ្រើស​ម៉ូដែលរបស់​ម៉ាស៊ីន​ថត ហើយនិង ច្រក​ដែល​វា​បាន​តភ្ជាប់\n"
-"ទៅ​កុំព្យូទ័រ​របស់​អ្នក (ឧទាហរណ៍ ៖ USB, សៀរៀល, Firewire) ។ ប្រសិន​បើម៉ាស៊ីន​ថត​របស់​អ្នក​មិន\n"
-"លេចឡើង​នៅក្នុង​បញ្ជី​នៃ <i>ម៉ាស៊ីន​ថត​ដែលបាន​គ្រប់គ្រង</i> ទៅកាន់\n"
-"<a href=\"http://www.gphoto.org\">​តំបន់​បណ្តាញ GPhoto​</a> ចំពោះ​ការ​ដែល​អាច​ធ្វើ​"
-"បច្ចុប្បន្នភាព​​បាន ។<br><br>\n"
-"ដើម្បី​មើល និងទាញយក​រូបភាព​ពី​កាមេរា​ឌីជីថល ទៅកាន់​អាស័យដ្ឋាន​\n"
-"<a href=\"camera:/\">ម៉ាស៊ីន​ថត ៖/</a> នៅក្នុង Konqueror និងកម្មវិធី KDE ដទៃទៀត ។"
 
 #: kameraconfigdialog.cpp:226
 #, kde-format
@@ -254,3 +231,25 @@ msgstr "បញ្ជាក់​ច្រក​ស៊េរី​នៅ​ទី
 #, kde-format
 msgid "No further configuration is required for USB cameras."
 msgstr "មិន​ត្រូវការ​​​កា​រកំណត់​រចនាសម្ព័ន្ធ​បន្ថែម​សម្រាប់​ម៉ាស៊ីន​ថត USB ទេ ។"
+
+#~ msgid ""
+#~ "<h1>Digital Camera</h1>\n"
+#~ "This module allows you to configure support for your digital camera.\n"
+#~ "You need to select the camera's model and the port it is connected\n"
+#~ "to on your computer (e.g. USB, Serial, Firewire). If your camera does "
+#~ "not\n"
+#~ "appear on the list of <i>Supported Cameras</i>, go to the\n"
+#~ "<a href=\"http://www.gphoto.org\">GPhoto web site</a> for a possible "
+#~ "update.<br><br>\n"
+#~ "To view and download images from the digital camera, go to the address\n"
+#~ "<a href=\"camera:/\">camera:/</a> in Konqueror and other KDE applications."
+#~ msgstr ""
+#~ "<h1>ម៉ាស៊ីន​ថតរូប​ឌីជីថល</h1>\n"
+#~ "ម៉ូឌុល​នេះ​អនុញ្ញាត​ឲ្យ​អ្នកកំណត់​រចនា​សម្ព័ន្ធ​គាំទ្រ​សម្រាប់​កាមេរា​ឌីជីថល​របស់​អ្នក ។​\n"
+#~ "អ្នកនឹង​ចាំបាច់​ត្រូវជ្រើស​ម៉ូដែលរបស់​ម៉ាស៊ីន​ថត ហើយនិង ច្រក​ដែល​វា​បាន​តភ្ជាប់\n"
+#~ "ទៅ​កុំព្យូទ័រ​របស់​អ្នក (ឧទាហរណ៍ ៖ USB, សៀរៀល, Firewire) ។ ប្រសិន​បើម៉ាស៊ីន​ថត​របស់​អ្នក​មិន\n"
+#~ "លេចឡើង​នៅក្នុង​បញ្ជី​នៃ <i>ម៉ាស៊ីន​ថត​ដែលបាន​គ្រប់គ្រង</i> ទៅកាន់\n"
+#~ "<a href=\"http://www.gphoto.org\">​តំបន់​បណ្តាញ GPhoto​</a> ចំពោះ​ការ​ដែល​អាច​ធ្វើ​"
+#~ "បច្ចុប្បន្នភាព​​បាន ។<br><br>\n"
+#~ "ដើម្បី​មើល និងទាញយក​រូបភាព​ពី​កាមេរា​ឌីជីថល ទៅកាន់​អាស័យដ្ឋាន​\n"
+#~ "<a href=\"camera:/\">ម៉ាស៊ីន​ថត ៖/</a> នៅក្នុង Konqueror និងកម្មវិធី KDE ដទៃទៀត ។"

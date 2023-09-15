@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kcmkamera\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-09 00:57+0000\n"
+"POT-Creation-Date: 2023-09-15 01:53+0000\n"
 "PO-Revision-Date: 2016-11-04 09:17+0800\n"
 "Last-Translator: Jeff Huang <s8321414@gmail.com>\n"
 "Language-Team: Chinese <kde-i18n-doc@kde.org>\n"
@@ -20,47 +20,47 @@ msgstr ""
 "X-Generator: Lokalize 2.0\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: kamera.cpp:82
+#: kamera.cpp:70
 #, kde-format
 msgid "Unable to initialize the gPhoto2 libraries."
 msgstr "無法對 gPhoto2 程式庫進行初始化的動作"
 
-#: kamera.cpp:119
+#: kamera.cpp:107
 #, kde-format
 msgid "Add"
 msgstr "新增"
 
-#: kamera.cpp:121
+#: kamera.cpp:109
 #, kde-format
 msgid "Click this button to add a new camera."
 msgstr "請點選這個按鈕新增照相機"
 
-#: kamera.cpp:127
+#: kamera.cpp:115
 #, kde-format
 msgid "Test"
 msgstr "測試"
 
-#: kamera.cpp:129
+#: kamera.cpp:117
 #, kde-format
 msgid "Click this button to test the connection to the selected camera."
 msgstr "請點選這個按鈕來測試到所選取的照相機的連線。"
 
-#: kamera.cpp:134
+#: kamera.cpp:122
 #, kde-format
 msgid "Remove"
 msgstr "移除"
 
-#: kamera.cpp:136
+#: kamera.cpp:124
 #, kde-format
 msgid "Click this button to remove the selected camera from the list."
 msgstr "請點選這個按鈕刪除清單上所選取的照相機"
 
-#: kamera.cpp:141
+#: kamera.cpp:129
 #, kde-format
 msgid "Configure..."
 msgstr "設定..."
 
-#: kamera.cpp:144
+#: kamera.cpp:132
 #, kde-format
 msgid ""
 "Click this button to change the configuration of the selected camera."
@@ -70,12 +70,12 @@ msgstr ""
 "點選這個按鈕來變更所選取照相機的設定。<br/><br/>設定方塊內所顯示該照相機的功"
 "能以及內容項目，會依照不同照相機型式而有所不同。"
 
-#: kamera.cpp:150
+#: kamera.cpp:138
 #, kde-format
 msgid "Information"
 msgstr "資訊"
 
-#: kamera.cpp:153
+#: kamera.cpp:141
 #, kde-format
 msgid ""
 "Click this button to view a summary of the current status of the selected "
@@ -85,42 +85,20 @@ msgstr ""
 "點選這個按鈕來檢視所選取照相機目前的狀態。<br/><br/>  在資訊對話框內所顯示該照相機的功能以及內容項目，會依照不同照相機型式而有所不"
 "同。"
 
-#: kamera.cpp:160
+#: kamera.cpp:148
 #, kde-format
 msgid "Cancel"
 msgstr "取消"
 
-#: kamera.cpp:162
+#: kamera.cpp:150
 #, kde-format
 msgid "Click this button to cancel the current camera operation."
 msgstr "請點選這個按鈕以取消目前照相機的動作。"
 
-#: kamera.cpp:374
+#: kamera.cpp:354
 #, kde-format
 msgid "Camera test was successful."
 msgstr "照相機測試成功"
-
-#: kamera.cpp:459
-#, kde-format
-msgid ""
-"<h1>Digital Camera</h1>\n"
-"This module allows you to configure support for your digital camera.\n"
-"You need to select the camera's model and the port it is connected\n"
-"to on your computer (e.g. USB, Serial, Firewire). If your camera does not\n"
-"appear on the list of <i>Supported Cameras</i>, go to the\n"
-"<a href=\"http://www.gphoto.org\">GPhoto web site</a> for a possible update."
-"<br><br>\n"
-"To view and download images from the digital camera, go to the address\n"
-"<a href=\"camera:/\">camera:/</a> in Konqueror and other KDE applications."
-msgstr ""
-"<h1>數位相機</h1>\n"
-"這個模組能夠讓您設定使用數位相機。\n"
-"設定過程您需要指定您的相機型號與所連結的位置 (比方 USB，序列埠等位置)。若是您"
-"的相機型號沒有列在<i>支援的照相機</i>的話，請連線到\n"
-"<a href=\"http://www.gphoto.org\">GPhoto 網站</a> 來取得相關更新資訊<br/><br/"
-">\n"
-"要檢視與下載數位相機圖片，請在 Konqueror 或者是 KDE 程式上連結\n"
-"<a href=\"camera:/\">camera:/</a> 即可"
 
 #: kameraconfigdialog.cpp:226
 #, kde-format
@@ -245,3 +223,24 @@ msgstr "您可以在這裡選擇您照相幾所連結的序列埠位址。"
 #, kde-format
 msgid "No further configuration is required for USB cameras."
 msgstr "沒有進一步可供 USB 的設定。"
+
+#~ msgid ""
+#~ "<h1>Digital Camera</h1>\n"
+#~ "This module allows you to configure support for your digital camera.\n"
+#~ "You need to select the camera's model and the port it is connected\n"
+#~ "to on your computer (e.g. USB, Serial, Firewire). If your camera does "
+#~ "not\n"
+#~ "appear on the list of <i>Supported Cameras</i>, go to the\n"
+#~ "<a href=\"http://www.gphoto.org\">GPhoto web site</a> for a possible "
+#~ "update.<br><br>\n"
+#~ "To view and download images from the digital camera, go to the address\n"
+#~ "<a href=\"camera:/\">camera:/</a> in Konqueror and other KDE applications."
+#~ msgstr ""
+#~ "<h1>數位相機</h1>\n"
+#~ "這個模組能夠讓您設定使用數位相機。\n"
+#~ "設定過程您需要指定您的相機型號與所連結的位置 (比方 USB，序列埠等位置)。若"
+#~ "是您的相機型號沒有列在<i>支援的照相機</i>的話，請連線到\n"
+#~ "<a href=\"http://www.gphoto.org\">GPhoto 網站</a> 來取得相關更新資訊<br/"
+#~ "><br/>\n"
+#~ "要檢視與下載數位相機圖片，請在 Konqueror 或者是 KDE 程式上連結\n"
+#~ "<a href=\"camera:/\">camera:/</a> 即可"

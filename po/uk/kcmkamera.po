@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kcmkamera\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-09 00:57+0000\n"
+"POT-Creation-Date: 2023-09-15 01:53+0000\n"
 "PO-Revision-Date: 2015-10-30 16:56+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
@@ -23,47 +23,47 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n"
 "%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
-#: kamera.cpp:82
+#: kamera.cpp:70
 #, kde-format
 msgid "Unable to initialize the gPhoto2 libraries."
 msgstr "Не вдалося завантажити бібліотеки gPhoto2."
 
-#: kamera.cpp:119
+#: kamera.cpp:107
 #, kde-format
 msgid "Add"
 msgstr "Додати"
 
-#: kamera.cpp:121
+#: kamera.cpp:109
 #, kde-format
 msgid "Click this button to add a new camera."
 msgstr "Натисніть цю кнопку, щоб додати новий фотоапарат."
 
-#: kamera.cpp:127
+#: kamera.cpp:115
 #, kde-format
 msgid "Test"
 msgstr "Тест"
 
-#: kamera.cpp:129
+#: kamera.cpp:117
 #, kde-format
 msgid "Click this button to test the connection to the selected camera."
 msgstr "Натисніть цю кнопку, щоб перевірити з’єднання з вибраним фотоапаратом."
 
-#: kamera.cpp:134
+#: kamera.cpp:122
 #, kde-format
 msgid "Remove"
 msgstr "Вилучити"
 
-#: kamera.cpp:136
+#: kamera.cpp:124
 #, kde-format
 msgid "Click this button to remove the selected camera from the list."
 msgstr "Натисніть цю кнопку, щоб вилучити вибраний фотоапарат зі списку."
 
-#: kamera.cpp:141
+#: kamera.cpp:129
 #, kde-format
 msgid "Configure..."
 msgstr "Налаштувати..."
 
-#: kamera.cpp:144
+#: kamera.cpp:132
 #, kde-format
 msgid ""
 "Click this button to change the configuration of the selected camera."
@@ -74,12 +74,12 @@ msgstr ""
 "<br><br>Можливість налаштування та вміст вікна налаштування залежить від "
 "моделі фотоапарата."
 
-#: kamera.cpp:150
+#: kamera.cpp:138
 #, kde-format
 msgid "Information"
 msgstr "Інформація"
 
-#: kamera.cpp:153
+#: kamera.cpp:141
 #, kde-format
 msgid ""
 "Click this button to view a summary of the current status of the selected "
@@ -90,44 +90,20 @@ msgstr ""
 "вибраного фотоапарата.<br><br>Можливість перегляду та вміст вікна "
 "налаштування залежить від моделі фотоапарата."
 
-#: kamera.cpp:160
+#: kamera.cpp:148
 #, kde-format
 msgid "Cancel"
 msgstr "Скасувати"
 
-#: kamera.cpp:162
+#: kamera.cpp:150
 #, kde-format
 msgid "Click this button to cancel the current camera operation."
 msgstr "Натисніть цю кнопку, щоб скасувати поточну дію фотоапарата."
 
-#: kamera.cpp:374
+#: kamera.cpp:354
 #, kde-format
 msgid "Camera test was successful."
 msgstr "Тест фотоапарата завершено успішно."
-
-#: kamera.cpp:459
-#, kde-format
-msgid ""
-"<h1>Digital Camera</h1>\n"
-"This module allows you to configure support for your digital camera.\n"
-"You need to select the camera's model and the port it is connected\n"
-"to on your computer (e.g. USB, Serial, Firewire). If your camera does not\n"
-"appear on the list of <i>Supported Cameras</i>, go to the\n"
-"<a href=\"http://www.gphoto.org\">GPhoto web site</a> for a possible update."
-"<br><br>\n"
-"To view and download images from the digital camera, go to the address\n"
-"<a href=\"camera:/\">camera:/</a> in Konqueror and other KDE applications."
-msgstr ""
-"<h1>Цифровий фотоапарат</h1>\n"
-"За допомогою цього модуля ви можете налаштувати підтримку цифрового "
-"фотоапарата.\n"
-"Вам потрібно буде вибрати модель та порт з'єднання фотоапарату\n"
-"до вашого комп'ютера (наприклад, USB, послідовний, Firewire). Якщо вашого\n"
-"фотоапарата немає у списку <i>Підтримуваних фотоапаратів</i>, відвідайте\n"
-"<a href=\"http://www.gphoto.org\">сайт GPhoto</a>, де може зберігатися "
-"оновлена версія програми.<br><br>\n"
-"Щоб переглянути та отримати зображення з фотоапарата, відкрийте адресу\n"
-"<a href=\"camera:/\">camera:/</a> у Konqueror або інших програмах KDE."
 
 #: kameraconfigdialog.cpp:226
 #, kde-format
@@ -258,3 +234,27 @@ msgstr ""
 #, kde-format
 msgid "No further configuration is required for USB cameras."
 msgstr "Подальше налаштування USB-фотоапарата не потрібне."
+
+#~ msgid ""
+#~ "<h1>Digital Camera</h1>\n"
+#~ "This module allows you to configure support for your digital camera.\n"
+#~ "You need to select the camera's model and the port it is connected\n"
+#~ "to on your computer (e.g. USB, Serial, Firewire). If your camera does "
+#~ "not\n"
+#~ "appear on the list of <i>Supported Cameras</i>, go to the\n"
+#~ "<a href=\"http://www.gphoto.org\">GPhoto web site</a> for a possible "
+#~ "update.<br><br>\n"
+#~ "To view and download images from the digital camera, go to the address\n"
+#~ "<a href=\"camera:/\">camera:/</a> in Konqueror and other KDE applications."
+#~ msgstr ""
+#~ "<h1>Цифровий фотоапарат</h1>\n"
+#~ "За допомогою цього модуля ви можете налаштувати підтримку цифрового "
+#~ "фотоапарата.\n"
+#~ "Вам потрібно буде вибрати модель та порт з'єднання фотоапарату\n"
+#~ "до вашого комп'ютера (наприклад, USB, послідовний, Firewire). Якщо "
+#~ "вашого\n"
+#~ "фотоапарата немає у списку <i>Підтримуваних фотоапаратів</i>, відвідайте\n"
+#~ "<a href=\"http://www.gphoto.org\">сайт GPhoto</a>, де може зберігатися "
+#~ "оновлена версія програми.<br><br>\n"
+#~ "Щоб переглянути та отримати зображення з фотоапарата, відкрийте адресу\n"
+#~ "<a href=\"camera:/\">camera:/</a> у Konqueror або інших програмах KDE."

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kcmkamera\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-09 00:57+0000\n"
+"POT-Creation-Date: 2023-09-15 01:53+0000\n"
 "PO-Revision-Date: 2021-12-22 13:39+0100\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
@@ -17,47 +17,47 @@ msgstr ""
 "X-Generator: Lokalize 20.12.2\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: kamera.cpp:82
+#: kamera.cpp:70
 #, kde-format
 msgid "Unable to initialize the gPhoto2 libraries."
 msgstr "Không thể khởi tạo thư viện gPhoto2."
 
-#: kamera.cpp:119
+#: kamera.cpp:107
 #, kde-format
 msgid "Add"
 msgstr "Thêm"
 
-#: kamera.cpp:121
+#: kamera.cpp:109
 #, kde-format
 msgid "Click this button to add a new camera."
 msgstr "Bấm nút này để thêm một máy ảnh mới."
 
-#: kamera.cpp:127
+#: kamera.cpp:115
 #, kde-format
 msgid "Test"
 msgstr "Kiểm tra"
 
-#: kamera.cpp:129
+#: kamera.cpp:117
 #, kde-format
 msgid "Click this button to test the connection to the selected camera."
 msgstr "Bấm nút này để kiểm tra kết nối đến máy ảnh đã chọn."
 
-#: kamera.cpp:134
+#: kamera.cpp:122
 #, kde-format
 msgid "Remove"
 msgstr "Xoá"
 
-#: kamera.cpp:136
+#: kamera.cpp:124
 #, kde-format
 msgid "Click this button to remove the selected camera from the list."
 msgstr "Bấm nút này để xoá máy ảnh đã chọn khỏi danh sách."
 
-#: kamera.cpp:141
+#: kamera.cpp:129
 #, kde-format
 msgid "Configure..."
 msgstr "Cấu hình..."
 
-#: kamera.cpp:144
+#: kamera.cpp:132
 #, kde-format
 msgid ""
 "Click this button to change the configuration of the selected camera."
@@ -68,12 +68,12 @@ msgstr ""
 "này có sẵn hay không và nội dung của hộp thoại \"Cấu hình\" tuỳ thuộc vào "
 "từng mẫu máy ảnh."
 
-#: kamera.cpp:150
+#: kamera.cpp:138
 #, kde-format
 msgid "Information"
 msgstr "Thông tin"
 
-#: kamera.cpp:153
+#: kamera.cpp:141
 #, kde-format
 msgid ""
 "Click this button to view a summary of the current status of the selected "
@@ -84,42 +84,20 @@ msgstr ""
 "<br><br>Việc tính năng này có sẵn hay không và nội dung của hộp thoại "
 "\"Thông tin\" tuỳ thuộc vào từng mẫu máy ảnh."
 
-#: kamera.cpp:160
+#: kamera.cpp:148
 #, kde-format
 msgid "Cancel"
 msgstr "Huỷ"
 
-#: kamera.cpp:162
+#: kamera.cpp:150
 #, kde-format
 msgid "Click this button to cancel the current camera operation."
 msgstr "Bấm nút này để huỷ thao tác máy ảnh hiện tại."
 
-#: kamera.cpp:374
+#: kamera.cpp:354
 #, kde-format
 msgid "Camera test was successful."
 msgstr "Việc kiểm tra máy ảnh đã thành công."
-
-#: kamera.cpp:459
-#, kde-format
-msgid ""
-"<h1>Digital Camera</h1>\n"
-"This module allows you to configure support for your digital camera.\n"
-"You need to select the camera's model and the port it is connected\n"
-"to on your computer (e.g. USB, Serial, Firewire). If your camera does not\n"
-"appear on the list of <i>Supported Cameras</i>, go to the\n"
-"<a href=\"http://www.gphoto.org\">GPhoto web site</a> for a possible update."
-"<br><br>\n"
-"To view and download images from the digital camera, go to the address\n"
-"<a href=\"camera:/\">camera:/</a> in Konqueror and other KDE applications."
-msgstr ""
-"<h1>Máy ảnh số</h1>\n"
-"Khối này cho phép bạn cấu hình hỗ trợ cho máy ảnh số của bạn. Bạn cần chọn\n"
-"mẫu mã máy ảnh và cổng mà nó kết nối trên máy tính của bạn (vd. USB, Nối\n"
-"tiếp, Firewire). Nếu máy ảnh của bạn không xuất hiện trong danh sách\n"
-"<i>Máy ảnh được hỗ trợ</i>, hãy tìm một bản cập nhật có thể có ở\n"
-"<a href=\"http://www.gphoto.org\">địa điểm web GPhoto</a>.<br><br>\n"
-"Để xem và tải ảnh về từ máy ảnh, đi đến địa chỉ\n"
-"<a href=\"camera:/\">camera:/</a> trong Konqueror và các ứng dụng KDE khác."
 
 #: kameraconfigdialog.cpp:226
 #, kde-format
@@ -249,3 +227,26 @@ msgstr "Chỉ định tại đây cổng nối tiếp mà bạn kết nối máy
 #, kde-format
 msgid "No further configuration is required for USB cameras."
 msgstr "Không cần cấu hình gì thêm cho các máy ảnh USB."
+
+#~ msgid ""
+#~ "<h1>Digital Camera</h1>\n"
+#~ "This module allows you to configure support for your digital camera.\n"
+#~ "You need to select the camera's model and the port it is connected\n"
+#~ "to on your computer (e.g. USB, Serial, Firewire). If your camera does "
+#~ "not\n"
+#~ "appear on the list of <i>Supported Cameras</i>, go to the\n"
+#~ "<a href=\"http://www.gphoto.org\">GPhoto web site</a> for a possible "
+#~ "update.<br><br>\n"
+#~ "To view and download images from the digital camera, go to the address\n"
+#~ "<a href=\"camera:/\">camera:/</a> in Konqueror and other KDE applications."
+#~ msgstr ""
+#~ "<h1>Máy ảnh số</h1>\n"
+#~ "Khối này cho phép bạn cấu hình hỗ trợ cho máy ảnh số của bạn. Bạn cần "
+#~ "chọn\n"
+#~ "mẫu mã máy ảnh và cổng mà nó kết nối trên máy tính của bạn (vd. USB, Nối\n"
+#~ "tiếp, Firewire). Nếu máy ảnh của bạn không xuất hiện trong danh sách\n"
+#~ "<i>Máy ảnh được hỗ trợ</i>, hãy tìm một bản cập nhật có thể có ở\n"
+#~ "<a href=\"http://www.gphoto.org\">địa điểm web GPhoto</a>.<br><br>\n"
+#~ "Để xem và tải ảnh về từ máy ảnh, đi đến địa chỉ\n"
+#~ "<a href=\"camera:/\">camera:/</a> trong Konqueror và các ứng dụng KDE "
+#~ "khác."
