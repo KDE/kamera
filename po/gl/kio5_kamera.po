@@ -19,4 +19,4 @@ msgstr ""
 #: kamera.cpp:715
 #, kde-format
 msgid "Could not read. Reason: %1"
-msgstr "Non se puido ler. Motivo: %1"
+msgstr "Non foi posíbel ler. Motivo: %1"
