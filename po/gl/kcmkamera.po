@@ -28,7 +28,7 @@ msgstr ""
 #: kamera.cpp:70
 #, kde-format
 msgid "Unable to initialize the gPhoto2 libraries."
-msgstr "Non se poden inicializar as bibliotecas de gPhoto2."
+msgstr "Non é posíbel inicializar as bibliotecas de gPhoto2."
 
 #: kamera.cpp:107
 #, kde-format
@@ -120,12 +120,12 @@ msgstr "Data (non admitido por KControl)"
 #: kameradevice.cpp:78
 #, kde-format
 msgid "Could not allocate memory for the abilities list."
-msgstr "Non se puido asignar memoria para a lista de capacidades."
+msgstr "Non foi posíbel asignar memoria para a lista de capacidades."
 
 #: kameradevice.cpp:82
 #, kde-format
 msgid "Could not load ability list."
-msgstr "Non se puido cargar a lista de capacidades."
+msgstr "Non foi posíbel cargar a lista de capacidades."
 
 #: kameradevice.cpp:88 kameradevice.cpp:489 kameradevice.cpp:507
 #, kde-format
@@ -140,7 +140,7 @@ msgstr ""
 #, kde-format
 msgid "Could not access driver. Check your gPhoto2 installation."
 msgstr ""
-"Non se puido acceder ao controlador. Comprobe a instalación de gPhoto2."
+"Non foi posíbel acceder ao controlador. Comprobe a instalación de gPhoto2."
 
 #: kameradevice.cpp:132
 #, kde-format
@@ -148,8 +148,8 @@ msgid ""
 "Unable to initialize camera. Check your port settings and camera "
 "connectivity and try again."
 msgstr ""
-"Non se pode inicializar a cámara. Comprobe a configuración e a conectividade "
-"do porto e da cámara e inténteo de novo."
+"Non é posíbel inicializar a cámara. Comprobe a configuración e a "
+"conectividade do porto e da cámara e inténteo de novo."
 
 #: kameradevice.cpp:156
 #, kde-format
