@@ -25,6 +25,7 @@
   <name xml:lang="fi">Kamera</name>
   <name xml:lang="fr">Kamera</name>
   <name xml:lang="gl">Kamera</name>
+  <name xml:lang="he">Kamera</name>
   <name xml:lang="hu">Kamera</name>
   <name xml:lang="ia">Kamera</name>
   <name xml:lang="id">Kamera</name>
@@ -66,6 +67,7 @@
   <summary xml:lang="fi">PTP-yhteyskäytäntöä (Picture Transfer Protocol) tukeva liitännäinen KDE-sovelluksiin</summary>
   <summary xml:lang="fr">Un module externe de prise en charge du protocole de transfert d'images (PTP) au sein des applications KDE</summary>
   <summary xml:lang="gl">Un complemento para permitir o protocolo de transferencia de imaxes (PTP) nas aplicacións de KDE</summary>
+  <summary xml:lang="he">תוסף לתמיכה בפרוטוקול העברת תמונות (PTP) ביישומי KDE</summary>
   <summary xml:lang="hu">Bővítmény a képátviteli protokoll (PTP) támogatásához KDE alkalmazásokban</summary>
   <summary xml:lang="ia">Un plugin pro supportar Picture Transfer Protocol (PTP) in applicationes de KDE</summary>
   <summary xml:lang="id">Sebuah plugin untuk mendukung Picture Transfer Protocol (PTP) di aplikasi KDE</summary>
@@ -106,6 +108,7 @@
     <p xml:lang="fi">PTP (Picture Transfer Protocol) on kameralaitteiden vanhempi yhteyskäytäntö kameralaitteiden. Kamera tarjoaa yhteyskäytännölle asetustyökalun ja kio-asiakkaan.</p>
     <p xml:lang="fr">Le protocole de transfert d'images (PTP) est une ancienne méthode de communication avec les appareils photo. Kamera fournit un outil de configuration et un module d'entrées / sortie « kio » permettant un accès en lecture et en écriture aux appareils photo utilisant ce protocole.</p>
     <p xml:lang="gl">O protocolo de transferencia de imaxes (PTP) é un método antigo de comunicación con dispositivos de cámara. Kamera fornece unha ferramenta de configuración e un traballador de KIO para ler e escribir datos de dispositivos de cámara con este protocolo.</p>
+    <p xml:lang="he">פרוטוקול העברת תמונות (PTP) היא שיטה ישנה יותר לתקשורת מול המצלמה. Kamera מספקת כלי הגדרות ופעיל של KIO לקריאה ולכתוב להתקני מצלמות עם הפרוטוקול הזה.</p>
     <p xml:lang="ia">Picture Transfer Protocol (PTP) es un vetere methodo de parlar a dispositivos de camera. Kamera forni un instrumento de configuration e un KIOworker per leger e scriber  a iste dispositivos con iste protocollo.</p>
     <p xml:lang="id">Picture Transfer Protocol (PTP) adalah sebuah metode lawas untuk berinteraksi ke peranti kamera. Aplikasi Kamera menyediakan alat konfigurasi dan KIO worker untuk membaca dan menulis ke peranti kamera dengan protokol ini.</p>
     <p xml:lang="is">Picture Transfer Protocol (PTP) er eldri samskiptamáti við myndavélar. Kamera kemur með stillingatóli og kio-vinnsluferli til að lesa af og skrifa í myndavélartæki sem styðjast við þennan samskiptamáta.</p>
