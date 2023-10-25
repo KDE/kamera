@@ -58,7 +58,7 @@ int kdemain(int argc, char **argv)
     QCoreApplication app(argc, argv);
 
     QCoreApplication::setApplicationName(QStringLiteral("kio_kamera"));
-    KLocalizedString::setApplicationDomain("kio_kamera");
+    KLocalizedString::setApplicationDomain(QByteArrayLiteral("kio_kamera"));
 
 #ifdef DEBUG_KAMERA_KIO
     QLoggingCategory::setFilterRules(QStringLiteral("kf.kio.workers.camera.debug = true"));
