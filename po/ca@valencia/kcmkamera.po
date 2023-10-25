@@ -121,10 +121,10 @@ msgstr ""
 "Este mòdul permet configurar l'ús de la vostra càmera digital.\n"
 "Necessitareu seleccionar el model de la càmera i el port de connexió\n"
 "amb el vostre ordinador (p. ex., USB, sèrie, Firewire). Si la vostra càmera\n"
-"no apareix en la llista de <i>Càmeres permeses</i>, aneu al\n"
-"<a href=\"http://www.gphoto.org\">lloc web del GPhoto</a> per a possibles "
+"no apareix en la llista de <i>Càmeres permeses</i>, aneu fins al\n"
+"<a href=\"http://www.gphoto.org\">lloc web de GPhoto</a> per a possibles "
 "actualitzacions.<br><br>\n"
-"Per a veure i baixar imatges de la càmera digital, aneu a l'adreça\n"
+"Per a veure i baixar imatges de la càmera digital, aneu fins a l'adreça\n"
 "<a href=\"camera:/\">camera:/</a> a Konqueror i altres aplicacions KDE."
 
 #: kameraconfigdialog.cpp:226
