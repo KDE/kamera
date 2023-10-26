@@ -9,6 +9,7 @@
   <extends>org.kde.gwenview.desktop</extends>
   <name>Kamera</name>
   <name xml:lang="ar">كاميرا</name>
+  <name xml:lang="ast">Kamera</name>
   <name xml:lang="az">Kamera</name>
   <name xml:lang="bg">Kamera</name>
   <name xml:lang="ca">Kamera</name>
