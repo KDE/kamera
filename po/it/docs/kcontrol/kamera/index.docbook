@@ -40,7 +40,7 @@
 </authorgroup>
 
 <date
->2018-03-23</date>
+>23/03/2018</date>
 <releaseinfo
 >Applications 18.04</releaseinfo>
 
@@ -102,7 +102,7 @@
 ></term>
 <listitem>
 <para
->Fai clic su questo pulsante per modificare la configurazione della fotocamera selezionata. La disponibilità di questa funzione e il contenuto della finestra di configurazione dipendono dal modello di fotocamera.</para>
+>Fai clic su questo pulsante per modificare la configurazione della fotocamera selezionata. La disponibilità di questa funzionalità e il contenuto della finestra di configurazione dipendono dal modello di fotocamera.</para>
 </listitem>
 </varlistentry>
 
@@ -113,7 +113,7 @@
 ></term>
 <listitem>
 <para
->Fai clic su questo pulsante per vedere un riassunto dello stato della fotocamera selezionata. La disponibilità di questa funzione e i contenuti della finestra di informazioni dipendono dal modello di fotocamera.</para>
+>Fai clic su questo pulsante per visualizzare un riassunto dello stato corrente della fotocamera selezionata. La disponibilità di questa funzionalità e il contenuto della finestra di informazioni dipendono dal modello di fotocamera.</para>
 </listitem>
 </varlistentry>
 
@@ -124,7 +124,7 @@
 ></term>
 <listitem>
 <para
->Fai clic su questo pulsante per annullare l'operazione corrente con la fotocamera.</para>
+>Fai clic su questo pulsante per annullare l'operazione con la fotocamera corrente.</para>
 </listitem>
 </varlistentry>
 
