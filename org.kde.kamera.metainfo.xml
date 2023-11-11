@@ -129,6 +129,7 @@
     <p xml:lang="vi">Giao thức Truyền Ảnh (PTP) là một phương thức đã có từ lâu để giao tiếp với các thiết bị máy ảnh. Kamera cung cấp một công cụ cấu hình và một thợ KIO để đọc và ghi vào thiết bị máy ảnh bằng giao thức này.</p>
     <p xml:lang="x-test">xxPicture Transfer Protocol (PTP) is an older method of talking to camera devices. Kamera provides a configuration tool and a KIO worker to read and write to camera devices with this protocol.xx</p>
     <p xml:lang="zh-CN">图片传输协议 (Picture Transfer Protocol, PTP) 是一种用于和数码相机设备进行通讯的旧式协议。Kamera 提供了一个配置工具和一个 KIO 工作程序，用于在采用了此协议的数码相机上进行读写操作。</p>
+    <p xml:lang="zh-TW">影像傳輸協定 (PTP) 是個與相機裝置溝通的舊方法。Kamera 提供了設定工具及 KIO worker 來使用此協定讀取及寫入相機裝置。</p>
   </description>
   <url type="homepage">https://www.kde.org</url>
   <url type="bugtracker">https://bugs.kde.org/enter_bug.cgi?format=guided&amp;product=systemsettings</url>
