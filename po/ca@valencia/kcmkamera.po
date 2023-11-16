@@ -219,8 +219,8 @@ msgid ""
 "If this option is checked, the camera has to be connected to one of the "
 "computer's serial ports (known as COM ports in Microsoft Windows.)"
 msgstr ""
-"Si esta opció està marcada, la càmera hauria de connectar-se a un dels ports "
-"sèrie (anomenats COM a Microsoft Windows) de l'ordinador."
+"Si se selecciona, la càmera hauria de connectar-se a un dels ports sèrie "
+"(anomenats COM a Microsoft Windows) de l'ordinador."
 
 #: kameradevice.cpp:331
 #, kde-format
@@ -228,8 +228,8 @@ msgid ""
 "If this option is checked, the camera has to be connected to one of the "
 "computer's USB ports, or to a USB hub."
 msgstr ""
-"Si esta opció està marcada, la càmera hauria de connectar-se a un dels ports "
-"USB de l'ordinador o a un concentrador USB."
+"Si se selecciona, la càmera hauria de connectar-se a un dels ports USB de "
+"l'ordinador o a un concentrador USB."
 
 #: kameradevice.cpp:334
 #, kde-format
