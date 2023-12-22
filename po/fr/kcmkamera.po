@@ -3,7 +3,7 @@
 # Gérard Delafond <gerard@delafond.org>, 2002.
 # CAULIER Gilles <caulier.gilles@free.fr>, 2003.
 # Bruno Patri <bruno.patri@gmail.com>, 2007, 2008, 2009.
-# xavier <xavier.besnard@neuf.fr>, 2013.
+# Xavier Besnard <xavier.besnard@kde.org>, 2013.
 #
 msgid ""
 msgstr ""
