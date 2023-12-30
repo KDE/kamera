@@ -1,4 +1,4 @@
-add_definitions(-DTRANSLATION_DOMAIN=\"kio5_kamera\")
+add_definitions(-DTRANSLATION_DOMAIN=\"kio6_kamera\")
 
 add_library(kio_kamera MODULE kamera.cpp kameralist.cpp)
 
