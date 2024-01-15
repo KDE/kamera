@@ -1,9 +1,9 @@
 # Translation of kcmkamera.po to Catalan
-# Copyright (C) 2001-2023 This_file_is_part_of_KDE
+# Copyright (C) 2001-2024 This_file_is_part_of_KDE
 # This file is distributed under the license LGPL version 2.1 or
 # version 3 or later versions approved by the membership of KDE e.V.
 #
-# Josep M. Ferrer <txemaq@gmail.com>, 2001, 2003, 2006, 2007, 2008, 2009, 2010, 2011, 2015, 2020, 2023.
+# Josep M. Ferrer <txemaq@gmail.com>, 2001, 2003, 2006, 2007, 2008, 2009, 2010, 2011, 2015, 2020, 2023, 2024.
 # Albert Astals Cid <aacid@kde.org>, 2005.
 # Antoni Bella Pérez <antonibella5@yahoo.com>, 2016, 2020.
 msgid ""
@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: kamera\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-09-15 01:53+0000\n"
-"PO-Revision-Date: 2023-09-19 19:17+0200\n"
+"PO-Revision-Date: 2024-01-14 12:30+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -200,7 +200,7 @@ msgid ""
 "computer's serial ports (known as COM ports in Microsoft Windows.)"
 msgstr ""
 "Si aquesta opció està marcada, la càmera hauria de connectar-se a un dels "
-"ports sèrie (anomenats COM a Microsoft Windows) de l'ordinador."
+"ports en sèrie (anomenats COM a Microsoft Windows) de l'ordinador."
 
 #: kameradevice.cpp:331
 #, kde-format
@@ -229,7 +229,7 @@ msgstr "Port:"
 #: kameradevice.cpp:363
 #, kde-format
 msgid "Specify here the serial port to which you connect the camera."
-msgstr "Aquí podeu triar el port sèrie al qual connecteu la càmera."
+msgstr "Aquí podeu triar el port en sèrie al qual connecteu la càmera."
 
 #: kameradevice.cpp:370
 #, kde-format
