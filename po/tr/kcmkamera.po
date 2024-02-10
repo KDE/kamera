@@ -6,13 +6,13 @@
 # Görkem Çetin, 2000.
 # obsoleteman <tulliana@gmail.com>, 2008-2009,2011.
 # Volkan Gezer <volkangezer@gmail.com>, 2017.
-# Emir SARI <emir_sari@icloud.com>, 2022, 2023.
+# SPDX-FileCopyrightText: 2022, 2023, 2024 Emir SARI <emir_sari@icloud.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kdegraphics-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-09-15 01:53+0000\n"
-"PO-Revision-Date: 2023-02-27 20:15+0300\n"
+"PO-Revision-Date: 2024-02-09 17:45+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 22.12.2\n"
+"X-Generator: Lokalize 24.01.95\n"
 
 #: kamera.cpp:70
 #, kde-format
@@ -195,7 +195,7 @@ msgid ""
 "computer's serial ports (known as COM ports in Microsoft Windows.)"
 msgstr ""
 "Bu seçenek işaretlenirse, fotoğraf makinesi bilgisayarın seri bağlantı "
-"noktalarından birine bağlı olmalıdır (Microsoft Windows'ta COM bağlantı "
+"noktalarından birine bağlı olmalıdır (Microsoft Windows’ta COM bağlantı "
 "noktası olarak bilinir.)"
 
 #: kameradevice.cpp:331
