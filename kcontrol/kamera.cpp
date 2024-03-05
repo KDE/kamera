@@ -31,7 +31,7 @@ K_PLUGIN_CLASS_WITH_JSON(KKameraConfig, "kcm_kamera.json")
 
 // --------------- Camera control center module widget ---
 KKameraConfig::KKameraConfig(QObject *parent, const KPluginMetaData &md)
-    : KCModule(parent)
+    : KCModule(parent, md)
 {
 #ifdef DEBUG_KAMERA_KCONTROL
     QLoggingCategory::setFilterRules(QStringLiteral("kamera.kcm.debug = true"));
