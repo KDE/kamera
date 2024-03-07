@@ -26,7 +26,6 @@ include(ECMDeprecationSettings)
 include(ECMQtDeclareLoggingCategory)
 
 find_package(Qt6 ${QT_MIN_VERSION} REQUIRED COMPONENTS Core)
-find_package(Qt6Core5Compat REQUIRED ${QT_MIN_VERSION})
 
 find_package(KF6 ${KF5_MIN_VERSION} REQUIRED COMPONENTS
     ConfigWidgets
