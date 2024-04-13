@@ -51,7 +51,7 @@ find_package(Gphoto2 2.5.0 REQUIRED)
 set(CMAKE_CXX_FLAGS_DEBUG, "${CMAKE_CXX_FLAGS_DEBUG} -Wall -Wunused -Wextra")
 remove_definitions( -DQT_NO_CAST_FROM_ASCII )
 remove_definitions( -DQT_NO_CAST_FROM_BYTEARRAY)
-
+add_definitions(-DQT_NO_CONTEXTLESS_CONNECT)
 ecm_set_disabled_deprecation_versions(QT 6.6.0
     KF 6.0.0
 )
