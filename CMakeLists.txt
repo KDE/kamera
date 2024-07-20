@@ -10,7 +10,7 @@ set(PROJECT_VERSION ${RELEASE_SERVICE_VERSION})
 project(kamera VERSION ${PROJECT_VERSION})
 
 set(QT_MIN_VERSION "6.5.0")
-set(KF_MIN_VERSION    "5.240.0")
+set(KF_MIN_VERSION "6.3.0")
 find_package(ECM ${KF_MIN_VERSION} REQUIRED NO_MODULE)
 set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${CMAKE_SOURCE_DIR})
 
@@ -52,8 +52,8 @@ set(CMAKE_CXX_FLAGS_DEBUG, "${CMAKE_CXX_FLAGS_DEBUG} -Wall -Wunused -Wextra")
 remove_definitions( -DQT_NO_CAST_FROM_ASCII )
 remove_definitions( -DQT_NO_CAST_FROM_BYTEARRAY)
 add_definitions(-DQT_NO_CONTEXTLESS_CONNECT)
-ecm_set_disabled_deprecation_versions(QT 6.6.0
-    KF 6.0.0
+ecm_set_disabled_deprecation_versions(QT 6.7.0
+    KF 6.4.0
 )
 
 
