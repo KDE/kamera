@@ -1,5 +1,4 @@
 {
-    "Categories": "Qt;KDE;X-KDE-settings-hardware;",
     "KPlugin": {
         "BugReportUrl": "https://bugs.kde.org/enter_bug.cgi?product=systemsettings&component=kcm_kamera",
         "Description": "Configure Kamera",
@@ -127,12 +126,8 @@
         "Name[xh]": "Ikhamera Yesuntswana",
         "Name[zh_CN]": "数码相机",
         "Name[zh_HK]": "數碼相機",
-        "Name[zh_TW]": "數位相機",
-        "ServiceTypes": [
-            "KCModule"
-        ]
+        "Name[zh_TW]": "數位相機"
     },
-    "Terminal": "false",
     "X-DocPath": "kcontrol/kamera/index.html",
     "X-KDE-Keywords": "gphoto,camera,digicam,webcam,kamera",
     "X-KDE-Keywords[ar]": "كاميرا,ويبكام,gphoto,camera,digicam,webcam,kamera",
@@ -183,7 +178,5 @@
     "X-KDE-Keywords[uk]": "gphoto,camera,digicam,webcam,kamera,фотоапарат,камера",
     "X-KDE-Keywords[x-test]": "xxgphotoxx,xxcameraxx,xxdigicamxx,xxwebcamxx,xxkameraxx",
     "X-KDE-Keywords[zh_TW]": "gphoto,camera,digicam,webcam,kamera",
-    "X-KDE-ModuleType": "Library",
-    "X-KDE-ParentApp": "kcontrol",
     "X-KDE-System-Settings-Parent-Category": "removable-storage"
 }
