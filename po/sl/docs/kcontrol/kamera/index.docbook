@@ -1,0 +1,150 @@
+<?xml version="1.0" ?>
+<!DOCTYPE article PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % Slovenian "INCLUDE">
+]>
+
+<article id="kamera" lang="&language;">
+<title
+>&kamera; : Digitalna kamera</title>
+<articleinfo>
+
+<authorgroup>
+<author
+><firstname
+>Burkhard</firstname
+> <surname
+>Lück</surname
+> <affiliation
+> <address
+><email
+>lueck@hube-lueck.de</email
+></address>
+</affiliation>
+</author>
+<othercredit role="translator"
+><firstname
+>Luka</firstname
+><surname
+>Puhar</surname
+><affiliation
+><address
+><email
+>puhar.luka@gmail.com</email
+></address
+></affiliation
+><contrib
+>Prevod</contrib
+></othercredit
+> 
+</authorgroup>
+
+<date
+>23.03.2018</date>
+<releaseinfo
+>Aplikacije 18.04</releaseinfo>
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>kamera</keyword>
+<keyword
+>fotografija</keyword>
+</keywordset>
+</articleinfo>
+
+<para
+>Ta modul omogoča konfiguracijo podpore za vašo digitalno kamero. </para>
+
+<variablelist>
+<varlistentry
+><term
+><guibutton
+>Dodaj</guibutton
+></term>
+<listitem>
+<para
+>Kliknite ta gumb, da izberete model kamere in vrata, s katerimi je povezana v računalniku (&eg; USB, Serial). Če vašega fotoaparata ni na seznamu <guilabel
+>Podprte kamere</guilabel
+>, obiščite <ulink url="http://www.gphoto.org"
+>Strani GPhoto</ulink
+> za morebitno posodobitev. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry
+><term
+><guibutton
+>Test</guibutton
+></term>
+<listitem>
+<para
+>S klikom na ta gumb preizkusite povezavo z izbrano kamero.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry
+><term
+><guibutton
+>Odstrani</guibutton
+></term>
+<listitem>
+<para
+>Odstranit izbrano kamero s seznama. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry
+><term
+><guibutton
+>Konfiguriraj</guibutton
+></term>
+<listitem>
+<para
+>Kliknite ta gumb, če želite spremeniti konfiguracijo izbrane kamere. Razpoložljivost te funkcije in vsebina pogovornega okna za konfiguracijo sta odvisni od modela kamere.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry
+><term
+><guibutton
+>Informacije</guibutton
+></term>
+<listitem>
+<para
+>S klikom na ta gumb si lahko ogledate povzetek trenutnega stanja izbrane kamere. Razpoložljivost te funkcije in vsebina pogovornega okna Informacije sta odvisni od modela kamere.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry
+><term
+><guibutton
+>Prekliči</guibutton
+></term>
+<listitem>
+<para
+>Kliknite ta gumb, če želite preklicati trenutno delovanje fotoaparata.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+<para
+>Če si želite ogledati in prenesti slike iz digitalnega fotoaparata, vnesite <userinput
+>camera:/</userinput
+> v &konqueror;&apos;s ali &dolphin;&apos;s lokacijsko vrstico. </para>
+
+</article>
+
+<!--
+Local Variables:
+mode: sgml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+// vim:ts=2:sw=2:tw=78:noet
+-->
