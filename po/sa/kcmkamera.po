@@ -1,0 +1,222 @@
+# Sanskrit translations for kamera package.
+# Copyright (C) 2024 This file is copyright:
+# This file is distributed under the same license as the kamera package.
+# Kali <EMAIL@ADDRESS>, 2024.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: kamera\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2023-09-15 01:53+0000\n"
+"PO-Revision-Date: 2024-12-13 19:09+0530\n"
+"Last-Translator: Kali <EMAIL@ADDRESS>\n"
+"Language-Team: Sanskrit\n"
+"Language: sa\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: kamera.cpp:70
+#, kde-format
+msgid "Unable to initialize the gPhoto2 libraries."
+msgstr "gPhoto2 पुस्तकालयानाम् आरम्भं कर्तुं असमर्थः ।"
+
+#: kamera.cpp:107
+#, kde-format
+msgid "Add"
+msgstr "संयोजयति"
+
+#: kamera.cpp:109
+#, kde-format
+msgid "Click this button to add a new camera."
+msgstr "नूतनं कॅमेरा योजयितुं एतत् बटन् नुदन्तु ।"
+
+#: kamera.cpp:115
+#, kde-format
+msgid "Test"
+msgstr "परीक्षा"
+
+#: kamera.cpp:117
+#, kde-format
+msgid "Click this button to test the connection to the selected camera."
+msgstr "चयनितकैमरेण सह संयोजनस्य परीक्षणार्थं एतत् बटन् नुदन्तु ।"
+
+#: kamera.cpp:122
+#, kde-format
+msgid "Remove"
+msgstr "अपाकरोति"
+
+#: kamera.cpp:124
+#, kde-format
+msgid "Click this button to remove the selected camera from the list."
+msgstr "चयनितं कॅमेरा सूचीतः निष्कासयितुं एतत् बटन् नुदन्तु ।"
+
+#: kamera.cpp:129
+#, kde-format
+msgid "Configure..."
+msgstr "विन्यस्तं कुर्वन्तु..."
+
+#: kamera.cpp:132
+#, kde-format
+msgid ""
+"Click this button to change the configuration of the selected camera."
+"<br><br>The availability of this feature and the contents of the "
+"Configuration dialog depend on the camera model."
+msgstr ""
+"चयनितस्य कॅमेरा-विन्यासं परिवर्तयितुं एतत् बटन् नुदन्तु ।<br><br> अस्य विशेषतायाः उपलब्धता, "
+"Configuration संवादस्य विषयवस्तु च कॅमेरा मॉडल् इत्यस्य उपरि निर्भरं भवति ।"
+
+#: kamera.cpp:138
+#, kde-format
+msgid "Information"
+msgstr "सूचना"
+
+#: kamera.cpp:141
+#, kde-format
+msgid ""
+"Click this button to view a summary of the current status of the selected "
+"camera.<br><br>The availability of this feature and the contents of the "
+"Information dialog depend on the camera model."
+msgstr ""
+"चयनितस्य कॅमेरा इत्यस्य वर्तमानस्थितेः सारांशं द्रष्टुं एतत् बटन् नुदन्तु ।<br><br> अस्य "
+"विशेषतायाः उपलब्धता सूचनासंवादस्य विषयवस्तु च कॅमेरा-प्रतिरूपस्य उपरि निर्भरं भवति ।"
+
+#: kamera.cpp:148
+#, kde-format
+msgid "Cancel"
+msgstr "निरसयतु"
+
+#: kamera.cpp:150
+#, kde-format
+msgid "Click this button to cancel the current camera operation."
+msgstr "वर्तमानं कॅमेरा-सञ्चालनं रद्दं कर्तुं एतत् बटन् नुदन्तु ।"
+
+#: kamera.cpp:354
+#, kde-format
+msgid "Camera test was successful."
+msgstr "कॅमेरा परीक्षणं सफलम् अभवत् ।"
+
+#: kameraconfigdialog.cpp:226
+#, kde-format
+msgid "Button (not supported by KControl)"
+msgstr "बटन (KControl द्वारा समर्थितम् नास्ति)"
+
+#: kameraconfigdialog.cpp:233
+#, kde-format
+msgid "Date (not supported by KControl)"
+msgstr "तिथि (KControl द्वारा समर्थिता नास्ति)"
+
+#: kameradevice.cpp:78
+#, kde-format
+msgid "Could not allocate memory for the abilities list."
+msgstr "क्षमतासूचिकायाः कृते स्मृतिः आवंटयितुं न शक्तवान् ।"
+
+#: kameradevice.cpp:82
+#, kde-format
+msgid "Could not load ability list."
+msgstr "क्षमतासूचीं लोड् कर्तुं न शक्तवान्।"
+
+#: kameradevice.cpp:88 kameradevice.cpp:489 kameradevice.cpp:507
+#, kde-format
+msgid ""
+"Description of abilities for camera %1 is not available. Configuration "
+"options may be incorrect."
+msgstr ""
+"%1 कॅमेरा कृते क्षमतायाः वर्णनं उपलब्धं नास्ति । विन्यासविकल्पाः अशुद्धाः भवितुम् अर्हन्ति ।"
+
+#: kameradevice.cpp:113
+#, kde-format
+msgid "Could not access driver. Check your gPhoto2 installation."
+msgstr "चालकं प्राप्तुं न शक्तवान्। स्वस्य gPhoto2 संस्थापनं पश्यन्तु।"
+
+#: kameradevice.cpp:132
+#, kde-format
+msgid ""
+"Unable to initialize camera. Check your port settings and camera "
+"connectivity and try again."
+msgstr ""
+"कॅमेरा आरम्भं कर्तुं असमर्थः। स्वस्य पोर्ट् सेटिंग्स् तथा कॅमेरा-संपर्कं पश्यन्तु पुनः प्रयासं कुर्वन्तु ।"
+
+#: kameradevice.cpp:156
+#, kde-format
+msgid "No camera summary information is available.\n"
+msgstr "न कश्चित् कॅमेरा सारांशसूचना उपलब्धा अस्ति।\n"
+
+#: kameradevice.cpp:170 kameradevice.cpp:180
+#, kde-format
+msgid "Camera configuration failed."
+msgstr "कॅमेराविन्यासः विफलः अभवत् ।"
+
+#: kameradevice.cpp:218 kameradevice.cpp:322
+#, kde-format
+msgid "Serial"
+msgstr "धारावाहिक"
+
+#: kameradevice.cpp:220 kameradevice.cpp:328
+#, kde-format
+msgid "USB"
+msgstr "USB"
+
+#: kameradevice.cpp:221
+#, kde-format
+msgid "Unknown port"
+msgstr "अज्ञात पोर्ट्"
+
+#: kameradevice.cpp:284
+#, kde-format
+msgid "Select Camera Device"
+msgstr "Camera Device इति चिनोतु"
+
+#: kameradevice.cpp:302
+#, kde-format
+msgctxt "@title:column"
+msgid "Supported Cameras"
+msgstr ""
+
+#: kameradevice.cpp:316 kameradevice.cpp:343
+#, kde-format
+msgid "Port"
+msgstr "पोताश्रय"
+
+#: kameradevice.cpp:325
+#, kde-format
+msgid ""
+"If this option is checked, the camera has to be connected to one of the "
+"computer's serial ports (known as COM ports in Microsoft Windows.)"
+msgstr ""
+"यदि एषः विकल्पः परीक्षितः अस्ति तर्हि कॅमेरा सङ्गणकस्य एकस्मिन् क्रमाङ्क-पोर्ट् (Microsoft "
+"Windows मध्ये COM पोर्ट् इति प्रसिद्धम् ।) सम्बद्धं भवितुम् अर्हति ।"
+
+#: kameradevice.cpp:331
+#, kde-format
+msgid ""
+"If this option is checked, the camera has to be connected to one of the "
+"computer's USB ports, or to a USB hub."
+msgstr ""
+"यदि एषः विकल्पः परीक्षितः अस्ति तर्हि कॅमेरा सङ्गणकस्य एकस्मिन् USB पोर्ट् मध्ये, अथवा USB "
+"हब् इत्यनेन सह सम्बद्धः भवितुम् अर्हति ।"
+
+#: kameradevice.cpp:334
+#, kde-format
+msgid "Port Settings"
+msgstr "पोर्ट सेटिंग्स्"
+
+#: kameradevice.cpp:352
+#, kde-format
+msgid "No port type selected."
+msgstr "कोऽपि पोर्ट् प्रकारः चयनितः नास्ति ।"
+
+#: kameradevice.cpp:359
+#, kde-format
+msgid "Port:"
+msgstr "पोताश्रय:"
+
+#: kameradevice.cpp:363
+#, kde-format
+msgid "Specify here the serial port to which you connect the camera."
+msgstr "अत्र यत् क्रमाङ्क-पोर्ट् निर्दिशन्तु यस्मिन् भवन्तः कॅमेरा-संयोजयन्ति ।"
+
+#: kameradevice.cpp:370
+#, kde-format
+msgid "No further configuration is required for USB cameras."
+msgstr "USB कैमराणां कृते अधिकं विन्यासस्य आवश्यकता नास्ति ।"
