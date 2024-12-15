@@ -171,7 +171,7 @@ msgstr "Camera Device इति चिनोतु"
 #, kde-format
 msgctxt "@title:column"
 msgid "Supported Cameras"
-msgstr ""
+msgstr "समर्थित कॅमेरा"
 
 #: kameradevice.cpp:316 kameradevice.cpp:343
 #, kde-format
