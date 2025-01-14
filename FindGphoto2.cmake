@@ -59,6 +59,13 @@ else()
         endif()
     endif()
 
+    # Workaround https://github.com/gphoto/libgphoto2/issues/1077
+    set(GPHOTO2_INCLUDE_DIRS_AUX ${GPHOTO2_INCLUDE_DIRS})
+    set(GPHOTO2_INCLUDE_DIRS "")
+    foreach(_includedir ${GPHOTO2_INCLUDE_DIRS_AUX})
+        set(GPHOTO2_INCLUDE_DIRS ${GPHOTO2_INCLUDE_DIRS} ${_includedir})
+        set(GPHOTO2_INCLUDE_DIRS ${GPHOTO2_INCLUDE_DIRS} ${_includedir}/..)
+    endforeach()
 endif()
 
 mark_as_advanced(GPHOTO2_LIBRARIES GPHOTO2_INCLUDE_DIRS)
