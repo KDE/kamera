@@ -25,10 +25,6 @@
 #include <KLocalizedString>
 #include <KMessageBox>
 
-extern "C" {
-#include <gphoto2.h>
-}
-
 #include "kameraconfigdialog.h"
 
 // Define some parts of the old API

@@ -13,7 +13,10 @@
 #include "kcoreaddons_version.h"
 #include <KCModule>
 #include <KPluginFactory>
-#include <gphoto2.h>
+
+extern "C" {
+#include <gphoto2-context.h>
+}
 
 class QWidget;
 class QPushButton;

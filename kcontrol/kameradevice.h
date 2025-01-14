@@ -13,6 +13,12 @@
 #include "kamera.h"
 
 #include <QDialog>
+
+extern "C" {
+#include <gphoto2-abilities-list.h>
+#include <gphoto2-camera.h>
+}
+
 class QWidget;
 class QDialogButtonBox;
 

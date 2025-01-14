@@ -10,8 +10,12 @@
 #define __kamera_h__
 
 #include <KIO/WorkerBase>
-#include <gphoto2.h>
-class KConfig;
+
+extern "C" {
+#include <gphoto2-camera.h>
+#include <gphoto2-context.h>
+#include <gphoto2-file.h>
+}
 
 class KConfig;
 

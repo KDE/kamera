@@ -15,7 +15,7 @@
 class QTabWidget;
 
 extern "C" {
-#include <gphoto2.h>
+#include <gphoto2-camera.h>
 }
 
 class KameraConfigDialog : public QDialog

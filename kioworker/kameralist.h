@@ -9,7 +9,9 @@
 
 #include <QObject>
 
-#include <gphoto2.h>
+extern "C" {
+#include <gphoto2-list.h>
+}
 
 class KameraList
 {
