@@ -55,6 +55,7 @@ KKameraConfig::KKameraConfig(QObject *parent, const KPluginMetaData &md)
 
 KKameraConfig::~KKameraConfig()
 {
+    qDeleteAll(m_devices);
     delete m_config;
 }
 

@@ -8,6 +8,7 @@
 */
 
 #include "kameradevice.h"
+#include "kcm_kamera_log.h"
 
 #include <QComboBox>
 #include <QGroupBox>
@@ -62,8 +63,8 @@ KCamera::KCamera(const QString &name, const QString &path)
 
 KCamera::~KCamera()
 {
-    if (m_camera)
-        gp_camera_free(m_camera);
+    invalidateCamera();
+
     if (m_abilitylist)
         gp_abilities_list_free(m_abilitylist);
 }
@@ -97,7 +98,7 @@ bool KCamera::initInformation()
 bool KCamera::initCamera()
 {
     if (m_camera) {
-        return m_camera;
+        return true;
     } else {
         int result;
 
@@ -134,14 +135,9 @@ bool KCamera::initCamera()
             return false;
         }
 
-        return m_camera;
+        qCDebug(KAMERA_KCONTROL) << "Initialized camera" << m_name << "on" << m_path;
+        return true;
     }
-}
-
-Camera *KCamera::camera()
-{
-    initCamera();
-    return m_camera;
 }
 
 QString KCamera::summary()
@@ -149,7 +145,8 @@ QString KCamera::summary()
     int result;
     CameraText summary;
 
-    initCamera();
+    if (!initCamera())
+        return QString();
 
     result = gp_camera_get_summary(m_camera, &summary, glob_context);
     if (result != GP_OK) {
@@ -163,7 +160,8 @@ bool KCamera::configure()
     CameraWidget *window;
     int result;
 
-    initCamera();
+    if (!initCamera())
+        return false;
 
     result = gp_camera_get_config(m_camera, &window, glob_context);
     if (result != GP_OK) {
@@ -189,7 +187,11 @@ bool KCamera::test()
 {
     // TODO: Make testing non-blocking (maybe via KIO?)
     // Currently, a failed serial test times out at about 30 sec.
-    return camera() != nullptr;
+
+    if (!initCamera())
+        return false;
+
+    return true;
 }
 
 void KCamera::load(KConfig *config)
@@ -242,6 +244,8 @@ void KCamera::setPath(const QString &path)
 void KCamera::invalidateCamera()
 {
     if (m_camera) {
+        qCDebug(KAMERA_KCONTROL) << "Finalizing camera" << m_name << "on" << m_path;
+        gp_camera_exit(m_camera, glob_context);
         gp_camera_free(m_camera);
         m_camera = nullptr;
     }

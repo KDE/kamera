@@ -41,7 +41,6 @@ public:
     bool test();
     QStringList supportedPorts();
 
-    Camera *camera();
     QString name() const
     {
         return m_name;
