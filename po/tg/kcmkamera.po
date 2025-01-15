@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kcmkamera\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-15 01:53+0000\n"
+"POT-Creation-Date: 2025-01-15 00:39+0000\n"
 "PO-Revision-Date: 2020-09-03 16:11+0500\n"
 "Last-Translator: Victor Ibragimov <victor.ibragimov@gmail.com>\n"
 "Language-Team: English <kde-i18n-doc@kde.org>\n"
@@ -19,50 +19,50 @@ msgstr ""
 "X-Generator: Lokalize 20.04.2\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
-#: kamera.cpp:70
+#: kamera.cpp:71
 #, kde-format
 msgid "Unable to initialize the gPhoto2 libraries."
 msgstr "Наметавонам китобхонаҳои gPhoto2-ро инитсиализатсия кунам."
 
-#: kamera.cpp:107
+#: kamera.cpp:108
 #, kde-format
 msgid "Add"
 msgstr ""
 
-#: kamera.cpp:109
+#: kamera.cpp:110
 #, kde-format
 msgid "Click this button to add a new camera."
 msgstr "Барои афзудани камераи нав, ин тугмаро пахш кунед."
 
-#: kamera.cpp:115
+#: kamera.cpp:116
 #, kde-format
 msgid "Test"
 msgstr "Озмоиш"
 
-#: kamera.cpp:117
+#: kamera.cpp:118
 #, fuzzy, kde-format
 #| msgid "Click this button to remove the selected camera from the list."
 msgid "Click this button to test the connection to the selected camera."
 msgstr ""
 "Барои ҳузф намудани камераи интихобшуда аз рӯйхат, ин тугмаро пахш кунед."
 
-#: kamera.cpp:122
+#: kamera.cpp:123
 #, kde-format
 msgid "Remove"
 msgstr ""
 
-#: kamera.cpp:124
+#: kamera.cpp:125
 #, kde-format
 msgid "Click this button to remove the selected camera from the list."
 msgstr ""
 "Барои ҳузф намудани камераи интихобшуда аз рӯйхат, ин тугмаро пахш кунед."
 
-#: kamera.cpp:129
+#: kamera.cpp:130
 #, kde-format
 msgid "Configure..."
 msgstr "Танзимот..."
 
-#: kamera.cpp:132
+#: kamera.cpp:133
 #, kde-format
 msgid ""
 "Click this button to change the configuration of the selected camera."
@@ -73,12 +73,12 @@ msgstr ""
 "<br><br>Дастрасии таъғири танзимот ва худи танзимот аз услуби камера вобаста "
 "аст."
 
-#: kamera.cpp:138
+#: kamera.cpp:139
 #, kde-format
 msgid "Information"
 msgstr ""
 
-#: kamera.cpp:141
+#: kamera.cpp:142
 #, fuzzy, kde-format
 #| msgid ""
 #| "Click this button to view a summary of the current status of the selected "
@@ -93,19 +93,19 @@ msgstr ""
 "<br><br>Дастрасии таъғири танзимот ва худи танзимот аз услуби камера вобаста "
 "аст."
 
-#: kamera.cpp:148
+#: kamera.cpp:149
 #, kde-format
 msgid "Cancel"
 msgstr ""
 
-#: kamera.cpp:150
+#: kamera.cpp:151
 #, kde-format
 msgid "Click this button to cancel the current camera operation."
 msgstr ""
 "Барои барҳам додани амалиёт бо камераи интихобшуда, ба рӯи ин тугма пахш "
 "кунед."
 
-#: kamera.cpp:354
+#: kamera.cpp:355
 #, kde-format
 msgid "Camera test was successful."
 msgstr "Озмоиши камера бомуваффақият гузашт."
@@ -120,18 +120,18 @@ msgstr "Тугма (бо KControl пуштибонӣ намешавад)"
 msgid "Date (not supported by KControl)"
 msgstr "Сана (бо KControl пуштибонӣ намешавад)"
 
-#: kameradevice.cpp:78
+#: kameradevice.cpp:79
 #, fuzzy, kde-format
 #| msgid "Could not allocate memory for abilities list."
 msgid "Could not allocate memory for the abilities list."
 msgstr "Наметавонам хотираро барои рӯйхати имконоти камера ҷудо кунам."
 
-#: kameradevice.cpp:82
+#: kameradevice.cpp:83
 #, kde-format
 msgid "Could not load ability list."
 msgstr "Наметавонам рӯйхати имконоти камераро пурбор кунам."
 
-#: kameradevice.cpp:88 kameradevice.cpp:489 kameradevice.cpp:507
+#: kameradevice.cpp:89 kameradevice.cpp:493 kameradevice.cpp:511
 #, kde-format
 msgid ""
 "Description of abilities for camera %1 is not available. Configuration "
@@ -140,12 +140,12 @@ msgstr ""
 "Тасвироти имконияти камераи %1 дастрас нест. Параметрҳои танзимот метавон "
 "ғайри саҳеҳ бошад."
 
-#: kameradevice.cpp:113
+#: kameradevice.cpp:114
 #, kde-format
 msgid "Could not access driver. Check your gPhoto2 installation."
 msgstr "Наметавонам драйверро васл кунам. Сабтоти gPhoto2-ро биозмоед."
 
-#: kameradevice.cpp:132
+#: kameradevice.cpp:133
 #, kde-format
 msgid ""
 "Unable to initialize camera. Check your port settings and camera "
@@ -154,49 +154,49 @@ msgstr ""
 "Наметавонам камераро инитсиализатсия кунам. Танзимоти портро ва пайвастагии "
 "камераро биозмоед ва боз сайъ кунед."
 
-#: kameradevice.cpp:156
+#: kameradevice.cpp:153
 #, kde-format
 msgid "No camera summary information is available.\n"
 msgstr "Иттилооти умумӣ доир ба камера дастрас нест.\n"
 
-#: kameradevice.cpp:170 kameradevice.cpp:180
+#: kameradevice.cpp:168 kameradevice.cpp:178
 #, kde-format
 msgid "Camera configuration failed."
 msgstr "Хатои танзимоти камера."
 
-#: kameradevice.cpp:218 kameradevice.cpp:322
+#: kameradevice.cpp:220 kameradevice.cpp:326
 #, kde-format
 msgid "Serial"
 msgstr "мураттаб"
 
-#: kameradevice.cpp:220 kameradevice.cpp:328
+#: kameradevice.cpp:222 kameradevice.cpp:332
 #, kde-format
 msgid "USB"
 msgstr "USB"
 
-#: kameradevice.cpp:221
+#: kameradevice.cpp:223
 #, kde-format
 msgid "Unknown port"
 msgstr "Порти номуайян"
 
-#: kameradevice.cpp:284
+#: kameradevice.cpp:288
 #, kde-format
 msgid "Select Camera Device"
 msgstr "Дастгоҳи камераро интихоб кунед"
 
-#: kameradevice.cpp:302
+#: kameradevice.cpp:306
 #, fuzzy, kde-format
 #| msgid "Supported Cameras"
 msgctxt "@title:column"
 msgid "Supported Cameras"
 msgstr "Камераҳои пуштибонӣ мешуда"
 
-#: kameradevice.cpp:316 kameradevice.cpp:343
+#: kameradevice.cpp:320 kameradevice.cpp:347
 #, kde-format
 msgid "Port"
 msgstr "Порт"
 
-#: kameradevice.cpp:325
+#: kameradevice.cpp:329
 #, fuzzy, kde-format
 #| msgid ""
 #| "If this option is checked, the camera would have to be connected one of "
@@ -209,7 +209,7 @@ msgstr ""
 "мураттаби (ҳамчун COM дар Microsoft Windowsдониста мешавад) компютери шумо "
 "иҷро карда мешавад."
 
-#: kameradevice.cpp:331
+#: kameradevice.cpp:335
 #, fuzzy, kde-format
 #| msgid ""
 #| "If this option is checked, the camera would have to be connected to one "
@@ -221,22 +221,22 @@ msgstr ""
 "Ҳангоми интихоб намудани ин интихобот, якҷоя амалкунӣ бо камера аз рӯи як "
 "слоти USB-и компютери шумо ё консентратори USB иҷро карда мешавад."
 
-#: kameradevice.cpp:334
+#: kameradevice.cpp:338
 #, kde-format
 msgid "Port Settings"
 msgstr "Танзимоти порт"
 
-#: kameradevice.cpp:352
+#: kameradevice.cpp:356
 #, kde-format
 msgid "No port type selected."
 msgstr "Навъи порт ишора нашудааст."
 
-#: kameradevice.cpp:359
+#: kameradevice.cpp:363
 #, kde-format
 msgid "Port:"
 msgstr "Порт:"
 
-#: kameradevice.cpp:363
+#: kameradevice.cpp:367
 #, fuzzy, kde-format
 #| msgid "Here you should choose the serial port you connect the camera to."
 msgid "Specify here the serial port to which you connect the camera."
@@ -244,7 +244,7 @@ msgstr ""
 "Дар инҷо метавонед порти мураттабе, ки дар он камера васл шудааст, интихоб "
 "кунед."
 
-#: kameradevice.cpp:370
+#: kameradevice.cpp:374
 #, fuzzy, kde-format
 #| msgid "No further configuration is required for USB."
 msgid "No further configuration is required for USB cameras."

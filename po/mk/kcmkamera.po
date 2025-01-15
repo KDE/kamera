@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kcmkamera\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-15 01:53+0000\n"
+"POT-Creation-Date: 2025-01-15 00:39+0000\n"
 "PO-Revision-Date: 2005-01-30 22:33+0100\n"
 "Last-Translator: Zoran Dimovski <decata@mt.net.mk>\n"
 "Language-Team: Macedonian <mkde-l10n@lists.sourceforge.net>\n"
@@ -18,48 +18,48 @@ msgstr ""
 "Plural-Forms: Plural-Forms: nplurals=3; plural=n%10==1 ? 0 : n%10==2 ? 1 : "
 "2;\n"
 
-#: kamera.cpp:70
+#: kamera.cpp:71
 #, kde-format
 msgid "Unable to initialize the gPhoto2 libraries."
 msgstr "Не можам да ги иницијализирам gPhoto2 библиотеките."
 
-#: kamera.cpp:107
+#: kamera.cpp:108
 #, kde-format
 msgid "Add"
 msgstr ""
 
-#: kamera.cpp:109
+#: kamera.cpp:110
 #, kde-format
 msgid "Click this button to add a new camera."
 msgstr "Кликнете на ова копче за да додадете нова камера."
 
-#: kamera.cpp:115
+#: kamera.cpp:116
 #, kde-format
 msgid "Test"
 msgstr "Тест"
 
-#: kamera.cpp:117
+#: kamera.cpp:118
 #, fuzzy, kde-format
 #| msgid "Click this button to remove the selected camera from the list."
 msgid "Click this button to test the connection to the selected camera."
 msgstr "Кликнете го ова копче да ја отстраните избраната камера од листата."
 
-#: kamera.cpp:122
+#: kamera.cpp:123
 #, kde-format
 msgid "Remove"
 msgstr ""
 
-#: kamera.cpp:124
+#: kamera.cpp:125
 #, kde-format
 msgid "Click this button to remove the selected camera from the list."
 msgstr "Кликнете го ова копче да ја отстраните избраната камера од листата."
 
-#: kamera.cpp:129
+#: kamera.cpp:130
 #, kde-format
 msgid "Configure..."
 msgstr "Подеси..."
 
-#: kamera.cpp:132
+#: kamera.cpp:133
 #, kde-format
 msgid ""
 "Click this button to change the configuration of the selected camera."
@@ -70,12 +70,12 @@ msgstr ""
 "<br><br>Можностите на оваа алатка и содржината на дијалогот за Подесувања "
 "зависат од моделот на камерата."
 
-#: kamera.cpp:138
+#: kamera.cpp:139
 #, kde-format
 msgid "Information"
 msgstr ""
 
-#: kamera.cpp:141
+#: kamera.cpp:142
 #, fuzzy, kde-format
 #| msgid ""
 #| "Click this button to view a summary of the current status of the selected "
@@ -90,17 +90,17 @@ msgstr ""
 "избраната камера.<br><br>Можностите на оваа алатка и содржината на дијалогот "
 "за Подесувања зависат од моделот на камерата."
 
-#: kamera.cpp:148
+#: kamera.cpp:149
 #, kde-format
 msgid "Cancel"
 msgstr ""
 
-#: kamera.cpp:150
+#: kamera.cpp:151
 #, kde-format
 msgid "Click this button to cancel the current camera operation."
 msgstr "Кликнете на ова копче да ја откажете тековната операција на камерата."
 
-#: kamera.cpp:354
+#: kamera.cpp:355
 #, kde-format
 msgid "Camera test was successful."
 msgstr "Тестот на камерата беше успешен."
@@ -115,18 +115,18 @@ msgstr "Копче (не е поддржано од KControl)"
 msgid "Date (not supported by KControl)"
 msgstr "Дата (не е поддржано од KControl)"
 
-#: kameradevice.cpp:78
+#: kameradevice.cpp:79
 #, fuzzy, kde-format
 #| msgid "Could not allocate memory for abilities list."
 msgid "Could not allocate memory for the abilities list."
 msgstr "Не можам да алоцирам меморија за листата на можности."
 
-#: kameradevice.cpp:82
+#: kameradevice.cpp:83
 #, kde-format
 msgid "Could not load ability list."
 msgstr "Не можев да ја вчитам листата на можности."
 
-#: kameradevice.cpp:88 kameradevice.cpp:489 kameradevice.cpp:507
+#: kameradevice.cpp:89 kameradevice.cpp:493 kameradevice.cpp:511
 #, kde-format
 msgid ""
 "Description of abilities for camera %1 is not available. Configuration "
@@ -135,13 +135,13 @@ msgstr ""
 "Описот на можностите на камерата %1 не е достапна. Опциите за подесувања "
 "може да не се точни."
 
-#: kameradevice.cpp:113
+#: kameradevice.cpp:114
 #, kde-format
 msgid "Could not access driver. Check your gPhoto2 installation."
 msgstr ""
 "Не можам да пристапам до драјверот. Проверете ја инсталацијата на gPhoto2."
 
-#: kameradevice.cpp:132
+#: kameradevice.cpp:133
 #, kde-format
 msgid ""
 "Unable to initialize camera. Check your port settings and camera "
@@ -150,49 +150,49 @@ msgstr ""
 "Не можам да ја иницијализирам камерата. Проверете ги подесувањата на портите "
 "и поврзаноста на камерата и пробајте повторно."
 
-#: kameradevice.cpp:156
+#: kameradevice.cpp:153
 #, kde-format
 msgid "No camera summary information is available.\n"
 msgstr "Не се достапни никакви информации за резултатите од камерата.\n"
 
-#: kameradevice.cpp:170 kameradevice.cpp:180
+#: kameradevice.cpp:168 kameradevice.cpp:178
 #, kde-format
 msgid "Camera configuration failed."
 msgstr "Подесувањето на камерата пропадна."
 
-#: kameradevice.cpp:218 kameradevice.cpp:322
+#: kameradevice.cpp:220 kameradevice.cpp:326
 #, kde-format
 msgid "Serial"
 msgstr "Сериски"
 
-#: kameradevice.cpp:220 kameradevice.cpp:328
+#: kameradevice.cpp:222 kameradevice.cpp:332
 #, kde-format
 msgid "USB"
 msgstr "USB"
 
-#: kameradevice.cpp:221
+#: kameradevice.cpp:223
 #, kde-format
 msgid "Unknown port"
 msgstr "Непозната порта"
 
-#: kameradevice.cpp:284
+#: kameradevice.cpp:288
 #, kde-format
 msgid "Select Camera Device"
 msgstr "Избери Камера"
 
-#: kameradevice.cpp:302
+#: kameradevice.cpp:306
 #, fuzzy, kde-format
 #| msgid "Supported Cameras"
 msgctxt "@title:column"
 msgid "Supported Cameras"
 msgstr "Поддржани Камери"
 
-#: kameradevice.cpp:316 kameradevice.cpp:343
+#: kameradevice.cpp:320 kameradevice.cpp:347
 #, kde-format
 msgid "Port"
 msgstr "Порта"
 
-#: kameradevice.cpp:325
+#: kameradevice.cpp:329
 #, fuzzy, kde-format
 #| msgid ""
 #| "If this option is checked, the camera would have to be connected one of "
@@ -204,7 +204,7 @@ msgstr ""
 "Ако е штиклирана оваа опција, камерата ќе мора да биде поврзана со вашиот "
 "компјутер на една од сериските порти (познати како COM во Microsoft Windows)."
 
-#: kameradevice.cpp:331
+#: kameradevice.cpp:335
 #, fuzzy, kde-format
 #| msgid ""
 #| "If this option is checked, the camera would have to be connected to one "
@@ -216,29 +216,29 @@ msgstr ""
 "Ако оваа опција е штиклирана, камерата ќе мора да биде поврзана со вашиот "
 "компјутер на еден од USB слотовите или USB hub."
 
-#: kameradevice.cpp:334
+#: kameradevice.cpp:338
 #, kde-format
 msgid "Port Settings"
 msgstr "Подесувања на Порти"
 
-#: kameradevice.cpp:352
+#: kameradevice.cpp:356
 #, kde-format
 msgid "No port type selected."
 msgstr "Не е избран типот на портата."
 
-#: kameradevice.cpp:359
+#: kameradevice.cpp:363
 #, kde-format
 msgid "Port:"
 msgstr "Порта:"
 
-#: kameradevice.cpp:363
+#: kameradevice.cpp:367
 #, fuzzy, kde-format
 #| msgid "Here you should choose the serial port you connect the camera to."
 msgid "Specify here the serial port to which you connect the camera."
 msgstr ""
 "Овде треба да ја изберете сериската порта на која ја поврзавте камерата."
 
-#: kameradevice.cpp:370
+#: kameradevice.cpp:374
 #, fuzzy, kde-format
 #| msgid "No further configuration is required for USB."
 msgid "No further configuration is required for USB cameras."

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kcmkamera\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-15 01:53+0000\n"
+"POT-Creation-Date: 2025-01-15 00:39+0000\n"
 "PO-Revision-Date: 2023-09-30 18:08+0200\n"
 "Last-Translator: Paolo Zamponi <feus73@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
@@ -21,51 +21,51 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Lokalize 23.08.1\n"
 
-#: kamera.cpp:70
+#: kamera.cpp:71
 #, kde-format
 msgid "Unable to initialize the gPhoto2 libraries."
 msgstr "Impossibile inizializzare le librerie gPhoto2."
 
-#: kamera.cpp:107
+#: kamera.cpp:108
 #, kde-format
 msgid "Add"
 msgstr "Aggiungi"
 
-#: kamera.cpp:109
+#: kamera.cpp:110
 #, kde-format
 msgid "Click this button to add a new camera."
 msgstr "Fai clic su questo pulsante per aggiungere una nuova fotocamera."
 
-#: kamera.cpp:115
+#: kamera.cpp:116
 #, kde-format
 msgid "Test"
 msgstr "Prova"
 
-#: kamera.cpp:117
+#: kamera.cpp:118
 #, kde-format
 msgid "Click this button to test the connection to the selected camera."
 msgstr ""
 "Fai clic su questo pulsante per provare la connessione alla fotocamera "
 "selezionata."
 
-#: kamera.cpp:122
+#: kamera.cpp:123
 #, kde-format
 msgid "Remove"
 msgstr "Rimuovi"
 
-#: kamera.cpp:124
+#: kamera.cpp:125
 #, kde-format
 msgid "Click this button to remove the selected camera from the list."
 msgstr ""
 "Fai clic su questo pulsante per rimuovere la fotocamera selezionata dalla "
 "lista."
 
-#: kamera.cpp:129
+#: kamera.cpp:130
 #, kde-format
 msgid "Configure..."
 msgstr "Configura..."
 
-#: kamera.cpp:132
+#: kamera.cpp:133
 #, kde-format
 msgid ""
 "Click this button to change the configuration of the selected camera."
@@ -77,12 +77,12 @@ msgstr ""
 "contenuto della finestra di configurazione dipendono dal modello di "
 "fotocamera."
 
-#: kamera.cpp:138
+#: kamera.cpp:139
 #, kde-format
 msgid "Information"
 msgstr "Informazioni"
 
-#: kamera.cpp:141
+#: kamera.cpp:142
 #, kde-format
 msgid ""
 "Click this button to view a summary of the current status of the selected "
@@ -94,19 +94,19 @@ msgstr ""
 "funzionalità e il contenuto della finestra di informazioni dipendono dal "
 "modello di fotocamera."
 
-#: kamera.cpp:148
+#: kamera.cpp:149
 #, kde-format
 msgid "Cancel"
 msgstr "Annulla"
 
-#: kamera.cpp:150
+#: kamera.cpp:151
 #, kde-format
 msgid "Click this button to cancel the current camera operation."
 msgstr ""
 "Fai clic su questo pulsante per annullare l'operazione con la fotocamera "
 "corrente."
 
-#: kamera.cpp:354
+#: kamera.cpp:355
 #, kde-format
 msgid "Camera test was successful."
 msgstr "La prova della fotocamera è stata eseguita con successo."
@@ -121,17 +121,17 @@ msgstr "Pulsante (non supportato da KControl)"
 msgid "Date (not supported by KControl)"
 msgstr "Data (non supportata da KControl)"
 
-#: kameradevice.cpp:78
+#: kameradevice.cpp:79
 #, kde-format
 msgid "Could not allocate memory for the abilities list."
 msgstr "Impossibile allocare memoria per la lista delle caratteristiche."
 
-#: kameradevice.cpp:82
+#: kameradevice.cpp:83
 #, kde-format
 msgid "Could not load ability list."
 msgstr "Impossibile caricare la lista delle caratteristiche."
 
-#: kameradevice.cpp:88 kameradevice.cpp:489 kameradevice.cpp:507
+#: kameradevice.cpp:89 kameradevice.cpp:493 kameradevice.cpp:511
 #, kde-format
 msgid ""
 "Description of abilities for camera %1 is not available. Configuration "
@@ -140,12 +140,12 @@ msgstr ""
 "La descrizione delle caratteristiche della fotocamera %1 non è disponibile. "
 "Le opzioni di configurazione potrebbero essere non corrette."
 
-#: kameradevice.cpp:113
+#: kameradevice.cpp:114
 #, kde-format
 msgid "Could not access driver. Check your gPhoto2 installation."
 msgstr "Impossibile accedere al driver. Controlla l'installazione di gPhoto2."
 
-#: kameradevice.cpp:132
+#: kameradevice.cpp:133
 #, kde-format
 msgid ""
 "Unable to initialize camera. Check your port settings and camera "
@@ -154,48 +154,48 @@ msgstr ""
 "Impossibile inizializzare la fotocamera. Controlla le impostazioni della "
 "porta, la connettività della fotocamera e prova di nuovo."
 
-#: kameradevice.cpp:156
+#: kameradevice.cpp:153
 #, kde-format
 msgid "No camera summary information is available.\n"
 msgstr "Non è disponibile nessuna informazione sulla fotocamera.\n"
 
-#: kameradevice.cpp:170 kameradevice.cpp:180
+#: kameradevice.cpp:168 kameradevice.cpp:178
 #, kde-format
 msgid "Camera configuration failed."
 msgstr "Configurazione della fotocamera non riuscita."
 
-#: kameradevice.cpp:218 kameradevice.cpp:322
+#: kameradevice.cpp:220 kameradevice.cpp:326
 #, kde-format
 msgid "Serial"
 msgstr "Seriale"
 
-#: kameradevice.cpp:220 kameradevice.cpp:328
+#: kameradevice.cpp:222 kameradevice.cpp:332
 #, kde-format
 msgid "USB"
 msgstr "USB"
 
-#: kameradevice.cpp:221
+#: kameradevice.cpp:223
 #, kde-format
 msgid "Unknown port"
 msgstr "Porta sconosciuta"
 
-#: kameradevice.cpp:284
+#: kameradevice.cpp:288
 #, kde-format
 msgid "Select Camera Device"
 msgstr "Seleziona la fotocamera"
 
-#: kameradevice.cpp:302
+#: kameradevice.cpp:306
 #, kde-format
 msgctxt "@title:column"
 msgid "Supported Cameras"
 msgstr "Fotocamere supportate"
 
-#: kameradevice.cpp:316 kameradevice.cpp:343
+#: kameradevice.cpp:320 kameradevice.cpp:347
 #, kde-format
 msgid "Port"
 msgstr "Porta"
 
-#: kameradevice.cpp:325
+#: kameradevice.cpp:329
 #, kde-format
 msgid ""
 "If this option is checked, the camera has to be connected to one of the "
@@ -204,7 +204,7 @@ msgstr ""
 "Se questa opzione è spuntata, la fotocamera deve essere collegata ad una "
 "delle porte seriali del computer (note come COM in Microsoft Windows)."
 
-#: kameradevice.cpp:331
+#: kameradevice.cpp:335
 #, kde-format
 msgid ""
 "If this option is checked, the camera has to be connected to one of the "
@@ -213,27 +213,27 @@ msgstr ""
 "Se questa opzione è spuntata, la fotocamera deve essere collegata ad una "
 "delle porte USB del computer, oppure ad un hub USB."
 
-#: kameradevice.cpp:334
+#: kameradevice.cpp:338
 #, kde-format
 msgid "Port Settings"
 msgstr "Impostazioni porta"
 
-#: kameradevice.cpp:352
+#: kameradevice.cpp:356
 #, kde-format
 msgid "No port type selected."
 msgstr "Nessun tipo di porta selezionato."
 
-#: kameradevice.cpp:359
+#: kameradevice.cpp:363
 #, kde-format
 msgid "Port:"
 msgstr "Porta:"
 
-#: kameradevice.cpp:363
+#: kameradevice.cpp:367
 #, kde-format
 msgid "Specify here the serial port to which you connect the camera."
 msgstr "Specifica qui la porta seriale alla quale è collegata la fotocamera."
 
-#: kameradevice.cpp:370
+#: kameradevice.cpp:374
 #, kde-format
 msgid "No further configuration is required for USB cameras."
 msgstr "Non è richiesta un'ulteriore configurazione per le fotocamere USB."
