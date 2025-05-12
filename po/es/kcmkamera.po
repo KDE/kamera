@@ -1,5 +1,6 @@
-# translation of kcmkamera.po to Spanish
-# Copyright (C) 2003-2025 Free Software Foundation, Inc.
+# Spanish translations for kcmkamera.po package.
+# Copyright (C) 2003-2025 This file is copyright:
+# This file is distributed under the same license as the kamera package.
 #
 # SPDX-FileCopyrightText: 2003 Miguel Revilla Rodríguez <yo@miguelrevilla.com>
 # SPDX-FileCopyrightText: 2005, 2007, 2008, 2009, 2011, 2015, 2025 Eloy Cuadra <ecuadra@eloihr.net>
@@ -9,7 +10,7 @@ msgstr ""
 "Project-Id-Version: kcmkamera\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-01-15 00:39+0000\n"
-"PO-Revision-Date: 2025-02-18 02:36+0100\n"
+"PO-Revision-Date: 2025-05-11 21:20+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -229,27 +230,3 @@ msgstr "Indique aquí el puerto serie al que está conectada la cámara."
 #, kde-format
 msgid "No further configuration is required for USB cameras."
 msgstr "No se necesita ninguna configuración adicional para cámaras USB."
-
-#~ msgid ""
-#~ "<h1>Digital Camera</h1>\n"
-#~ "This module allows you to configure support for your digital camera.\n"
-#~ "You need to select the camera's model and the port it is connected\n"
-#~ "to on your computer (e.g. USB, Serial, Firewire). If your camera does "
-#~ "not\n"
-#~ "appear on the list of <i>Supported Cameras</i>, go to the\n"
-#~ "<a href=\"http://www.gphoto.org\">GPhoto web site</a> for a possible "
-#~ "update.<br><br>\n"
-#~ "To view and download images from the digital camera, go to the address\n"
-#~ "<a href=\"camera:/\">camera:/</a> in Konqueror and other KDE applications."
-#~ msgstr ""
-#~ "<h1>Cámara digital</h1>\n"
-#~ "Este módulo le permite configurar el uso de su cámara digital.\n"
-#~ "Debe seleccionar el modelo de cámara y el puerto al que está\n"
-#~ "conectada a su equipo (por ejemplo, USB, serie o Firewire). Si su cámara\n"
-#~ "no aparece en la lista de <i>Cámaras permitidas</i>, vaya al sitio web "
-#~ "de\n"
-#~ "<a href=\"http://www.gphoto.org\">GPhoto</a> para obtener una posible "
-#~ "actualización.<br><br>\n"
-#~ "Para ver y descargar imágenes de la cámara digital, vaya a la dirección\n"
-#~ "<a href=\"camera:/\">camera:/</a> en Konqueror y otras aplicaciones de "
-#~ "KDE."
