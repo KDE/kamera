@@ -35,7 +35,7 @@ msgstr "Afig"
 #: kamera.cpp:110
 #, kde-format
 msgid "Click this button to add a new camera."
-msgstr "Cliqueu este botó per a afegir una càmera nova."
+msgstr "Cliqueu damunt d'este botó per a afegir una càmera nova."
 
 #: kamera.cpp:116
 #, kde-format
@@ -45,7 +45,9 @@ msgstr "Prova"
 #: kamera.cpp:118
 #, kde-format
 msgid "Click this button to test the connection to the selected camera."
-msgstr "Cliqueu este botó per a provar la connexió amb la càmera seleccionada."
+msgstr ""
+"Cliqueu damunt d'este botó per a provar la connexió amb la càmera "
+"seleccionada."
 
 #: kamera.cpp:123
 #, kde-format
@@ -55,7 +57,9 @@ msgstr "Elimina"
 #: kamera.cpp:125
 #, kde-format
 msgid "Click this button to remove the selected camera from the list."
-msgstr "Cliqueu este botó per a eliminar la càmera seleccionada de la llista."
+msgstr ""
+"Cliqueu damunt d'este botó per a eliminar la càmera seleccionada de la "
+"llista."
 
 #: kamera.cpp:130
 #, kde-format
@@ -69,9 +73,9 @@ msgid ""
 "<br><br>The availability of this feature and the contents of the "
 "Configuration dialog depend on the camera model."
 msgstr ""
-"Cliqueu este botó per a canviar la configuració de la càmera seleccionada."
-"<br><br>La disponibilitat d'esta característica i el contingut del diàleg de "
-"configuració dependran del model de la càmera."
+"Cliqueu damunt d'este botó per a canviar la configuració de la càmera "
+"seleccionada.<br><br>La disponibilitat d'esta característica i el contingut "
+"del diàleg de configuració dependran del model de la càmera."
 
 #: kamera.cpp:139
 #, kde-format
@@ -85,9 +89,9 @@ msgid ""
 "camera.<br><br>The availability of this feature and the contents of the "
 "Information dialog depend on the camera model."
 msgstr ""
-"Cliqueu este botó per a veure un resum de l'estat actual de la càmera "
-"seleccionada.<br><br>La disponibilitat d'esta característica i el contingut "
-"del diàleg de configuració dependran del model de la càmera."
+"Cliqueu damunt d'este botó per a veure un resum de l'estat actual de la "
+"càmera seleccionada.<br><br>La disponibilitat d'esta característica i el "
+"contingut del diàleg de configuració dependran del model de la càmera."
 
 #: kamera.cpp:149
 #, kde-format
@@ -97,7 +101,8 @@ msgstr "Cancel·la"
 #: kamera.cpp:151
 #, kde-format
 msgid "Click this button to cancel the current camera operation."
-msgstr "Cliqueu este botó per a cancel·lar l'operació amb la càmera actual."
+msgstr ""
+"Cliqueu damunt d'este botó per a cancel·lar l'operació amb la càmera actual."
 
 #: kamera.cpp:355
 #, kde-format
