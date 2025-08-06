@@ -5,13 +5,13 @@
 # Munzir Taha <munzir@kacst.edu.sa>, 2004.
 # Youssef Chahibi <chahibi@gmail.com>, 2007.
 # Mohammed Berdai <stuntgp2000@gmail.com>, 2008.
-# zayed <zayed.alsaidi@gmail.com>, 2008, 2012, 2021.
+# SPDX-FileCopyrightText: 2008, 2012, 2021, 2025 zayed <zayed.alsaidi@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kcmkamera\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-01-15 00:39+0000\n"
-"PO-Revision-Date: 2021-07-26 23:18+0400\n"
+"PO-Revision-Date: 2025-08-05 17:11+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -20,6 +20,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
+"X-Generator: Lokalize 23.08.5\n"
 
 #: kamera.cpp:71
 #, kde-format
@@ -94,7 +95,7 @@ msgstr "ألغ"
 #: kamera.cpp:151
 #, kde-format
 msgid "Click this button to cancel the current camera operation."
-msgstr "انقر هذا الزر لإلغاء عملية الكامير الحالية."
+msgstr "انقر هذا الزر لإلغاء عملية الكاميرة الحالية."
 
 #: kamera.cpp:355
 #, kde-format
@@ -161,7 +162,7 @@ msgstr "تسلسلي"
 #: kameradevice.cpp:222 kameradevice.cpp:332
 #, kde-format
 msgid "USB"
-msgstr "الناقل التسلسي العام (USB)"
+msgstr "الناقل التسلسلي العام (USB)"
 
 #: kameradevice.cpp:223
 #, kde-format
@@ -190,7 +191,7 @@ msgid ""
 "If this option is checked, the camera has to be connected to one of the "
 "computer's serial ports (known as COM ports in Microsoft Windows.)"
 msgstr ""
-"إذا تم تحديد هذا الخيار، فيجب على الكاميرا أن تكون متصلة بإحدى المنافذ "
+"إذا اخترت هذا الخيار، فيجب على الكاميرا أن تكون متصلة بإحدى المنافذ "
 "التسلسلية للحاسوب (معروفة كـ COM في مايكروسوفت ويندوز) ."
 
 #: kameradevice.cpp:335
@@ -199,7 +200,7 @@ msgid ""
 "If this option is checked, the camera has to be connected to one of the "
 "computer's USB ports, or to a USB hub."
 msgstr ""
-"إذا تم تحديد هذا الخيار، فيجب على الكاميرا أن تكون متصلة بإحدى منافذ الناقل "
+"إذا اخترت هذا الخيار، فيجب على الكاميرا أن تكون متصلة بإحدى منافذ الناقل "
 "التسلسلي العام (USB) الموجودة في حاسوبك أو USB-hub."
 
 #: kameradevice.cpp:338
@@ -210,7 +211,7 @@ msgstr "إعدادات المنفذ"
 #: kameradevice.cpp:356
 #, kde-format
 msgid "No port type selected."
-msgstr "لم يتم تحديد نوع المنفذ."
+msgstr "لم يحدد نوع المنفذ."
 
 #: kameradevice.cpp:363
 #, kde-format
