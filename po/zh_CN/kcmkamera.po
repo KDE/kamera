@@ -215,4 +215,4 @@ msgstr "在此指定您连接相机的串口。"
 #: kameradevice.cpp:374
 #, kde-format
 msgid "No further configuration is required for USB cameras."
-msgstr "USB 相机不需要更多的配置。"
+msgstr "USB 数码相机不需要额外配置。"
