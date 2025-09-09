@@ -44,7 +44,6 @@
         "Description[tr]": "Kamera’yı Yapılandır",
         "Description[uk]": "Налаштування Kamera",
         "Description[vi]": "Cấu hình Kamera",
-        "Description[x-test]": "xxConfigure Kameraxx",
         "Description[zh_CN]": "配置 Kamera",
         "Description[zh_TW]": "設定 Kamera",
         "Icon": "camera-photo",
@@ -125,7 +124,6 @@
         "Name[uz@cyrillic]": "Фотоапарат",
         "Name[uz]": "Fotoaparat",
         "Name[vi]": "Máy ảnh số",
-        "Name[x-test]": "xxDigital Cameraxx",
         "Name[xh]": "Ikhamera Yesuntswana",
         "Name[zh_CN]": "数码相机",
         "Name[zh_HK]": "數碼相機",
@@ -185,7 +183,6 @@
     "X-KDE-Keywords[ta]": "gphoto,camera,digicam,webcam,kamera, ஜிபோட்டோ, காமிரா, டிஜிகேம்,வலைதள காமிரா, காமிரா, கேமரா, வலைப்படமி, படக்கருவி, புகைப்படம்",
     "X-KDE-Keywords[tr]": "gphoto,kamera,digikam,webcam,camera",
     "X-KDE-Keywords[uk]": "gphoto,camera,digicam,webcam,kamera,фотоапарат,камера",
-    "X-KDE-Keywords[x-test]": "xxgphotoxx,xxcameraxx,xxdigicamxx,xxwebcamxx,xxkameraxx",
     "X-KDE-Keywords[zh_CN]": "gphoto,camera,digicam,webcam,kamera,xiangji,shumaxiangji,shexiangtou,zhaopian,xiangpian,zhaoxiangji,相机,数码相机,摄像头,照片,相片,照相机",
     "X-KDE-Keywords[zh_TW]": "gphoto,camera,digicam,webcam,kamera",
     "X-KDE-System-Settings-Parent-Category": "removable-storage"
