@@ -1,7 +1,6 @@
-# Copyright (C) YEAR This file is copyright:
+# Copyright (C) 2025 This file is copyright:
 # This file is distributed under the same license as the kamera package.
-#
-# Burkhard Lück <lueck@hube-lueck.de>, 2018.
+# SPDX-FileCopyrightText: 2018 Burkhard Lück <lueck@hube-lueck.de>
 msgid ""
 msgstr ""
 "Project-Id-Version: kio6_kamera\n"
