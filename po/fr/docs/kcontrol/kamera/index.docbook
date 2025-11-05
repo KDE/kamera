@@ -51,7 +51,7 @@
 ></term>
 <listitem>
 <para
->Cliquez sur ce bouton pour sélectionner le modèle d'appareil photo et le port qui est connecté à votre ordinateur (&pex; USB, série). Si votre appareil photo n'apparaît pas dans la liste des <guilabel
+>Cliquez sur ce bouton pour sélectionner le modèle d'appareil photo et le port qui est connecté à votre ordinateur (&pex; USB, série). Si votre appareil photo n'apparait pas dans la liste des <guilabel
 >appareils photo gérés</guilabel
 >, aller sur le <ulink url="http://www.gphoto.org"
 >site web de GPhoto</ulink
@@ -88,7 +88,7 @@
 ></term>
 <listitem>
 <para
->Cliquez sur ce bouton pour modifier la configuration de l'appareil photo sélectionné. La disponibilité de cette fonctionnalité et du contenu de la boîte de dialogue de configuration dépend de votre modèle d'appareil photo.</para>
+>Cliquez sur ce bouton pour modifier la configuration de l'appareil photo sélectionné. La disponibilité de cette fonctionnalité et du contenu de la boite de dialogue de configuration dépend de votre modèle d'appareil photo.</para>
 </listitem>
 </varlistentry>
 
@@ -99,7 +99,7 @@
 ></term>
 <listitem>
 <para
->Cliquez sur ce bouton pour afficher un résumé de l'état courant de l'appareil photo sélectionné. La disponibilité de cette fonctionnalité et du contenu de la boîte de dialogue d'informations dépend de votre modèle d'appareil photo.</para>
+>Cliquez sur ce bouton pour afficher un résumé de l'état courant de l'appareil photo sélectionné. La disponibilité de cette fonctionnalité et du contenu de la boite de dialogue d'informations dépend de votre modèle d'appareil photo.</para>
 </listitem>
 </varlistentry>
 
