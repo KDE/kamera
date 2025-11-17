@@ -1,6 +1,6 @@
 # translation of kcmkamera.po to Polish
 # translation of kcmkamera.po to
-# Version: $Revision: 1700298 $
+# Version: $Revision: 1723120 $
 # Copyright (C) 2002, 2003, 2005, 2007, 2009 Free Software Foundation, Inc.
 # Michał Rudolf <mrudolf@kdewebdev.org>, 2002.
 # Michal Rudolf <mrudolf@kdewebdev.org>, 2003, 2005, 2009.
@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kcmkamera\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-15 00:39+0000\n"
+"POT-Creation-Date: 2025-11-17 14:39+0000\n"
 "PO-Revision-Date: 2020-04-19 09:09+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
