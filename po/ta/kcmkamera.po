@@ -1,21 +1,21 @@
 # translation of kcmkamera.po to Tamil
 # Copyright (C) 2004 Free Software Foundation, Inc.
-# , 2004.
-# , 2004.
 #
+# SPDX-FileCopyrightText: 2025 Kishore G <kishore96@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kcmkamera\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 11:50+0000\n"
-"PO-Revision-Date: 2004-08-16 01:56+0530\n"
-"Last-Translator: I. Felix <ifelix25@yahoo.co.in>\n"
-"Language-Team: Tamil <en@li.org>\n"
+"PO-Revision-Date: 2025-11-30 15:24+0530\n"
+"Last-Translator: Kishore G <kishore96@gmail.com>\n"
+"Language-Team: Tamil <kde-l10n-ta@kde.org>\n"
 "Language: ta\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Lokalize 25.08.3\n"
 
 #: kamera.cpp:71
 #, kde-format
@@ -91,7 +91,7 @@ msgstr ""
 #: kamera.cpp:149
 #, kde-format
 msgid "Cancel"
-msgstr ""
+msgstr "ரத்து செய்"
 
 #: kamera.cpp:151
 #, kde-format
