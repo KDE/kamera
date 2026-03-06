@@ -1,0 +1,150 @@
+<?xml version="1.0" ?>
+<!DOCTYPE article PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % English "INCLUDE">
+]>
+
+<article id="kamera" lang="&language;">
+<title
+>كاميرا : كاميرا رقمية</title>
+<articleinfo>
+
+<authorgroup>
+<author
+><firstname
+>Burkhard</firstname
+> <surname
+>Lück</surname
+> <affiliation
+> <address
+><email
+>lueck@hube-lueck.de</email
+></address>
+</affiliation>
+</author>
+<othercredit role="translator"
+><firstname
+>زايد</firstname
+><surname
+>السعيدي</surname
+><affiliation
+><address
+><email
+>zayed.alsaidi@gmail.com</email
+></address
+></affiliation
+><contrib
+>التّرجمة العربيّة</contrib
+></othercredit
+> 
+</authorgroup>
+
+<date
+>2018-03-23</date>
+<releaseinfo
+>التّطبيقات 18.04</releaseinfo>
+
+<keywordset>
+<keyword
+>كيدي</keyword>
+<keyword
+>كاميرا</keyword>
+<keyword
+>صورة فوتوغرافية</keyword>
+</keywordset>
+</articleinfo>
+
+<para
+>تتيح لك هذه الوحدة ضبط الدعم للكاميرا الرقمية الخاصة بك. </para>
+
+<variablelist>
+<varlistentry
+><term
+><guibutton
+>أضف</guibutton
+></term>
+<listitem>
+<para
+>انقر هذا الزر لتحديد طراز الكاميرا والمنفذ الذي تتصل به على حاسوبك (مثل USB، تسلسلي). إذا لم تظهر كاميرتك في قائمة <guilabel
+>الكاميرات المدعومة</guilabel
+>، فانتقل إلى <ulink url="http://www.gphoto.org"
+>موقع GPhoto على الويب</ulink
+> لتحديث محتمل. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry
+><term
+><guibutton
+>اختبر</guibutton
+></term>
+<listitem>
+<para
+>انقر هذا الزر لتجربة الاتصال بالكاميرا المحددة.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry
+><term
+><guibutton
+>أزل</guibutton
+></term>
+<listitem>
+<para
+>يُزيل الكاميرا المحددة من القائمة. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry
+><term
+><guibutton
+>اضبط</guibutton
+></term>
+<listitem>
+<para
+>انقر هذا الزر لتغيير إعدادات الكاميرا المحددة. توافرية هذه الميزة و محتويات صندوق حوار الإعدادات، تعتمد على نوع الكاميرا.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry
+><term
+><guibutton
+>معلومات</guibutton
+></term>
+<listitem>
+<para
+>انقر هذا الزر لعرض ملخص الحالة الحالية للكاميرا المحددة. توافرية هذه الميزة و محتويات صندوق حوار الإعدادات تعتمد على نوع الكاميرا.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry
+><term
+><guibutton
+>ألغِ</guibutton
+></term>
+<listitem>
+<para
+>انقر هذا الزر لإلغاء عملية الكاميرة الحالية.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+<para
+>لعرض الصور وتنزيلها من الكاميرا الرقمية ، أدخل <userinput
+>camera:/</userinput
+> في &konqueror;&apos;s أو &dolphin;&apos;s شريط الموقع. </para>
+
+</article>
+
+<!--
+Local Variables:
+mode: sgml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+// vim:ts=2:sw=2:tw=78:noet
+-->
