@@ -48,6 +48,7 @@
   <name xml:lang="sl">Kamera</name>
   <name xml:lang="sv">Kamera</name>
   <name xml:lang="tr">Kamera</name>
+  <name xml:lang="ug">Kamera</name>
   <name xml:lang="uk">Kamera</name>
   <name xml:lang="vi">Kamera</name>
   <name xml:lang="zh-CN">Kamera</name>
@@ -92,6 +93,7 @@
   <summary xml:lang="sl">Vtičnik za podporo protokola za prenos slike (PTP) v aplikacijah KDE</summary>
   <summary xml:lang="sv">Ett insticksprogram för att stödja bildöverföringsprotokollet (Picture Transfer Protocol, PTP) i KDE-program</summary>
   <summary xml:lang="tr">KDE uygulamalarında Resim Aktarma Protokolünü (PTP) desteklemek için bir eklenti</summary>
+  <summary xml:lang="ug">KDE پىروگراممىسىدا رەسىم يوللاش كېلىشىمى (PTP) نى قوللايدىغان قىستۇرما</summary>
   <summary xml:lang="uk">Додаток для підтримки протоколу передавання зображень (PTP) у програмах KDE</summary>
   <summary xml:lang="vi">Một phần cài cắm để hỗ trợ Giao thức Truyền Ảnh (Picture Transfer Protocol - PTP) trong các ứng dụng KDE</summary>
   <summary xml:lang="zh-CN">用于在 KDE 应用程序中支持图片传输协议 (PTP) 的插件</summary>
