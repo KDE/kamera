@@ -13,10 +13,13 @@
 #include <QComboBox>
 #include <QGroupBox>
 #include <QHBoxLayout>
+#include <QKeyEvent>
 #include <QLabel>
+#include <QLineEdit>
 #include <QListView>
 #include <QPushButton>
 #include <QRadioButton>
+#include <QSortFilterProxyModel>
 #include <QStackedWidget>
 #include <QStandardItemModel>
 #include <QVBoxLayout>
@@ -138,6 +141,25 @@ bool KCamera::initCamera()
         qCDebug(KAMERA_KCONTROL) << "Initialized camera" << m_name << "on" << m_path;
         return true;
     }
+}
+
+bool KameraDeviceSelectDialog::eventFilter(QObject *watched, QEvent *event)
+// when in the search field, intercept up/down keys to be able to select a camera in the list
+{
+    if (watched == m_searchLine && event->type() == QEvent::KeyPress) {
+        auto *keyEvent = static_cast<QKeyEvent *>(event);
+        switch (keyEvent->key()) {
+        case Qt::Key_Down:
+        case Qt::Key_Up:
+        case Qt::Key_PageDown:
+        case Qt::Key_PageUp:
+            QCoreApplication::sendEvent(m_modelSel, keyEvent);
+            return true;
+        default:
+            break;
+        }
+    }
+    return QDialog::eventFilter(watched, event);
 }
 
 QString KCamera::summary()
@@ -304,14 +326,34 @@ KameraDeviceSelectDialog::KameraDeviceSelectDialog(QWidget *parent, KCamera *dev
     m_model = new QStandardItemModel(this);
     m_model->setColumnCount(1);
     m_model->setHeaderData(0, Qt::Horizontal, i18nc("@title:column", "Supported Cameras"));
-    m_modelSel->setModel(m_model);
 
-    topLayout->addWidget(m_modelSel);
+    // filter box
+    m_filterModel = new QSortFilterProxyModel(this);
+    m_filterModel->setSourceModel(m_model);
+    m_filterModel->setFilterCaseSensitivity(Qt::CaseInsensitive);
+    m_modelSel->setModel(m_filterModel);
+    connect(m_modelSel->selectionModel(), &QItemSelectionModel::selectionChanged, this, &KameraDeviceSelectDialog::slot_selectionChanged);
+
+    m_searchLine = new QLineEdit(this);
+    m_searchLine->setPlaceholderText(i18n("Filter by name…"));
+    m_searchLine->setClearButtonEnabled(true);
+    m_searchLine->setMaximumWidth(m_modelSel->sizeHint().width());
+    m_searchLine->installEventFilter(this);
+    connect(m_searchLine, &QLineEdit::textChanged, m_filterModel, &QSortFilterProxyModel::setFilterFixedString);
+    connect(m_searchLine, &QLineEdit::textChanged, this, &KameraDeviceSelectDialog::slot_filterChanged);
+
+    auto listLayout = new QVBoxLayout;
+    listLayout->addWidget(m_searchLine);
+    listLayout->addWidget(m_modelSel);
+    topLayout->addLayout(listLayout);
+
     connect(m_modelSel, &QListView::activated, this, &KameraDeviceSelectDialog::slot_setModel);
     connect(m_modelSel, &QListView::clicked, this, &KameraDeviceSelectDialog::slot_setModel);
 
     // make sure listview only as wide as it needs to be
     m_modelSel->setSizePolicy(QSizePolicy(QSizePolicy::Maximum, QSizePolicy::Preferred));
+    m_modelSel->setMinimumWidth(m_searchLine->sizeHint().width());
+    m_searchLine->setMaximumWidth(m_modelSel->sizeHint().width());
 
     auto rightLayout = new QVBoxLayout();
     rightLayout->setContentsMargins(0, 0, 0, 0);
@@ -474,13 +516,20 @@ void KameraDeviceSelectDialog::load()
 
     const QList<QStandardItem *> items = m_model->findItems(m_device->model());
     for (QStandardItem *item : items) {
-        const QModelIndex index = m_model->indexFromItem(item);
-        m_modelSel->selectionModel()->select(index, QItemSelectionModel::Select);
+        const QModelIndex sourceIndex = m_model->indexFromItem(item);
+        const QModelIndex proxyIndex = m_filterModel->mapFromSource(sourceIndex);
+        m_modelSel->selectionModel()->select(proxyIndex, QItemSelectionModel::Select);
     }
 }
 
 void KameraDeviceSelectDialog::slot_setModel(const QModelIndex &modelIndex)
 {
+    if (!modelIndex.isValid()) {
+        m_portSelectGroup->setEnabled(false);
+        m_portSettingsGroup->setEnabled(false);
+        m_OkCancelButtonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
+        return;
+    }
     m_portSelectGroup->setEnabled(true);
     m_portSettingsGroup->setEnabled(true);
 
@@ -514,6 +563,34 @@ void KameraDeviceSelectDialog::slot_setModel(const QModelIndex &modelIndex)
     }
     QPushButton *okButton = m_OkCancelButtonBox->button(QDialogButtonBox::Ok);
     okButton->setEnabled(true);
+}
+
+void KameraDeviceSelectDialog::slot_selectionChanged()
+{
+    const QModelIndexList selected = m_modelSel->selectionModel()->selectedIndexes();
+    slot_setModel(selected.isEmpty() ? QModelIndex() : selected.first());
+}
+
+void KameraDeviceSelectDialog::slot_filterChanged(const QString &text)
+{
+    QItemSelectionModel *selection = m_modelSel->selectionModel();
+    const QModelIndex first = m_filterModel->index(0, 0);
+
+    if (text.isEmpty()) {
+        selection->clear();
+    } else if (first.isValid()) {
+        m_modelSel->setCurrentIndex(first);
+        m_modelSel->scrollTo(first);
+    } else {
+        slot_setModel(QModelIndex());
+    }
+}
+
+void KameraDeviceSelectDialog::accept()
+{
+    // pressing Enter could otherwise accept a row that used to be selected but is no more selected
+    if (m_modelSel->selectionModel()->hasSelection())
+        QDialog::accept();
 }
 
 void KameraDeviceSelectDialog::setPortType(int type)

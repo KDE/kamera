@@ -26,6 +26,7 @@ class QRadioButton;
 class QGroupBox;
 class QStandardItemModel;
 class QModelIndex;
+class QSortFilterProxyModel;
 
 class KCamera : public QObject
 {
@@ -88,8 +89,11 @@ public:
     KameraDeviceSelectDialog(QWidget *parent, KCamera *device);
     void save();
     void load();
+    void accept() override;
 protected Q_SLOTS:
     void slot_setModel(const QModelIndex &index);
+    void slot_selectionChanged();
+    void slot_filterChanged(const QString &text);
     void slot_error(const QString &message);
     void slot_error(const QString &message, const QString &details);
     void changeCurrentIndex();
@@ -98,6 +102,7 @@ protected:
     KCamera *m_device;
 
     bool populateCameraListView();
+    bool eventFilter(QObject *, QEvent *) override;
     void setPortType(int type);
 
     // port settings widgets
@@ -112,6 +117,9 @@ protected:
     // port selection radio buttons
     QRadioButton *m_serialRB;
     QRadioButton *m_USBRB;
+    // search bar
+    QLineEdit *m_searchLine;
+    QSortFilterProxyModel *m_filterModel;
 };
 
 #endif
