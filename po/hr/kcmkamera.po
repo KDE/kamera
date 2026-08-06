@@ -191,10 +191,7 @@ msgid "Port"
 msgstr "Port"
 
 #: kameradevice.cpp:329
-#, fuzzy, kde-format
-#| msgid ""
-#| "If this option is checked, the camera has to be connected to one of the "
-#| "computer's serial ports (known as COM ports in Microsoft Windows.)"
+#, kde-format
 msgid ""
 "If this option is checked, the camera has to be connected to one of the "
 "computer's serial ports (known as COM ports in Microsoft Windows.)"
@@ -203,10 +200,7 @@ msgstr ""
 "serijskih portova vašeg računala (poznatih kao COM u Microsoft Windows)."
 
 #: kameradevice.cpp:335
-#, fuzzy, kde-format
-#| msgid ""
-#| "If this option is checked, the camera has to be connected to one of the "
-#| "computer's USB ports, or to a USB hub."
+#, kde-format
 msgid ""
 "If this option is checked, the camera has to be connected to one of the "
 "computer's USB ports, or to a USB hub."
@@ -230,8 +224,7 @@ msgid "Port:"
 msgstr "Port:"
 
 #: kameradevice.cpp:367
-#, fuzzy, kde-format
-#| msgid "Specify here the serial port to which you connect the camera."
+#, kde-format
 msgid "Specify here the serial port to which you connect the camera."
 msgstr "Ovdje odredite serijski port na koji spajate kameru."
 
