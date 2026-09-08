@@ -8,19 +8,20 @@ msgstr ""
 "Project-Id-Version: kcmkamera\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 11:50+0000\n"
-"PO-Revision-Date: 2013-09-08 07:05+0900\n"
-"Last-Translator: Gheyret Kenji <gheyret@gmail.com>\n"
+"PO-Revision-Date: 2026-05-30 16:48-0400\n"
+"Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>\n"
 "Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
 "Language: ug\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 3.9\n"
 
 #: kamera.cpp:71
 #, kde-format
 msgid "Unable to initialize the gPhoto2 libraries."
-msgstr "Unable to initialize the gPhoto2 libraries."
+msgstr ""
 
 #: kamera.cpp:108
 #, kde-format
@@ -81,7 +82,7 @@ msgstr ""
 #: kamera.cpp:149
 #, kde-format
 msgid "Cancel"
-msgstr "ئەمەلدىن قالدۇر"
+msgstr "ۋاز كەچ"
 
 #: kamera.cpp:151
 #, kde-format
@@ -190,7 +191,7 @@ msgstr ""
 #: kameradevice.cpp:338
 #, kde-format
 msgid "Port Settings"
-msgstr ""
+msgstr "ئېغىز تەڭشىكى"
 
 #: kameradevice.cpp:356
 #, kde-format

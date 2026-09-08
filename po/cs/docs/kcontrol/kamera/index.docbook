@@ -40,9 +40,9 @@
 </authorgroup>
 
 <date
->16.9.2015</date>
+>2018-03-23</date>
 <releaseinfo
->Aplikace 15.12</releaseinfo>
+>Aplikace 18.04</releaseinfo>
 
 <keywordset>
 <keyword
@@ -131,9 +131,9 @@
 </variablelist>
 
 <para
->Pro zobrazení a stáhnutí obrázků z digitálního fotoaparátu zadejte <userinput
+>Chcete-li zobrazit a stáhnout obrázky z digitálního fotoaparátu, zadejte <userinput
 >camera:/</userinput
-> do navigační lišty aplikace &konqueror;. </para>
+> do adresního řádku &konqueror;&apos; nebo &dolphin;&apos;. </para>
 
 </article>
 
