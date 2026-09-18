@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kamera\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:50+0000\n"
+"POT-Creation-Date: 2026-09-18 00:42+0000\n"
 "PO-Revision-Date: 2023-06-12 07:12+0700\n"
 "Last-Translator: Wantoyèk <wantoyek@gmail.com>\n"
 "Language-Team: Indonesian <kde-i18n-doc@kde.org>\n"
@@ -109,17 +109,17 @@ msgstr "Tombol (tdak didukung oleh KControl)"
 msgid "Date (not supported by KControl)"
 msgstr "Tanggal (tidak didukung oleh KControl)"
 
-#: kameradevice.cpp:79
+#: kameradevice.cpp:82
 #, kde-format
 msgid "Could not allocate memory for the abilities list."
 msgstr "Tidak dapat mengalokasikan memori untuk daftar kemampuan."
 
-#: kameradevice.cpp:83
+#: kameradevice.cpp:86
 #, kde-format
 msgid "Could not load ability list."
 msgstr "Tidak dapat memuat daftar kemampuan."
 
-#: kameradevice.cpp:89 kameradevice.cpp:493 kameradevice.cpp:511
+#: kameradevice.cpp:92 kameradevice.cpp:542 kameradevice.cpp:560
 #, kde-format
 msgid ""
 "Description of abilities for camera %1 is not available. Configuration "
@@ -128,12 +128,12 @@ msgstr ""
 "Deskripsi kemampuan untuk kamera %1 tidak tersedia. Opsi konfigurasi mungkin "
 "tidak benar."
 
-#: kameradevice.cpp:114
+#: kameradevice.cpp:117
 #, kde-format
 msgid "Could not access driver. Check your gPhoto2 installation."
 msgstr "Tidak dapat mengakses driver. Periksalah instalasi gPhoto2 Anda."
 
-#: kameradevice.cpp:133
+#: kameradevice.cpp:136
 #, kde-format
 msgid ""
 "Unable to initialize camera. Check your port settings and camera "
@@ -142,48 +142,53 @@ msgstr ""
 "Tidak dapat menginisial kamera. Periksalah konektivitas kamera dan "
 "pengaturan port Anda dan coba lagi."
 
-#: kameradevice.cpp:153
+#: kameradevice.cpp:175
 #, kde-format
 msgid "No camera summary information is available.\n"
 msgstr "Tidak ada informasi ringkasan kamera yang tersedia.\n"
 
-#: kameradevice.cpp:168 kameradevice.cpp:178
+#: kameradevice.cpp:190 kameradevice.cpp:200
 #, kde-format
 msgid "Camera configuration failed."
 msgstr "Konfigurasi kamera gagal."
 
-#: kameradevice.cpp:220 kameradevice.cpp:326
+#: kameradevice.cpp:242 kameradevice.cpp:368
 #, kde-format
 msgid "Serial"
 msgstr "Serial"
 
-#: kameradevice.cpp:222 kameradevice.cpp:332
+#: kameradevice.cpp:244 kameradevice.cpp:374
 #, kde-format
 msgid "USB"
 msgstr "USB"
 
-#: kameradevice.cpp:223
+#: kameradevice.cpp:245
 #, kde-format
 msgid "Unknown port"
 msgstr "Colokan tak diketahui"
 
-#: kameradevice.cpp:288
+#: kameradevice.cpp:310
 #, kde-format
 msgid "Select Camera Device"
 msgstr "Pilih Peranti Kamera"
 
-#: kameradevice.cpp:306
+#: kameradevice.cpp:328
 #, kde-format
 msgctxt "@title:column"
 msgid "Supported Cameras"
 msgstr "Kamera Didukung"
 
-#: kameradevice.cpp:320 kameradevice.cpp:347
+#: kameradevice.cpp:338
+#, kde-format
+msgid "Filter by name…"
+msgstr ""
+
+#: kameradevice.cpp:362 kameradevice.cpp:389
 #, kde-format
 msgid "Port"
 msgstr "Colokan"
 
-#: kameradevice.cpp:329
+#: kameradevice.cpp:371
 #, kde-format
 msgid ""
 "If this option is checked, the camera has to be connected to one of the "
@@ -192,7 +197,7 @@ msgstr ""
 "Jika opsi ini dicentang, kamera akan terkoneksi ke salah satu colokan serial "
 "komputer (dikenal sebagai port COM dalam Microsoft Windows.)"
 
-#: kameradevice.cpp:335
+#: kameradevice.cpp:377
 #, kde-format
 msgid ""
 "If this option is checked, the camera has to be connected to one of the "
@@ -201,27 +206,27 @@ msgstr ""
 "Jika opsi ini dicentang, kamera akan terkoneksi ke salah satu colokan USB "
 "komputer, atau ke USB hub."
 
-#: kameradevice.cpp:338
+#: kameradevice.cpp:380
 #, kde-format
 msgid "Port Settings"
 msgstr "Pengaturan Colokan"
 
-#: kameradevice.cpp:356
+#: kameradevice.cpp:398
 #, kde-format
 msgid "No port type selected."
 msgstr "Tidak ada tipe colokan yang dipilih."
 
-#: kameradevice.cpp:363
+#: kameradevice.cpp:405
 #, kde-format
 msgid "Port:"
 msgstr "Colokan:"
 
-#: kameradevice.cpp:367
+#: kameradevice.cpp:409
 #, kde-format
 msgid "Specify here the serial port to which you connect the camera."
 msgstr "Tentukan di sini colokan serial yang ingin Anda sambungkan kameranya."
 
-#: kameradevice.cpp:374
+#: kameradevice.cpp:416
 #, kde-format
 msgid "No further configuration is required for USB cameras."
 msgstr "Tidak ada lagi konfigurasi yang diperlukan untuk kamera-kamera USB."

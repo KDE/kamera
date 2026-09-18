@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kcmkamera\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:50+0000\n"
+"POT-Creation-Date: 2026-09-18 00:42+0000\n"
 "PO-Revision-Date: 2025-11-30 15:24+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-l10n-ta@kde.org>\n"
@@ -113,18 +113,18 @@ msgstr "பொத்தான்(not supported by KControl)"
 msgid "Date (not supported by KControl)"
 msgstr "தேதி (not supported by KControl)"
 
-#: kameradevice.cpp:79
+#: kameradevice.cpp:82
 #, fuzzy, kde-format
 #| msgid "Could not allocate memory for abilities list."
 msgid "Could not allocate memory for the abilities list."
 msgstr "திறமைகளுக்கானப் பட்டியலுக்கு நினைவகத்தை ஒதுக்க இயலவில்லை"
 
-#: kameradevice.cpp:83
+#: kameradevice.cpp:86
 #, kde-format
 msgid "Could not load ability list."
 msgstr "சாத்தியமான பட்டியலில் உள்வாங்க இயலாது"
 
-#: kameradevice.cpp:89 kameradevice.cpp:493 kameradevice.cpp:511
+#: kameradevice.cpp:92 kameradevice.cpp:542 kameradevice.cpp:560
 #, kde-format
 msgid ""
 "Description of abilities for camera %1 is not available. Configuration "
@@ -132,12 +132,12 @@ msgid ""
 msgstr ""
 "கேமரா%1  திறமைக்கான வருணனை கிடைக்கவில்லை. அமைப்புத் தேர்வுகள் தவறாக இருக்கலாம். "
 
-#: kameradevice.cpp:114
+#: kameradevice.cpp:117
 #, kde-format
 msgid "Could not access driver. Check your gPhoto2 installation."
 msgstr "செலுத்தியின் அணுகல் இல்லை. gPhoto2 வின் நிறுவலை சரிப்பார்க்கவும்."
 
-#: kameradevice.cpp:133
+#: kameradevice.cpp:136
 #, kde-format
 msgid ""
 "Unable to initialize camera. Check your port settings and camera "
@@ -146,49 +146,54 @@ msgstr ""
 "கேமராவை ஆரம்பிக்க இயலவில்லை. முனையம் அமைப்புகளையும் கேமரா இணைப்புகளையும் சரி "
 "பார்க்கவும். மறுபடி முயலவும்.   "
 
-#: kameradevice.cpp:153
+#: kameradevice.cpp:175
 #, kde-format
 msgid "No camera summary information is available.\n"
 msgstr "கேமரா பற்றிய தகவல் கிடைக்கவில்லை\n"
 
-#: kameradevice.cpp:168 kameradevice.cpp:178
+#: kameradevice.cpp:190 kameradevice.cpp:200
 #, kde-format
 msgid "Camera configuration failed."
 msgstr "கேமரா அமைப்பு தோல்வியுற்றது"
 
-#: kameradevice.cpp:220 kameradevice.cpp:326
+#: kameradevice.cpp:242 kameradevice.cpp:368
 #, kde-format
 msgid "Serial"
 msgstr "வரிசை"
 
-#: kameradevice.cpp:222 kameradevice.cpp:332
+#: kameradevice.cpp:244 kameradevice.cpp:374
 #, kde-format
 msgid "USB"
 msgstr "USB"
 
-#: kameradevice.cpp:223
+#: kameradevice.cpp:245
 #, kde-format
 msgid "Unknown port"
 msgstr "தெரியாத முனையம்  "
 
-#: kameradevice.cpp:288
+#: kameradevice.cpp:310
 #, kde-format
 msgid "Select Camera Device"
 msgstr "கேமரா சாதனத்தை தேர்வு செய்"
 
-#: kameradevice.cpp:306
+#: kameradevice.cpp:328
 #, fuzzy, kde-format
 #| msgid "Supported Cameras"
 msgctxt "@title:column"
 msgid "Supported Cameras"
 msgstr "ஆதரவு உள்ள கேமரா"
 
-#: kameradevice.cpp:320 kameradevice.cpp:347
+#: kameradevice.cpp:338
+#, kde-format
+msgid "Filter by name…"
+msgstr ""
+
+#: kameradevice.cpp:362 kameradevice.cpp:389
 #, kde-format
 msgid "Port"
 msgstr "முனையம் "
 
-#: kameradevice.cpp:329
+#: kameradevice.cpp:371
 #, fuzzy, kde-format
 #| msgid ""
 #| "If this option is checked, the camera would have to be connected one of "
@@ -200,7 +205,7 @@ msgstr ""
 "இந்த தேர்வு சரிப்பார்க்கபட்டால், உங்கள் கணிப்பொறியிலுள்ள கேமரா ஏதேனும் ஒரு தொடர் "
 "முனையத்துடன்( COM என்று Microsoft Windows இல் அழைக்கப்படும்) இணைக்கப்பட்டிருக்க வேண்டும்."
 
-#: kameradevice.cpp:335
+#: kameradevice.cpp:377
 #, fuzzy, kde-format
 #| msgid ""
 #| "If this option is checked, the camera would have to be connected to one "
@@ -212,28 +217,28 @@ msgstr ""
 "இந்த தேர்வு சரிப்பார்க்கபட்டால், உங்கள் கணிப்பொறியிலுள்ள கேமரா ஏதேனும் ஒரு USB  பகுதிக்கோ "
 "அல்லது USB மையத்திற்க்கு இணைக்கப்பட்டிருக்க வேண்டும்."
 
-#: kameradevice.cpp:338
+#: kameradevice.cpp:380
 #, kde-format
 msgid "Port Settings"
 msgstr "முனைய அமைப்புகள்"
 
-#: kameradevice.cpp:356
+#: kameradevice.cpp:398
 #, kde-format
 msgid "No port type selected."
 msgstr "முனையம் வகை தேர்ந்தெடுக்கப்படவில்லை "
 
-#: kameradevice.cpp:363
+#: kameradevice.cpp:405
 #, kde-format
 msgid "Port:"
 msgstr "முனையம்"
 
-#: kameradevice.cpp:367
+#: kameradevice.cpp:409
 #, fuzzy, kde-format
 #| msgid "Here you should choose the serial port you connect the camera to."
 msgid "Specify here the serial port to which you connect the camera."
 msgstr "இங்கே நீங்கள் வரிசைமுனையை தேர்வு செய்யக்கூடாது, கேமராவுக்கு இணைக்கவும்."
 
-#: kameradevice.cpp:374
+#: kameradevice.cpp:416
 #, fuzzy, kde-format
 #| msgid "No further configuration is required for USB."
 msgid "No further configuration is required for USB cameras."

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:50+0000\n"
+"POT-Creation-Date: 2026-09-18 00:42+0000\n"
 "PO-Revision-Date: 2011-06-14 06:36+0600\n"
 "Last-Translator: Sairan Kikkarin <sairan@computer.org>\n"
 "Language-Team: Kazakh <kde-i18n-doc@kde.org>\n"
@@ -108,17 +108,17 @@ msgstr "Батырма (KControl танымайды)"
 msgid "Date (not supported by KControl)"
 msgstr "Күні (KControl танымайды)"
 
-#: kameradevice.cpp:79
+#: kameradevice.cpp:82
 #, kde-format
 msgid "Could not allocate memory for the abilities list."
 msgstr "Мүмкіндіктер тізіміне жады бөлінбеді."
 
-#: kameradevice.cpp:83
+#: kameradevice.cpp:86
 #, kde-format
 msgid "Could not load ability list."
 msgstr "Мүмкіндіктер тізімі жүктелмеді."
 
-#: kameradevice.cpp:89 kameradevice.cpp:493 kameradevice.cpp:511
+#: kameradevice.cpp:92 kameradevice.cpp:542 kameradevice.cpp:560
 #, kde-format
 msgid ""
 "Description of abilities for camera %1 is not available. Configuration "
@@ -127,12 +127,12 @@ msgstr ""
 "%1 камераның мүмкіндіктер сипаттамасы қол жеткізбеді. Баптау параметрлері "
 "дұрыс болмауы мүмкін."
 
-#: kameradevice.cpp:114
+#: kameradevice.cpp:117
 #, kde-format
 msgid "Could not access driver. Check your gPhoto2 installation."
 msgstr "Драйверімен қатынауы болмады. gPhoto2 орнатуын тесеріңіз."
 
-#: kameradevice.cpp:133
+#: kameradevice.cpp:136
 #, kde-format
 msgid ""
 "Unable to initialize camera. Check your port settings and camera "
@@ -141,48 +141,53 @@ msgstr ""
 "Камера бастау күйіне келмеді. Портыңыздың параметрлерін және қосылымын "
 "тексеріңіз де, қайталап көріңіз."
 
-#: kameradevice.cpp:153
+#: kameradevice.cpp:175
 #, kde-format
 msgid "No camera summary information is available.\n"
 msgstr "Камераның күйі туралы мәлімет қол жеткізбеді.\n"
 
-#: kameradevice.cpp:168 kameradevice.cpp:178
+#: kameradevice.cpp:190 kameradevice.cpp:200
 #, kde-format
 msgid "Camera configuration failed."
 msgstr "Камера баптауының жаңылысы."
 
-#: kameradevice.cpp:220 kameradevice.cpp:326
+#: kameradevice.cpp:242 kameradevice.cpp:368
 #, kde-format
 msgid "Serial"
 msgstr "Тізбекті"
 
-#: kameradevice.cpp:222 kameradevice.cpp:332
+#: kameradevice.cpp:244 kameradevice.cpp:374
 #, kde-format
 msgid "USB"
 msgstr "USB"
 
-#: kameradevice.cpp:223
+#: kameradevice.cpp:245
 #, kde-format
 msgid "Unknown port"
 msgstr "Беймәлім порт"
 
-#: kameradevice.cpp:288
+#: kameradevice.cpp:310
 #, kde-format
 msgid "Select Camera Device"
 msgstr "Камера құрылығысын таңдау"
 
-#: kameradevice.cpp:306
+#: kameradevice.cpp:328
 #, kde-format
 msgctxt "@title:column"
 msgid "Supported Cameras"
 msgstr "Танитын камералары"
 
-#: kameradevice.cpp:320 kameradevice.cpp:347
+#: kameradevice.cpp:338
+#, kde-format
+msgid "Filter by name…"
+msgstr ""
+
+#: kameradevice.cpp:362 kameradevice.cpp:389
 #, kde-format
 msgid "Port"
 msgstr "Порты"
 
-#: kameradevice.cpp:329
+#: kameradevice.cpp:371
 #, fuzzy, kde-format
 #| msgid ""
 #| "If this option is checked, the camera has to be connected to one of the "
@@ -194,7 +199,7 @@ msgstr ""
 "Белгісі қойылса, камера компьютердің бір тізбекті (Microsoft Windows-та COM "
 "порты деп мәлім) портына қосылады."
 
-#: kameradevice.cpp:335
+#: kameradevice.cpp:377
 #, fuzzy, kde-format
 #| msgid ""
 #| "If this option is checked, the camera has to be connected to one of the "
@@ -205,28 +210,28 @@ msgid ""
 msgstr ""
 "Белгісі қойылса, камера компьютердің бір USB портына, не USB хабына қосылады."
 
-#: kameradevice.cpp:338
+#: kameradevice.cpp:380
 #, kde-format
 msgid "Port Settings"
 msgstr "Порттың параметрлері"
 
-#: kameradevice.cpp:356
+#: kameradevice.cpp:398
 #, kde-format
 msgid "No port type selected."
 msgstr "Порттың түрі таңдалмаған."
 
-#: kameradevice.cpp:363
+#: kameradevice.cpp:405
 #, kde-format
 msgid "Port:"
 msgstr "Порты"
 
-#: kameradevice.cpp:367
+#: kameradevice.cpp:409
 #, fuzzy, kde-format
 #| msgid "Specify here the serial port to which you connect the camera."
 msgid "Specify here the serial port to which you connect the camera."
 msgstr "Мұнда қамераңыз қай тізбекті портына қосылғанын келтіріңіз."
 
-#: kameradevice.cpp:374
+#: kameradevice.cpp:416
 #, kde-format
 msgid "No further configuration is required for USB cameras."
 msgstr "USB камералар әрі баптауды қажет етпейді."
