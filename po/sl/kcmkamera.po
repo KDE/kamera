@@ -2,7 +2,7 @@
 # Translation of kcmkamera.po to Slovenian
 # SLOVENIAN TRANSLATION OF KCMKAMERA.
 # Copyright (C) 2001, 2003, 2005 Free Software Foundation, Inc.
-# $Id: kcmkamera.po 1746611 2026-09-18 01:30:16Z scripty $
+# $Id: kcmkamera.po 1746705 2026-09-19 01:29:59Z scripty $
 # $Source$
 #
 # Roman Maurer <roman.maurer@amis.net>, 2001.
@@ -14,16 +14,16 @@ msgstr ""
 "Project-Id-Version: kcmkamera\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-09-18 00:42+0000\n"
-"PO-Revision-Date: 2015-10-31 10:55+0100\n"
-"Last-Translator: Andrej Mernik <andrejm@ubuntu.si>\n"
+"PO-Revision-Date: 2026-09-18 09:32+0200\n"
+"Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.5\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
 "%100==4 ? 3 : 0);\n"
+"X-Generator: Poedit 3.9\n"
 
 #: kamera.cpp:71
 #, kde-format
@@ -189,7 +189,7 @@ msgstr "Podprti fotoaparati"
 #: kameradevice.cpp:338
 #, kde-format
 msgid "Filter by name…"
-msgstr ""
+msgstr "Filtriraj po imenu…"
 
 #: kameradevice.cpp:362 kameradevice.cpp:389
 #, kde-format

@@ -185,7 +185,7 @@ msgstr "Podporované fotoaparáty"
 #: kameradevice.cpp:338
 #, kde-format
 msgid "Filter by name…"
-msgstr ""
+msgstr "Filtrovat podle názvu:"
 
 #: kameradevice.cpp:362 kameradevice.cpp:389
 #, kde-format

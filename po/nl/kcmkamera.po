@@ -6,21 +6,21 @@
 # Rinse de Vries <Rinse@kde.nl>, 2000, 2001, 2002.
 # Rinse de Vries <rinse@kde.nl>, 2003, 2004.
 # Rinse de Vries <rinsedevries@kde.nl>, 2007.
-# Freek de Kruijf <f.de.kruijf@hetnet.nl>, 2008, 2009.
+# SPDX-FileCopyrightText: 2008-2009, 2026 Freek de Kruijf <f.de.kruijf@hetnet.nl>
 # Freek de Kruijf <freekdekruijf@kde.nl>, 2009, 2011, 2015, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: kcmkamera\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-09-18 00:42+0000\n"
-"PO-Revision-Date: 2023-01-26 14:29+0100\n"
+"PO-Revision-Date: 2026-09-18 10:12+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 22.12.1\n"
+"X-Generator: Lokalize 26.08.1\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #: kamera.cpp:71
@@ -191,7 +191,7 @@ msgstr "Ondersteunde camera's"
 #: kameradevice.cpp:338
 #, kde-format
 msgid "Filter by name…"
-msgstr ""
+msgstr "Op naam filteren…"
 
 #: kameradevice.cpp:362 kameradevice.cpp:389
 #, kde-format
