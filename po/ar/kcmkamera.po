@@ -5,13 +5,13 @@
 # Munzir Taha <munzir@kacst.edu.sa>, 2004.
 # Youssef Chahibi <chahibi@gmail.com>, 2007.
 # Mohammed Berdai <stuntgp2000@gmail.com>, 2008.
-# SPDX-FileCopyrightText: 2008, 2012, 2021, 2025 zayed <zayed.alsaidi@gmail.com>
+# SPDX-FileCopyrightText: 2008, 2012, 2021, 2025, 2026 zayed <zayed.alsaidi@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kcmkamera\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-09-18 00:42+0000\n"
-"PO-Revision-Date: 2025-08-14 11:58+0400\n"
+"PO-Revision-Date: 2026-09-23 17:41+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
-"X-Generator: Lokalize 23.08.5\n"
+"X-Generator: Lokalize 25.12.3\n"
 
 #: kamera.cpp:71
 #, kde-format
@@ -183,7 +183,7 @@ msgstr "الكاميرات المدعومة"
 #: kameradevice.cpp:338
 #, kde-format
 msgid "Filter by name…"
-msgstr ""
+msgstr "رشّح بالاسم…"
 
 #: kameradevice.cpp:362 kameradevice.cpp:389
 #, kde-format
