@@ -1,13 +1,14 @@
 # Translation of kcmkamera.po to Euskara/Basque (eu).
 # Copyright (C) 2003-2018, Free Software Foundation.
-# This file is distributed under the same license as the kdegraphics package.
-# KDE euskaratzeko proiektuaren arduraduna <xalba@euskalnet.net>.
+# Copyright (C) 2019-2026 This file is copyright:
+# This file is distributed under the same license as the kamera package.
+# KDE euskaratzeko proiektuko arduraduna <xalba@ni.eus>.
 #
 # Translators:
 # Marcos  <marcos@euskalgnu.org>, 2003, 2005.
 # Enbata <urazpian@hotmail.com>, 2009.
 # Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>, 2009.
-# Iñigo Salvador Azurmendi <xalba@euskalnet.net>, 2011, 2018.
+# Iñigo Salvador Azurmendi <xalba@ni.eus>, 2011, 2018, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: kcmkamera\n"
