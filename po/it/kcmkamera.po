@@ -4,14 +4,14 @@
 # Daniele Medri <madrid@linuxmeeting.net>, 2003.
 # Nicola Ruggero <nixprog.adsl@tiscali.it>, 2005.
 # Nicola Ruggero <nicola@nxnt.org>, 2007, 2009, 2011.
-# SPDX-FileCopyrightText: 2023 Paolo Zamponi <feus73@gmail.com>
+# SPDX-FileCopyrightText: 2023, 2026 Paolo Zamponi <feus73@gmail.com>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: kcmkamera\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-09-18 00:42+0000\n"
-"PO-Revision-Date: 2023-09-30 18:08+0200\n"
+"PO-Revision-Date: 2026-09-19 18:57+0200\n"
 "Last-Translator: Paolo Zamponi <feus73@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 23.08.1\n"
+"X-Generator: Lokalize 26.08.1\n"
 
 #: kamera.cpp:71
 #, kde-format
@@ -193,7 +193,7 @@ msgstr "Fotocamere supportate"
 #: kameradevice.cpp:338
 #, kde-format
 msgid "Filter by name…"
-msgstr ""
+msgstr "Filtra per nome…"
 
 #: kameradevice.cpp:362 kameradevice.cpp:389
 #, kde-format
