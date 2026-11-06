@@ -5,7 +5,7 @@
 # Kim Enkovaara <kim.enkovaara@iki.fi>, 2003.
 # Teemu Rytilahti <teemu.rytilahti@kde-fi.org>, 2003, 2008.
 # Mikko Ikola <ikola@iki.fi>, 2004.
-# Tommi Nieminen <translator@legisign.org>, 2011.
+# SPDX-FileCopyrightText: 2011, 2026 Tommi Nieminen <translator@legisign.org>
 # Lasse Liehu <lasse.liehu@gmail.com>, 2011, 2013, 2015.
 msgid ""
 msgstr ""
@@ -20,6 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Lokalize 25.04.0\n"
 
 #: kamera.cpp:71
 #, kde-format
