@@ -2,7 +2,7 @@
 # Translation of kcmkamera.po to Slovenian
 # SLOVENIAN TRANSLATION OF KCMKAMERA.
 # Copyright (C) 2001, 2003, 2005 Free Software Foundation, Inc.
-# $Id: kcmkamera.po 1746705 2026-09-19 01:29:59Z scripty $
+# $Id$
 # $Source$
 #
 # Roman Maurer <roman.maurer@amis.net>, 2001.
