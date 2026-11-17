@@ -1,6 +1,6 @@
 # translation of kcmkamera.po to Polish
 # translation of kcmkamera.po to
-# Version: $Revision: 1746611 $
+# Version: $Revision$
 # Copyright (C) 2002, 2003, 2005, 2007, 2009 Free Software Foundation, Inc.
 # Michał Rudolf <mrudolf@kdewebdev.org>, 2002.
 # Michal Rudolf <mrudolf@kdewebdev.org>, 2003, 2005, 2009.
