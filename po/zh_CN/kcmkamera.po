@@ -175,7 +175,7 @@ msgstr "支持的相机"
 #: kameradevice.cpp:338
 #, kde-format
 msgid "Filter by name…"
-msgstr ""
+msgstr "按名称过滤…"
 
 #: kameradevice.cpp:362 kameradevice.cpp:389
 #, kde-format
